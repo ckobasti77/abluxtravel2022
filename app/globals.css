@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #030711;
+  --foreground: #e5fbff;
+  --panel: #061021cc;
+  --panel-strong: #0b1a36cc;
+  --line: #7ef9ff33;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-orbitron);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-space-grotesk), sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 10% 20%, #44ffd144 0, transparent 32%),
+    radial-gradient(circle at 90% 0%, #5ab0ff2f 0, transparent 38%),
+    linear-gradient(180deg, #02050d 0%, #040916 45%, #030711 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-orbitron), sans-serif;
+}
+
+.alien-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.alien-panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, var(--panel) 0%, var(--panel-strong) 100%);
+  backdrop-filter: blur(12px);
+}
