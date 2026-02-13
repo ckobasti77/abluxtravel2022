@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { getSession } from "./local-auth";
+import { SESSION_CHANGED_EVENT, getSession } from "./local-auth";
 
 export const useSession = () => {
   const [session, setSession] = useState(() => getSession());
 
   useEffect(() => {
-    const onStorage = () => {
+    const onSessionChanged = () => {
       setSession(getSession());
     };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+
+    window.addEventListener("storage", onSessionChanged);
+    window.addEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
+    return () => {
+      window.removeEventListener("storage", onSessionChanged);
+      window.removeEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
+    };
   }, []);
 
   return session;

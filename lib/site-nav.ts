@@ -1,13 +1,14 @@
-export type SiteNavItem = {
-  label: string;
+﻿export type SiteNavItem = {
+  key: "home" | "trips" | "arrangements" | "offers" | "about" | "contact";
   href: string;
 };
 
 export const SITE_NAV_ITEMS: SiteNavItem[] = [
-  { label: "Pocetna", href: "/" },
-  { label: "Putovanja", href: "/putovanja" },
-  { label: "Aranzmani", href: "/aranzmani" },
-  { label: "Ponuda", href: "/ponuda" },
-  { label: "O nama", href: "/o-nama" },
-  { label: "Kontakt", href: "/kontakt" },
+  { key: "home", href: "/" },
+  { key: "trips", href: "/putovanja" },
+  { key: "arrangements", href: "/aranzmani" },
+  { key: "offers", href: "/ponuda" },
+  { key: "about", href: "/o-nama" },
+  { key: "contact", href: "/kontakt" },
 ];
+

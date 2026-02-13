@@ -1,18 +1,47 @@
+﻿"use client";
+
+import AlienShell from "../../components/alien-shell";
+import { useSitePreferences } from "../../components/site-preferences-provider";
+
 export default function ONamaPage() {
+  const { dictionary } = useSitePreferences();
+
   return (
-    <div className="min-h-screen bg-[#0b0f14] text-white">
-      <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-6 pb-12 pt-28">
-        <h1 className="text-4xl uppercase tracking-[0.2em]">O nama</h1>
-        <p className="mt-6 max-w-2xl text-sm leading-7 text-white/75 sm:text-base">
-          A.B.Lux travel 2022 je turisticka agencija fokusirana na premium
-          iskustva i digitalno vodjenje celog putovanja. Putovanja stranica koristi
-          vertikalni video slajder sa podacima koje admin unosi za svaki slajd.
-        </p>
-        <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70 sm:text-base">
-          Sledeci korak projekta je sirenje baze aranzmana i detaljnija automatizacija
-          prikaza ponuda, uz zadrzavanje brzog i preglednog korisnickog iskustva.
-        </p>
-      </div>
-    </div>
+    <AlienShell className="site-fade">
+      <section className="space-y-6">
+        <span className="pill">{dictionary.about.badge}</span>
+        <h1 className="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">
+          {dictionary.about.title}
+        </h1>
+      </section>
+
+      <section className="mt-8 grid gap-4 lg:grid-cols-3">
+        <article className="surface rounded-2xl p-5">
+          <p className="text-sm leading-7 text-muted">{dictionary.about.intro}</p>
+        </article>
+        <article className="surface rounded-2xl p-5">
+          <p className="text-sm leading-7 text-muted">{dictionary.about.mission}</p>
+        </article>
+        <article className="surface rounded-2xl p-5">
+          <p className="text-sm leading-7 text-muted">{dictionary.about.vision}</p>
+        </article>
+      </section>
+
+      <section className="mt-8 rounded-3xl border border-[var(--line)] bg-[var(--primary-soft)] p-6 sm:p-8">
+        <h2 className="text-2xl font-semibold">{dictionary.about.valuesTitle}</h2>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          <article className="surface-strong rounded-2xl p-4 text-sm leading-6 text-muted">
+            {dictionary.about.valueA}
+          </article>
+          <article className="surface-strong rounded-2xl p-4 text-sm leading-6 text-muted">
+            {dictionary.about.valueB}
+          </article>
+          <article className="surface-strong rounded-2xl p-4 text-sm leading-6 text-muted">
+            {dictionary.about.valueC}
+          </article>
+        </div>
+      </section>
+    </AlienShell>
   );
 }
+

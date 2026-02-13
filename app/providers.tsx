@@ -1,11 +1,23 @@
 "use client";
 
-import { ReactNode, useMemo } from "react";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ReactNode, useEffect, useMemo } from "react";
+import { ConvexProvider, ConvexReactClient, useMutation } from "convex/react";
+import { SitePreferencesProvider } from "../components/site-preferences-provider";
+import { api } from "../convex/_generated/api";
 
 type ProvidersProps = {
   children: ReactNode;
 };
+
+function AdminBootstrap() {
+  const ensureAdminUser = useMutation(api.auth.ensureAdminUser);
+
+  useEffect(() => {
+    void ensureAdminUser({});
+  }, [ensureAdminUser]);
+
+  return null;
+}
 
 export default function Providers({ children }: ProvidersProps) {
   const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
@@ -17,8 +29,15 @@ export default function Providers({ children }: ProvidersProps) {
   }, [convexUrl]);
 
   if (!convex) {
-    return <>{children}</>;
+    return <SitePreferencesProvider>{children}</SitePreferencesProvider>;
   }
 
-  return <ConvexProvider client={convex}>{children}</ConvexProvider>;
+  return (
+    <SitePreferencesProvider>
+      <ConvexProvider client={convex}>
+        <AdminBootstrap />
+        {children}
+      </ConvexProvider>
+    </SitePreferencesProvider>
+  );
 }
