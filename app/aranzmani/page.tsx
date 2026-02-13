@@ -1,171 +1,250 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import AlienShell from "../../components/alien-shell";
-import { useSitePreferences } from "../../components/site-preferences-provider";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { toCountrySlug } from "../../lib/country-route";
 import { TripSlide, useSlides } from "../../lib/use-slides";
 
-const AUTO_ROTATE_MS = 7000;
+const IDLE_MS = 2500;
+const SCROLL_COOLDOWN_MS = 900;
+const SWIPE_THRESHOLD = 50;
 
 export default function AranzmaniPage() {
-  const { dictionary, language } = useSitePreferences();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [overlayVisible, setOverlayVisible] = useState(true);
+  const [overlayLocked, setOverlayLocked] = useState(false);
 
   const fallbackSlides: TripSlide[] = useMemo(
-    () =>
-      language === "sr"
-        ? [
-            {
-              id: "hilandar",
-              title: "Hilandar i sever Grcke",
-              subtitle: "6 dana / verski program / grupni polazak",
-              badge: "Verski turizam",
-              copy: "Program sa pažljivo planiranom rutom, vodicem i podrškom tokom cele ture.",
-              videoUrl: "/videos/iceland.mp4",
-            },
-            {
-              id: "rim",
-              title: "Rim i Vatikan",
-              subtitle: "5 dana / gradski i kulturni program",
-              badge: "Premium",
-              copy: "Spoj istorijskih lokaliteta, organizovanih obilazaka i slobodnog vremena.",
-              videoUrl: "/videos/amalfi.mp4",
-            },
-            {
-              id: "kapadokija",
-              title: "Kapadokija Experience",
-              subtitle: "4 dana / mali broj putnika",
-              badge: "Small group",
-              copy: "Komforan tempo putovanja i unapred definisani kvalitet usluge.",
-              videoUrl: "/videos/cappadocia.mp4",
-            },
-          ]
-        : [
-            {
-              id: "hilandar",
-              title: "Hilandar and Northern Greece",
-              subtitle: "6 days / religious program / group departure",
-              badge: "Religious tourism",
-              copy: "A carefully planned route with guidance and full support throughout the trip.",
-              videoUrl: "/videos/iceland.mp4",
-            },
-            {
-              id: "rome",
-              title: "Rome and Vatican",
-              subtitle: "5 days / city and cultural program",
-              badge: "Premium",
-              copy: "A mix of historic landmarks, guided visits, and well-balanced free time.",
-              videoUrl: "/videos/amalfi.mp4",
-            },
-            {
-              id: "cappadocia",
-              title: "Cappadocia Experience",
-              subtitle: "4 days / limited group size",
-              badge: "Small group",
-              copy: "Comfortable pace and a clear service-quality standard for each traveler.",
-              videoUrl: "/videos/cappadocia.mp4",
-            },
-          ],
-    [language]
+    () => [
+      {
+        id: "iceland",
+        title: "Iceland",
+        subtitle: "5 dana / 4 noci / Reykjavik + Golden Circle",
+        badge: "4 nocenja",
+        copy: "Vulkani, gejziri, lagune i aurora kao glavna scena.",
+        videoUrl: "/videos/iceland.mp4",
+      },
+      {
+        id: "cappadocia",
+        title: "Cappadocia",
+        subtitle: "4 dana / 3 noci / Let balonom u zoru",
+        badge: "3 nocenja",
+        copy: "Pecinske sobe, doline i panorame koje izgledaju nestvarno.",
+        videoUrl: "/videos/cappadocia.mp4",
+      },
+      {
+        id: "amalfi",
+        title: "Amalfi",
+        subtitle: "7 dana / 6 noci / Obala, limuni i more",
+        badge: "6 nocenja",
+        copy: "Spoj opustanja i elegantnog tempa italijanske rivijere.",
+        videoUrl: "/videos/amalfi.mp4",
+      },
+    ],
+    []
   );
 
   const slides = useSlides(fallbackSlides);
-  const deck = slides.length > 0 ? slides : fallbackSlides;
-  const [activeIndex, setActiveIndex] = useState(0);
+  const lastScrollRef = useRef(0);
+  const idleTimer = useRef<NodeJS.Timeout | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const goTo = useCallback(
+    (index: number) => {
+      if (slides.length === 0) {
+        setActiveIndex(0);
+        return;
+      }
+      const nextIndex = Math.min(Math.max(index, 0), slides.length - 1);
+      setActiveIndex(nextIndex);
+    },
+    [slides.length]
+  );
 
   useEffect(() => {
-    if (deck.length <= 1) return;
-    const timer = setInterval(() => {
-      setActiveIndex((previous) => (previous + 1) % deck.length);
-    }, AUTO_ROTATE_MS);
-    return () => clearInterval(timer);
-  }, [deck.length]);
+    const clearIdle = () => {
+      if (idleTimer.current) {
+        clearTimeout(idleTimer.current);
+        idleTimer.current = null;
+      }
+    };
 
-  const safeIndex = Math.min(activeIndex, Math.max(deck.length - 1, 0));
-  const activeSlide = deck[safeIndex];
+    const scheduleIdle = () => {
+      clearIdle();
+      idleTimer.current = setTimeout(() => {
+        if (!overlayLocked) {
+          setOverlayVisible(false);
+        }
+      }, IDLE_MS);
+    };
+
+    const canSlide = () => {
+      const now = Date.now();
+      if (now - lastScrollRef.current < SCROLL_COOLDOWN_MS) {
+        return false;
+      }
+      lastScrollRef.current = now;
+      return true;
+    };
+
+    const onMouseMove = () => {
+      setOverlayVisible(true);
+      scheduleIdle();
+    };
+
+    const onClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("a, button, input, textarea, select")) {
+        return;
+      }
+      setOverlayLocked((previous) => {
+        const nextLocked = !previous;
+        if (nextLocked) {
+          setOverlayVisible(true);
+          scheduleIdle();
+        } else {
+          clearIdle();
+          setOverlayVisible(false);
+        }
+        return nextLocked;
+      });
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown" || event.key === "PageDown") {
+        event.preventDefault();
+        if (canSlide()) goTo(activeIndex + 1);
+      }
+      if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        if (canSlide()) goTo(activeIndex - 1);
+      }
+      if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      }
+      if (event.key === "End") {
+        event.preventDefault();
+        goTo(slides.length - 1);
+      }
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      if (!canSlide()) return;
+      if (event.deltaY > 0) {
+        goTo(activeIndex + 1);
+      } else if (event.deltaY < 0) {
+        goTo(activeIndex - 1);
+      }
+    };
+
+    const onTouchStart = (event: TouchEvent) => {
+      touchStartYRef.current = event.changedTouches[0]?.clientY ?? null;
+      setOverlayVisible(true);
+      scheduleIdle();
+    };
+
+    const onTouchEnd = (event: TouchEvent) => {
+      const startY = touchStartYRef.current;
+      const endY = event.changedTouches[0]?.clientY ?? null;
+      touchStartYRef.current = null;
+      if (startY === null || endY === null) return;
+      const deltaY = startY - endY;
+      if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
+      if (!canSlide()) return;
+      if (deltaY > 0) {
+        goTo(activeIndex + 1);
+      } else {
+        goTo(activeIndex - 1);
+      }
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("click", onClick);
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    scheduleIdle();
+
+    return () => {
+      clearIdle();
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("click", onClick);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [activeIndex, goTo, overlayLocked, slides.length]);
 
   return (
-    <AlienShell className="site-fade">
-      <section className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
-        <div className="space-y-5">
-          <span className="pill">{dictionary.arrangements.badge}</span>
-          <h1 className="max-w-3xl text-4xl font-semibold sm:text-5xl">
-            {dictionary.arrangements.title}
-          </h1>
-          <p className="max-w-2xl text-base leading-7 text-muted">
-            {dictionary.arrangements.description}
-          </p>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            <article className="surface rounded-2xl p-4 text-sm font-medium">
-              {dictionary.arrangements.trackA}
-            </article>
-            <article className="surface rounded-2xl p-4 text-sm font-medium">
-              {dictionary.arrangements.trackB}
-            </article>
-            <article className="surface rounded-2xl p-4 text-sm font-medium">
-              {dictionary.arrangements.trackC}
-            </article>
-          </div>
-
-          <Link href="/ponuda" className="btn-primary">
-            {dictionary.arrangements.openOffers}
-          </Link>
-        </div>
-
-        <article className="surface overflow-hidden rounded-3xl p-4 sm:p-5">
-          <div className="relative overflow-hidden rounded-2xl">
-            {activeSlide?.videoUrl ? (
-              <video
-                key={activeSlide.id}
-                className="h-80 w-full object-cover sm:h-[420px]"
-                src={activeSlide.videoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                disablePictureInPicture
-              />
-            ) : (
-              <div className="h-80 w-full bg-[linear-gradient(135deg,#1f3a70,#133050)] sm:h-[420px]" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-5 text-white sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75">
-                {dictionary.arrangements.active}
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold sm:text-3xl">{activeSlide?.title}</h2>
-              <p className="mt-2 text-sm text-white/80">{activeSlide?.subtitle}</p>
-              {activeSlide?.copy ? (
-                <p className="mt-3 text-sm text-white/75">{activeSlide.copy}</p>
-              ) : null}
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section className="mt-6 grid gap-3 md:grid-cols-3">
-        {deck.map((slide, index) => (
-          <button
-            key={slide.id}
-            type="button"
-            onClick={() => setActiveIndex(index)}
-            className={`surface rounded-2xl p-4 text-left transition ${
-              index === safeIndex
-                ? "border-[color:var(--primary)] bg-[var(--primary-soft)]"
-                : "hover:border-[color:var(--primary)]"
-            }`}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-              {dictionary.arrangements.signal} {index + 1}
-            </p>
-            <h3 className="mt-2 text-base font-semibold">{slide.title}</h3>
-            {slide.badge ? <p className="mt-2 text-sm text-muted">{slide.badge}</p> : null}
-          </button>
-        ))}
-      </section>
-    </AlienShell>
+    <div className="relative h-screen w-screen overflow-hidden overscroll-none bg-[#0b0f14] text-white">
+      <div
+        className="absolute left-0 top-0 h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
+        style={{
+          transform: `translateY(-${Math.min(activeIndex, Math.max(0, slides.length - 1)) * 100}vh)`,
+        }}
+      >
+        {slides.map((slide, index) => {
+          const countrySlug = toCountrySlug(slide.title) || toCountrySlug(slide.id);
+          const countryHref = countrySlug ? `/putovanja/${countrySlug}` : "/putovanja";
+          const shouldRenderVideo = Math.abs(index - activeIndex) <= 1;
+          return (
+            <section key={slide.id} className="relative h-screen w-screen overflow-hidden">
+              {slide.videoUrl && shouldRenderVideo ? (
+                <video
+                  className="absolute left-0 top-0 h-full w-full object-cover"
+                  src={slide.videoUrl}
+                  autoPlay={index === activeIndex}
+                  muted
+                  loop
+                  playsInline
+                  preload={index === activeIndex ? "auto" : "metadata"}
+                  disablePictureInPicture
+                />
+              ) : (
+                <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-br from-[#0b0f14] via-[#111827] to-[#1f2937]" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+              <div
+                className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
+                  overlayVisible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <div className="absolute inset-0 bg-black/30 backdrop-blur-xl" />
+                <div className="relative mx-auto flex w-[min(720px,90vw)] flex-col gap-5 px-5 text-center">
+                  <div className="text-[11px] uppercase tracking-[0.35em] text-white/70">
+                    Putovanje {index + 1} / {slides.length}
+                  </div>
+                  <h1 className="text-3xl font-semibold uppercase tracking-[0.15em] sm:text-5xl">
+                    {slide.title}
+                  </h1>
+                  {slide.badge ? (
+                    <div className="mx-auto inline-flex rounded-full border border-white/35 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/90">
+                      {slide.badge}
+                    </div>
+                  ) : null}
+                  <p className="text-base text-white/80 sm:text-lg">{slide.subtitle}</p>
+                  {slide.copy ? (
+                    <p className="text-sm text-white/70 sm:text-base">{slide.copy}</p>
+                  ) : null}
+                  <Link
+                    href={countryHref}
+                    className="mx-auto mt-3 inline-flex rounded-full border border-white/45 bg-black/25 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/90 transition hover:border-white hover:bg-black/35"
+                  >
+                    Ponude za {slide.title}
+                  </Link>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.35em] text-white/50 sm:text-[11px]">
+                    Swipe ili scroll za sledeci slajd
+                  </p>
+                </div>
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
   );
 }
-
