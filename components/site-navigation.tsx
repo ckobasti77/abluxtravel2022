@@ -40,7 +40,7 @@ export default function SiteNavigation() {
             alt={dictionary.nav.brand}
             width={426}
             height={259}
-            className="h-10 w-auto sm:h-11"
+            className="h-20 w-auto sm:h-11"
             priority
           />
         </Link>

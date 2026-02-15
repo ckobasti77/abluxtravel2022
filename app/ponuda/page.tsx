@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
+import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import {
   AggregatedOffer,
@@ -200,6 +201,8 @@ export default function PonudaPage() {
           </div>
         )}
       </section>
+
+      <PageAdminEditorDock slot="ponuda" className="mt-10" />
     </AlienShell>
   );
 }

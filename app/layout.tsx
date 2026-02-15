@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   description:
     "ABLux Travel - turisticka agencija za verski turizam, letovanja, gradska putovanja i ekskurzije.",
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    shortcut: [{ url: "/logo.png", type: "image/png" }],
-    apple: [{ url: "/logo.png", type: "image/png" }],
+    icon: [{ url: "/logo.png?v=20260214", type: "image/png" }],
+    shortcut: [{ url: "/logo.png?v=20260214", type: "image/png" }],
+    apple: [{ url: "/logo.png?v=20260214", type: "image/png" }],
   },
 };
 

@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
+import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 
 type ContactFormValues = {
@@ -208,6 +209,8 @@ export default function KontaktPage() {
           </div>
         </article>
       </section>
+
+      <PageAdminEditorDock slot="kontakt" className="mt-10" />
     </AlienShell>
   );
 }

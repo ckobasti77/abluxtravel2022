@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
+import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import { toCountrySlug } from "../../lib/country-route";
 import { TripSlide, useSlides } from "../../lib/use-slides";
@@ -164,6 +165,8 @@ export default function PutovanjaPage() {
           </div>
         )}
       </section>
+
+      <PageAdminEditorDock slot="putovanja" className="mt-10" />
     </AlienShell>
   );
 }

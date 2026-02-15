@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo } from "react";
 import AlienShell from "../../../components/alien-shell";
+import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { fromCountrySlug } from "../../../lib/country-route";
 import { AggregatedOffer, useOffersLiveBoard } from "../../../lib/use-offers";
@@ -91,6 +92,8 @@ export default function CountryTripsPage() {
           </div>
         )}
       </section>
+
+      <PageAdminEditorDock slot="country" className="mt-10" />
     </AlienShell>
   );
 }

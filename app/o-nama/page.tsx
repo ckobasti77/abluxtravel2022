@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import AlienShell from "../../components/alien-shell";
+import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 
 export default function ONamaPage() {
@@ -41,6 +42,8 @@ export default function ONamaPage() {
           </article>
         </div>
       </section>
+
+      <PageAdminEditorDock slot="about" className="mt-10" />
     </AlienShell>
   );
 }

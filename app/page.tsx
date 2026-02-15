@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import AlienShell from "../components/alien-shell";
+import PageAdminEditorDock from "../components/page-admin-editor-dock";
 import { useSitePreferences } from "../components/site-preferences-provider";
 
 export default function HomePage() {
@@ -74,6 +75,8 @@ export default function HomePage() {
           </article>
         </div>
       </section>
+
+      <PageAdminEditorDock slot="home" className="mt-10" />
     </AlienShell>
   );
 }
