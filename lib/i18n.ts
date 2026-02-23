@@ -7,6 +7,7 @@ export type SiteDictionary = {
     home: string;
     trips: string;
     arrangements: string;
+    religiousTourism: string;
     offers: string;
     about: string;
     contact: string;
@@ -29,9 +30,33 @@ export type SiteDictionary = {
     description: string;
     ctaOffers: string;
     ctaContact: string;
+    heroPrimaryCta: string;
+    heroToolkitLabel: string;
+    heroToolkitOffers: string;
+    heroToolkitArrangements: string;
+    heroToolkitReligious: string;
+    portalLabel: string;
+    portalTitle: string;
+    portalTrips: string;
+    portalTripsHint: string;
+    portalArrangements: string;
+    portalArrangementsHint: string;
+    portalReligious: string;
+    portalReligiousHint: string;
     metricFounded: string;
     metricFocus: string;
     metricPartners: string;
+    pulseBadge: string;
+    pulseTitle: string;
+    pulseDescription: string;
+    pulseCardATitle: string;
+    pulseCardADescription: string;
+    pulseCardBTitle: string;
+    pulseCardBDescription: string;
+    pulseCardCTitle: string;
+    pulseCardCDescription: string;
+    pulseCardDTitle: string;
+    pulseCardDDescription: string;
     focusTitle: string;
     focusA: string;
     focusB: string;
@@ -133,6 +158,16 @@ export type SiteDictionary = {
     trackC: string;
     signal: string;
   };
+  religious: {
+    badge: string;
+    title: string;
+    description: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    boardTitle: string;
+    viewAllOffers: string;
+    noResults: string;
+  };
   country: {
     badge: string;
     title: string;
@@ -183,6 +218,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       home: "Pocetna",
       trips: "Putovanja",
       arrangements: "Aranžmani",
+      religiousTourism: "Verski turizam",
       offers: "Ponuda",
       about: "O nama",
       contact: "Kontakt",
@@ -206,9 +242,38 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
         "ABLux Travel je osnovan sa jasnom vizijom: da svako putovanje bude sigurno, sadržajno i nezaboravno iskustvo. Poseban fokus stavljamo na verski turizam, uz pažljivo izabrana letovanja, evropske gradove i ekskurzije za decu.",
       ctaOffers: "Pregledaj kompletnu ponudu",
       ctaContact: "Pošalji upit",
+      heroPrimaryCta: "Putuj",
+      heroToolkitLabel: "Brzi izbor putovanja",
+      heroToolkitOffers: "Kompletna ponuda",
+      heroToolkitArrangements: "Aranžmani",
+      heroToolkitReligious: "Verski turizam",
+      portalLabel: "Brzi pristup",
+      portalTitle: "Izaberi pravac putovanja",
+      portalTrips: "Putovanja",
+      portalTripsHint: "Otvorite zemlje i destinacije sa aktivnim ponudama.",
+      portalArrangements: "Aranzmani",
+      portalArrangementsHint: "Premium programi sa video pregledom i jasnim terminima.",
+      portalReligious: "Verski turizam",
+      portalReligiousHint: "Hodocasca i sveta mesta sa potpuno organizovanim rutama.",
       metricFounded: "Godina osnivanja: 2022",
       metricFocus: "Specijalizacija: verski turizam",
       metricPartners: "Planirano 15+ partnerskih agencija",
+      pulseBadge: "Zašto putnici biraju ABLux",
+      pulseTitle: "4 razloga zašto je ABLux iskustvo druge galaksije",
+      pulseDescription:
+        "Od prve ideje do povratka sa putovanja, svaki korak je optimizovan za jasnoću, brzinu i osećaj potpune kontrole.",
+      pulseCardATitle: "Pažljivo planirane rute",
+      pulseCardADescription:
+        "Verske i premium destinacije biramo po kvalitetu programa, ritmu putovanja i reputaciji lokalnih partnera.",
+      pulseCardBTitle: "Bezbednost na prvom signalu",
+      pulseCardBDescription:
+        "Plan puta, ključne informacije i logistika grupe ostaju sinhronizovani kako bi putnici imali sigurno iskustvo.",
+      pulseCardCTitle: "Jasne cene i termini",
+      pulseCardCDescription:
+        "Transparentno prikazujemo raspoloživost, uslove i dinamiku putovanja bez skrivenih koraka ili konfuzije.",
+      pulseCardDTitle: "Podrška koja odgovara odmah",
+      pulseCardDDescription:
+        "Tim je dostupan pre, tokom i nakon putovanja uz personalizovane predloge prilagođene vašoj grupi.",
       focusTitle: "Na šta stavljamo akcenat",
       focusA: "Verska putovanja sa pažljivo planiranim rutama i pouzdanom organizacijom.",
       focusB: "Letovanja i gradske ture prilagodene razlicitim budžetima i ritmu putovanja.",
@@ -319,6 +384,17 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trackC: "Jasne cene i termini",
       signal: "Aranžman",
     },
+    religious: {
+      badge: "Verski turizam",
+      title: "Ponude za hodočašća i svete destinacije",
+      description:
+        "Posebno izdvojene ponude za verski turizam. Prikazujemo aranžmane koji uključuju hodočašća, manastire, svetinje i duhovna putovanja.",
+      searchLabel: "Pretraga verskih ponuda",
+      searchPlaceholder: "Na primer: Ostrog, Jerusalim, manastiri",
+      boardTitle: "Aktivne verske ponude",
+      viewAllOffers: "Pogledaj kompletnu ponudu",
+      noResults: "Trenutno nema verskih ponuda za uneti pojam.",
+    },
     country: {
       badge: "Ponude po zemlji",
       title: "Aktivne ponude za",
@@ -367,6 +443,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       home: "Home",
       trips: "Trips",
       arrangements: "Packages",
+      religiousTourism: "Religious Tourism",
       offers: "Offers",
       about: "About",
       contact: "Contact",
@@ -390,9 +467,38 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
         "ABLux Travel was founded with a clear vision: to provide high-quality, carefully planned, and dependable travel experiences. Our main focus is religious tourism, supported by summer programs, European city breaks, and excursions for children.",
       ctaOffers: "Browse full offer",
       ctaContact: "Send inquiry",
+      heroPrimaryCta: "Travel",
+      heroToolkitLabel: "Quick travel menu",
+      heroToolkitOffers: "Complete Offer",
+      heroToolkitArrangements: "Packages",
+      heroToolkitReligious: "Religious Tourism",
+      portalLabel: "Quick access",
+      portalTitle: "Choose your travel direction",
+      portalTrips: "Trips",
+      portalTripsHint: "Open countries and destinations with active offers.",
+      portalArrangements: "Packages",
+      portalArrangementsHint: "Premium programs with immersive video previews.",
+      portalReligious: "Religious Tourism",
+      portalReligiousHint: "Pilgrimages and sacred routes with full organization.",
       metricFounded: "Founded: 2022",
       metricFocus: "Core focus: religious tourism",
       metricPartners: "Planned 15+ partner agencies",
+      pulseBadge: "Why travelers choose ABLux",
+      pulseTitle: "4 reasons ABLux feels out of this world",
+      pulseDescription:
+        "From first idea to return journey, every step is optimized for clarity, speed, and full traveler confidence.",
+      pulseCardATitle: "Carefully planned routes",
+      pulseCardADescription:
+        "Religious and premium destinations are selected by program quality, travel rhythm, and trusted local partners.",
+      pulseCardBTitle: "Safety on first signal",
+      pulseCardBDescription:
+        "Routes, live trip details, and group logistics stay synchronized to keep every traveler secure and informed.",
+      pulseCardCTitle: "Clear prices and timelines",
+      pulseCardCDescription:
+        "Availability, conditions, and trip tempo are presented transparently without hidden steps or information noise.",
+      pulseCardDTitle: "Support with instant response",
+      pulseCardDDescription:
+        "Our team stays available before, during, and after the trip with guidance tailored to your specific group.",
       focusTitle: "What we focus on",
       focusA: "Religious journeys with carefully planned routes and reliable logistics.",
       focusB: "Summer and city tours adapted to different budgets and travel styles.",
@@ -502,6 +608,17 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trackB: "Reliable organization",
       trackC: "Clear pricing and dates",
       signal: "Package",
+    },
+    religious: {
+      badge: "Religious tourism",
+      title: "Pilgrimage and sacred destination offers",
+      description:
+        "A dedicated board for religious tourism offers. We highlight pilgrimages, monasteries, holy places, and spiritually focused trips.",
+      searchLabel: "Search religious offers",
+      searchPlaceholder: "Example: Jerusalem, Sinai, monastery",
+      boardTitle: "Active religious offers",
+      viewAllOffers: "Open complete offer",
+      noResults: "No religious offers found for the current search.",
     },
     country: {
       badge: "Country offers",
