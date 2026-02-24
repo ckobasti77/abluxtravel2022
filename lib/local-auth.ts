@@ -1,5 +1,15 @@
 export type SessionUser = {
-  username: string;
+  firstName: string;
+  lastName: string;
+  displayName: string;
+  email: string;
+  role: "admin" | "user";
+};
+
+type AuthUser = {
+  firstName: string;
+  lastName: string;
+  email: string;
   role: "admin" | "user";
 };
 
@@ -17,6 +27,18 @@ const safeParse = <T,>(value: string | null, fallback: T): T => {
   }
 };
 
+const formatDisplayName = (firstName: string, lastName: string, email: string) => {
+  const fullName = `${firstName} ${lastName}`.trim();
+  if (fullName.length > 0) {
+    return fullName;
+  }
+  const localPart = email.split("@")[0]?.trim();
+  if (localPart) {
+    return localPart;
+  }
+  return email;
+};
+
 export const setSession = (user: SessionUser | null) => {
   if (typeof window === "undefined") return;
   if (!user) {
@@ -28,19 +50,55 @@ export const setSession = (user: SessionUser | null) => {
   window.dispatchEvent(new Event(SESSION_EVENT));
 };
 
-export const setSessionFromAuth = (user: SessionUser) => {
+export const setSessionFromAuth = (user: AuthUser) => {
+  const firstName = user.firstName.trim();
+  const lastName = user.lastName.trim();
+  const email = user.email.trim().toLowerCase();
   setSession({
-    username: user.username,
+    firstName,
+    lastName,
+    displayName: formatDisplayName(firstName, lastName, email),
+    email,
     role: user.role,
   });
 };
 
 export const getSession = (): SessionUser | null => {
   if (typeof window === "undefined") return null;
-  return safeParse<SessionUser | null>(
+  const parsed = safeParse<Partial<SessionUser> & { username?: string } | null>(
     window.localStorage.getItem(SESSION_KEY),
     null
   );
+
+  if (!parsed || (parsed.role !== "admin" && parsed.role !== "user")) {
+    return null;
+  }
+
+  const email =
+    typeof parsed.email === "string" && parsed.email.trim().length > 0
+      ? parsed.email.trim().toLowerCase()
+      : typeof parsed.username === "string" && parsed.username.trim().length > 0
+        ? parsed.username.trim().toLowerCase()
+        : "";
+
+  if (!email) {
+    return null;
+  }
+
+  const firstName = typeof parsed.firstName === "string" ? parsed.firstName.trim() : "";
+  const lastName = typeof parsed.lastName === "string" ? parsed.lastName.trim() : "";
+  const displayName =
+    typeof parsed.displayName === "string" && parsed.displayName.trim().length > 0
+      ? parsed.displayName.trim()
+      : formatDisplayName(firstName, lastName, email);
+
+  return {
+    firstName,
+    lastName,
+    displayName,
+    email,
+    role: parsed.role,
+  };
 };
 
 export const signOut = () => {

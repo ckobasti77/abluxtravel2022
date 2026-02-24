@@ -25,7 +25,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <article className="surface rounded-3xl p-8 text-center">
             <h1 className="text-3xl font-semibold">{dictionary.admin.accessTitle}</h1>
             <p className="mt-3 text-sm text-muted">{dictionary.admin.accessDescription}</p>
-            <Link href="/signin" className="btn-primary mt-6">
+            <Link href="/auth?mode=signin&next=%2Fadmin" className="btn-primary mt-6">
               {dictionary.admin.signIn}
             </Link>
           </article>
@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <p className="text-xs uppercase tracking-[0.16em] text-muted">
             {language === "sr" ? "Ulogovan admin" : "Signed in admin"}
           </p>
-          <p className="mt-1 font-semibold">{session?.username}</p>
+          <p className="mt-1 font-semibold">{session?.displayName}</p>
         </article>
       </section>
 

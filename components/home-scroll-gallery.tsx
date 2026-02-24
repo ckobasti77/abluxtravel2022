@@ -111,14 +111,23 @@ const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
 
+const SCROLL_COOLDOWN_MS = 520;
+const CENTER_ALIGN_COOLDOWN_MS = 620;
+
 export default function HomeScrollGallery() {
   const { language } = useSitePreferences();
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const nextSectionRef = useRef<HTMLElement | null>(null);
+  const lastStepAtRef = useRef(0);
+  const centerAlignUntilRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isStaticLayout, setIsStaticLayout] = useState(false);
 
   const content = useMemo(() => ORBIT_CONTENT[language], [language]);
-  const timelineSpan = Math.max(content.cards.length - 1, 1);
+  const maxIndex = Math.max(content.cards.length - 1, 0);
+  const boundedActiveIndex = clamp(activeIndex, 0, maxIndex);
+  const nextSectionLabel = language === "sr" ? "Sledeca sekcija" : "Next section";
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -140,43 +149,112 @@ export default function HomeScrollGallery() {
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || isStaticLayout) {
+    if (!section) {
+      nextSectionRef.current = null;
       return;
     }
 
-    let frame = 0;
+    const nextElement = section.nextElementSibling;
+    nextSectionRef.current = nextElement instanceof HTMLElement ? nextElement : null;
+  }, []);
 
-    const updateProgress = () => {
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const travelDistance = Math.max(rect.height - viewportHeight, 1);
-      const traveled = clamp(-rect.top, 0, travelDistance);
-      setProgress(traveled / travelDistance);
-    };
+  useEffect(() => {
+    if (isStaticLayout) {
+      return;
+    }
 
-    const onViewportChange = () => {
-      if (frame) {
+    const onWheel = (event: WheelEvent) => {
+      const section = sectionRef.current;
+      const track = trackRef.current;
+      if (!section || !track) {
         return;
       }
 
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        updateProgress();
-      });
+      const direction = Math.sign(event.deltaY);
+      if (direction === 0) {
+        return;
+      }
+
+      const sectionRect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      if (sectionRect.bottom <= 0 || sectionRect.top >= viewportHeight) {
+        return;
+      }
+
+      const trackRect = track.getBoundingClientRect();
+      const now = Date.now();
+      const canStepForward = direction > 0 && boundedActiveIndex < maxIndex;
+      const canStepBackward = direction < 0 && boundedActiveIndex > 0;
+      const canStepInDirection = canStepForward || canStepBackward;
+
+      const viewportCenter = viewportHeight / 2;
+      const trackCenter = trackRect.top + trackRect.height / 2;
+      const centerOffset = trackCenter - viewportCenter;
+      const centerTolerance = Math.min(64, viewportHeight * 0.08);
+      const isWithinActivationBand =
+        trackRect.top <= viewportHeight * 0.74 && trackRect.bottom >= viewportHeight * 0.26;
+
+      if (canStepInDirection && isWithinActivationBand && Math.abs(centerOffset) > centerTolerance) {
+        event.preventDefault();
+
+        if (now >= centerAlignUntilRef.current) {
+          centerAlignUntilRef.current = now + CENTER_ALIGN_COOLDOWN_MS;
+          window.scrollBy({ top: centerOffset, behavior: "smooth" });
+        }
+        return;
+      }
+
+      if (now < centerAlignUntilRef.current) {
+        if (canStepInDirection) {
+          event.preventDefault();
+        }
+        return;
+      }
+
+      const isTrackCentered = Math.abs(centerOffset) <= centerTolerance;
+      if (!isTrackCentered || !canStepInDirection) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (now - lastStepAtRef.current < SCROLL_COOLDOWN_MS) {
+        return;
+      }
+
+      lastStepAtRef.current = now;
+      setActiveIndex((previous) => clamp(previous + direction, 0, maxIndex));
     };
 
-    updateProgress();
-    window.addEventListener("scroll", onViewportChange, { passive: true });
-    window.addEventListener("resize", onViewportChange);
+    window.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-      }
-      window.removeEventListener("scroll", onViewportChange);
-      window.removeEventListener("resize", onViewportChange);
+      window.removeEventListener("wheel", onWheel);
     };
-  }, [isStaticLayout]);
+  }, [boundedActiveIndex, isStaticLayout, maxIndex]);
+
+  const scrollToNextSection = () => {
+    const section = sectionRef.current;
+    if (!section) {
+      return;
+    }
+
+    let nextSection = nextSectionRef.current;
+    if (!nextSection) {
+      const nextElement = section.nextElementSibling;
+      if (nextElement instanceof HTMLElement) {
+        nextSection = nextElement;
+        nextSectionRef.current = nextElement;
+      }
+    }
+
+    if (!nextSection) {
+      return;
+    }
+
+    centerAlignUntilRef.current = Date.now() + CENTER_ALIGN_COOLDOWN_MS;
+    nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section ref={sectionRef} className={`home-orbit ${isStaticLayout ? "home-orbit--static" : ""}`}>
@@ -187,13 +265,14 @@ export default function HomeScrollGallery() {
       </div>
 
       <div
+        ref={trackRef}
         className="home-orbit__track"
         style={{ "--orbit-card-count": content.cards.length } as CSSProperties}
       >
         <div className="home-orbit__sticky">
           <div className="home-orbit__stack">
             {content.cards.map((card, index) => {
-              const phase = progress * timelineSpan - index;
+              const phase = boundedActiveIndex - index;
               const boundedPhase = clamp(phase, -1.18, 1.18);
               const distance = Math.abs(boundedPhase);
               const emphasis = clamp(1 - distance, 0, 1);
@@ -233,7 +312,7 @@ export default function HomeScrollGallery() {
           {!isStaticLayout ? (
             <div className="home-orbit__rail" aria-hidden="true">
               {content.cards.map((card, index) => {
-                const distance = Math.abs(progress * timelineSpan - index);
+                const distance = Math.abs(boundedActiveIndex - index);
                 const markerOpacity = clamp(1 - distance * 0.72, 0.26, 1);
                 const markerClass = distance < 0.4 ? "home-orbit__dot is-active" : "home-orbit__dot";
                 return (
@@ -245,6 +324,17 @@ export default function HomeScrollGallery() {
                 );
               })}
             </div>
+          ) : null}
+
+          {!isStaticLayout ? (
+            <button
+              type="button"
+              className="home-orbit__next-button"
+              onClick={scrollToNextSection}
+              aria-label={nextSectionLabel}
+            >
+              {nextSectionLabel}
+            </button>
           ) : null}
         </div>
       </div>

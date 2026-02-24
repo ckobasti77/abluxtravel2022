@@ -12,6 +12,7 @@ export type SiteDictionary = {
     about: string;
     contact: string;
     signIn: string;
+    signOut: string;
     admin: string;
     language: string;
     theme: string;
@@ -176,18 +177,47 @@ export type SiteDictionary = {
     noOffers: string;
   };
   auth: {
+    portalBadge: string;
+    portalTitle: string;
+    portalDescription: string;
+    matrixLabel: string;
+    activeSession: string;
+    awaitingAccess: string;
+    sessionReady: string;
+    continueButton: string;
+    nextHint: string;
+    featureSecurity: string;
+    featureExperience: string;
+    featureControl: string;
     signInTitle: string;
     signInDescription: string;
     signUpTitle: string;
     signUpDescription: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
     password: string;
+    confirmPassword: string;
+    showPassword: string;
+    hidePassword: string;
+    emailHint: string;
+    passwordHint: string;
+    firstNameTooShort: string;
+    lastNameTooShort: string;
+    invalidEmail: string;
+    passwordTooShort: string;
+    passwordMismatch: string;
+    requiredFields: string;
+    processing: string;
     signInButton: string;
     signUpButton: string;
     noAccount: string;
     hasAccount: string;
     invalidCredentials: string;
     userExists: string;
+    signedInAs: string;
+    roleAdmin: string;
+    roleUser: string;
   };
   admin: {
     accessTitle: string;
@@ -223,6 +253,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       about: "O nama",
       contact: "Kontakt",
       signIn: "Prijava",
+      signOut: "Odjava",
       admin: "Admin",
       language: "Jezik",
       theme: "Tema",
@@ -403,18 +434,48 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       noOffers: "Trenutno nema aktivnih ponuda za ovu destinaciju.",
     },
     auth: {
+      portalBadge: "ABLux korisnicki portal",
+      portalTitle: "Brzi pristup vasim putovanjima.",
+      portalDescription:
+        "Prijavite se ili otvorite nalog i lako pratite ponude, planove putovanja i brzu komunikaciju sa nasim timom.",
+      matrixLabel: "Status matrice",
+      activeSession: "Aktivna sesija",
+      awaitingAccess: "Ceka autentifikaciju",
+      sessionReady: "Sesija je spremna za nastavak.",
+      continueButton: "Nastavi",
+      nextHint: "Po završetku bices preusmeren/a na trazenu stranicu.",
+      featureSecurity: "Jednostavna i bezbedna prijava sa jasnim koracima.",
+      featureExperience: "Brz pristup najtrazenijim destinacijama i aktuelnim ponudama.",
+      featureControl: "Laka komunikacija sa agencijom i pregled podataka na jednom mestu.",
       signInTitle: "Prijava",
       signInDescription: "Pristup korisnickom nalogu i administraciji.",
       signUpTitle: "Registracija",
       signUpDescription: "Kreirajte nalog i sacuvajte omiljena putovanja.",
-      username: "Korisnicko ime",
+      firstName: "Ime",
+      lastName: "Prezime",
+      email: "Email",
       password: "Lozinka",
+      confirmPassword: "Potvrdi lozinku",
+      showPassword: "Prikazi lozinku",
+      hidePassword: "Sakrij lozinku",
+      emailHint: "Unesite vazecu email adresu.",
+      passwordHint: "Minimalno 6 karaktera.",
+      firstNameTooShort: "Ime mora imati najmanje 2 karaktera.",
+      lastNameTooShort: "Prezime mora imati najmanje 2 karaktera.",
+      invalidEmail: "Unesite ispravan email.",
+      passwordTooShort: "Lozinka mora imati najmanje 6 karaktera.",
+      passwordMismatch: "Lozinke se ne poklapaju.",
+      requiredFields: "Popunite sva obavezna polja.",
+      processing: "Obrada u toku...",
       signInButton: "Prijavi se",
       signUpButton: "Kreiraj nalog",
       noAccount: "Nemate nalog?",
       hasAccount: "Vec imate nalog?",
-      invalidCredentials: "Pogrešno korisnicko ime ili lozinka.",
-      userExists: "Korisnik vec postoji.",
+      invalidCredentials: "Pogrešan email ili lozinka.",
+      userExists: "Korisnik sa ovim emailom vec postoji.",
+      signedInAs: "Ulogovani korisnik",
+      roleAdmin: "Admin uloga",
+      roleUser: "Korisnicka uloga",
     },
     admin: {
       accessTitle: "Admin pristup",
@@ -448,6 +509,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       about: "About",
       contact: "Contact",
       signIn: "Sign In",
+      signOut: "Sign Out",
       admin: "Admin",
       language: "Language",
       theme: "Theme",
@@ -628,18 +690,48 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       noOffers: "There are currently no active offers for this destination.",
     },
     auth: {
+      portalBadge: "ABLux Client Portal",
+      portalTitle: "Fast access to your next trip.",
+      portalDescription:
+        "Sign in or create your account to track offers, plan your journey, and stay connected with our travel team.",
+      matrixLabel: "Matrix status",
+      activeSession: "Active session",
+      awaitingAccess: "Awaiting authentication",
+      sessionReady: "Session is ready to continue.",
+      continueButton: "Continue",
+      nextHint: "After auth you will be redirected to the requested page.",
+      featureSecurity: "Simple and secure sign in with clear steps.",
+      featureExperience: "Quick access to featured destinations and active offers.",
+      featureControl: "Easy communication with our team and your details in one place.",
       signInTitle: "Sign In",
       signInDescription: "Access your account and admin features.",
       signUpTitle: "Sign Up",
       signUpDescription: "Create an account and save your favorite trips.",
-      username: "Username",
+      firstName: "First name",
+      lastName: "Last name",
+      email: "Email",
       password: "Password",
+      confirmPassword: "Confirm password",
+      showPassword: "Show password",
+      hidePassword: "Hide password",
+      emailHint: "Enter a valid email address.",
+      passwordHint: "Minimum 6 characters.",
+      firstNameTooShort: "First name must be at least 2 characters.",
+      lastNameTooShort: "Last name must be at least 2 characters.",
+      invalidEmail: "Please enter a valid email.",
+      passwordTooShort: "Password must be at least 6 characters.",
+      passwordMismatch: "Passwords do not match.",
+      requiredFields: "Please fill all required fields.",
+      processing: "Processing...",
       signInButton: "Sign In",
       signUpButton: "Create account",
       noAccount: "No account yet?",
       hasAccount: "Already have an account?",
-      invalidCredentials: "Invalid username or password.",
-      userExists: "User already exists.",
+      invalidCredentials: "Invalid email or password.",
+      userExists: "A user with this email already exists.",
+      signedInAs: "Signed in user",
+      roleAdmin: "Admin role",
+      roleUser: "User role",
     },
     admin: {
       accessTitle: "Admin access",

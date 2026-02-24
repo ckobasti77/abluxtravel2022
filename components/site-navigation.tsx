@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FaBars, FaMoon, FaSun, FaXmark } from "react-icons/fa6";
+import { signOut } from "../lib/local-auth";
 import { SITE_NAV_ITEMS } from "../lib/site-nav";
 import { useSession } from "../lib/use-session";
 import { useSitePreferences } from "./site-preferences-provider";
@@ -18,6 +19,7 @@ const isActivePath = (pathname: string, href: string) => {
 
 export default function SiteNavigation() {
   const pathname = usePathname();
+  const router = useRouter();
   const session = useSession();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -26,18 +28,25 @@ export default function SiteNavigation() {
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
 
-  const accountLink = useMemo(
-    () =>
-      session?.role === "admin"
-        ? { href: "/admin", label: dictionary.nav.admin }
-        : { href: "/signin", label: dictionary.nav.signIn },
-    [dictionary.nav.admin, dictionary.nav.signIn, session?.role]
+  const adminLink = useMemo(
+    () => (session?.role === "admin" ? { href: "/admin", label: dictionary.nav.admin } : null),
+    [dictionary.nav.admin, session?.role]
   );
 
   const nextThemeLabel = theme === "dark" ? dictionary.nav.switchToLight : dictionary.nav.switchToDark;
   const themeIcon = theme === "dark" ? <FaSun aria-hidden size={16} /> : <FaMoon aria-hidden size={16} />;
   const logoSrc = theme === "dark" ? "/logo-dark.png" : "/logo-light.png";
   const logoSize = theme === "dark" ? { width: 500, height: 500 } : { width: 301, height: 318 };
+
+  const handleSignOut = () => {
+    signOut();
+    setMobileOpen(false);
+    if (pathname.startsWith("/admin")) {
+      router.push("/auth?mode=signin");
+      return;
+    }
+    router.refresh();
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,9 +159,29 @@ export default function SiteNavigation() {
             >
               {themeIcon}
             </button>
-            <Link href={accountLink.href} className="btn-primary !px-4 !py-2 !text-xs">
-              {accountLink.label}
-            </Link>
+            {session ? (
+              <>
+                <span className="surface-strong inline-flex min-h-9 max-w-[11rem] items-center rounded-full px-3 text-xs font-semibold text-muted truncate">
+                  {session.displayName}
+                </span>
+                {adminLink ? (
+                  <Link href={adminLink.href} className="btn-primary !px-4 !py-2 !text-xs">
+                    {adminLink.label}
+                  </Link>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="btn-secondary !px-4 !py-2 !text-xs"
+                >
+                  {dictionary.nav.signOut}
+                </button>
+              </>
+            ) : (
+              <Link href="/auth" className="btn-primary !px-4 !py-2 !text-xs">
+                {dictionary.nav.signIn}
+              </Link>
+            )}
           </div>
 
           <button
@@ -215,13 +244,35 @@ export default function SiteNavigation() {
               </button>
             </div>
 
-            <Link
-              href={accountLink.href}
-              onClick={() => setMobileOpen(false)}
-              className="btn-primary mt-1 w-full !justify-center !px-4 !py-2 !text-xs"
-            >
-              {accountLink.label}
-            </Link>
+            {session ? (
+              <>
+                <p className="mt-1 text-center text-sm font-semibold">{session.displayName}</p>
+                {adminLink ? (
+                  <Link
+                    href={adminLink.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="btn-primary mt-1 w-full !justify-center !px-4 !py-2 !text-xs"
+                  >
+                    {adminLink.label}
+                  </Link>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="btn-secondary mt-1 w-full !justify-center !px-4 !py-2 !text-xs"
+                >
+                  {dictionary.nav.signOut}
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/auth"
+                onClick={() => setMobileOpen(false)}
+                className="btn-primary mt-1 w-full !justify-center !px-4 !py-2 !text-xs"
+              >
+                {dictionary.nav.signIn}
+              </Link>
+            )}
           </div>
         ) : null}
       </div>

@@ -59,7 +59,7 @@ export default function SiteFooter() {
   );
 
   const secondaryNavItems = useMemo<FooterNavItem[]>(
-    () => [...SITE_NAV_ITEMS.slice(4), { key: "signIn", href: "/signin" }],
+    () => [...SITE_NAV_ITEMS.slice(4), { key: "signIn", href: "/auth" }],
     []
   );
 
