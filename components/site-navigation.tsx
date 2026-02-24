@@ -90,7 +90,7 @@ export default function SiteNavigation() {
         isNavVisible ? "site-nav--visible" : "site-nav--hidden"
       }`}
     >
-      <div className="site-nav-frame mx-auto w-full max-w-7xl px-3 sm:px-8">
+      <div className="site-nav-frame mx-auto w-full max-w-[74rem] px-4 sm:px-8 lg:px-12">
         <div
           className={`surface site-nav-shell flex min-w-0 w-full items-center gap-3 rounded-2xl px-3 py-2.5 sm:px-5 ${
             isCompact ? "site-nav-shell--compact" : ""
@@ -184,14 +184,51 @@ export default function SiteNavigation() {
             )}
           </div>
 
-          <button
-            type="button"
-            aria-label={mobileOpen ? dictionary.nav.closeMenu : dictionary.nav.openMenu}
-            className="surface-strong ml-auto inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full md:hidden"
-            onClick={() => setMobileOpen((previous) => !previous)}
-          >
-            {mobileOpen ? <FaXmark aria-hidden size={16} /> : <FaBars aria-hidden size={16} />}
-          </button>
+          <div className="ml-auto flex items-center gap-2 md:hidden">
+            <div
+              className="surface-strong inline-flex rounded-full p-1"
+              role="group"
+              aria-label={dictionary.nav.language}
+            >
+              <button
+                type="button"
+                onClick={() => setLanguage("sr")}
+                aria-label="SR"
+                className={`rounded-full px-2.5 py-1 text-[0.65rem] font-semibold leading-none transition ${
+                  language === "sr" ? "bg-[var(--primary-soft)] text-[var(--text)]" : "text-muted"
+                }`}
+              >
+                SR
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage("en")}
+                aria-label="EN"
+                className={`rounded-full px-2.5 py-1 text-[0.65rem] font-semibold leading-none transition ${
+                  language === "en" ? "bg-[var(--primary-soft)] text-[var(--text)]" : "text-muted"
+                }`}
+              >
+                EN
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={nextThemeLabel}
+              title={nextThemeLabel}
+              className="surface-strong inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm transition hover:bg-[var(--primary-soft)]"
+            >
+              {themeIcon}
+            </button>
+            <button
+              type="button"
+              aria-label={mobileOpen ? dictionary.nav.closeMenu : dictionary.nav.openMenu}
+              className="surface-strong inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+              onClick={() => setMobileOpen((previous) => !previous)}
+            >
+              {mobileOpen ? <FaXmark aria-hidden size={16} /> : <FaBars aria-hidden size={16} />}
+            </button>
+          </div>
         </div>
 
         {mobileOpen ? (

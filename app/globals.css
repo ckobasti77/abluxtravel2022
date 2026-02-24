@@ -1714,8 +1714,8 @@ textarea.control {
 
 @media (max-width: 640px) {
   .site-nav-frame {
-    padding-left: max(0.55rem, env(safe-area-inset-left));
-    padding-right: max(0.55rem, env(safe-area-inset-right));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
   }
 
   .site-nav-shell,
