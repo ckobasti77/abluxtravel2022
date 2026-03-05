@@ -1,8 +1,9 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
 
-const ADMIN_USERNAME = "abluxtravel";
-const ADMIN_EMAIL = "admin@abluxtravel2022.rs";
+const ADMIN_EMAIL = "abluxtravel@gmail.com";
+const LEGACY_ADMIN_USERNAME = "abluxtravel";
+const LEGACY_ADMIN_EMAIL = "admin@abluxtravel2022.rs";
 const ADMIN_FIRST_NAME = "ABLux";
 const ADMIN_LAST_NAME = "Admin";
 const ADMIN_PASSWORD = "turistickaagencija";
@@ -68,19 +69,43 @@ const invalidCredentials = (): AuthResult => ({
 export const ensureAdminUser = mutation({
   args: {},
   handler: async (ctx) => {
-    const username = normalizeUsername(ADMIN_USERNAME);
     const email = normalizeEmail(ADMIN_EMAIL);
     const passwordHash = await hashPassword(ADMIN_PASSWORD);
     const now = Date.now();
 
-    const existing = await ctx.db
+    const existingByEmail = await ctx.db
       .query("users")
-      .withIndex("by_username", (q) => q.eq("username", username))
+      .withIndex("by_email", (q) => q.eq("email", email))
       .unique();
+
+    const existingByUsername = existingByEmail
+      ? null
+      : await ctx.db
+          .query("users")
+          .withIndex("by_username", (q) => q.eq("username", email))
+          .unique();
+
+    const existingByLegacyUsername = existingByEmail || existingByUsername
+      ? null
+      : await ctx.db
+          .query("users")
+          .withIndex("by_username", (q) => q.eq("username", normalizeUsername(LEGACY_ADMIN_USERNAME)))
+          .unique();
+
+    const existingByLegacyEmail = existingByEmail || existingByUsername || existingByLegacyUsername
+      ? null
+      : await ctx.db
+          .query("users")
+          .withIndex("by_username", (q) => q.eq("username", normalizeEmail(LEGACY_ADMIN_EMAIL)))
+          .unique();
+
+    const existing =
+      existingByEmail ?? existingByUsername ?? existingByLegacyUsername ?? existingByLegacyEmail;
 
     if (existing) {
       await ctx.db.patch(existing._id, {
-        username,
+        username: email,
+        email,
         passwordHash,
         role: "admin",
         updatedAt: now,
@@ -94,7 +119,8 @@ export const ensureAdminUser = mutation({
     }
 
     await ctx.db.insert("users", {
-      username,
+      username: email,
+      email,
       passwordHash,
       role: "admin",
       createdAt: now,
@@ -106,6 +132,93 @@ export const ensureAdminUser = mutation({
       lastName: ADMIN_LAST_NAME,
       email,
       role: "admin" as const,
+    };
+  },
+});
+
+
+export const login = mutation({
+  args: {
+    email: v.string(),
+    password: v.string(),
+  },
+  handler: async (ctx, args): Promise<AuthResult> => {
+    const email = normalizeEmail(args.email);
+    const password = args.password.trim();
+
+    if (!email || !password || !EMAIL_PATTERN.test(email)) {
+      return invalidCredentials();
+    }
+
+    const adminEmail = normalizeEmail(ADMIN_EMAIL);
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_email", (q) => q.eq("email", email))
+      .unique();
+
+    if (!user) {
+      user = await ctx.db
+        .query("users")
+        .withIndex("by_username", (q) => q.eq("username", email))
+        .unique();
+    }
+
+    if (!user && email === adminEmail) {
+      user = await ctx.db
+        .query("users")
+        .withIndex("by_username", (q) => q.eq("username", normalizeUsername(LEGACY_ADMIN_USERNAME)))
+        .unique();
+    }
+
+    if (!user && email === adminEmail) {
+      user = await ctx.db
+        .query("users")
+        .withIndex("by_username", (q) => q.eq("username", normalizeEmail(LEGACY_ADMIN_EMAIL)))
+        .unique();
+    }
+
+    if (!user) {
+      return invalidCredentials();
+    }
+
+    const passwordHash = await hashPassword(password);
+    if (user.passwordHash !== passwordHash) {
+      return invalidCredentials();
+    }
+
+    const storedEmail =
+      typeof user.email === "string" && user.email.trim().length > 0
+        ? normalizeEmail(user.email)
+        : normalizeEmail(user.username);
+
+    const shouldBeAdmin = email === adminEmail || storedEmail === adminEmail;
+    const normalizedRole: "admin" | "user" = shouldBeAdmin ? "admin" : user.role;
+    const canonicalEmail = shouldBeAdmin ? adminEmail : storedEmail;
+
+    const needsPatch =
+      user.email !== canonicalEmail || user.username !== canonicalEmail || user.role !== normalizedRole;
+
+    if (needsPatch) {
+      await ctx.db.patch(user._id, {
+        username: canonicalEmail,
+        email: canonicalEmail,
+        role: normalizedRole,
+        updatedAt: Date.now(),
+      });
+    }
+
+    const nameFromEmail = deriveNameFromEmail(canonicalEmail);
+    const firstName = normalizedRole === "admin" ? ADMIN_FIRST_NAME : nameFromEmail.firstName;
+    const lastName = normalizedRole === "admin" ? ADMIN_LAST_NAME : nameFromEmail.lastName;
+
+    return {
+      ok: true,
+      user: {
+        firstName,
+        lastName,
+        email: canonicalEmail,
+        role: normalizedRole,
+      },
     };
   },
 });
@@ -132,10 +245,26 @@ export const register = mutation({
       return invalidCredentials();
     }
 
-    const existing = await ctx.db
+    if (email === normalizeEmail(ADMIN_EMAIL)) {
+      return {
+        ok: false,
+        error: "user_exists",
+      };
+    }
+
+    const existingByEmail = await ctx.db
       .query("users")
-      .withIndex("by_username", (q) => q.eq("username", email))
+      .withIndex("by_email", (q) => q.eq("email", email))
       .unique();
+
+    const existingByUsername = existingByEmail
+      ? null
+      : await ctx.db
+          .query("users")
+          .withIndex("by_username", (q) => q.eq("username", email))
+          .unique();
+
+    const existing = existingByEmail ?? existingByUsername;
 
     if (existing) {
       return {
@@ -147,6 +276,7 @@ export const register = mutation({
     const now = Date.now();
     await ctx.db.insert("users", {
       username: email,
+      email,
       passwordHash: await hashPassword(password),
       role: "user",
       createdAt: now,
@@ -160,56 +290,6 @@ export const register = mutation({
         lastName,
         email,
         role: "user",
-      },
-    };
-  },
-});
-
-export const login = mutation({
-  args: {
-    email: v.string(),
-    password: v.string(),
-  },
-  handler: async (ctx, args): Promise<AuthResult> => {
-    const email = normalizeEmail(args.email);
-    const password = args.password.trim();
-
-    if (!email || !password || !EMAIL_PATTERN.test(email)) {
-      return invalidCredentials();
-    }
-
-    let user = await ctx.db
-      .query("users")
-      .withIndex("by_username", (q) => q.eq("username", email))
-      .unique();
-
-    if (!user && email === normalizeEmail(ADMIN_EMAIL)) {
-      user = await ctx.db
-        .query("users")
-        .withIndex("by_username", (q) => q.eq("username", normalizeUsername(ADMIN_USERNAME)))
-        .unique();
-    }
-
-    if (!user) {
-      return invalidCredentials();
-    }
-
-    const passwordHash = await hashPassword(password);
-    if (user.passwordHash !== passwordHash) {
-      return invalidCredentials();
-    }
-
-    const nameFromEmail = deriveNameFromEmail(email);
-    const firstName = user.role === "admin" ? ADMIN_FIRST_NAME : nameFromEmail.firstName;
-    const lastName = user.role === "admin" ? ADMIN_LAST_NAME : nameFromEmail.lastName;
-
-    return {
-      ok: true,
-      user: {
-        firstName,
-        lastName,
-        email,
-        role: user.role,
       },
     };
   },

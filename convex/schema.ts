@@ -55,11 +55,14 @@ export default defineSchema({
     .index("by_featured", ["featured"]),
   users: defineTable({
     username: v.string(),
+    email: v.optional(v.string()),
     passwordHash: v.string(),
     role: v.union(v.literal("admin"), v.literal("user")),
     createdAt: v.number(),
     updatedAt: v.number(),
-  }).index("by_username", ["username"]),
+  })
+    .index("by_username", ["username"])
+    .index("by_email", ["email"]),
   slides: defineTable({
     title: v.string(),
     subtitle: v.string(),

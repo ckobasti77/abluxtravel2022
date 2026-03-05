@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { type CSSProperties, useMemo } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../../components/alien-shell";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
@@ -27,10 +27,28 @@ export default function CountryTripsPage() {
   const params = useParams<{ zemlja: string }>();
   const slug = typeof params?.zemlja === "string" ? params.zemlja : "";
   const { dictionary, language } = useSitePreferences();
+  const [query, setQuery] = useState("");
 
   const countryName = useMemo(() => fromCountrySlug(slug), [slug]);
   const offers = useOffersLiveBoard(countryName);
   const locale = language === "sr" ? "sr-RS" : "en-US";
+
+  const filteredOffers = useMemo(() => {
+    const search = query.trim().toLowerCase();
+    if (!search) return offers;
+    return offers.filter((offer) => {
+      const source = [
+        offer.title,
+        offer.destination,
+        offer.departureCity ?? "",
+        offer.externalId,
+        ...offer.tags,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return source.includes(search);
+    });
+  }, [offers, query]);
 
   return (
     <AlienShell className="site-fade">
@@ -50,49 +68,79 @@ export default function CountryTripsPage() {
         </Link>
       </section>
 
-      <section className="mt-8">
-        {offers.length > 0 ? (
-          <div className="stagger-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {offers.map((offer, index) => (
+      <section className="mt-8 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <article className="section-holo p-5">
+          <label htmlFor="country-offers-search" className="text-sm font-semibold">
+            {dictionary.trips.searchLabel}
+          </label>
+          <input
+            id="country-offers-search"
+            className="control mt-3"
+            placeholder={dictionary.trips.searchPlaceholder}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </article>
+
+        <article className="section-holo p-5">
+          <h2 className="text-xl font-semibold">{dictionary.trips.readyTitle}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted">{dictionary.trips.readyDescription}</p>
+        </article>
+      </section>
+
+      <section className="mt-6">
+        {filteredOffers.length > 0 ? (
+          <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredOffers.map((offer, index) => (
               <article
                 key={offer.id}
-                className="surface fx-lift rounded-2xl p-4"
+                className="surface fx-lift overflow-hidden rounded-3xl"
                 style={{ "--stagger-index": index } as CSSProperties}
               >
-                <p className="text-xs uppercase tracking-[0.12em] text-muted">
-                  {offer.destination}
-                </p>
-                <h2 className="mt-2 text-lg font-semibold">{offer.title}</h2>
-                <p className="mt-3 text-sm text-muted">
-                  {dictionary.offers.departure}: {offer.departureCity || dictionary.offers.tbd}
-                </p>
-                <p className="mt-1 text-sm text-muted">
-                  {formatDate(offer.departureDate, locale, dictionary.offers.tbd)} -{" "}
-                  {formatDate(offer.returnDate, locale, dictionary.offers.tbd)}
-                </p>
-                <p className="mt-4 text-2xl font-semibold">{formatPrice(offer, locale)}</p>
-                <p className="mt-1 text-sm text-muted">
-                  {dictionary.offers.seats}:{" "}
-                  {typeof offer.seatsLeft === "number" ? offer.seatsLeft : dictionary.offers.unknown}
-                </p>
-                {offer.tags.length > 0 ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {offer.tags.map((tag) => (
-                      <span
-                        key={`${offer.id}-${tag}`}
-                        className="rounded-full border border-[var(--line)] bg-[var(--primary-soft)] px-2.5 py-1 text-xs"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                <div className="relative h-20 w-full overflow-hidden">
+                  <div className="absolute inset-0 bg-[linear-gradient(135deg,#1f3a70,#133050)]" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
+                  <div className="relative flex h-full items-center justify-between gap-3 px-4">
+                    <p className="text-sm font-semibold text-white">{offer.destination}</p>
+                    <span className="rounded-full border border-white/35 bg-black/30 px-2.5 py-1 text-[11px] uppercase tracking-[0.08em] text-white/90">
+                      {offer.sourceSlug}
+                    </span>
                   </div>
-                ) : null}
+                </div>
+
+                <div className="p-5">
+                  <h2 className="text-xl font-semibold">{offer.title}</h2>
+                  <p className="mt-3 text-sm text-muted">
+                    {dictionary.offers.departure}: {offer.departureCity || dictionary.offers.tbd}
+                  </p>
+                  <p className="mt-1 text-sm text-muted">
+                    {formatDate(offer.departureDate, locale, dictionary.offers.tbd)} -{" "}
+                    {formatDate(offer.returnDate, locale, dictionary.offers.tbd)}
+                  </p>
+                  <p className="mt-4 text-2xl font-semibold">{formatPrice(offer, locale)}</p>
+                  <p className="mt-1 text-sm text-muted">
+                    {dictionary.offers.seats}:{" "}
+                    {typeof offer.seatsLeft === "number" ? offer.seatsLeft : dictionary.offers.unknown}
+                  </p>
+                  {offer.tags.length > 0 ? (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {offer.tags.map((tag) => (
+                        <span
+                          key={`${offer.id}-${tag}`}
+                          className="rounded-full border border-[var(--line)] bg-[var(--primary-soft)] px-2.5 py-1 text-xs"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
               </article>
             ))}
           </div>
         ) : (
           <div className="surface rounded-2xl p-6 text-sm text-muted">
-            {dictionary.country.noOffers}
+            {query.trim() ? dictionary.trips.noResults : dictionary.country.noOffers}
           </div>
         )}
       </section>
@@ -101,4 +149,3 @@ export default function CountryTripsPage() {
     </AlienShell>
   );
 }
-

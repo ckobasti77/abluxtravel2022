@@ -31,8 +31,8 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
     href: "/admin/putovanja",
     label: { sr: "Putovanja", en: "Trips" },
     hint: {
-      sr: "Video slajdovi i hero scene za stranicu Zemlje",
-      en: "Video slides and hero scenes for the Countries page",
+      sr: "Video slajdovi i hero scene za stranicu Putovanja",
+      en: "Video slides and hero scenes for the Trips page",
     },
   },
   {
@@ -61,7 +61,6 @@ export type PageEditorSlot =
   | "putovanja"
   | "religious"
   | "country"
-  | "zemlje"
   | "about";
 
 export type PageEditorConfig = {
@@ -92,10 +91,10 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
   },
   putovanja: {
     adminSection: "putovanja",
-    title: { sr: "Putovanja editor zona", en: "Trips editor zone" },
+    title: { sr: "Putovanja video editor zona", en: "Trips media editor zone" },
     description: {
-      sr: "Uredjivanje destinacijskih kartica, reda prikaza i prodajnog fokusa po zemlji.",
-      en: "Edit destination cards, ordering, and conversion focus by country.",
+      sr: "Uredjivanje fullscreen destinacijskih scena, redosleda slajdova i CTA prelaza na stranicu pojedinacne zemlje.",
+      en: "Edit full-screen destination scenes, slide order, and CTA transitions to individual country pages.",
     },
     status: "ready",
   },
@@ -114,15 +113,6 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     description: {
       sr: "Kontrola prezentacije ponuda po zemlji i prioriteta najjacih programa.",
       en: "Control country page presentation and priorities of top-performing offers.",
-    },
-    status: "ready",
-  },
-  zemlje: {
-    adminSection: "putovanja",
-    title: { sr: "Zemlje video editor", en: "Countries video editor" },
-    description: {
-      sr: "Upravljanje fullscreen video slajdovima za stranicu Zemlje.",
-      en: "Manage fullscreen video slides for the Countries page.",
     },
     status: "ready",
   },

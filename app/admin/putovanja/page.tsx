@@ -13,21 +13,21 @@ export default function AdminPutovanjaPage() {
           {language === "sr" ? "Video slajdovi" : "Video slides"}
         </p>
         <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-          {language === "sr" ? "Video slajdovi za /zemlje stranicu" : "Video slides for /countries page"}
+          {language === "sr" ? "Video slajdovi za /putovanja stranicu" : "Video slides for /trips page"}
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
           {language === "sr"
-            ? "Upravljajte fullscreen video scenama koje se prikazuju na stranici Zemlje. Svaki slajd predstavlja jednu destinaciju."
-            : "Manage fullscreen video scenes displayed on the Countries page. Each slide represents a destination."}
+            ? "Upravljajte fullscreen video scenama koje se prikazuju na stranici Putovanja. Svaki slajd predstavlja jednu destinaciju."
+            : "Manage fullscreen video scenes displayed on the Trips page. Each slide represents a destination."}
         </p>
       </article>
 
       <AranzmaniEditor
-        title={language === "sr" ? "Zemlje media editor" : "Countries media editor"}
+        title={language === "sr" ? "Putovanja media editor" : "Trips media editor"}
         description={
           language === "sr"
-            ? "Dodajte, rasporedite i aktivirajte video scene za stranicu /zemlje."
-            : "Add, order, and activate video scenes for the /countries page."
+            ? "Dodajte, rasporedite i aktivirajte video scene za stranicu /putovanja."
+            : "Add, order, and activate video scenes for the /trips page."
         }
       />
     </section>

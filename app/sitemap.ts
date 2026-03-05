@@ -7,7 +7,6 @@ const PUBLIC_ROUTES = [
   "/putovanja",
   "/aranzmani",
   "/verski-turizam",
-  "/zemlje",
   "/o-nama",
   "/kontakt",
 ] as const;
