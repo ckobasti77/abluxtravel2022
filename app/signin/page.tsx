@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import AuthPortal from "../../components/auth-portal";
 import { getNextPath, resolveSearchParams, type PageSearchParams } from "../../lib/auth-routing";
-import { SITE_NAME } from "../../lib/seo";
 
 type SignInPageProps = {
-  searchParams?: Promise<PageSearchParams> | PageSearchParams;
+  searchParams?: Promise<PageSearchParams>;
 };
 
 export const metadata: Metadata = {
-  title: `Prijava | ${SITE_NAME}`,
+  title: "Prijava",
   description: "Prijava korisnika na ABLux Travel portal.",
   robots: {
     index: false,

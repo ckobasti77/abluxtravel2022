@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import {
-  DEFAULT_OG_IMAGE,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_SHORT_NAME,
@@ -20,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["travel", "tourism"],
     icons: [
       {
-        src: DEFAULT_OG_IMAGE,
+        src: "/logo-light.png",
         sizes: "301x318",
         type: "image/png",
         purpose: "any",

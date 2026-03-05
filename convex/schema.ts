@@ -2,6 +2,57 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  settings: defineTable({
+    key: v.literal("global"),
+    workingHours: v.string(),
+    address: v.string(),
+    phone: v.string(),
+    email: v.string(),
+    instagramUrl: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
+  trips: defineTable({
+    slug: v.string(),
+    title: v.string(),
+    description: v.string(),
+    price: v.number(),
+    currency: v.string(),
+    nights: v.number(),
+    days: v.number(),
+    transport: v.union(
+      v.literal("bus"),
+      v.literal("plane"),
+      v.literal("car"),
+      v.literal("train")
+    ),
+    departureDate: v.string(),
+    returnDate: v.string(),
+    departureCity: v.string(),
+    hotelInfo: v.optional(v.string()),
+    depositPercentage: v.optional(v.number()),
+    depositDeadline: v.optional(v.string()),
+    itinerary: v.array(
+      v.object({
+        day: v.number(),
+        date: v.string(),
+        description: v.string(),
+      })
+    ),
+    included: v.array(v.string()),
+    notIncluded: v.array(v.string()),
+    imageStorageIds: v.array(v.id("_storage")),
+    status: v.union(
+      v.literal("active"),
+      v.literal("upcoming"),
+      v.literal("completed")
+    ),
+    featured: v.boolean(),
+    order: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status_order", ["status", "order"])
+    .index("by_featured", ["featured"]),
   users: defineTable({
     username: v.string(),
     passwordHash: v.string(),

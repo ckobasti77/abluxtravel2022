@@ -1,27 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
+import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
+import { useSession } from "../../lib/use-session";
 import { AggregatedOffer, useOffersLiveBoard } from "../../lib/use-offers";
-
-const RELIGIOUS_KEYWORDS = [
-  "verski",
-  "religious",
-  "hodo",
-  "pilgr",
-  "svet",
-  "holy",
-  "manast",
-  "monast",
-  "church",
-  "jerusalim",
-  "jerusalem",
-  "sinaj",
-  "sinai",
-  "ostrog",
-];
+import { isReligiousOffer } from "../../lib/religious";
 
 const RELIGIOUS_FALLBACK_OFFERS: AggregatedOffer[] = [
   {
@@ -66,15 +52,10 @@ const RELIGIOUS_FALLBACK_OFFERS: AggregatedOffer[] = [
     price: 870,
     currency: "EUR",
     seatsLeft: 11,
-    tags: ["religious", "sinai", "holy-sites"],
+    tags: ["verski", "sinaj", "sveta mesta"],
     updatedAt: Date.parse("2026-02-10T09:40:00.000Z"),
   },
 ];
-
-const isReligiousOffer = (offer: AggregatedOffer) => {
-  const source = `${offer.title} ${offer.destination} ${offer.tags.join(" ")}`.toLowerCase();
-  return RELIGIOUS_KEYWORDS.some((keyword) => source.includes(keyword));
-};
 
 const formatPrice = (offer: AggregatedOffer, locale: string) =>
   new Intl.NumberFormat(locale, {
@@ -92,23 +73,40 @@ const formatDate = (isoDate: string | undefined, locale: string, fallback: strin
 
 export default function VerskiTurizamPage() {
   const { dictionary, language } = useSitePreferences();
+  const session = useSession();
   const [query, setQuery] = useState("");
   const locale = language === "sr" ? "sr-RS" : "en-US";
   const offers = useOffersLiveBoard(undefined, RELIGIOUS_FALLBACK_OFFERS);
 
+  const religiousOffers = useMemo(() => offers.filter((offer) => isReligiousOffer(offer)), [offers]);
+
   const filteredOffers = useMemo(() => {
-    const religiousOnly = offers.filter(isReligiousOffer);
     const normalizedQuery = query.trim().toLowerCase();
 
     if (!normalizedQuery) {
-      return religiousOnly;
+      return religiousOffers;
     }
 
-    return religiousOnly.filter((offer) => {
+    return religiousOffers.filter((offer) => {
       const source = `${offer.title} ${offer.destination} ${offer.departureCity ?? ""} ${offer.tags.join(" ")}`;
       return source.toLowerCase().includes(normalizedQuery);
     });
-  }, [offers, query]);
+  }, [religiousOffers, query]);
+
+  const uniqueTags = useMemo(
+    () =>
+      Array.from(
+        new Set(filteredOffers.flatMap((offer) => offer.tags.map((tag) => tag.toLowerCase())))
+      ).slice(0, 8),
+    [filteredOffers]
+  );
+
+  const minPrice = useMemo(() => {
+    if (filteredOffers.length === 0) return null;
+    return Math.min(...filteredOffers.map((offer) => offer.price));
+  }, [filteredOffers]);
+
+  const isAdmin = session?.role === "admin";
 
   return (
     <AlienShell className="site-fade">
@@ -122,8 +120,39 @@ export default function VerskiTurizamPage() {
         </p>
       </section>
 
+      <section className="stagger-grid mt-7 grid gap-3 sm:grid-cols-3">
+        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 0 } as CSSProperties}>
+          <p className="text-xs uppercase tracking-[0.12em] text-muted">
+            {language === "sr" ? "Aktivne verske" : "Active religious"}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">{filteredOffers.length}</p>
+        </article>
+        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 1 } as CSSProperties}>
+          <p className="text-xs uppercase tracking-[0.12em] text-muted">
+            {language === "sr" ? "Destinacije" : "Destinations"}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">
+            {new Set(filteredOffers.map((offer) => offer.destination)).size}
+          </p>
+        </article>
+        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 2 } as CSSProperties}>
+          <p className="text-xs uppercase tracking-[0.12em] text-muted">
+            {language === "sr" ? "Najniza cena" : "Lowest price"}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">
+            {minPrice !== null
+              ? new Intl.NumberFormat(locale, {
+                  style: "currency",
+                  currency: filteredOffers[0]?.currency ?? "EUR",
+                  maximumFractionDigits: 0,
+                }).format(minPrice)
+              : "-"}
+          </p>
+        </article>
+      </section>
+
       <section className="mt-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-        <article className="surface rounded-2xl p-5">
+        <article className="section-holo p-5">
           <label htmlFor="religious-search" className="text-sm font-semibold">
             {dictionary.religious.searchLabel}
           </label>
@@ -134,9 +163,23 @@ export default function VerskiTurizamPage() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
+          {uniqueTags.length > 0 ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {uniqueTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
+                  onClick={() => setQuery(tag)}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </article>
 
-        <article className="surface rounded-2xl p-5">
+        <article className="section-holo p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
             {dictionary.religious.boardTitle}
           </p>
@@ -146,18 +189,29 @@ export default function VerskiTurizamPage() {
               ? "Broj ponuda koje odgovaraju verskom turizmu i aktivnom filteru."
               : "Number of offers matching religious tourism and the active filter."}
           </p>
-          <Link href="/ponuda" className="btn-secondary mt-4">
-            {dictionary.religious.viewAllOffers}
-          </Link>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link href="/aranzmani" className="btn-secondary">
+              {dictionary.religious.viewAllOffers}
+            </Link>
+            {isAdmin ? (
+              <Link href="/admin/verski-turizam" className="btn-primary">
+                {language === "sr" ? "Uredi verske ponude" : "Edit religious offers"}
+              </Link>
+            ) : null}
+          </div>
         </article>
       </section>
 
       <section className="mt-8">
         <h2 className="mb-4 text-xl font-semibold">{dictionary.religious.boardTitle}</h2>
         {filteredOffers.length > 0 ? (
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {filteredOffers.map((offer) => (
-              <article key={offer.id} className="surface rounded-2xl p-4">
+          <div className="stagger-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {filteredOffers.map((offer, index) => (
+              <article
+                key={offer.id}
+                className="surface fx-lift rounded-2xl p-4"
+                style={{ "--stagger-index": index } as CSSProperties}
+              >
                 <p className="text-xs uppercase tracking-[0.12em] text-muted">{offer.sourceSlug}</p>
                 <h3 className="mt-2 text-lg font-semibold">{offer.title}</h3>
                 <p className="mt-2 text-sm text-muted">{offer.destination}</p>
@@ -194,6 +248,8 @@ export default function VerskiTurizamPage() {
           </div>
         )}
       </section>
+
+      <PageAdminEditorDock slot="religious" className="mt-10" />
     </AlienShell>
   );
 }

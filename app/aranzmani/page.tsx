@@ -1,324 +1,161 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import { FaBus, FaPlane, FaCar, FaTrain } from "react-icons/fa6";
+import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
-import { toCountrySlug } from "../../lib/country-route";
-import { TripSlide, useSlides } from "../../lib/use-slides";
-import { useSession } from "../../lib/use-session";
+import { useTrips, TripStatus, TransportType } from "../../lib/use-trips";
 
-const IDLE_MS = 2500;
-const SCROLL_COOLDOWN_MS = 900;
-const SWIPE_THRESHOLD = 50;
+const transportIcons: Record<TransportType, typeof FaBus> = {
+  bus: FaBus,
+  plane: FaPlane,
+  car: FaCar,
+  train: FaTrain,
+};
+
+const statusClass: Record<TripStatus, string> = {
+  active: "border-emerald-400/35 bg-emerald-400/10 text-emerald-300",
+  upcoming: "border-amber-400/35 bg-amber-400/10 text-amber-300",
+  completed: "border-slate-400/35 bg-slate-400/10 text-slate-300",
+};
 
 export default function AranzmaniPage() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [overlayVisible, setOverlayVisible] = useState(true);
-  const [overlayLocked, setOverlayLocked] = useState(false);
-  const { language } = useSitePreferences();
-  const session = useSession();
+  const { dictionary, language } = useSitePreferences();
+  const trips = useTrips();
+  const t = dictionary.tripDetail;
+  const [statusFilter, setStatusFilter] = useState<TripStatus | "all">("all");
+  const [search, setSearch] = useState("");
 
-  const fallbackSlides: TripSlide[] = useMemo(
-    () => [
-      {
-        id: "iceland",
-        title: "Iceland",
-        subtitle: "5 dana / 4 noci / Reykjavik + Golden Circle",
-        badge: "4 nocenja",
-        copy: "Vulkani, gejziri, lagune i aurora kao glavna scena.",
-        videoUrl: "/videos/iceland.mp4",
-      },
-      {
-        id: "cappadocia",
-        title: "Cappadocia",
-        subtitle: "4 dana / 3 noci / Let balonom u zoru",
-        badge: "3 nocenja",
-        copy: "Pecinske sobe, doline i panorame koje izgledaju nestvarno.",
-        videoUrl: "/videos/cappadocia.mp4",
-      },
-      {
-        id: "amalfi",
-        title: "Amalfi",
-        subtitle: "7 dana / 6 noci / Obala, limuni i more",
-        badge: "6 nocenja",
-        copy: "Spoj opustanja i elegantnog tempa italijanske rivijere.",
-        videoUrl: "/videos/amalfi.mp4",
-      },
-    ],
-    []
-  );
+  const locale = language === "sr" ? "sr-RS" : "en-US";
 
-  const slides = useSlides(fallbackSlides);
+  const filtered = useMemo(() => {
+    let result = trips;
+    if (statusFilter !== "all") {
+      result = result.filter((trip) => trip.status === statusFilter);
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      result = result.filter(
+        (trip) =>
+          trip.title.toLowerCase().includes(q) ||
+          trip.description.toLowerCase().includes(q) ||
+          trip.departureCity.toLowerCase().includes(q)
+      );
+    }
+    return result;
+  }, [trips, statusFilter, search]);
 
-  const lastScrollRef = useRef(0);
-  const idleTimer = useRef<NodeJS.Timeout | null>(null);
-  const touchStartYRef = useRef<number | null>(null);
-  const editorDockRef = useRef<HTMLDivElement | null>(null);
-  const isAdmin = session?.role === "admin";
+  const formatPrice = (price: number, currency: string) =>
+    new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }).format(price);
 
-  const goTo = useCallback(
-    (index: number) => {
-      if (slides.length === 0) {
-        setActiveIndex(0);
-        return;
-      }
-      const nextIndex = Math.min(Math.max(index, 0), slides.length - 1);
-      setActiveIndex(nextIndex);
-    },
-    [slides.length]
-  );
-
-  useEffect(() => {
-    const clearIdle = () => {
-      if (idleTimer.current) {
-        clearTimeout(idleTimer.current);
-        idleTimer.current = null;
-      }
-    };
-
-    const scheduleIdle = () => {
-      clearIdle();
-      idleTimer.current = setTimeout(() => {
-        if (!overlayLocked) {
-          setOverlayVisible(false);
-        }
-      }, IDLE_MS);
-    };
-
-    const canSlide = () => {
-      const now = Date.now();
-      if (now - lastScrollRef.current < SCROLL_COOLDOWN_MS) {
-        return false;
-      }
-      lastScrollRef.current = now;
-      return true;
-    };
-
-    const onMouseMove = () => {
-      setOverlayVisible(true);
-      scheduleIdle();
-    };
-
-    const onClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (target?.closest("a, button, input, textarea, select")) {
-        return;
-      }
-      setOverlayLocked((previous) => {
-        const nextLocked = !previous;
-        if (nextLocked) {
-          setOverlayVisible(true);
-          scheduleIdle();
-        } else {
-          clearIdle();
-          setOverlayVisible(false);
-        }
-        return nextLocked;
-      });
-    };
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (slides.length <= 1) return;
-      if (event.key === "ArrowDown" || event.key === "PageDown") {
-        if (activeIndex >= slides.length - 1) return;
-        event.preventDefault();
-        if (canSlide()) {
-          goTo(activeIndex + 1);
-        }
-      }
-      if (event.key === "ArrowUp" || event.key === "PageUp") {
-        if (activeIndex <= 0) return;
-        event.preventDefault();
-        if (canSlide()) {
-          goTo(activeIndex - 1);
-        }
-      }
-      if (event.key === "Home") {
-        event.preventDefault();
-        goTo(0);
-      }
-      if (event.key === "End") {
-        event.preventDefault();
-        goTo(slides.length - 1);
-      }
-    };
-
-    const onWheel = (event: WheelEvent) => {
-      const scrollY = window.scrollY;
-
-      if (isAdmin && scrollY > 0) {
-        if (event.deltaY < 0) {
-          event.preventDefault();
-          lastScrollRef.current = Date.now();
-          if (slides.length > 0) {
-            goTo(slides.length - 1);
-          }
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
-        return;
-      }
-
-      if (slides.length <= 1) return;
-      if (event.deltaY > 0) {
-        if (activeIndex >= slides.length - 1) {
-          if (isAdmin && editorDockRef.current) {
-            const dockTop = editorDockRef.current.getBoundingClientRect().top;
-            if (dockTop > 8) {
-              event.preventDefault();
-              editorDockRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-          }
-          return;
-        }
-        event.preventDefault();
-        if (canSlide()) {
-          goTo(activeIndex + 1);
-        }
-      } else if (event.deltaY < 0) {
-        if (activeIndex <= 0) return;
-        event.preventDefault();
-        if (canSlide()) {
-          goTo(activeIndex - 1);
-        }
-      }
-    };
-
-    const onTouchStart = (event: TouchEvent) => {
-      touchStartYRef.current = event.changedTouches[0]?.clientY ?? null;
-      setOverlayVisible(true);
-      scheduleIdle();
-    };
-
-    const onTouchEnd = (event: TouchEvent) => {
-      if (slides.length <= 1) return;
-      const startY = touchStartYRef.current;
-      const endY = event.changedTouches[0]?.clientY ?? null;
-      touchStartYRef.current = null;
-      if (startY === null || endY === null) return;
-      const deltaY = startY - endY;
-      if (Math.abs(deltaY) < SWIPE_THRESHOLD) return;
-      if (!canSlide()) return;
-      if (deltaY > 0) {
-        if (activeIndex >= slides.length - 1) return;
-        goTo(activeIndex + 1);
-      } else {
-        if (activeIndex <= 0) return;
-        goTo(activeIndex - 1);
-      }
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("click", onClick);
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-    scheduleIdle();
-
-    return () => {
-      clearIdle();
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("click", onClick);
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [activeIndex, goTo, isAdmin, overlayLocked, slides.length]);
+  const formatDate = (iso: string) => {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(d);
+  };
 
   return (
-    <div className="bg-[#0b0f14] text-white">
-      <section className="relative h-screen w-full overflow-hidden overscroll-none">
-        <div
-          className="absolute left-0 top-0 h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
-          style={{
-            transform: `translateY(-${Math.min(activeIndex, Math.max(0, slides.length - 1)) * 100}vh)`,
-          }}
-        >
-          {slides.length > 0 ? (
-            slides.map((slide, index) => {
-              const countrySlug = toCountrySlug(slide.title) || toCountrySlug(slide.id);
-              const countryHref = countrySlug ? `/putovanja/${countrySlug}` : "/putovanja";
-              const shouldRenderVideo = Math.abs(index - activeIndex) <= 1;
-              return (
-                <section key={slide.id} className="relative h-screen w-full overflow-hidden">
-                  {slide.videoUrl && shouldRenderVideo ? (
-                    <video
-                      className="absolute left-0 top-0 h-full w-full object-cover"
-                      src={slide.videoUrl}
-                      autoPlay={index === activeIndex}
-                      muted
-                      loop
-                      playsInline
-                      preload={index === activeIndex ? "auto" : "metadata"}
-                      disablePictureInPicture
-                    />
-                  ) : (
-                    <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-br from-[#0b0f14] via-[#111827] to-[#1f2937]" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
-                  <div
-                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-                      overlayVisible ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    <div className="absolute inset-0 bg-black/30 backdrop-blur-xl" />
-                    <div className="relative mx-auto flex w-[min(720px,90vw)] flex-col gap-5 px-5 text-center">
-                      <div className="text-[11px] uppercase tracking-[0.35em] text-white/70">
-                        Putovanje {index + 1} / {slides.length}
-                      </div>
-                      <h1 className="text-3xl font-semibold uppercase tracking-[0.15em] sm:text-5xl">
-                        {slide.title}
-                      </h1>
-                      {slide.badge ? (
-                        <div className="mx-auto inline-flex rounded-full border border-white/35 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/90">
-                          {slide.badge}
-                        </div>
-                      ) : null}
-                      <p className="text-base text-white/80 sm:text-lg">{slide.subtitle}</p>
-                      {slide.copy ? (
-                        <p className="text-sm text-white/70 sm:text-base">{slide.copy}</p>
-                      ) : null}
-                      <Link
-                        href={countryHref}
-                        className="mx-auto mt-3 inline-flex rounded-full border border-white/45 bg-black/25 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/90 transition hover:border-white hover:bg-black/35"
-                      >
-                        Ponude za {slide.title}
-                      </Link>
-                      <p className="mt-2 text-[10px] uppercase tracking-[0.35em] text-white/50 sm:text-[11px]">
-                        Swipe ili scroll za sledeci slajd
-                      </p>
-                    </div>
-                  </div>
-                </section>
-              );
-            })
-          ) : (
-            <section className="relative h-screen w-full overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#0b0f14] via-[#111827] to-[#1f2937]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
-              <div className="relative z-10 mx-auto flex h-full w-[min(760px,92vw)] flex-col items-center justify-center gap-6 text-center">
-                <h1 className="text-3xl font-semibold uppercase tracking-[0.12em] sm:text-5xl">
-                  {language === "sr" ? "Hero sekcija je prazna" : "Hero section is empty"}
-                </h1>
-                <p className="max-w-2xl text-sm text-white/75 sm:text-base">
-                  {language === "sr"
-                    ? "Nema aktivnih slajdova u bazi. Ako ste admin, editor je prikazan ispod ove sekcije."
-                    : "There are no active slides in the database. If you are an admin, the editor is displayed below."}
-                </p>
-              </div>
-            </section>
-          )}
-        </div>
+    <AlienShell className="site-fade">
+      <section className="space-y-5">
+        <span className="pill">{dictionary.arrangements.badge}</span>
+        <h1 className="max-w-3xl text-4xl font-semibold sm:text-5xl">
+          {dictionary.arrangements.title}
+        </h1>
+        <p className="max-w-3xl text-base leading-7 text-muted">
+          {dictionary.arrangements.description}
+        </p>
       </section>
 
-      <div ref={editorDockRef}>
-        <PageAdminEditorDock
-          slot="aranzmani"
-          className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-12 text-[var(--text)] sm:px-8 lg:px-12"
+      <section className="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
+        <input
+          className="control"
+          placeholder={t.searchPlaceholder}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-      </div>
-    </div>
+        <select
+          className="control"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value as TripStatus | "all")}
+        >
+          <option value="all">{t.allTrips}</option>
+          <option value="active">{t.statusActive}</option>
+          <option value="upcoming">{t.statusUpcoming}</option>
+          <option value="completed">{t.statusCompleted}</option>
+        </select>
+      </section>
+
+      {filtered.length > 0 ? (
+        <section className="stagger-grid mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {filtered.map((trip, index) => {
+            const TransportIcon = transportIcons[trip.transport];
+            const heroImage = trip.imageUrls?.[0];
+            return (
+              <Link
+                key={trip._id}
+                href={`/aranzmani/${trip.slug}`}
+                className="surface fx-lift group block overflow-hidden rounded-2xl transition"
+                style={{ "--stagger-index": index } as CSSProperties}
+              >
+                <div className="relative h-48 w-full overflow-hidden bg-[var(--bg-soft)]">
+                  {heroImage ? (
+                    <img
+                      src={heroImage}
+                      alt={trip.title}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-4xl text-muted/30">
+                      <TransportIcon />
+                    </div>
+                  )}
+                  <span
+                    className={`absolute right-3 top-3 rounded-full border px-2.5 py-1 text-xs font-semibold ${statusClass[trip.status]}`}
+                  >
+                    {trip.status === "active"
+                      ? t.statusActive
+                      : trip.status === "upcoming"
+                        ? t.statusUpcoming
+                        : t.statusCompleted}
+                  </span>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-2 text-xs text-muted">
+                    <TransportIcon />
+                    <span>
+                      {trip.days} {t.days} | {trip.nights} {t.nights}
+                    </span>
+                    <span className="ml-auto">{trip.departureCity}</span>
+                  </div>
+                  <h3 className="mt-2 text-lg font-semibold">{trip.title}</h3>
+                  <p className="mt-1 text-sm text-muted">
+                    {formatDate(trip.departureDate)}
+                    {trip.returnDate ? ` - ${formatDate(trip.returnDate)}` : ""}
+                  </p>
+                  <p className="mt-3 text-xl font-semibold text-[var(--primary)]">
+                    {formatPrice(trip.price, trip.currency)}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
+        </section>
+      ) : (
+        <div className="surface mt-6 rounded-2xl p-6 text-center text-sm text-muted">
+          {t.noTrips}
+        </div>
+      )}
+
+      <PageAdminEditorDock slot="aranzmani" className="mt-10" />
+    </AlienShell>
   );
 }
+

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Sora } from "next/font/google";
+import QuickActions from "../components/quick-actions";
 import SiteFooter from "../components/site-footer";
 import SiteNavigation from "../components/site-navigation";
 import {
@@ -72,9 +73,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        width: 301,
-        height: 318,
-        alt: `${SITE_NAME} logo`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} premium travel preview`,
       },
     ],
   },
@@ -163,6 +164,7 @@ export default function RootLayout({
         />
         <Providers>
           <SiteNavigation />
+          <QuickActions />
           {children}
           <SiteFooter />
         </Providers>

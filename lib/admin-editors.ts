@@ -6,8 +6,7 @@ export type LocalizedText = {
 export type AdminSectionKey =
   | "aranzmani"
   | "putovanja"
-  | "ponuda"
-  | "kontakt"
+  | "verski-turizam"
   | "podesavanja";
 
 export type AdminSectionConfig = {
@@ -21,32 +20,38 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
   {
     key: "aranzmani",
     href: "/admin/aranzmani",
-    label: { sr: "Aranzmani", en: "Arrangements" },
-    hint: { sr: "Hero video slajdovi", en: "Hero video slides" },
+    label: { sr: "Aranzmani", en: "Packages" },
+    hint: {
+      sr: "Kreiranje i uredjivanje kompletnih aranzmana",
+      en: "Create and edit full package details",
+    },
   },
   {
     key: "putovanja",
     href: "/admin/putovanja",
     label: { sr: "Putovanja", en: "Trips" },
-    hint: { sr: "Destinacije i sekcije", en: "Destinations and sections" },
+    hint: {
+      sr: "Video slajdovi i hero scene za stranicu Zemlje",
+      en: "Video slides and hero scenes for the Countries page",
+    },
   },
   {
-    key: "ponuda",
-    href: "/admin/ponuda",
-    label: { sr: "Ponuda", en: "Offer Board" },
-    hint: { sr: "Aktivni feed i source status", en: "Live feed and source status" },
-  },
-  {
-    key: "kontakt",
-    href: "/admin/kontakt",
-    label: { sr: "Kontakt", en: "Contact" },
-    hint: { sr: "Forma i info blokovi", en: "Form and info blocks" },
+    key: "verski-turizam",
+    href: "/admin/verski-turizam",
+    label: { sr: "Verski turizam", en: "Religious tourism" },
+    hint: {
+      sr: "Editor verskih ponuda i hodocasca",
+      en: "Religious offers and pilgrimage editor",
+    },
   },
   {
     key: "podesavanja",
     href: "/admin/podesavanja",
     label: { sr: "Podesavanja", en: "Settings" },
-    hint: { sr: "Globalna pravila sajta", en: "Global site rules" },
+    hint: {
+      sr: "Radno vreme, kontakt i Instagram",
+      en: "Working hours, contact and Instagram",
+    },
   },
 ];
 
@@ -54,9 +59,9 @@ export type PageEditorSlot =
   | "home"
   | "aranzmani"
   | "putovanja"
+  | "religious"
   | "country"
-  | "ponuda"
-  | "kontakt"
+  | "zemlje"
   | "about";
 
 export type PageEditorConfig = {
@@ -69,19 +74,19 @@ export type PageEditorConfig = {
 export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
   home: {
     adminSection: "podesavanja",
-    title: { sr: "Pocetna editor zona", en: "Home editor zone" },
+    title: { sr: "Pocetna command zona", en: "Home command zone" },
     description: {
-      sr: "Pripremljeno za buduci editor hero teksta, CTA blokova i metrika.",
-      en: "Prepared for a future editor of hero copy, CTA blocks, and metrics.",
+      sr: "Upravljanje glavnim porukama, CTA blokovima i ritmom prve impresije.",
+      en: "Control hero messaging, CTA blocks, and first-impression pacing.",
     },
-    status: "planned",
+    status: "ready",
   },
   aranzmani: {
     adminSection: "aranzmani",
-    title: { sr: "Aranzmani editor", en: "Arrangements editor" },
+    title: { sr: "Aranzmani editor", en: "Packages editor" },
     description: {
-      sr: "Aktivni editor za hero slajdove i redosled prikaza.",
-      en: "Active editor for hero slides and display order.",
+      sr: "Upravljanje aranzmanima: cene, itinerer, slike i detalji putovanja.",
+      en: "Manage trip packages: pricing, itinerary, images, and travel details.",
     },
     status: "ready",
   },
@@ -89,46 +94,45 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     adminSection: "putovanja",
     title: { sr: "Putovanja editor zona", en: "Trips editor zone" },
     description: {
-      sr: "Pripremljeno za uredjivanje kartica destinacija i filter bloka.",
-      en: "Prepared for destination cards and filter block editing.",
+      sr: "Uredjivanje destinacijskih kartica, reda prikaza i prodajnog fokusa po zemlji.",
+      en: "Edit destination cards, ordering, and conversion focus by country.",
     },
-    status: "planned",
+    status: "ready",
+  },
+  religious: {
+    adminSection: "verski-turizam",
+    title: { sr: "Verski editor zona", en: "Religious editor zone" },
+    description: {
+      sr: "Uredjivanje ponuda za hodocasca, svetinje i verske destinacije.",
+      en: "Manage pilgrimage, holy-site, and faith-focused travel offers.",
+    },
+    status: "ready",
   },
   country: {
     adminSection: "putovanja",
     title: { sr: "Editor za zemlju", en: "Country page editor" },
     description: {
-      sr: "Pripremljeno za pravila prikaza ponuda po drzavi.",
-      en: "Prepared for country-specific offer presentation rules.",
+      sr: "Kontrola prezentacije ponuda po zemlji i prioriteta najjacih programa.",
+      en: "Control country page presentation and priorities of top-performing offers.",
     },
-    status: "planned",
+    status: "ready",
   },
-  ponuda: {
-    adminSection: "ponuda",
-    title: { sr: "Ponuda editor zona", en: "Offer editor zone" },
+  zemlje: {
+    adminSection: "putovanja",
+    title: { sr: "Zemlje video editor", en: "Countries video editor" },
     description: {
-      sr: "Pripremljeno za source kontrole, prioritete i board sekcije.",
-      en: "Prepared for source controls, priorities, and board sections.",
+      sr: "Upravljanje fullscreen video slajdovima za stranicu Zemlje.",
+      en: "Manage fullscreen video slides for the Countries page.",
     },
-    status: "planned",
-  },
-  kontakt: {
-    adminSection: "kontakt",
-    title: { sr: "Kontakt editor zona", en: "Contact editor zone" },
-    description: {
-      sr: "Pripremljeno za upravljanje formom i kontakt blokovima.",
-      en: "Prepared for form behavior and contact block management.",
-    },
-    status: "planned",
+    status: "ready",
   },
   about: {
     adminSection: "podesavanja",
     title: { sr: "O nama editor zona", en: "About editor zone" },
     description: {
-      sr: "Pripremljeno za buduce uredjivanje sekcije O nama.",
-      en: "Prepared for future About page editing.",
+      sr: "Uredjivanje narativa brenda, misije i vrednosti koje grade poverenje.",
+      en: "Edit brand narrative, mission, and trust-building value statements.",
     },
-    status: "planned",
+    status: "ready",
   },
 };
-

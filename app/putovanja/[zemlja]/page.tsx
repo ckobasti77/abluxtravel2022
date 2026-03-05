@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { type CSSProperties, useMemo } from "react";
 import AlienShell from "../../../components/alien-shell";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
@@ -52,9 +52,13 @@ export default function CountryTripsPage() {
 
       <section className="mt-8">
         {offers.length > 0 ? (
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {offers.map((offer) => (
-              <article key={offer.id} className="surface rounded-2xl p-4">
+          <div className="stagger-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {offers.map((offer, index) => (
+              <article
+                key={offer.id}
+                className="surface fx-lift rounded-2xl p-4"
+                style={{ "--stagger-index": index } as CSSProperties}
+              >
                 <p className="text-xs uppercase tracking-[0.12em] text-muted">
                   {offer.destination}
                 </p>

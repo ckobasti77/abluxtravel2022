@@ -1,4 +1,4 @@
-﻿export type Language = "sr" | "en";
+export type Language = "sr" | "en";
 export type ThemeMode = "light" | "dark";
 
 export type SiteDictionary = {
@@ -8,7 +8,7 @@ export type SiteDictionary = {
     trips: string;
     arrangements: string;
     religiousTourism: string;
-    offers: string;
+    countries: string;
     about: string;
     contact: string;
     signIn: string;
@@ -239,6 +239,48 @@ export type SiteDictionary = {
     signIn: string;
     optional: string;
   };
+  settings: {
+    title: string;
+    description: string;
+    workingHours: string;
+    address: string;
+    phone: string;
+    email: string;
+    instagramUrl: string;
+    save: string;
+    saving: string;
+    saved: string;
+  };
+  tripDetail: {
+    price: string;
+    nights: string;
+    days: string;
+    departure: string;
+    returnLabel: string;
+    departureCity: string;
+    transport: string;
+    hotel: string;
+    deposit: string;
+    depositDeadline: string;
+    itinerary: string;
+    included: string;
+    notIncluded: string;
+    contactCta: string;
+    back: string;
+    featured: string;
+    statusActive: string;
+    statusUpcoming: string;
+    statusCompleted: string;
+    bus: string;
+    plane: string;
+    car: string;
+    train: string;
+    allTrips: string;
+    filterByStatus: string;
+    search: string;
+    searchPlaceholder: string;
+    noTrips: string;
+  };
 };
 
 export const DICTIONARY: Record<Language, SiteDictionary> = {
@@ -249,7 +291,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trips: "Putovanja",
       arrangements: "Aranžmani",
       religiousTourism: "Verski turizam",
-      offers: "Ponuda",
+      countries: "Zemlje",
       about: "O nama",
       contact: "Kontakt",
       signIn: "Prijava",
@@ -290,13 +332,13 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       metricFocus: "Specijalizacija: verski turizam",
       metricPartners: "Planirano 15+ partnerskih agencija",
       pulseBadge: "Zašto putnici biraju ABLux",
-      pulseTitle: "4 razloga zašto je ABLux iskustvo druge galaksije",
+      pulseTitle: "4 razloga zasto putnici biraju ABLux",
       pulseDescription:
         "Od prve ideje do povratka sa putovanja, svaki korak je optimizovan za jasnoću, brzinu i osećaj potpune kontrole.",
       pulseCardATitle: "Pažljivo planirane rute",
       pulseCardADescription:
         "Verske i premium destinacije biramo po kvalitetu programa, ritmu putovanja i reputaciji lokalnih partnera.",
-      pulseCardBTitle: "Bezbednost na prvom signalu",
+      pulseCardBTitle: "Bezbednost na prvom mestu",
       pulseCardBDescription:
         "Plan puta, ključne informacije i logistika grupe ostaju sinhronizovani kako bi putnici imali sigurno iskustvo.",
       pulseCardCTitle: "Jasne cene i termini",
@@ -311,10 +353,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       focusC: "Ekskurzije za decu sa visokim standardima bezbednosti i sadržaja.",
       modelTitle: "Jedna platforma za kompletnu prodaju",
       modelDescription:
-        "Sajt je postavljen kao centralno mesto za vaše aranžmane i ponude partnerskih agencija. Integracija API poziva i real-time osvežavanja je vec predvidena u strukturi sistema.",
+        "Na jednom mestu predstavljamo vase premium programe i odabrane partnerske ponude, uz jasne informacije, brzu pretragu i iskustvo koje putniku uliva sigurnost.",
       modelA: "Vaši aranžmani i putovanja na jednom mestu",
       modelB: "Agregacija ponuda drugih agencija uz provizijsku prodaju",
-      modelC: "Spremno za automatsko povlacenje i ažuriranje podataka",
+      modelC: "Brza i transparentna odluka pri izboru putovanja",
     },
     about: {
       badge: "Ko smo mi",
@@ -352,7 +394,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       message: "Opis upita",
       consent: "Saglasan/na sam da me kontaktirate u vezi sa ovim upitom.",
       submit: "Pošalji upit",
-      success: "Hvala. Upit je zabeležen i spreman za backend slanje.",
+      success: "Hvala. Upit je uspesno poslat. Nas tim vam se javlja u najkracem roku.",
       requiredError: "Popunite obavezna polja i oznacite saglasnost.",
       emailError: "Unesite ispravnu email adresu.",
       officeLabel: "Adresa",
@@ -368,7 +410,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       badge: "Agregator ponuda",
       title: "Kompletna ponuda na jednom mestu",
       description:
-        "Ovde objedinjavate sopstvene programe i ponude partnerskih agencija. Stranica je spremna za real-time sinhronizaciju cim API integracije budu dostupne.",
+        "Ovde objedinjavamo sopstvene programe i partnerske ponude kako biste na jednom mestu imali pregled destinacija, cena i termina bez lutanja kroz vise sajtova.",
       filterLabel: "Filter po destinaciji",
       filterPlaceholder: "Na primer: Rim",
       metricSources: "Izvori",
@@ -401,7 +443,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       noResults: "Nema rezultata za uneti pojam.",
       readyTitle: "Spremno za proširenje",
       readyDescription:
-        "Model stranice je spreman za automatsko dodavanje destinacija iz više izvora podataka.",
+        "Svaka destinacija je predstavljena jasno i pregledno, tako da putnik odmah vidi sta je dostupno i kako da nastavi ka rezervaciji.",
     },
     arrangements: {
       badge: "Istaknuti aranžmani",
@@ -438,7 +480,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       portalTitle: "Brzi pristup vasim putovanjima.",
       portalDescription:
         "Prijavite se ili otvorite nalog i lako pratite ponude, planove putovanja i brzu komunikaciju sa nasim timom.",
-      matrixLabel: "Status matrice",
+      matrixLabel: "Status naloga",
       activeSession: "Aktivna sesija",
       awaitingAccess: "Ceka autentifikaciju",
       sessionReady: "Sesija je spremna za nastavak.",
@@ -448,7 +490,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       featureExperience: "Brz pristup najtrazenijim destinacijama i aktuelnim ponudama.",
       featureControl: "Laka komunikacija sa agencijom i pregled podataka na jednom mestu.",
       signInTitle: "Prijava",
-      signInDescription: "Pristup korisnickom nalogu i administraciji.",
+      signInDescription: "Pristup korisnickom nalogu.",
       signUpTitle: "Registracija",
       signUpDescription: "Kreirajte nalog i sacuvajte omiljena putovanja.",
       firstName: "Ime",
@@ -497,6 +539,48 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       signIn: "Prijava",
       optional: "Opciono",
     },
+    settings: {
+      title: "Podešavanja sajta",
+      description: "Radno vreme, kontakt podaci i društvene mreže.",
+      workingHours: "Radno vreme",
+      address: "Adresa",
+      phone: "Telefon",
+      email: "Email",
+      instagramUrl: "Instagram URL",
+      save: "Sačuvaj",
+      saving: "Čuvanje...",
+      saved: "Podešavanja su sačuvana.",
+    },
+    tripDetail: {
+      price: "Cena",
+      nights: "Noćenja",
+      days: "Dana",
+      departure: "Polazak",
+      returnLabel: "Povratak",
+      departureCity: "Grad polaska",
+      transport: "Prevoz",
+      hotel: "Hotel",
+      deposit: "Depozit",
+      depositDeadline: "Rok za uplatu",
+      itinerary: "Itinerer",
+      included: "Uključeno u cenu",
+      notIncluded: "Nije uključeno",
+      contactCta: "Pošalji upit za ovaj aranžman",
+      back: "Nazad na aranžmane",
+      featured: "Istaknuto",
+      statusActive: "Aktivan",
+      statusUpcoming: "Uskoro",
+      statusCompleted: "Završen",
+      bus: "Autobus",
+      plane: "Avion",
+      car: "Automobil",
+      train: "Voz",
+      allTrips: "Svi aranžmani",
+      filterByStatus: "Filtriraj po statusu",
+      search: "Pretraga",
+      searchPlaceholder: "Pretraži aranžmane...",
+      noTrips: "Trenutno nema dostupnih aranžmana.",
+    },
   },
   en: {
     nav: {
@@ -505,7 +589,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trips: "Trips",
       arrangements: "Packages",
       religiousTourism: "Religious Tourism",
-      offers: "Offers",
+      countries: "Countries",
       about: "About",
       contact: "Contact",
       signIn: "Sign In",
@@ -546,13 +630,13 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       metricFocus: "Core focus: religious tourism",
       metricPartners: "Planned 15+ partner agencies",
       pulseBadge: "Why travelers choose ABLux",
-      pulseTitle: "4 reasons ABLux feels out of this world",
+      pulseTitle: "4 reasons travelers choose ABLux",
       pulseDescription:
         "From first idea to return journey, every step is optimized for clarity, speed, and full traveler confidence.",
       pulseCardATitle: "Carefully planned routes",
       pulseCardADescription:
         "Religious and premium destinations are selected by program quality, travel rhythm, and trusted local partners.",
-      pulseCardBTitle: "Safety on first signal",
+      pulseCardBTitle: "Safety first",
       pulseCardBDescription:
         "Routes, live trip details, and group logistics stay synchronized to keep every traveler secure and informed.",
       pulseCardCTitle: "Clear prices and timelines",
@@ -567,10 +651,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       focusC: "Children excursions with strong safety and content standards.",
       modelTitle: "One platform for complete sales",
       modelDescription:
-        "The website is built as a central hub for your own packages and partner agency offers. API integrations and real-time updates are already considered in the system structure.",
+        "A single, high-conversion hub for your own premium packages and selected partner offers, designed for clarity, trust, and fast traveler decisions.",
       modelA: "Your own trips and packages in one place",
       modelB: "Aggregated partner offers with commission-based sales",
-      modelC: "Ready for automated data pull and live updates",
+      modelC: "Fast and transparent traveler decision flow",
     },
     about: {
       badge: "Who we are",
@@ -608,7 +692,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       message: "Inquiry details",
       consent: "I agree to be contacted regarding this inquiry.",
       submit: "Send inquiry",
-      success: "Thank you. The inquiry is recorded and ready for backend delivery.",
+      success: "Thank you. Your inquiry has been sent successfully. Our team will contact you shortly.",
       requiredError: "Please fill all required fields and accept consent.",
       emailError: "Please enter a valid email address.",
       officeLabel: "Address",
@@ -624,7 +708,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       badge: "Offer aggregator",
       title: "Complete offer in one place",
       description:
-        "Combine your own programs with partner agency offers. This page is ready for real-time sync as soon as API integrations are available.",
+        "Combine your own programs with selected partner offers so travelers can compare destinations, pricing, and departures in one clear board.",
       filterLabel: "Destination filter",
       filterPlaceholder: "Example: Rome",
       metricSources: "Sources",
@@ -657,7 +741,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       noResults: "No matches for your search.",
       readyTitle: "Ready to scale",
       readyDescription:
-        "The page model is prepared for automatic destination expansion from multiple data sources.",
+        "Each destination is presented in a clear conversion flow so visitors can quickly discover options and continue toward booking.",
     },
     arrangements: {
       badge: "Featured packages",
@@ -694,7 +778,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       portalTitle: "Fast access to your next trip.",
       portalDescription:
         "Sign in or create your account to track offers, plan your journey, and stay connected with our travel team.",
-      matrixLabel: "Matrix status",
+      matrixLabel: "Account status",
       activeSession: "Active session",
       awaitingAccess: "Awaiting authentication",
       sessionReady: "Session is ready to continue.",
@@ -704,7 +788,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       featureExperience: "Quick access to featured destinations and active offers.",
       featureControl: "Easy communication with our team and your details in one place.",
       signInTitle: "Sign In",
-      signInDescription: "Access your account and admin features.",
+      signInDescription: "Access your account.",
       signUpTitle: "Sign Up",
       signUpDescription: "Create an account and save your favorite trips.",
       firstName: "First name",
@@ -753,6 +837,47 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       signIn: "Sign In",
       optional: "Optional",
     },
+    settings: {
+      title: "Site Settings",
+      description: "Working hours, contact info, and social media.",
+      workingHours: "Working hours",
+      address: "Address",
+      phone: "Phone",
+      email: "Email",
+      instagramUrl: "Instagram URL",
+      save: "Save",
+      saving: "Saving...",
+      saved: "Settings saved.",
+    },
+    tripDetail: {
+      price: "Price",
+      nights: "Nights",
+      days: "Days",
+      departure: "Departure",
+      returnLabel: "Return",
+      departureCity: "Departure city",
+      transport: "Transport",
+      hotel: "Hotel",
+      deposit: "Deposit",
+      depositDeadline: "Deposit deadline",
+      itinerary: "Itinerary",
+      included: "Included",
+      notIncluded: "Not included",
+      contactCta: "Send inquiry for this trip",
+      back: "Back to packages",
+      featured: "Featured",
+      statusActive: "Active",
+      statusUpcoming: "Upcoming",
+      statusCompleted: "Completed",
+      bus: "Bus",
+      plane: "Plane",
+      car: "Car",
+      train: "Train",
+      allTrips: "All packages",
+      filterByStatus: "Filter by status",
+      search: "Search",
+      searchPlaceholder: "Search packages...",
+      noTrips: "No packages available at the moment.",
+    },
   },
 };
-

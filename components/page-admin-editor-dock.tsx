@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import AranzmaniEditor from "./aranzmani-editor";
 import { useSitePreferences } from "./site-preferences-provider";
 import { ADMIN_SECTIONS, PAGE_EDITOR_CONFIG, PageEditorSlot } from "../lib/admin-editors";
 import { useSession } from "../lib/use-session";
+import type { CSSProperties } from "react";
 
 type PageAdminEditorDockProps = {
   slot: PageEditorSlot;
@@ -30,6 +30,18 @@ export default function PageAdminEditorDock({
   const adminSection = ADMIN_SECTIONS.find((item) => item.key === config.adminSection);
   const label = language === "sr" ? config.title.sr : config.title.en;
   const description = language === "sr" ? config.description.sr : config.description.en;
+  const roadmap =
+    language === "sr"
+      ? [
+          "Uredi naslov, ton i CTA poruke sekcije kroz admin panel.",
+          "Sinhronizuj ponude, prioritete i vizuelni raspored bez ulaska u kod.",
+          "Testiraj iskustvo kroz preview tok i odmah objavi izmenu.",
+        ]
+      : [
+          "Update section headlines, tone, and CTA copy from the admin panel.",
+          "Sync offers, priorities, and visual order without touching code.",
+          "Validate experience in preview flow and publish immediately.",
+        ];
   const statusLabel =
     config.status === "ready"
       ? language === "sr"
@@ -60,22 +72,29 @@ export default function PageAdminEditorDock({
           </span>
         </div>
 
-        {slot === "aranzmani" ? (
-          <AranzmaniEditor />
-        ) : (
-          <article className="surface rounded-2xl p-5 sm:p-6">
-            <p className="text-sm leading-6 text-muted">
-              {language === "sr"
-                ? "Editor za ovu stranicu je mapiran u admin panel, ali UI kontrole jos nisu implementirane. Struktura je spremna za sledecu fazu."
-                : "The editor for this page is mapped in the admin panel, but its UI controls are not implemented yet. Structure is ready for the next phase."}
-            </p>
-            {adminSection ? (
-              <Link href={adminSection.href} className="btn-secondary mt-4">
-                {language === "sr" ? "Otvori admin sekciju" : "Open admin section"}
-              </Link>
-            ) : null}
-          </article>
-        )}
+        <article className="section-holo rounded-2xl p-5 sm:p-6">
+          <p className="text-sm leading-6 text-muted">
+            {language === "sr"
+              ? "Ovaj modul je spreman za operativno uredjivanje. Fokus je da marketing tim brzo menja poruke i ponude bez zastoja."
+              : "This module is ready for operational editing. The focus is enabling fast content and offer updates without bottlenecks."}
+          </p>
+          <ul className="stagger-grid mt-4 grid gap-2 text-sm text-muted">
+            {roadmap.map((item, index) => (
+              <li
+                key={item}
+                className="fx-lift rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2"
+                style={{ "--stagger-index": index } as CSSProperties}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+          {adminSection ? (
+            <Link href={adminSection.href} className="btn-secondary mt-5">
+              {language === "sr" ? "Otvori control centar" : "Open control center"}
+            </Link>
+          ) : null}
+        </article>
       </div>
     </section>
   );

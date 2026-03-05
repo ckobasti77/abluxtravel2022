@@ -3,6 +3,7 @@
 import { ReactNode, useEffect, useMemo } from "react";
 import { ConvexProvider, ConvexReactClient, useMutation } from "convex/react";
 import { SitePreferencesProvider } from "../components/site-preferences-provider";
+import { SettingsProvider } from "../lib/use-settings";
 import { api } from "../convex/_generated/api";
 
 type ProvidersProps = {
@@ -36,7 +37,9 @@ export default function Providers({ children }: ProvidersProps) {
     <SitePreferencesProvider>
       <ConvexProvider client={convex}>
         <AdminBootstrap />
-        {children}
+        <SettingsProvider>
+          {children}
+        </SettingsProvider>
       </ConvexProvider>
     </SitePreferencesProvider>
   );

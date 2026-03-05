@@ -1,10 +1,10 @@
-﻿export type SiteNavItem = {
+export type SiteNavItem = {
   key:
     | "home"
     | "trips"
     | "arrangements"
     | "religiousTourism"
-    | "offers"
+    | "countries"
     | "about"
     | "contact";
   href: string;
@@ -15,8 +15,7 @@ export const SITE_NAV_ITEMS: SiteNavItem[] = [
   { key: "trips", href: "/putovanja" },
   { key: "arrangements", href: "/aranzmani" },
   { key: "religiousTourism", href: "/verski-turizam" },
-  { key: "offers", href: "/ponuda" },
+  { key: "countries", href: "/zemlje" },
   { key: "about", href: "/o-nama" },
   { key: "contact", href: "/kontakt" },
 ];
-

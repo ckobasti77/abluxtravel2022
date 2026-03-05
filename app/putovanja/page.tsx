@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
@@ -22,7 +22,7 @@ export default function PutovanjaPage() {
               subtitle: "7 dana / letovanje / više polazaka",
               badge: "Porodicno",
               copy: "Plaže, ostrva i aranžmani prilagodeni razlicitim budžetima.",
-              videoUrl: "/videos/amalfi.mp4",
+              videoUrl: "",
             },
             {
               id: "italija",
@@ -30,7 +30,7 @@ export default function PutovanjaPage() {
               subtitle: "5 dana / gradske ture / premium opcije",
               badge: "City break",
               copy: "Rim, Milano, Firenca i pažljivo planirane kulturne ture.",
-              videoUrl: "/videos/cappadocia.mp4",
+              videoUrl: "",
             },
             {
               id: "turska",
@@ -38,7 +38,7 @@ export default function PutovanjaPage() {
               subtitle: "6 dana / Istanbul + dodatni program",
               badge: "Popularno",
               copy: "Spoj istorije, gastronomije i modernih putnickih sadržaja.",
-              videoUrl: "/videos/iceland.mp4",
+              videoUrl: "",
             },
           ]
         : [
@@ -48,7 +48,7 @@ export default function PutovanjaPage() {
               subtitle: "7 days / summer vacation / multiple departures",
               badge: "Family",
               copy: "Beaches, islands, and packages adapted to multiple budgets.",
-              videoUrl: "/videos/amalfi.mp4",
+              videoUrl: "",
             },
             {
               id: "italy",
@@ -56,7 +56,7 @@ export default function PutovanjaPage() {
               subtitle: "5 days / city tours / premium options",
               badge: "City break",
               copy: "Rome, Milan, Florence, and carefully planned cultural tours.",
-              videoUrl: "/videos/cappadocia.mp4",
+              videoUrl: "",
             },
             {
               id: "turkey",
@@ -64,7 +64,7 @@ export default function PutovanjaPage() {
               subtitle: "6 days / Istanbul + additional program",
               badge: "Popular",
               copy: "A blend of history, gastronomy, and modern travel experiences.",
-              videoUrl: "/videos/iceland.mp4",
+              videoUrl: "",
             },
           ],
     [language]
@@ -94,7 +94,7 @@ export default function PutovanjaPage() {
       </section>
 
       <section className="mt-8 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-        <article className="surface rounded-2xl p-5">
+        <article className="section-holo p-5">
           <label htmlFor="trip-search" className="text-sm font-semibold">
             {dictionary.trips.searchLabel}
           </label>
@@ -107,7 +107,7 @@ export default function PutovanjaPage() {
           />
         </article>
 
-        <article className="surface rounded-2xl p-5">
+        <article className="section-holo p-5">
           <h2 className="text-xl font-semibold">{dictionary.trips.readyTitle}</h2>
           <p className="mt-3 text-sm leading-6 text-muted">{dictionary.trips.readyDescription}</p>
         </article>
@@ -115,13 +115,17 @@ export default function PutovanjaPage() {
 
       <section className="mt-6">
         {filteredSlides.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {filteredSlides.map((slide) => {
+          <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredSlides.map((slide, index) => {
               const countrySlug = toCountrySlug(slide.title) || toCountrySlug(slide.id);
               const href = countrySlug ? `/putovanja/${countrySlug}` : "/putovanja";
 
               return (
-                <article key={slide.id} className="surface overflow-hidden rounded-3xl">
+                <article
+                  key={slide.id}
+                  className="surface fx-lift overflow-hidden rounded-3xl"
+                  style={{ "--stagger-index": index } as CSSProperties}
+                >
                   <div className="relative h-52 w-full overflow-hidden">
                     {slide.videoUrl ? (
                       <video

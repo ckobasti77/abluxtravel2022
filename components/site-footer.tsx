@@ -13,6 +13,7 @@ import {
   FaRegClock,
 } from "react-icons/fa6";
 import { SITE_NAV_ITEMS } from "../lib/site-nav";
+import { useSettings } from "../lib/use-settings";
 import { useSitePreferences } from "./site-preferences-provider";
 
 type FooterContactItem = {
@@ -30,6 +31,7 @@ type FooterNavItem = {
 
 export default function SiteFooter() {
   const { dictionary, language, theme } = useSitePreferences();
+  const settings = useSettings();
   const currentYear = new Date().getFullYear();
   const logoSrc = theme === "dark" ? "/logo-dark.png" : "/logo-light.png";
   const logoSize = theme === "dark" ? { width: 500, height: 500 } : { width: 301, height: 318 };
@@ -66,19 +68,19 @@ export default function SiteFooter() {
   const mapHref = useMemo(
     () =>
       `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        dictionary.contact.officeValue
+        settings.address
       )}`,
-    [dictionary.contact.officeValue]
+    [settings.address]
   );
 
   const phoneHref = useMemo(
-    () => `tel:${dictionary.contact.phoneValue.replace(/[^+\d]/g, "")}`,
-    [dictionary.contact.phoneValue]
+    () => `tel:${settings.phone.replace(/[^+\d]/g, "")}`,
+    [settings.phone]
   );
 
   const emailHref = useMemo(
-    () => `mailto:${dictionary.contact.emailValue}`,
-    [dictionary.contact.emailValue]
+    () => `mailto:${settings.email}`,
+    [settings.email]
   );
 
   const contactItems = useMemo<FooterContactItem[]>(
@@ -86,37 +88,37 @@ export default function SiteFooter() {
       {
         icon: FaLocationDot,
         label: dictionary.contact.officeLabel,
-        value: dictionary.contact.officeValue,
+        value: settings.address,
         href: mapHref,
         external: true,
       },
       {
         icon: FaEnvelope,
         label: dictionary.contact.emailLabel,
-        value: dictionary.contact.emailValue,
+        value: settings.email,
         href: emailHref,
       },
       {
         icon: FaPhoneVolume,
         label: dictionary.contact.phoneLabel,
-        value: dictionary.contact.phoneValue,
+        value: settings.phone,
         href: phoneHref,
       },
       {
         icon: FaRegClock,
         label: dictionary.contact.hoursLabel,
-        value: dictionary.contact.hoursValue,
+        value: settings.workingHours,
       },
     ],
     [
       dictionary.contact.emailLabel,
-      dictionary.contact.emailValue,
       dictionary.contact.hoursLabel,
-      dictionary.contact.hoursValue,
       dictionary.contact.officeLabel,
-      dictionary.contact.officeValue,
       dictionary.contact.phoneLabel,
-      dictionary.contact.phoneValue,
+      settings.address,
+      settings.email,
+      settings.phone,
+      settings.workingHours,
       emailHref,
       mapHref,
       phoneHref,
@@ -153,7 +155,7 @@ export default function SiteFooter() {
               </h2>
               <p className="mt-2 text-xs text-muted">{copy.response}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Link href="/ponuda" className="site-footer-action">
+                <Link href="/aranzmani" className="site-footer-action">
                   <span className="site-footer-action__title">{dictionary.home.ctaOffers}</span>
                   <span className="site-footer-action__meta">{dictionary.offers.badge}</span>
                   <FaArrowRightLong aria-hidden className="site-footer-action__icon" />

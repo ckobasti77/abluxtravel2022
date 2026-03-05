@@ -1,9 +1,20 @@
-﻿"use client";
+"use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import type { FormEvent, ReactNode } from "react";
+import { useMemo, useState } from "react";
+import {
+  HiOutlineClock,
+  HiOutlineEnvelope,
+  HiOutlineMapPin,
+  HiOutlinePaperAirplane,
+  HiOutlinePhone,
+  HiOutlineSparkles,
+} from "react-icons/hi2";
 import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
+import { useSettings } from "../../lib/use-settings";
+import styles from "./page.module.css";
 
 type ContactFormValues = {
   fullName: string;
@@ -29,12 +40,60 @@ const initialValues: ContactFormValues = {
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+type StatusState = { type: "success" | "error"; text: string } | null;
+
+type ContactSignalCardProps = {
+  icon: ReactNode;
+  label: string;
+  value: string;
+  href?: string;
+  isExternal?: boolean;
+  tone: "cyan" | "violet" | "blue" | "amber";
+};
+
+const cx = (...values: Array<string | undefined | false>) =>
+  values.filter(Boolean).join(" ");
+
+function ContactSignalCard({
+  icon,
+  label,
+  value,
+  href,
+  isExternal = false,
+  tone,
+}: ContactSignalCardProps) {
+  const cardClassName = cx(styles.signalCard, styles[`tone${tone}`], "fx-lift");
+  const content = (
+    <>
+      <span className={styles.signalIcon}>{icon}</span>
+      <span className={styles.signalMeta}>
+        <span className={styles.signalLabel}>{label}</span>
+        <span className={styles.signalValue}>{value}</span>
+      </span>
+    </>
+  );
+
+  if (!href) {
+    return <article className={cardClassName}>{content}</article>;
+  }
+
+  return (
+    <a
+      className={cardClassName}
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
+    >
+      {content}
+    </a>
+  );
+}
+
 export default function KontaktPage() {
   const { dictionary } = useSitePreferences();
+  const settings = useSettings();
   const [form, setForm] = useState<ContactFormValues>(initialValues);
-  const [status, setStatus] = useState<{ type: "success" | "error"; text: string } | null>(
-    null
-  );
+  const [status, setStatus] = useState<StatusState>(null);
 
   const travelOptions = useMemo(
     () => [
@@ -47,15 +106,83 @@ export default function KontaktPage() {
     [dictionary.contact]
   );
 
+  const selectedTravelLabel = useMemo(() => {
+    const selected = travelOptions.find((option) => option.value === form.travelType);
+    return selected?.label ?? dictionary.contact.travelTypePlaceholder;
+  }, [dictionary.contact.travelTypePlaceholder, form.travelType, travelOptions]);
+
+  const contactSignals = useMemo(() => {
+    const phoneHref = `tel:${settings.phone.replace(/[^\d+]/g, "")}`;
+    const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      settings.address
+    )}`;
+
+    return [
+      {
+        key: "office",
+        icon: <HiOutlineMapPin aria-hidden />,
+        label: dictionary.contact.officeLabel,
+        value: settings.address,
+        href: mapHref,
+        isExternal: true,
+        tone: "cyan" as const,
+      },
+      {
+        key: "email",
+        icon: <HiOutlineEnvelope aria-hidden />,
+        label: dictionary.contact.emailLabel,
+        value: settings.email,
+        href: `mailto:${settings.email}`,
+        tone: "violet" as const,
+      },
+      {
+        key: "phone",
+        icon: <HiOutlinePhone aria-hidden />,
+        label: dictionary.contact.phoneLabel,
+        value: settings.phone,
+        href: phoneHref,
+        tone: "blue" as const,
+      },
+      {
+        key: "hours",
+        icon: <HiOutlineClock aria-hidden />,
+        label: dictionary.contact.hoursLabel,
+        value: settings.workingHours,
+        tone: "amber" as const,
+      },
+    ];
+  }, [
+    dictionary.contact.emailLabel,
+    dictionary.contact.hoursLabel,
+    dictionary.contact.officeLabel,
+    dictionary.contact.phoneLabel,
+    settings.address,
+    settings.email,
+    settings.phone,
+    settings.workingHours,
+  ]);
+
+  const updateField = <Key extends keyof ContactFormValues>(
+    key: Key,
+    value: ContactFormValues[Key]
+  ) => {
+    setForm((previous) => ({ ...previous, [key]: value }));
+    setStatus(null);
+  };
+
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!form.fullName || !form.email || !form.message || !form.consent) {
+    const fullName = form.fullName.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+
+    if (!fullName || !email || !message || !form.consent) {
       setStatus({ type: "error", text: dictionary.contact.requiredError });
       return;
     }
 
-    if (!emailRegex.test(form.email)) {
+    if (!emailRegex.test(email)) {
       setStatus({ type: "error", text: dictionary.contact.emailError });
       return;
     }
@@ -65,153 +192,202 @@ export default function KontaktPage() {
   };
 
   return (
-    <AlienShell className="site-fade">
-      <section className="space-y-5">
-        <span className="pill">{dictionary.contact.badge}</span>
-        <h1 className="max-w-3xl text-4xl font-semibold sm:text-5xl">
-          {dictionary.contact.title}
-        </h1>
-        <p className="max-w-2xl text-base leading-7 text-muted">
-          {dictionary.contact.description}
-        </p>
+    <AlienShell className={cx("site-fade", styles.page)}>
+      <section className={styles.hero}>
+        <div className={styles.heroAtmosphere} aria-hidden />
+        <span className={cx("pill", styles.heroBadge)}>{dictionary.contact.badge}</span>
+        <h1 className={styles.heroTitle}>{dictionary.contact.title}</h1>
+        <p className={styles.heroDescription}>{dictionary.contact.description}</p>
+        <ul className={styles.heroSignals}>
+          {travelOptions.map((option) => (
+            <li key={option.value} className={styles.heroSignal}>
+              {option.label}
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <article className="surface rounded-3xl p-5 sm:p-6">
-          <h2 className="text-xl font-semibold">{dictionary.contact.formTitle}</h2>
+      <section className={styles.grid}>
+        <article className={cx(styles.formCard, "section-holo")}>
+          <header className={styles.cardHeader}>
+            <span className={styles.cardIcon} aria-hidden>
+              <HiOutlinePaperAirplane />
+            </span>
+            <div>
+              <h2 className={styles.cardTitle}>{dictionary.contact.formTitle}</h2>
+              <p className={styles.cardDescription}>{selectedTravelLabel}</p>
+            </div>
+          </header>
 
-          <form className="mt-5 grid gap-4" onSubmit={onSubmit}>
-            <input
-              type="text"
-              className="control"
-              placeholder={dictionary.contact.fullName}
-              value={form.fullName}
-              onChange={(event) =>
-                setForm((previous) => ({ ...previous, fullName: event.target.value }))
-              }
-            />
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="email"
-                className="control"
-                placeholder={dictionary.contact.email}
-                value={form.email}
-                onChange={(event) =>
-                  setForm((previous) => ({ ...previous, email: event.target.value }))
-                }
-              />
-              <input
-                type="text"
-                className="control"
-                placeholder={dictionary.contact.phone}
-                value={form.phone}
-                onChange={(event) =>
-                  setForm((previous) => ({ ...previous, phone: event.target.value }))
-                }
-              />
+          <form className={styles.form} onSubmit={onSubmit} noValidate>
+            <div className={styles.fieldRowSingle}>
+              <label className={styles.field} htmlFor="kontakt-full-name">
+                <span className={styles.fieldLabel}>{dictionary.contact.fullName}</span>
+                <input
+                  id="kontakt-full-name"
+                  type="text"
+                  className={styles.input}
+                  placeholder={dictionary.contact.fullName}
+                  value={form.fullName}
+                  required
+                  autoComplete="name"
+                  onChange={(event) => updateField("fullName", event.target.value)}
+                />
+              </label>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <select
-                className="control"
-                value={form.travelType}
-                onChange={(event) =>
-                  setForm((previous) => ({ ...previous, travelType: event.target.value }))
-                }
-              >
-                <option value="">{dictionary.contact.travelTypePlaceholder}</option>
-                {travelOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="number"
-                min={1}
-                className="control"
-                placeholder={dictionary.contact.travelers}
-                value={form.travelers}
-                onChange={(event) =>
-                  setForm((previous) => ({ ...previous, travelers: event.target.value }))
-                }
-              />
+            <div className={styles.fieldRowDouble}>
+              <label className={styles.field} htmlFor="kontakt-email">
+                <span className={styles.fieldLabel}>{dictionary.contact.email}</span>
+                <input
+                  id="kontakt-email"
+                  type="email"
+                  className={styles.input}
+                  placeholder={dictionary.contact.email}
+                  value={form.email}
+                  required
+                  autoComplete="email"
+                  onChange={(event) => updateField("email", event.target.value)}
+                />
+              </label>
+              <label className={styles.field} htmlFor="kontakt-phone">
+                <span className={styles.fieldLabel}>{dictionary.contact.phone}</span>
+                <input
+                  id="kontakt-phone"
+                  type="tel"
+                  className={styles.input}
+                  placeholder={dictionary.contact.phone}
+                  value={form.phone}
+                  autoComplete="tel"
+                  onChange={(event) => updateField("phone", event.target.value)}
+                />
+              </label>
             </div>
 
-            <input
-              type="month"
-              className="control"
-              aria-label={dictionary.contact.month}
-              value={form.month}
-              onChange={(event) =>
-                setForm((previous) => ({ ...previous, month: event.target.value }))
-              }
-            />
+            <div className={styles.fieldRowDouble}>
+              <label className={styles.field} htmlFor="kontakt-travel-type">
+                <span className={styles.fieldLabel}>{dictionary.contact.travelType}</span>
+                <select
+                  id="kontakt-travel-type"
+                  className={styles.select}
+                  value={form.travelType}
+                  onChange={(event) => updateField("travelType", event.target.value)}
+                >
+                  <option value="">{dictionary.contact.travelTypePlaceholder}</option>
+                  {travelOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className={styles.field} htmlFor="kontakt-travelers">
+                <span className={styles.fieldLabel}>{dictionary.contact.travelers}</span>
+                <input
+                  id="kontakt-travelers"
+                  type="number"
+                  min={1}
+                  className={styles.input}
+                  placeholder={dictionary.contact.travelers}
+                  value={form.travelers}
+                  onChange={(event) => updateField("travelers", event.target.value)}
+                />
+              </label>
+            </div>
 
-            <textarea
-              className="control"
-              placeholder={dictionary.contact.message}
-              value={form.message}
-              onChange={(event) =>
-                setForm((previous) => ({ ...previous, message: event.target.value }))
-              }
-            />
+            <div className={styles.fieldRowSingle}>
+              <label className={styles.field} htmlFor="kontakt-month">
+                <span className={styles.fieldLabel}>{dictionary.contact.month}</span>
+                <input
+                  id="kontakt-month"
+                  type="month"
+                  className={styles.input}
+                  value={form.month}
+                  onChange={(event) => updateField("month", event.target.value)}
+                />
+              </label>
+            </div>
 
-            <label className="flex items-start gap-3 text-sm text-muted">
+            <div className={styles.fieldRowSingle}>
+              <label className={styles.field} htmlFor="kontakt-message">
+                <span className={styles.fieldLabel}>{dictionary.contact.message}</span>
+                <textarea
+                  id="kontakt-message"
+                  className={styles.textarea}
+                  placeholder={dictionary.contact.message}
+                  value={form.message}
+                  required
+                  onChange={(event) => updateField("message", event.target.value)}
+                />
+              </label>
+            </div>
+
+            <label className={styles.checkboxRow} htmlFor="kontakt-consent">
               <input
+                id="kontakt-consent"
                 type="checkbox"
                 checked={form.consent}
-                onChange={(event) =>
-                  setForm((previous) => ({ ...previous, consent: event.target.checked }))
-                }
-                className="mt-1"
+                onChange={(event) => updateField("consent", event.target.checked)}
               />
               <span>{dictionary.contact.consent}</span>
             </label>
 
             {status ? (
               <p
-                className={`rounded-xl border px-4 py-3 text-sm ${
-                  status.type === "success"
-                    ? "border-emerald-400/40 bg-[var(--success-soft)]"
-                    : "border-rose-400/40 bg-rose-500/10"
-                }`}
+                role="status"
+                className={cx(
+                  styles.status,
+                  status.type === "success" ? styles.statusSuccess : styles.statusError
+                )}
               >
                 {status.text}
               </p>
             ) : null}
 
-            <button type="submit" className="btn-primary w-full sm:w-fit">
-              {dictionary.contact.submit}
+            <button type="submit" className={cx("btn-primary", styles.submitButton)}>
+              <HiOutlineSparkles aria-hidden />
+              <span>{dictionary.contact.submit}</span>
             </button>
           </form>
         </article>
 
-        <article className="surface rounded-3xl p-5 sm:p-6">
-          <h2 className="text-xl font-semibold">{dictionary.contact.infoTitle}</h2>
-          <div className="mt-5 space-y-4 text-sm leading-6 text-muted">
-            <p>
-              <strong className="text-[var(--text)]">{dictionary.contact.officeLabel}:</strong>{" "}
-              {dictionary.contact.officeValue}
-            </p>
-            <p>
-              <strong className="text-[var(--text)]">{dictionary.contact.emailLabel}:</strong>{" "}
-              {dictionary.contact.emailValue}
-            </p>
-            <p>
-              <strong className="text-[var(--text)]">{dictionary.contact.phoneLabel}:</strong>{" "}
-              {dictionary.contact.phoneValue}
-            </p>
-            <p>
-              <strong className="text-[var(--text)]">{dictionary.contact.hoursLabel}:</strong>{" "}
-              {dictionary.contact.hoursValue}
-            </p>
+        <aside className={cx(styles.signalPanel, "section-holo")}>
+          <header className={styles.cardHeader}>
+            <span className={styles.cardIcon} aria-hidden>
+              <HiOutlineSparkles />
+            </span>
+            <div>
+              <h2 className={styles.cardTitle}>{dictionary.contact.infoTitle}</h2>
+              <p className={styles.cardDescription}>{dictionary.contact.travelTypePlaceholder}</p>
+            </div>
+          </header>
+
+          <div className={styles.signalGrid}>
+            {contactSignals.map((signal) => (
+              <ContactSignalCard
+                key={signal.key}
+                icon={signal.icon}
+                label={signal.label}
+                value={signal.value}
+                href={signal.href}
+                isExternal={signal.isExternal}
+                tone={signal.tone}
+              />
+            ))}
           </div>
-        </article>
+
+          <article className={styles.holoCard}>
+            <h3 className={styles.holoTitle}>{dictionary.contact.travelType}</h3>
+            <ul className={styles.holoList}>
+              {travelOptions.map((option) => (
+                <li key={`holo-${option.value}`}>{option.label}</li>
+              ))}
+            </ul>
+          </article>
+        </aside>
       </section>
 
-      <PageAdminEditorDock slot="kontakt" className="mt-10" />
+      <PageAdminEditorDock slot="about" className="mt-10" />
     </AlienShell>
   );
 }
-

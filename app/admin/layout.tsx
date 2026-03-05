@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import AlienShell from "../../components/alien-shell";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import { ADMIN_SECTIONS } from "../../lib/admin-editors";
@@ -16,6 +16,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const { dictionary, language } = useSitePreferences();
   const pathname = usePathname();
   const session = useSession();
+
   const isAdmin = session?.role === "admin";
 
   if (!isAdmin) {
@@ -39,13 +40,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <section className="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-center">
         <div className="space-y-3">
           <span className="pill">
-            {language === "sr" ? "Admin Control Matrix" : "Admin Control Matrix"}
+            {language === "sr" ? "Alien admin matrix" : "Alien admin matrix"}
           </span>
-          <h1 className="text-4xl font-semibold sm:text-5xl">{dictionary.admin.title}</h1>
+          <h1 className="text-4xl font-semibold sm:text-5xl">
+            {language === "sr" ? "ABLux Admin Komanda" : "ABLux Admin Command"}
+          </h1>
           <p className="max-w-3xl text-sm leading-6 text-muted sm:text-base">
             {language === "sr"
-              ? "Centralno mesto za uredjivanje kljucnih sekcija sajta. Aranzmani editor je vec aktivan, ostale sekcije su spremne za dalje faze."
-              : "Central place to manage key website sections. Arrangements editor is active, while other sections are prepared for next phases."}
+              ? "Glavna kontrolna zona za uredjivanje stranica, ponuda i operativnih signala sajta."
+              : "Main control zone for editing pages, offers, and operational website signals."}
           </p>
         </div>
         <article className="surface rounded-2xl px-4 py-3 text-sm">
@@ -53,20 +56,37 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {language === "sr" ? "Ulogovan admin" : "Signed in admin"}
           </p>
           <p className="mt-1 font-semibold">{session?.displayName}</p>
+          <p className="text-xs text-muted">{session?.email}</p>
         </article>
       </section>
 
-      <section className="mt-7 grid gap-5 lg:grid-cols-[280px_1fr]">
+      <section className="mt-7 grid gap-5 lg:grid-cols-[300px_1fr]">
         <aside className="surface h-fit rounded-3xl p-4 lg:sticky lg:top-28">
           <p className="px-2 pb-2 text-xs uppercase tracking-[0.16em] text-muted">
-            {language === "sr" ? "Sekcije editora" : "Editor sections"}
+            {language === "sr" ? "Editor moduli" : "Editor modules"}
           </p>
           <nav className="grid gap-2">
+            <Link
+              href="/admin"
+              className={`rounded-2xl border px-3 py-3 transition ${
+                pathname === "/admin"
+                  ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                  : "border-[var(--line)] hover:border-[var(--primary)] hover:bg-[var(--primary-soft)]"
+              }`}
+            >
+              <p className="text-sm font-semibold">
+                {language === "sr" ? "Main admin page" : "Main admin page"}
+              </p>
+              <p className="mt-1 text-xs text-muted">
+                {language === "sr"
+                  ? "Ulazna komandna tabla"
+                  : "Main command dashboard"}
+              </p>
+            </Link>
             {ADMIN_SECTIONS.map((link) => {
               const label = language === "sr" ? link.label.sr : link.label.en;
               const hint = language === "sr" ? link.hint.sr : link.hint.en;
-              const active =
-                pathname === link.href || (pathname?.startsWith(link.href) ?? false);
+              const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}

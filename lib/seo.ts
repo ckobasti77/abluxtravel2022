@@ -3,19 +3,23 @@ const FALLBACK_SITE_URL = "https://www.abluxtravel2022.rs";
 export const SITE_NAME = "ABLux Travel";
 export const SITE_SHORT_NAME = "ABLux";
 export const SITE_DESCRIPTION =
-  "ABLux Travel je turisticka agencija za verski turizam, letovanja, gradska putovanja i ekskurzije.";
+  "ABLux Travel je premium turisticka agencija za verski turizam, letovanja, gradske ture i grupna putovanja sa jasnom organizacijom i sigurnim iskustvom.";
 export const SITE_KEYWORDS = [
   "ABLux Travel",
   "turisticka agencija",
   "verski turizam",
+  "hodocasca",
   "putovanja",
   "aranzmani",
   "letovanja",
+  "gradske ture",
   "ekskurzije",
+  "turisticka ponuda Srbija",
+  "premium putovanja",
   "religious tourism",
   "travel agency Serbia",
 ];
-export const DEFAULT_OG_IMAGE = "/logo-light.png";
+export const DEFAULT_OG_IMAGE = "/pocetna.avif";
 export const CONTACT_EMAIL = "info@abluxtravel2022.rs";
 export const CONTACT_PHONE = "+381111234567";
 

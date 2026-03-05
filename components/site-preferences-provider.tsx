@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   createContext,
@@ -37,57 +37,60 @@ const isLanguage = (value: string | null | undefined): value is Language =>
 const isTheme = (value: string | null | undefined): value is ThemeMode =>
   value === "light" || value === "dark";
 
-const getInitialLanguage = (): Language => {
-  if (typeof window === "undefined") {
-    return "sr";
-  }
-
-  const stored = window.localStorage.getItem(LANGUAGE_KEY);
-  if (isLanguage(stored)) {
-    return stored;
-  }
-
-  return navigator.language.toLowerCase().startsWith("sr") ? "sr" : "en";
-};
-
-const getInitialTheme = (): ThemeMode => {
-  if (typeof window === "undefined") {
-    return "dark";
-  }
-
-  const attr = document.documentElement.dataset.theme;
-  if (isTheme(attr)) {
-    return attr;
-  }
-
-  const stored = window.localStorage.getItem(THEME_KEY);
-  if (isTheme(stored)) {
-    return stored;
-  }
-
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-};
-
 type SitePreferencesProviderProps = {
   children: ReactNode;
 };
 
 export function SitePreferencesProvider({ children }: SitePreferencesProviderProps) {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage);
-  const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
+  const [language, setLanguage] = useState<Language>("sr");
+  const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
+    const storedLanguage = window.localStorage.getItem(LANGUAGE_KEY);
+    const nextLanguage = isLanguage(storedLanguage)
+      ? storedLanguage
+      : navigator.language.toLowerCase().startsWith("sr")
+        ? "sr"
+        : "en";
+
+    const attrTheme = document.documentElement.dataset.theme;
+    const storedTheme = window.localStorage.getItem(THEME_KEY);
+    const nextTheme = isTheme(attrTheme)
+      ? attrTheme
+      : isTheme(storedTheme)
+        ? storedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+
+    const timeoutId = window.setTimeout(() => {
+      setLanguage(nextLanguage);
+      setTheme(nextTheme);
+      setIsHydrated(true);
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     window.localStorage.setItem(THEME_KEY, theme);
-  }, [theme]);
+  }, [isHydrated, theme]);
 
   useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
     document.documentElement.lang = language === "sr" ? "sr-Latn" : "en";
     window.localStorage.setItem(LANGUAGE_KEY, language);
-  }, [language]);
+  }, [isHydrated, language]);
 
   const value = useMemo<SitePreferencesContextValue>(
     () => ({
@@ -116,4 +119,3 @@ export const useSitePreferences = () => {
   }
   return context;
 };
-

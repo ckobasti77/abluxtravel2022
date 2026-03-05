@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME } from "./seo";
+import { DEFAULT_OG_IMAGE, SITE_NAME } from "./seo";
 
 type PageMetadataInput = {
   title: string;
@@ -25,10 +25,14 @@ export const createPageMetadata = ({
     title: `${title} | ${SITE_NAME}`,
     description,
     url: canonical,
+    siteName: SITE_NAME,
+    locale: "sr_RS",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: `${title} | ${SITE_NAME}`,
     description,
+    images: [DEFAULT_OG_IMAGE],
   },
 });
