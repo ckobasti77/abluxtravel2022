@@ -1,0 +1,883 @@
+export type Language = "sr" | "en";
+export type ThemeMode = "light" | "dark";
+
+export type SiteDictionary = {
+  nav: {
+    brand: string;
+    home: string;
+    trips: string;
+    arrangements: string;
+    religiousTourism: string;
+    countries: string;
+    about: string;
+    contact: string;
+    signIn: string;
+    signOut: string;
+    admin: string;
+    language: string;
+    theme: string;
+    switchToLight: string;
+    switchToDark: string;
+    openMenu: string;
+    closeMenu: string;
+  };
+  footer: {
+    rights: string;
+    note: string;
+  };
+  home: {
+    badge: string;
+    title: string;
+    description: string;
+    ctaOffers: string;
+    ctaContact: string;
+    heroPrimaryCta: string;
+    heroToolkitLabel: string;
+    heroToolkitOffers: string;
+    heroToolkitArrangements: string;
+    heroToolkitReligious: string;
+    portalLabel: string;
+    portalTitle: string;
+    portalTrips: string;
+    portalTripsHint: string;
+    portalArrangements: string;
+    portalArrangementsHint: string;
+    portalReligious: string;
+    portalReligiousHint: string;
+    metricFounded: string;
+    metricFocus: string;
+    metricPartners: string;
+    pulseBadge: string;
+    pulseTitle: string;
+    pulseDescription: string;
+    pulseCardATitle: string;
+    pulseCardADescription: string;
+    pulseCardBTitle: string;
+    pulseCardBDescription: string;
+    pulseCardCTitle: string;
+    pulseCardCDescription: string;
+    pulseCardDTitle: string;
+    pulseCardDDescription: string;
+    focusTitle: string;
+    focusA: string;
+    focusB: string;
+    focusC: string;
+    modelTitle: string;
+    modelDescription: string;
+    modelA: string;
+    modelB: string;
+    modelC: string;
+  };
+  about: {
+    badge: string;
+    title: string;
+    intro: string;
+    mission: string;
+    vision: string;
+    valuesTitle: string;
+    valueA: string;
+    valueB: string;
+    valueC: string;
+  };
+  contact: {
+    badge: string;
+    title: string;
+    description: string;
+    formTitle: string;
+    infoTitle: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    travelType: string;
+    travelTypePlaceholder: string;
+    travelTypeReligious: string;
+    travelTypeSummer: string;
+    travelTypeEurope: string;
+    travelTypeExcursions: string;
+    travelTypeCustom: string;
+    travelers: string;
+    month: string;
+    message: string;
+    consent: string;
+    submit: string;
+    success: string;
+    requiredError: string;
+    emailError: string;
+    officeLabel: string;
+    officeValue: string;
+    emailLabel: string;
+    emailValue: string;
+    phoneLabel: string;
+    phoneValue: string;
+    hoursLabel: string;
+    hoursValue: string;
+  };
+  offers: {
+    badge: string;
+    title: string;
+    description: string;
+    filterLabel: string;
+    filterPlaceholder: string;
+    metricSources: string;
+    metricConnected: string;
+    metricSyncing: string;
+    metricLastUpdate: string;
+    sourcesTitle: string;
+    boardTitle: string;
+    noResults: string;
+    statusPlanned: string;
+    statusConnected: string;
+    statusSyncing: string;
+    statusPaused: string;
+    syncInterval: string;
+    lastSync: string;
+    departure: string;
+    seats: string;
+    unknown: string;
+    notSynced: string;
+    tbd: string;
+  };
+  trips: {
+    badge: string;
+    title: string;
+    description: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    openCountry: string;
+    noResults: string;
+    readyTitle: string;
+    readyDescription: string;
+  };
+  arrangements: {
+    badge: string;
+    title: string;
+    description: string;
+    active: string;
+    openOffers: string;
+    trackA: string;
+    trackB: string;
+    trackC: string;
+    signal: string;
+  };
+  religious: {
+    badge: string;
+    title: string;
+    description: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    boardTitle: string;
+    viewAllOffers: string;
+    noResults: string;
+  };
+  country: {
+    badge: string;
+    title: string;
+    description: string;
+    back: string;
+    noOffers: string;
+  };
+  auth: {
+    portalBadge: string;
+    portalTitle: string;
+    portalDescription: string;
+    matrixLabel: string;
+    activeSession: string;
+    awaitingAccess: string;
+    sessionReady: string;
+    continueButton: string;
+    nextHint: string;
+    featureSecurity: string;
+    featureExperience: string;
+    featureControl: string;
+    signInTitle: string;
+    signInDescription: string;
+    signUpTitle: string;
+    signUpDescription: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    showPassword: string;
+    hidePassword: string;
+    emailHint: string;
+    passwordHint: string;
+    firstNameTooShort: string;
+    lastNameTooShort: string;
+    invalidEmail: string;
+    passwordTooShort: string;
+    passwordMismatch: string;
+    requiredFields: string;
+    processing: string;
+    signInButton: string;
+    signUpButton: string;
+    noAccount: string;
+    hasAccount: string;
+    invalidCredentials: string;
+    userExists: string;
+    signedInAs: string;
+    roleAdmin: string;
+    roleUser: string;
+  };
+  admin: {
+    accessTitle: string;
+    accessDescription: string;
+    title: string;
+    subtitle: string;
+    slideTitle: string;
+    slideSubtitle: string;
+    slideBadge: string;
+    slideCopy: string;
+    uploadLabel: string;
+    order: string;
+    active: string;
+    save: string;
+    noFile: string;
+    uploading: string;
+    saved: string;
+    currentSlides: string;
+    signIn: string;
+    optional: string;
+  };
+  settings: {
+    title: string;
+    description: string;
+    workingHours: string;
+    address: string;
+    phone: string;
+    email: string;
+    instagramUrl: string;
+    save: string;
+    saving: string;
+    saved: string;
+  };
+  tripDetail: {
+    price: string;
+    nights: string;
+    days: string;
+    departure: string;
+    returnLabel: string;
+    departureCity: string;
+    transport: string;
+    hotel: string;
+    deposit: string;
+    depositDeadline: string;
+    itinerary: string;
+    included: string;
+    notIncluded: string;
+    contactCta: string;
+    back: string;
+    featured: string;
+    statusActive: string;
+    statusUpcoming: string;
+    statusCompleted: string;
+    bus: string;
+    plane: string;
+    car: string;
+    train: string;
+    allTrips: string;
+    filterByStatus: string;
+    search: string;
+    searchPlaceholder: string;
+    noTrips: string;
+  };
+};
+
+export const DICTIONARY: Record<Language, SiteDictionary> = {
+  sr: {
+    nav: {
+      brand: "ABLux Travel",
+      home: "Pocetna",
+      trips: "Putovanja",
+      arrangements: "Aranžmani",
+      religiousTourism: "Verski turizam",
+      countries: "Zemlje",
+      about: "O nama",
+      contact: "Kontakt",
+      signIn: "Prijava",
+      signOut: "Odjava",
+      admin: "Admin",
+      language: "Jezik",
+      theme: "Tema",
+      switchToLight: "Svetla",
+      switchToDark: "Tamna",
+      openMenu: "Otvori meni",
+      closeMenu: "Zatvori meni",
+    },
+    footer: {
+      rights: "Sva prava zadržana.",
+      note: "Verski turizam, letovanja, evropske ture i ekskurzije za decu.",
+    },
+    home: {
+      badge: "Turisticka agencija od 2022.",
+      title: "Pouzdana putovanja osmišljena do detalja.",
+      description:
+        "ABLux Travel je osnovan sa jasnom vizijom: da svako putovanje bude sigurno, sadržajno i nezaboravno iskustvo. Poseban fokus stavljamo na verski turizam, uz pažljivo izabrana letovanja, evropske gradove i ekskurzije za decu.",
+      ctaOffers: "Pregledaj kompletnu ponudu",
+      ctaContact: "Pošalji upit",
+      heroPrimaryCta: "Putuj",
+      heroToolkitLabel: "Brzi izbor putovanja",
+      heroToolkitOffers: "Kompletna ponuda",
+      heroToolkitArrangements: "Aranžmani",
+      heroToolkitReligious: "Verski turizam",
+      portalLabel: "Brzi pristup",
+      portalTitle: "Izaberi pravac putovanja",
+      portalTrips: "Putovanja",
+      portalTripsHint: "Otvorite zemlje i destinacije sa aktivnim ponudama.",
+      portalArrangements: "Aranzmani",
+      portalArrangementsHint: "Premium programi sa video pregledom i jasnim terminima.",
+      portalReligious: "Verski turizam",
+      portalReligiousHint: "Hodocasca i sveta mesta sa potpuno organizovanim rutama.",
+      metricFounded: "Godina osnivanja: 2022",
+      metricFocus: "Specijalizacija: verski turizam",
+      metricPartners: "Planirano 15+ partnerskih agencija",
+      pulseBadge: "Zašto putnici biraju ABLux",
+      pulseTitle: "4 razloga zasto putnici biraju ABLux",
+      pulseDescription:
+        "Od prve ideje do povratka sa putovanja, svaki korak je optimizovan za jasnoću, brzinu i osećaj potpune kontrole.",
+      pulseCardATitle: "Pažljivo planirane rute",
+      pulseCardADescription:
+        "Verske i premium destinacije biramo po kvalitetu programa, ritmu putovanja i reputaciji lokalnih partnera.",
+      pulseCardBTitle: "Bezbednost na prvom mestu",
+      pulseCardBDescription:
+        "Plan puta, ključne informacije i logistika grupe ostaju sinhronizovani kako bi putnici imali sigurno iskustvo.",
+      pulseCardCTitle: "Jasne cene i termini",
+      pulseCardCDescription:
+        "Transparentno prikazujemo raspoloživost, uslove i dinamiku putovanja bez skrivenih koraka ili konfuzije.",
+      pulseCardDTitle: "Podrška koja odgovara odmah",
+      pulseCardDDescription:
+        "Tim je dostupan pre, tokom i nakon putovanja uz personalizovane predloge prilagođene vašoj grupi.",
+      focusTitle: "Na šta stavljamo akcenat",
+      focusA: "Verska putovanja sa pažljivo planiranim rutama i pouzdanom organizacijom.",
+      focusB: "Letovanja i gradske ture prilagodene razlicitim budžetima i ritmu putovanja.",
+      focusC: "Ekskurzije za decu sa visokim standardima bezbednosti i sadržaja.",
+      modelTitle: "Jedna platforma za kompletnu prodaju",
+      modelDescription:
+        "Na jednom mestu predstavljamo vase premium programe i odabrane partnerske ponude, uz jasne informacije, brzu pretragu i iskustvo koje putniku uliva sigurnost.",
+      modelA: "Vaši aranžmani i putovanja na jednom mestu",
+      modelB: "Agregacija ponuda drugih agencija uz provizijsku prodaju",
+      modelC: "Brza i transparentna odluka pri izboru putovanja",
+    },
+    about: {
+      badge: "Ko smo mi",
+      title: "ABLux Travel gradi ozbiljan i dugorocan turizam.",
+      intro:
+        "ABLux Travel je turisticka agencija osnovana 2022. godine sa jasnom vizijom da putnicima pruži kvalitetna, pažljivo osmišljena i pouzdana putovanja.",
+      mission:
+        "Poseban akcenat od samog pocetka stavljamo na verski turizam, uz bogatu ponudu letovanja, putovanja u evropske gradove i organizaciju ekskurzija za decu.",
+      vision:
+        "Naš tim posveceno radi na tome da svako putovanje bude sigurno, sadržajno i nezaboravno iskustvo.",
+      valuesTitle: "Vrednosti koje pratimo",
+      valueA: "Pouzdanost i transparentna komunikacija sa putnicima.",
+      valueB: "Kvalitet programa i pažljivo planirana logistika.",
+      valueC: "Stalno unapredenje ponude kroz partnerstva i digitalizaciju.",
+    },
+    contact: {
+      badge: "Kontakt i upiti",
+      title: "Pošaljite upit za putovanje",
+      description:
+        "Popunite formu i naš tim ce vam poslati personalizovan predlog putovanja sa tacnim detaljima i cenom.",
+      formTitle: "Forma za upit",
+      infoTitle: "Kontakt informacije",
+      fullName: "Ime i prezime",
+      email: "Email adresa",
+      phone: "Telefon",
+      travelType: "Tip putovanja",
+      travelTypePlaceholder: "Izaberite tip putovanja",
+      travelTypeReligious: "Verski turizam",
+      travelTypeSummer: "Letovanje",
+      travelTypeEurope: "Evropski gradovi",
+      travelTypeExcursions: "Ekskurzije za decu",
+      travelTypeCustom: "Poseban zahtev",
+      travelers: "Broj putnika",
+      month: "Planirani mesec putovanja",
+      message: "Opis upita",
+      consent: "Saglasan/na sam da me kontaktirate u vezi sa ovim upitom.",
+      submit: "Pošalji upit",
+      success: "Hvala. Upit je uspesno poslat. Nas tim vam se javlja u najkracem roku.",
+      requiredError: "Popunite obavezna polja i oznacite saglasnost.",
+      emailError: "Unesite ispravnu email adresu.",
+      officeLabel: "Adresa",
+      officeValue: "Bulevar Putnika 22, Beograd",
+      emailLabel: "Email",
+      emailValue: "info@abluxtravel2022.rs",
+      phoneLabel: "Telefon",
+      phoneValue: "+381 11 123 45 67",
+      hoursLabel: "Radno vreme",
+      hoursValue: "Ponedeljak - petak, 09:00 - 17:00",
+    },
+    offers: {
+      badge: "Agregator ponuda",
+      title: "Kompletna ponuda na jednom mestu",
+      description:
+        "Ovde objedinjavamo sopstvene programe i partnerske ponude kako biste na jednom mestu imali pregled destinacija, cena i termina bez lutanja kroz vise sajtova.",
+      filterLabel: "Filter po destinaciji",
+      filterPlaceholder: "Na primer: Rim",
+      metricSources: "Izvori",
+      metricConnected: "Povezani izvori",
+      metricSyncing: "Sinhronizacija u toku",
+      metricLastUpdate: "Poslednje osvežavanje",
+      sourcesTitle: "Status izvora podataka",
+      boardTitle: "Aktivne ponude",
+      noResults: "Nema ponuda za trenutni filter.",
+      statusPlanned: "Planirano",
+      statusConnected: "Povezano",
+      statusSyncing: "Sinhronizuje se",
+      statusPaused: "Pauzirano",
+      syncInterval: "Interval sinhronizacije",
+      lastSync: "Poslednja sinhronizacija",
+      departure: "Polazak",
+      seats: "Slobodna mesta",
+      unknown: "Nepoznato",
+      notSynced: "Nije sinhronizovano",
+      tbd: "U pripremi",
+    },
+    trips: {
+      badge: "Destinacije",
+      title: "Putovanja i zemlje",
+      description:
+        "Izaberite destinaciju i otvorite sve ponude koje su trenutno aktivne za tu zemlju.",
+      searchLabel: "Pretraga destinacija",
+      searchPlaceholder: "Upišite zemlju ili opis",
+      openCountry: "Pogledaj ponude",
+      noResults: "Nema rezultata za uneti pojam.",
+      readyTitle: "Spremno za proširenje",
+      readyDescription:
+        "Svaka destinacija je predstavljena jasno i pregledno, tako da putnik odmah vidi sta je dostupno i kako da nastavi ka rezervaciji.",
+    },
+    arrangements: {
+      badge: "Istaknuti aranžmani",
+      title: "Premium aranžmani koji podižu poverenje",
+      description:
+        "Kurirani prikaz aranžmana sa fokusom na kvalitet programa, jasne informacije i moderan prikaz.",
+      active: "Aktivni aranžman",
+      openOffers: "Idi na kompletnu ponudu",
+      trackA: "Kvalitet programa",
+      trackB: "Pouzdana organizacija",
+      trackC: "Jasne cene i termini",
+      signal: "Aranžman",
+    },
+    religious: {
+      badge: "Verski turizam",
+      title: "Ponude za hodočašća i svete destinacije",
+      description:
+        "Posebno izdvojene ponude za verski turizam. Prikazujemo aranžmane koji uključuju hodočašća, manastire, svetinje i duhovna putovanja.",
+      searchLabel: "Pretraga verskih ponuda",
+      searchPlaceholder: "Na primer: Ostrog, Jerusalim, manastiri",
+      boardTitle: "Aktivne verske ponude",
+      viewAllOffers: "Pogledaj kompletnu ponudu",
+      noResults: "Trenutno nema verskih ponuda za uneti pojam.",
+    },
+    country: {
+      badge: "Ponude po zemlji",
+      title: "Aktivne ponude za",
+      description: "Filtrirani pregled svih dostupnih putovanja za izabranu zemlju.",
+      back: "Nazad na putovanja",
+      noOffers: "Trenutno nema aktivnih ponuda za ovu destinaciju.",
+    },
+    auth: {
+      portalBadge: "ABLux korisnicki portal",
+      portalTitle: "Brzi pristup vasim putovanjima.",
+      portalDescription:
+        "Prijavite se ili otvorite nalog i lako pratite ponude, planove putovanja i brzu komunikaciju sa nasim timom.",
+      matrixLabel: "Status naloga",
+      activeSession: "Aktivna sesija",
+      awaitingAccess: "Ceka autentifikaciju",
+      sessionReady: "Sesija je spremna za nastavak.",
+      continueButton: "Nastavi",
+      nextHint: "Po završetku bices preusmeren/a na trazenu stranicu.",
+      featureSecurity: "Jednostavna i bezbedna prijava sa jasnim koracima.",
+      featureExperience: "Brz pristup najtrazenijim destinacijama i aktuelnim ponudama.",
+      featureControl: "Laka komunikacija sa agencijom i pregled podataka na jednom mestu.",
+      signInTitle: "Prijava",
+      signInDescription: "Pristup korisnickom nalogu.",
+      signUpTitle: "Registracija",
+      signUpDescription: "Kreirajte nalog i sacuvajte omiljena putovanja.",
+      firstName: "Ime",
+      lastName: "Prezime",
+      email: "Email",
+      password: "Lozinka",
+      confirmPassword: "Potvrdi lozinku",
+      showPassword: "Prikazi lozinku",
+      hidePassword: "Sakrij lozinku",
+      emailHint: "Unesite vazecu email adresu.",
+      passwordHint: "Minimalno 6 karaktera.",
+      firstNameTooShort: "Ime mora imati najmanje 2 karaktera.",
+      lastNameTooShort: "Prezime mora imati najmanje 2 karaktera.",
+      invalidEmail: "Unesite ispravan email.",
+      passwordTooShort: "Lozinka mora imati najmanje 6 karaktera.",
+      passwordMismatch: "Lozinke se ne poklapaju.",
+      requiredFields: "Popunite sva obavezna polja.",
+      processing: "Obrada u toku...",
+      signInButton: "Prijavi se",
+      signUpButton: "Kreiraj nalog",
+      noAccount: "Nemate nalog?",
+      hasAccount: "Vec imate nalog?",
+      invalidCredentials: "Pogrešan email ili lozinka.",
+      userExists: "Korisnik sa ovim emailom vec postoji.",
+      signedInAs: "Ulogovani korisnik",
+      roleAdmin: "Admin uloga",
+      roleUser: "Korisnicka uloga",
+    },
+    admin: {
+      accessTitle: "Admin pristup",
+      accessDescription: "Pristup ovoj stranici imaju samo admin korisnici.",
+      title: "Admin panel",
+      subtitle: "Dodavanje i uredivanje video slajdova za prikaz aranžmana i putovanja.",
+      slideTitle: "Naslov",
+      slideSubtitle: "Podnaslov",
+      slideBadge: "Oznaka",
+      slideCopy: "Opis",
+      uploadLabel: "MP4 fajl",
+      order: "Redosled",
+      active: "Aktivno",
+      save: "Sacuvaj slajd",
+      noFile: "Izaberite MP4 fajl.",
+      uploading: "Otpremanje u toku...",
+      saved: "Slajd je sacuvan.",
+      currentSlides: "Trenutni slajdovi",
+      signIn: "Prijava",
+      optional: "Opciono",
+    },
+    settings: {
+      title: "Podešavanja sajta",
+      description: "Radno vreme, kontakt podaci i društvene mreže.",
+      workingHours: "Radno vreme",
+      address: "Adresa",
+      phone: "Telefon",
+      email: "Email",
+      instagramUrl: "Instagram URL",
+      save: "Sačuvaj",
+      saving: "Čuvanje...",
+      saved: "Podešavanja su sačuvana.",
+    },
+    tripDetail: {
+      price: "Cena",
+      nights: "Noćenja",
+      days: "Dana",
+      departure: "Polazak",
+      returnLabel: "Povratak",
+      departureCity: "Grad polaska",
+      transport: "Prevoz",
+      hotel: "Hotel",
+      deposit: "Depozit",
+      depositDeadline: "Rok za uplatu",
+      itinerary: "Itinerer",
+      included: "Uključeno u cenu",
+      notIncluded: "Nije uključeno",
+      contactCta: "Pošalji upit za ovaj aranžman",
+      back: "Nazad na aranžmane",
+      featured: "Istaknuto",
+      statusActive: "Aktivan",
+      statusUpcoming: "Uskoro",
+      statusCompleted: "Završen",
+      bus: "Autobus",
+      plane: "Avion",
+      car: "Automobil",
+      train: "Voz",
+      allTrips: "Svi aranžmani",
+      filterByStatus: "Filtriraj po statusu",
+      search: "Pretraga",
+      searchPlaceholder: "Pretraži aranžmane...",
+      noTrips: "Trenutno nema dostupnih aranžmana.",
+    },
+  },
+  en: {
+    nav: {
+      brand: "ABLux Travel",
+      home: "Home",
+      trips: "Trips",
+      arrangements: "Packages",
+      religiousTourism: "Religious Tourism",
+      countries: "Countries",
+      about: "About",
+      contact: "Contact",
+      signIn: "Sign In",
+      signOut: "Sign Out",
+      admin: "Admin",
+      language: "Language",
+      theme: "Theme",
+      switchToLight: "Light",
+      switchToDark: "Dark",
+      openMenu: "Open menu",
+      closeMenu: "Close menu",
+    },
+    footer: {
+      rights: "All rights reserved.",
+      note: "Religious tourism, summer vacations, European city tours, and school excursions.",
+    },
+    home: {
+      badge: "Travel agency established in 2022",
+      title: "Reliable trips designed with care.",
+      description:
+        "ABLux Travel was founded with a clear vision: to provide high-quality, carefully planned, and dependable travel experiences. Our main focus is religious tourism, supported by summer programs, European city breaks, and excursions for children.",
+      ctaOffers: "Browse full offer",
+      ctaContact: "Send inquiry",
+      heroPrimaryCta: "Travel",
+      heroToolkitLabel: "Quick travel menu",
+      heroToolkitOffers: "Complete Offer",
+      heroToolkitArrangements: "Packages",
+      heroToolkitReligious: "Religious Tourism",
+      portalLabel: "Quick access",
+      portalTitle: "Choose your travel direction",
+      portalTrips: "Trips",
+      portalTripsHint: "Open countries and destinations with active offers.",
+      portalArrangements: "Packages",
+      portalArrangementsHint: "Premium programs with immersive video previews.",
+      portalReligious: "Religious Tourism",
+      portalReligiousHint: "Pilgrimages and sacred routes with full organization.",
+      metricFounded: "Founded: 2022",
+      metricFocus: "Core focus: religious tourism",
+      metricPartners: "Planned 15+ partner agencies",
+      pulseBadge: "Why travelers choose ABLux",
+      pulseTitle: "4 reasons travelers choose ABLux",
+      pulseDescription:
+        "From first idea to return journey, every step is optimized for clarity, speed, and full traveler confidence.",
+      pulseCardATitle: "Carefully planned routes",
+      pulseCardADescription:
+        "Religious and premium destinations are selected by program quality, travel rhythm, and trusted local partners.",
+      pulseCardBTitle: "Safety first",
+      pulseCardBDescription:
+        "Routes, live trip details, and group logistics stay synchronized to keep every traveler secure and informed.",
+      pulseCardCTitle: "Clear prices and timelines",
+      pulseCardCDescription:
+        "Availability, conditions, and trip tempo are presented transparently without hidden steps or information noise.",
+      pulseCardDTitle: "Support with instant response",
+      pulseCardDDescription:
+        "Our team stays available before, during, and after the trip with guidance tailored to your specific group.",
+      focusTitle: "What we focus on",
+      focusA: "Religious journeys with carefully planned routes and reliable logistics.",
+      focusB: "Summer and city tours adapted to different budgets and travel styles.",
+      focusC: "Children excursions with strong safety and content standards.",
+      modelTitle: "One platform for complete sales",
+      modelDescription:
+        "A single, high-conversion hub for your own premium packages and selected partner offers, designed for clarity, trust, and fast traveler decisions.",
+      modelA: "Your own trips and packages in one place",
+      modelB: "Aggregated partner offers with commission-based sales",
+      modelC: "Fast and transparent traveler decision flow",
+    },
+    about: {
+      badge: "Who we are",
+      title: "ABLux Travel builds serious and long-term tourism services.",
+      intro:
+        "ABLux Travel is a travel agency founded in 2022 with a clear vision to provide quality, carefully designed, and reliable travel.",
+      mission:
+        "From day one, we have placed special emphasis on religious tourism, while also offering summer vacations, European city trips, and excursions for children.",
+      vision:
+        "Our team is fully committed to making every trip safe, meaningful, and memorable.",
+      valuesTitle: "Our values",
+      valueA: "Reliability and transparent communication with travelers.",
+      valueB: "High program quality and carefully planned logistics.",
+      valueC: "Continuous growth through partnerships and digitalization.",
+    },
+    contact: {
+      badge: "Contact and inquiries",
+      title: "Send a travel inquiry",
+      description:
+        "Fill in the form and our team will prepare a personalized travel proposal with full details and pricing.",
+      formTitle: "Inquiry form",
+      infoTitle: "Contact details",
+      fullName: "Full name",
+      email: "Email",
+      phone: "Phone",
+      travelType: "Travel type",
+      travelTypePlaceholder: "Choose travel type",
+      travelTypeReligious: "Religious tourism",
+      travelTypeSummer: "Summer vacation",
+      travelTypeEurope: "European cities",
+      travelTypeExcursions: "Children excursions",
+      travelTypeCustom: "Custom request",
+      travelers: "Number of travelers",
+      month: "Planned travel month",
+      message: "Inquiry details",
+      consent: "I agree to be contacted regarding this inquiry.",
+      submit: "Send inquiry",
+      success: "Thank you. Your inquiry has been sent successfully. Our team will contact you shortly.",
+      requiredError: "Please fill all required fields and accept consent.",
+      emailError: "Please enter a valid email address.",
+      officeLabel: "Address",
+      officeValue: "Bulevar Putnika 22, Belgrade",
+      emailLabel: "Email",
+      emailValue: "info@abluxtravel2022.rs",
+      phoneLabel: "Phone",
+      phoneValue: "+381 11 123 45 67",
+      hoursLabel: "Working hours",
+      hoursValue: "Monday - Friday, 09:00 - 17:00",
+    },
+    offers: {
+      badge: "Offer aggregator",
+      title: "Complete offer in one place",
+      description:
+        "Combine your own programs with selected partner offers so travelers can compare destinations, pricing, and departures in one clear board.",
+      filterLabel: "Destination filter",
+      filterPlaceholder: "Example: Rome",
+      metricSources: "Sources",
+      metricConnected: "Connected",
+      metricSyncing: "Syncing",
+      metricLastUpdate: "Last update",
+      sourcesTitle: "Data source status",
+      boardTitle: "Active offers",
+      noResults: "No offers found for the current filter.",
+      statusPlanned: "Planned",
+      statusConnected: "Connected",
+      statusSyncing: "Syncing",
+      statusPaused: "Paused",
+      syncInterval: "Sync interval",
+      lastSync: "Last sync",
+      departure: "Departure",
+      seats: "Seats left",
+      unknown: "Unknown",
+      notSynced: "Not synced",
+      tbd: "TBD",
+    },
+    trips: {
+      badge: "Destinations",
+      title: "Trips and countries",
+      description:
+        "Choose a destination and open all offers currently active for that country.",
+      searchLabel: "Search destinations",
+      searchPlaceholder: "Type country or keyword",
+      openCountry: "View offers",
+      noResults: "No matches for your search.",
+      readyTitle: "Ready to scale",
+      readyDescription:
+        "Each destination is presented in a clear conversion flow so visitors can quickly discover options and continue toward booking.",
+    },
+    arrangements: {
+      badge: "Featured packages",
+      title: "Premium packages that build trust",
+      description:
+        "Curated package showcase focused on program quality, clear information, and modern presentation.",
+      active: "Active package",
+      openOffers: "Open full offer",
+      trackA: "Program quality",
+      trackB: "Reliable organization",
+      trackC: "Clear pricing and dates",
+      signal: "Package",
+    },
+    religious: {
+      badge: "Religious tourism",
+      title: "Pilgrimage and sacred destination offers",
+      description:
+        "A dedicated board for religious tourism offers. We highlight pilgrimages, monasteries, holy places, and spiritually focused trips.",
+      searchLabel: "Search religious offers",
+      searchPlaceholder: "Example: Jerusalem, Sinai, monastery",
+      boardTitle: "Active religious offers",
+      viewAllOffers: "Open complete offer",
+      noResults: "No religious offers found for the current search.",
+    },
+    country: {
+      badge: "Country offers",
+      title: "Active offers for",
+      description: "Filtered overview of all available trips for the selected country.",
+      back: "Back to trips",
+      noOffers: "There are currently no active offers for this destination.",
+    },
+    auth: {
+      portalBadge: "ABLux Client Portal",
+      portalTitle: "Fast access to your next trip.",
+      portalDescription:
+        "Sign in or create your account to track offers, plan your journey, and stay connected with our travel team.",
+      matrixLabel: "Account status",
+      activeSession: "Active session",
+      awaitingAccess: "Awaiting authentication",
+      sessionReady: "Session is ready to continue.",
+      continueButton: "Continue",
+      nextHint: "After auth you will be redirected to the requested page.",
+      featureSecurity: "Simple and secure sign in with clear steps.",
+      featureExperience: "Quick access to featured destinations and active offers.",
+      featureControl: "Easy communication with our team and your details in one place.",
+      signInTitle: "Sign In",
+      signInDescription: "Access your account.",
+      signUpTitle: "Sign Up",
+      signUpDescription: "Create an account and save your favorite trips.",
+      firstName: "First name",
+      lastName: "Last name",
+      email: "Email",
+      password: "Password",
+      confirmPassword: "Confirm password",
+      showPassword: "Show password",
+      hidePassword: "Hide password",
+      emailHint: "Enter a valid email address.",
+      passwordHint: "Minimum 6 characters.",
+      firstNameTooShort: "First name must be at least 2 characters.",
+      lastNameTooShort: "Last name must be at least 2 characters.",
+      invalidEmail: "Please enter a valid email.",
+      passwordTooShort: "Password must be at least 6 characters.",
+      passwordMismatch: "Passwords do not match.",
+      requiredFields: "Please fill all required fields.",
+      processing: "Processing...",
+      signInButton: "Sign In",
+      signUpButton: "Create account",
+      noAccount: "No account yet?",
+      hasAccount: "Already have an account?",
+      invalidCredentials: "Invalid email or password.",
+      userExists: "A user with this email already exists.",
+      signedInAs: "Signed in user",
+      roleAdmin: "Admin role",
+      roleUser: "User role",
+    },
+    admin: {
+      accessTitle: "Admin access",
+      accessDescription: "Only admin users can access this page.",
+      title: "Admin panel",
+      subtitle: "Upload and manage video slides used across packages and trips.",
+      slideTitle: "Title",
+      slideSubtitle: "Subtitle",
+      slideBadge: "Badge",
+      slideCopy: "Description",
+      uploadLabel: "MP4 file",
+      order: "Order",
+      active: "Active",
+      save: "Save slide",
+      noFile: "Please choose an MP4 file.",
+      uploading: "Uploading...",
+      saved: "Slide saved.",
+      currentSlides: "Current slides",
+      signIn: "Sign In",
+      optional: "Optional",
+    },
+    settings: {
+      title: "Site Settings",
+      description: "Working hours, contact info, and social media.",
+      workingHours: "Working hours",
+      address: "Address",
+      phone: "Phone",
+      email: "Email",
+      instagramUrl: "Instagram URL",
+      save: "Save",
+      saving: "Saving...",
+      saved: "Settings saved.",
+    },
+    tripDetail: {
+      price: "Price",
+      nights: "Nights",
+      days: "Days",
+      departure: "Departure",
+      returnLabel: "Return",
+      departureCity: "Departure city",
+      transport: "Transport",
+      hotel: "Hotel",
+      deposit: "Deposit",
+      depositDeadline: "Deposit deadline",
+      itinerary: "Itinerary",
+      included: "Included",
+      notIncluded: "Not included",
+      contactCta: "Send inquiry for this trip",
+      back: "Back to packages",
+      featured: "Featured",
+      statusActive: "Active",
+      statusUpcoming: "Upcoming",
+      statusCompleted: "Completed",
+      bus: "Bus",
+      plane: "Plane",
+      car: "Car",
+      train: "Train",
+      allTrips: "All packages",
+      filterByStatus: "Filter by status",
+      search: "Search",
+      searchPlaceholder: "Search packages...",
+      noTrips: "No packages available at the moment.",
+    },
+  },
+};

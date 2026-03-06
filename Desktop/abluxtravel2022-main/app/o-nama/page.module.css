@@ -1,0 +1,633 @@
+.page {
+  display: grid;
+  gap: clamp(2.2rem, 4.8vw, 4.2rem);
+}
+
+.hero {
+  position: relative;
+  border-radius: clamp(1.5rem, 3.2vw, 2.2rem);
+  border: 1px solid color-mix(in srgb, var(--line) 72%, #22d3ee 28%);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(
+      140deg,
+      color-mix(in srgb, var(--surface-strong) 86%, #020617 14%) 0%,
+      color-mix(in srgb, var(--surface) 82%, #030712 18%) 100%
+    ),
+    url("/pocetna3.avif"),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--surface-strong) 92%, #07142b 8%) 0%,
+      color-mix(in srgb, var(--surface) 76%, #050f21 24%) 100%
+    ),
+    radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--primary) 28%, transparent) 0, transparent 46%),
+    radial-gradient(circle at 92% -4%, rgba(34, 211, 238, 0.22) 0, transparent 42%);
+  background-size: auto, cover, auto, auto, auto;
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat;
+  box-shadow: var(--shadow);
+  padding: clamp(1.2rem, 2.8vw, 2.2rem);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -45% -12%;
+  z-index: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 42deg at 52% 48%,
+    rgba(56, 189, 248, 0.2) 0deg,
+    rgba(79, 70, 229, 0.16) 122deg,
+    rgba(16, 185, 129, 0.15) 240deg,
+    rgba(56, 189, 248, 0.2) 360deg
+  );
+  filter: blur(46px);
+  opacity: 0.48;
+  animation: heroAura 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -22%;
+  right: -22%;
+  bottom: 1rem;
+  z-index: 1;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary) 78%, #67e8f9) 22%,
+    #67e8f9 50%,
+    color-mix(in srgb, var(--primary) 78%, #67e8f9) 78%,
+    transparent 100%
+  );
+  opacity: 0.76;
+  transform: translateX(-24%);
+  animation: heroScan 4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.heroGlow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 84%, rgba(45, 212, 191, 0.12) 0, transparent 40%),
+    radial-gradient(circle at 84% 14%, rgba(129, 140, 248, 0.14) 0, transparent 38%);
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: clamp(1.1rem, 2vw, 1.8rem);
+  grid-template-columns: 1.3fr 0.92fr;
+  align-items: start;
+}
+
+.heroContent {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.heroBadge {
+  width: fit-content;
+  border-color: color-mix(in srgb, #67e8f9 46%, var(--line));
+  background: color-mix(in srgb, #22d3ee 18%, var(--primary-soft));
+}
+
+.heroEyebrow {
+  margin: 0;
+  color: color-mix(in srgb, var(--muted) 78%, #67e8f9 22%);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 0.68rem;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 3.45rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--text) 88%, #d9fbff 12%);
+  text-wrap: balance;
+}
+
+.heroDescription {
+  margin: 0;
+  max-width: 56ch;
+  line-height: 1.8;
+  font-size: clamp(0.93rem, 1.45vw, 1.04rem);
+  color: var(--muted);
+}
+
+.heroChipList {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.62rem;
+}
+
+.heroChip {
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 68%, #67e8f9 32%);
+  background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+  padding: 0.38rem 0.72rem;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--text) 86%, #c8f9ff 14%);
+}
+
+.heroActions {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.62rem;
+}
+
+.heroPrimary {
+  min-width: 12rem;
+}
+
+.heroSecondary {
+  min-width: 12rem;
+  background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+}
+
+.heroPanel {
+  position: relative;
+  border-radius: 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--line) 65%, #67e8f9 35%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 94%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 82%, transparent) 100%
+    ),
+    radial-gradient(circle at 100% 0%, rgba(34, 211, 238, 0.16) 0, transparent 42%);
+  padding: clamp(0.95rem, 2vw, 1.2rem);
+  overflow: hidden;
+}
+
+.heroPanel::before {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  top: 4.35rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary) 72%, #67e8f9 28%) 50%,
+    transparent 100%
+  );
+  opacity: 0.72;
+}
+
+.panelLabel {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.67rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--muted) 72%, #67e8f9 28%);
+}
+
+.panelValue {
+  margin: 0.55rem 0 0;
+  font-family: var(--font-sora), sans-serif;
+  font-size: clamp(1.26rem, 3vw, 1.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: color-mix(in srgb, var(--text) 90%, #d5fdff 10%);
+}
+
+.panelHint {
+  margin: 0.72rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.74;
+  color: var(--muted);
+}
+
+.signalList {
+  margin: 1.3rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.62rem;
+}
+
+.signalItem {
+  border-radius: 0.86rem;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, #67e8f9 28%);
+  background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+  padding: 0.72rem 0.8rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.signalKey {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--muted) 80%, #67e8f9 20%);
+}
+
+.signalValue {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--text) 90%, #d5fdff 10%);
+}
+
+.section {
+  display: grid;
+  gap: clamp(0.9rem, 1.8vw, 1.25rem);
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.62rem;
+  max-width: 58rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(1.55rem, 3.4vw, 2.42rem);
+  line-height: 1.1;
+}
+
+.sectionDescription {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 1.32vw, 1rem);
+  line-height: 1.78;
+}
+
+.metricsGrid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metricCard {
+  --tone: #67e8f9;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 28%, var(--line));
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 82%, transparent) 100%
+    ),
+    radial-gradient(circle at 100% -8%, color-mix(in srgb, var(--tone) 22%, transparent) 0, transparent 45%);
+  padding: 1rem;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--tone) 42%, var(--line));
+  box-shadow: 0 16px 30px -24px color-mix(in srgb, var(--tone) 48%, transparent);
+}
+
+.metricValue {
+  margin: 0;
+  font-family: var(--font-sora), sans-serif;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1;
+  color: color-mix(in srgb, var(--tone) 44%, var(--text));
+}
+
+.metricLabel {
+  margin: 0.68rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.metricDescription {
+  margin: 0.55rem 0 0;
+  font-size: 0.81rem;
+  line-height: 1.67;
+  color: var(--muted);
+}
+
+.cyan {
+  --tone: #22d3ee;
+}
+
+.violet {
+  --tone: #818cf8;
+}
+
+.emerald {
+  --tone: #2dd4bf;
+}
+
+.amber {
+  --tone: #f59e0b;
+}
+
+.protocolGrid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.protocolCard {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, #67e8f9 30%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 91%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 84%, transparent) 100%
+    ),
+    radial-gradient(circle at 10% -10%, rgba(103, 232, 249, 0.14) 0, transparent 46%);
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.protocolCard::before {
+  content: "";
+  position: absolute;
+  top: 0.84rem;
+  left: 3.2rem;
+  right: 0.9rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--primary) 62%, #67e8f9) 0%,
+    transparent 100%
+  );
+  opacity: 0.72;
+}
+
+.protocolStep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--line) 66%, #67e8f9 34%);
+  background: color-mix(in srgb, #67e8f9 14%, var(--primary-soft));
+  font-size: 0.7rem;
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+}
+
+.protocolTitle {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+}
+
+.protocolDescription {
+  margin: 0.54rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.crewGrid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.crewCard {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--line) 74%, #67e8f9 26%);
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 82%, transparent) 100%
+    ),
+    radial-gradient(circle at 84% 0%, rgba(129, 140, 248, 0.15) 0, transparent 42%);
+  padding: 1rem;
+}
+
+.crewRole {
+  margin: 0;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--muted) 72%, #67e8f9 28%);
+}
+
+.crewName {
+  margin: 0.45rem 0 0;
+  font-size: 1.05rem;
+}
+
+.crewDescription {
+  margin: 0.58rem 0 0;
+  font-size: 0.84rem;
+  line-height: 1.72;
+  color: var(--muted);
+}
+
+.valuesSection {
+  border-radius: 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--line) 68%, #67e8f9 32%);
+  background:
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--surface-strong) 90%, #071126 10%) 0%,
+      color-mix(in srgb, var(--surface) 74%, #071126 26%) 100%
+    ),
+    radial-gradient(circle at 2% 4%, rgba(56, 189, 248, 0.17) 0, transparent 40%);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 2.2vw, 1.5rem);
+}
+
+.valuesGrid {
+  display: grid;
+  gap: 0.74rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0.2rem;
+}
+
+.valueCard {
+  border-radius: 0.88rem;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, #67e8f9 28%);
+  background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+  padding: 0.85rem;
+}
+
+.valueCard p {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ctaSection {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--line) 66%, #22d3ee 34%);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--surface-strong) 90%, #08182d 10%) 0%,
+      color-mix(in srgb, var(--surface) 76%, #061124 24%) 100%
+    ),
+    radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.16) 0, transparent 42%),
+    radial-gradient(circle at 82% 6%, rgba(129, 140, 248, 0.18) 0, transparent 42%);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 2.6vw, 1.7rem);
+}
+
+.ctaSection::before {
+  content: "";
+  position: absolute;
+  inset: -44% -18%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 45deg at 50% 50%,
+    rgba(34, 211, 238, 0.18) 0deg,
+    rgba(79, 70, 229, 0.16) 150deg,
+    rgba(45, 212, 191, 0.16) 240deg,
+    rgba(34, 211, 238, 0.18) 360deg
+  );
+  filter: blur(38px);
+  opacity: 0.6;
+  animation: ctaDrift 11s ease-in-out infinite alternate;
+}
+
+.ctaTitle,
+.ctaDescription,
+.ctaActions {
+  position: relative;
+  z-index: 2;
+}
+
+.ctaTitle {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.2vw, 2rem);
+  line-height: 1.18;
+  max-width: 34rem;
+  text-wrap: balance;
+}
+
+.ctaDescription {
+  margin: 0.68rem 0 0;
+  max-width: 48rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.78;
+}
+
+.ctaActions {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.62rem;
+}
+
+@media (max-width: 1100px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crewGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .valuesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .page {
+    gap: 2rem;
+  }
+
+  .hero {
+    padding: 0.95rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.62rem, 8.6vw, 2.35rem);
+  }
+
+  .heroDescription {
+    font-size: 0.9rem;
+  }
+
+  .heroActions {
+    width: 100%;
+  }
+
+  .heroPrimary,
+  .heroSecondary {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .metricsGrid,
+  .protocolGrid,
+  .crewGrid,
+  .valuesGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@keyframes heroAura {
+  0% {
+    transform: translate3d(-3%, -3%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(3%, 3%, 0) scale(1.08);
+  }
+}
+
+@keyframes heroScan {
+  0% {
+    transform: translateX(-24%);
+  }
+  100% {
+    transform: translateX(24%);
+  }
+}
+
+@keyframes ctaDrift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2%, 3%, 0) scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .hero::after,
+  .ctaSection::before {
+    animation: none !important;
+  }
+
+  .metricCard {
+    transition: none !important;
+  }
+}
