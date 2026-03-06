@@ -227,6 +227,28 @@ export default function VerskiTurizamPage() {
                   {dictionary.offers.seats}:{" "}
                   {typeof offer.seatsLeft === "number" ? offer.seatsLeft : dictionary.offers.unknown}
                 </p>
+                {offer.pdfUrl ? (
+                  <div className="mt-3 space-y-2">
+                    <a
+                      href={offer.pdfUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
+                    >
+                      {language === "sr" ? "Otvori PDF program" : "Open PDF brochure"}
+                    </a>
+                    <details className="rounded-xl border border-[var(--line)] p-2">
+                      <summary className="cursor-pointer text-xs text-muted">
+                        {language === "sr" ? "Pregled / prelistavanje PDF-a" : "Preview / browse PDF"}
+                      </summary>
+                      <iframe
+                        src={`${offer.pdfUrl}#toolbar=1&navpanes=0`}
+                        className="mt-2 h-64 w-full rounded-lg border border-[var(--line)] bg-white"
+                        title={`${offer.id}-pdf-preview`}
+                      />
+                    </details>
+                  </div>
+                ) : null}
                 {offer.tags.length > 0 ? (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {offer.tags.map((tag) => (

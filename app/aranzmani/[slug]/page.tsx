@@ -7,6 +7,7 @@ import {
   FaPlane,
   FaCar,
   FaTrain,
+  FaUser,
   FaCheck,
   FaXmark,
   FaArrowLeft,
@@ -24,6 +25,7 @@ const transportIcons: Record<TransportType, typeof FaBus> = {
   plane: FaPlane,
   car: FaCar,
   train: FaTrain,
+  self: FaUser,
 };
 
 export default function TripDetailPage() {
@@ -232,4 +234,3 @@ export default function TripDetailPage() {
     </AlienShell>
   );
 }
-

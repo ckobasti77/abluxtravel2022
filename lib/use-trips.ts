@@ -3,7 +3,7 @@ import { useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
 
 export type TripStatus = "active" | "upcoming" | "completed";
-export type TransportType = "bus" | "plane" | "car" | "train";
+export type TransportType = "bus" | "plane" | "car" | "train" | "self";
 
 export type Trip = {
   _id: string;

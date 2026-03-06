@@ -275,6 +275,7 @@ export type SiteDictionary = {
     plane: string;
     car: string;
     train: string;
+    self: string;
     allTrips: string;
     filterByStatus: string;
     search: string;
@@ -575,6 +576,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       plane: "Avion",
       car: "Automobil",
       train: "Voz",
+      self: "Sopstveni prevoz",
       allTrips: "Svi aranžmani",
       filterByStatus: "Filtriraj po statusu",
       search: "Pretraga",
@@ -873,6 +875,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       plane: "Plane",
       car: "Car",
       train: "Train",
+      self: "Own transport",
       allTrips: "All packages",
       filterByStatus: "Filter by status",
       search: "Search",

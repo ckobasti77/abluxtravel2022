@@ -42,13 +42,28 @@ export const listLiveBoard = query({
       .order("desc")
       .take(250);
 
-    if (!destination) {
-      return offers.slice(0, limit);
-    }
+    const filteredOffers = !destination
+      ? offers.slice(0, limit)
+      : offers
+          .filter((offer) => offer.destination.toLowerCase().includes(destination))
+          .slice(0, limit);
 
-    return offers
-      .filter((offer) => offer.destination.toLowerCase().includes(destination))
-      .slice(0, limit);
+    return Promise.all(
+      filteredOffers.map(async (offer) => {
+        if (!offer.pdfStorageId) {
+          return {
+            ...offer,
+            pdfUrl: undefined,
+          };
+        }
+
+        const pdfUrl = await ctx.storage.getUrl(offer.pdfStorageId);
+        return {
+          ...offer,
+          pdfUrl: pdfUrl ?? undefined,
+        };
+      })
+    );
   },
 });
 
@@ -92,6 +107,9 @@ export const upsertOffer = mutation({
     currency: v.string(),
     seatsLeft: v.optional(v.number()),
     tags: v.array(v.string()),
+    pdfStorageId: v.optional(v.id("_storage")),
+    pdfFileName: v.optional(v.string()),
+    clearPdf: v.optional(v.boolean()),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
     rawSnapshot: v.optional(v.string()),
@@ -106,11 +124,17 @@ export const upsertOffer = mutation({
       )
       .unique();
 
+    const { clearPdf, ...rest } = args;
     const payload = {
-      ...args,
+      ...rest,
       tags: sanitizeTags(args.tags),
       updatedAt: now,
     };
+
+    if (clearPdf) {
+      payload.pdfStorageId = undefined;
+      payload.pdfFileName = undefined;
+    }
 
     if (existing) {
       await ctx.db.patch(existing._id, payload);

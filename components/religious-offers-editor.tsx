@@ -3,6 +3,7 @@
 import { useMemo, useState, type CSSProperties, type FormEvent } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
+import type { Id } from "../convex/_generated/dataModel";
 import { useSitePreferences } from "./site-preferences-provider";
 import { useOffersLiveBoard, type AggregatedOffer } from "../lib/use-offers";
 import {
@@ -54,12 +55,18 @@ export default function ReligiousOffersEditor() {
   const locale = language === "sr" ? "sr-RS" : "en-US";
   const upsertOffer = useMutation(api.offers.upsertOffer);
   const deactivateOffer = useMutation(api.offers.deactivateOffer);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const offers = useOffersLiveBoard(undefined, []);
 
   const [form, setForm] = useState<ReligiousOfferForm>(emptyForm);
   const [editingExternalId, setEditingExternalId] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [pdfStorageId, setPdfStorageId] = useState<Id<"_storage"> | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [pdfFileName, setPdfFileName] = useState<string>("");
+  const [pdfUploading, setPdfUploading] = useState(false);
+  const [removePdfOnSave, setRemovePdfOnSave] = useState(false);
 
   const religiousOffers = useMemo(
     () =>
@@ -91,16 +98,58 @@ export default function ReligiousOffersEditor() {
       seatsLeft: offer.seatsLeft ? String(offer.seatsLeft) : "",
       tags: offer.tags.join(", "),
     });
+    setPdfStorageId((offer.pdfStorageId as Id<"_storage"> | undefined) ?? null);
+    setPdfUrl(offer.pdfUrl ?? null);
+    setPdfFileName(offer.pdfFileName ?? "");
+    setRemovePdfOnSave(false);
   };
 
   const resetForm = () => {
     setEditingExternalId(null);
     setForm(emptyForm);
+    setPdfStorageId(null);
+    setPdfUrl(null);
+    setPdfFileName("");
+    setRemovePdfOnSave(false);
+  };
+
+  const handlePdfUpload = async (file: File | null) => {
+    if (!file) return;
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      setStatus(language === "sr" ? "Dozvoljen je samo PDF fajl." : "Only PDF files are allowed.");
+      return;
+    }
+
+    setPdfUploading(true);
+    setStatus(language === "sr" ? "Otpremanje PDF fajla..." : "Uploading PDF...");
+    try {
+      const uploadUrl = await generateUploadUrl({});
+      const result = await fetch(uploadUrl, {
+        method: "POST",
+        headers: { "Content-Type": file.type || "application/pdf" },
+        body: file,
+      });
+      const json = await result.json();
+      const storageId = json.storageId as Id<"_storage"> | undefined;
+      if (!storageId) {
+        throw new Error("Missing storage id");
+      }
+      setPdfStorageId(storageId);
+      setPdfUrl(URL.createObjectURL(file));
+      setPdfFileName(file.name);
+      setRemovePdfOnSave(false);
+      setStatus(language === "sr" ? "PDF je uspesno dodat." : "PDF uploaded successfully.");
+    } catch {
+      setStatus(language === "sr" ? "Upload PDF fajla nije uspeo." : "PDF upload failed.");
+    } finally {
+      setPdfUploading(false);
+    }
   };
 
   const handleSave = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (busy) return;
+    if (busy || pdfUploading) return;
 
     const title = form.title.trim();
     const destination = form.destination.trim();
@@ -144,6 +193,9 @@ export default function ReligiousOffersEditor() {
         currency: form.currency.trim().toUpperCase() || "EUR",
         seatsLeft: seatsLeft ?? undefined,
         tags,
+        pdfStorageId: pdfStorageId ?? undefined,
+        pdfFileName: pdfStorageId ? pdfFileName || "brochure.pdf" : undefined,
+        clearPdf: removePdfOnSave,
         normalizedHash: `${MANUAL_RELIGIOUS_SOURCE_SLUG}:${externalId}:${title}:${destination}:${price}`
           .toLowerCase()
           .replace(/\s+/g, "-"),
@@ -392,8 +444,64 @@ export default function ReligiousOffersEditor() {
               placeholder="verski, hodocasce, manastiri"
             />
           </label>
+          <div className="grid gap-2">
+            <span className="text-sm font-semibold">
+              {language === "sr" ? "PDF brosura" : "PDF brochure"}
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <label className="btn-secondary cursor-pointer !px-3 !py-2 !text-xs">
+                {pdfUploading
+                  ? language === "sr"
+                    ? "Otpremanje..."
+                    : "Uploading..."
+                  : language === "sr"
+                    ? "Dodaj PDF"
+                    : "Upload PDF"}
+                <input
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  className="hidden"
+                  disabled={busy || pdfUploading}
+                  onChange={(event) => void handlePdfUpload(event.target.files?.[0] ?? null)}
+                />
+              </label>
+              {pdfStorageId ? (
+                <button
+                  type="button"
+                  className="rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-red-400 hover:text-red-300"
+                  onClick={() => {
+                    setPdfStorageId(null);
+                    setPdfUrl(null);
+                    setPdfFileName("");
+                    setRemovePdfOnSave(true);
+                  }}
+                  disabled={busy || pdfUploading}
+                >
+                  {language === "sr" ? "Ukloni PDF" : "Remove PDF"}
+                </button>
+              ) : null}
+              {pdfUrl ? (
+                <a
+                  href={pdfUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
+                >
+                  {language === "sr" ? "Otvori PDF" : "Open PDF"}
+                </a>
+              ) : null}
+            </div>
+            {pdfFileName ? <p className="text-xs text-muted">{pdfFileName}</p> : null}
+            {pdfUrl ? (
+              <iframe
+                src={`${pdfUrl}#toolbar=1&navpanes=0`}
+                className="h-60 w-full rounded-xl border border-[var(--line)] bg-white"
+                title={language === "sr" ? "Pregled PDF brosure" : "PDF brochure preview"}
+              />
+            ) : null}
+          </div>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="submit" className="btn-primary" disabled={busy}>
+            <button type="submit" className="btn-primary" disabled={busy || pdfUploading}>
               {editingExternalId
                 ? language === "sr"
                   ? "Sacuvaj izmene"
@@ -403,7 +511,12 @@ export default function ReligiousOffersEditor() {
                   : "Add offer"}
             </button>
             {editingExternalId ? (
-              <button type="button" className="btn-secondary" onClick={resetForm} disabled={busy}>
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={resetForm}
+                disabled={busy || pdfUploading}
+              >
                 {language === "sr" ? "OtkaZi izmenu" : "Cancel edit"}
               </button>
             ) : null}
@@ -449,6 +562,28 @@ export default function ReligiousOffersEditor() {
                           {tag}
                         </span>
                       ))}
+                    </div>
+                  ) : null}
+                  {offer.pdfUrl ? (
+                    <div className="mt-3 space-y-2">
+                      <a
+                        href={offer.pdfUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
+                      >
+                        {language === "sr" ? "Otvori PDF" : "Open PDF"}
+                      </a>
+                      <details className="rounded-xl border border-[var(--line)] p-2">
+                        <summary className="cursor-pointer text-xs text-muted">
+                          {language === "sr" ? "Pregled / prelistavanje" : "Preview / browse"}
+                        </summary>
+                        <iframe
+                          src={`${offer.pdfUrl}#toolbar=1&navpanes=0`}
+                          className="mt-2 h-56 w-full rounded-lg border border-[var(--line)] bg-white"
+                          title={`${offer.title}-pdf-preview`}
+                        />
+                      </details>
                     </div>
                   ) : null}
                   <div className="mt-4 flex flex-wrap gap-2">

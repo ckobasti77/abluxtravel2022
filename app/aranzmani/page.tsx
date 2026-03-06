@@ -3,7 +3,7 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { FaBus, FaPlane, FaCar, FaTrain } from "react-icons/fa6";
+import { FaBus, FaPlane, FaCar, FaTrain, FaUser } from "react-icons/fa6";
 import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
@@ -14,6 +14,7 @@ const transportIcons: Record<TransportType, typeof FaBus> = {
   plane: FaPlane,
   car: FaCar,
   train: FaTrain,
+  self: FaUser,
 };
 
 const statusClass: Record<TripStatus, string> = {
@@ -158,4 +159,3 @@ export default function AranzmaniPage() {
     </AlienShell>
   );
 }
-
