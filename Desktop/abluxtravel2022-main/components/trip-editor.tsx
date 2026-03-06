@@ -12,6 +12,7 @@ import {
   FaPlane,
   FaCar,
   FaTrain,
+  FaUser,
   FaPlus,
   FaTrash,
   FaChevronDown,
@@ -82,6 +83,7 @@ const transportOptions: { value: TransportType; icon: typeof FaBus }[] = [
   { value: "plane", icon: FaPlane },
   { value: "car", icon: FaCar },
   { value: "train", icon: FaTrain },
+  { value: "self", icon: FaUser },
 ];
 
 type SectionProps = {

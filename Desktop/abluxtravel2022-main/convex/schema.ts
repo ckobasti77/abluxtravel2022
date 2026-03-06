@@ -23,7 +23,8 @@ export default defineSchema({
       v.literal("bus"),
       v.literal("plane"),
       v.literal("car"),
-      v.literal("train")
+      v.literal("train"),
+      v.literal("self")
     ),
     departureDate: v.string(),
     returnDate: v.string(),
@@ -103,6 +104,8 @@ export default defineSchema({
     currency: v.string(),
     seatsLeft: v.optional(v.number()),
     tags: v.array(v.string()),
+    pdfStorageId: v.optional(v.id("_storage")),
+    pdfFileName: v.optional(v.string()),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
     rawSnapshot: v.optional(v.string()),

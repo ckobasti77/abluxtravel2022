@@ -76,7 +76,8 @@ export const upsert = mutation({
       v.literal("bus"),
       v.literal("plane"),
       v.literal("car"),
-      v.literal("train")
+      v.literal("train"),
+      v.literal("self")
     ),
     departureDate: v.string(),
     returnDate: v.string(),
