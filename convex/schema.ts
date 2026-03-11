@@ -54,6 +54,40 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_status_order", ["status", "order"])
     .index("by_featured", ["featured"]),
+  accommodations: defineTable({
+    tripId: v.id("trips"),
+    name: v.string(),
+    type: v.union(
+      v.literal("villa"),
+      v.literal("apartment"),
+      v.literal("hotel"),
+      v.literal("room"),
+      v.literal("hostel"),
+      v.literal("other")
+    ),
+    description: v.string(),
+    pricePerPerson: v.number(),
+    currency: v.string(),
+    capacity: v.number(),
+    amenities: v.array(v.string()),
+    boardType: v.optional(
+      v.union(
+        v.literal("ro"),
+        v.literal("bb"),
+        v.literal("hb"),
+        v.literal("fb"),
+        v.literal("ai")
+      )
+    ),
+    roomInfo: v.optional(v.string()),
+    checkIn: v.optional(v.string()),
+    checkOut: v.optional(v.string()),
+    distanceToCenter: v.optional(v.string()),
+    imageStorageIds: v.array(v.id("_storage")),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  }).index("by_trip_order", ["tripId", "order"]),
   users: defineTable({
     username: v.string(),
     email: v.optional(v.string()),
@@ -118,4 +152,3 @@ export default defineSchema({
     .index("by_active_updated", ["isActive", "updatedAt"])
     .index("by_destination_price", ["destination", "price"]),
 });
-
