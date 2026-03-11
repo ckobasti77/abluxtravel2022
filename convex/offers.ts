@@ -50,17 +50,22 @@ export const listLiveBoard = query({
 
     return Promise.all(
       filteredOffers.map(async (offer) => {
-        if (!offer.pdfStorageId) {
-          return {
-            ...offer,
-            pdfUrl: undefined,
-          };
-        }
+        const [pdfUrl, imageUrls] = await Promise.all([
+          offer.pdfStorageId ? ctx.storage.getUrl(offer.pdfStorageId) : Promise.resolve(null),
+          offer.imageStorageIds?.length
+            ? Promise.all(
+                offer.imageStorageIds.map(async (storageId) => {
+                  const url = await ctx.storage.getUrl(storageId);
+                  return url ?? "";
+                })
+              ).then((urls) => urls.filter(Boolean))
+            : Promise.resolve([] as string[]),
+        ]);
 
-        const pdfUrl = await ctx.storage.getUrl(offer.pdfStorageId);
         return {
           ...offer,
           pdfUrl: pdfUrl ?? undefined,
+          imageUrls,
         };
       })
     );
@@ -109,6 +114,7 @@ export const upsertOffer = mutation({
     tags: v.array(v.string()),
     pdfStorageId: v.optional(v.id("_storage")),
     pdfFileName: v.optional(v.string()),
+    imageStorageIds: v.optional(v.array(v.id("_storage"))),
     clearPdf: v.optional(v.boolean()),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
@@ -169,3 +175,4 @@ export const deactivateOffer = mutation({
     return existing._id;
   },
 });
+

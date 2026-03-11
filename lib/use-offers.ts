@@ -30,6 +30,8 @@ export type AggregatedOffer = {
   pdfStorageId?: string;
   pdfFileName?: string;
   pdfUrl?: string;
+  imageStorageIds?: string[];
+  imageUrls?: string[];
   updatedAt: number;
 };
 
@@ -135,6 +137,8 @@ type ConvexOffer = {
   pdfStorageId?: string;
   pdfFileName?: string;
   pdfUrl?: string;
+  imageStorageIds?: string[];
+  imageUrls?: string[];
   updatedAt: number;
 };
 
@@ -214,6 +218,8 @@ export const useOffersLiveBoard = (destination?: string, fallback?: AggregatedOf
           pdfStorageId: offer.pdfStorageId,
           pdfFileName: offer.pdfFileName,
           pdfUrl: offer.pdfUrl,
+          imageStorageIds: offer.imageStorageIds,
+          imageUrls: offer.imageUrls,
           updatedAt: offer.updatedAt,
         }))
       : base;
@@ -226,3 +232,4 @@ export const useOffersLiveBoard = (destination?: string, fallback?: AggregatedOf
     return data.filter((offer) => offer.destination.toLowerCase().includes(query));
   }, [base, normalizedDestination, rows]);
 };
+

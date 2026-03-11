@@ -69,7 +69,8 @@ export default defineSchema({
     subtitle: v.string(),
     badge: v.optional(v.string()),
     copy: v.optional(v.string()),
-    videoUrl: v.string(),
+    mediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    videoUrl: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
     order: v.number(),
     isActive: v.boolean(),
@@ -106,6 +107,7 @@ export default defineSchema({
     tags: v.array(v.string()),
     pdfStorageId: v.optional(v.id("_storage")),
     pdfFileName: v.optional(v.string()),
+    imageStorageIds: v.optional(v.array(v.id("_storage"))),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
     rawSnapshot: v.optional(v.string()),
@@ -116,3 +118,4 @@ export default defineSchema({
     .index("by_active_updated", ["isActive", "updatedAt"])
     .index("by_destination_price", ["destination", "price"]),
 });
+

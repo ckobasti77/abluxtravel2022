@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -15,10 +16,26 @@ import {
   FaLocationDot,
   FaHotel,
   FaMoneyBillWave,
+  FaHouse,
+  FaBuilding,
+  FaDoorOpen,
+  FaBed,
+  FaEllipsis,
+  FaUsers,
+  FaUtensils,
+  FaClock,
+  FaWifi,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa6";
 import AlienShell from "../../../components/alien-shell";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { useTripBySlug, TransportType } from "../../../lib/use-trips";
+import {
+  useAccommodationsByTrip,
+  AccommodationType,
+  Accommodation,
+} from "../../../lib/use-accommodations";
 
 const transportIcons: Record<TransportType, typeof FaBus> = {
   bus: FaBus,
@@ -28,13 +45,28 @@ const transportIcons: Record<TransportType, typeof FaBus> = {
   self: FaUser,
 };
 
+const accommodationIcons: Record<AccommodationType, typeof FaHouse> = {
+  villa: FaHouse,
+  apartment: FaBuilding,
+  hotel: FaHotel,
+  room: FaDoorOpen,
+  hostel: FaBed,
+  other: FaEllipsis,
+};
+
 export default function TripDetailPage() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";
   const { dictionary, language } = useSitePreferences();
   const trip = useTripBySlug(slug);
   const t = dictionary.tripDetail;
+  const acc = dictionary.accommodation;
   const locale = language === "sr" ? "sr-RS" : "en-US";
+
+  const accommodations = useAccommodationsByTrip(trip?._id);
+  const activeAccommodations = accommodations.filter((a) => a.isActive);
+
+  const [expandedAcc, setExpandedAcc] = useState<string | null>(null);
 
   if (trip === undefined) {
     return (
@@ -134,6 +166,199 @@ export default function TripDetailPage() {
             </div>
           </div>
 
+          {/* Accommodation Section */}
+          {activeAccommodations.length > 0 && (
+            <section>
+              <h2 className="text-xl font-semibold">{acc.title}</h2>
+              <p className="mt-1 text-sm text-muted">{acc.subtitle}</p>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {activeAccommodations.map((item) => {
+                  const AccIcon = accommodationIcons[item.type];
+                  const isExpanded = expandedAcc === item._id;
+                  const heroImg = item.imageUrls?.[0];
+
+                  return (
+                    <div
+                      key={item._id}
+                      className="group overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--primary)]/30"
+                    >
+                      {/* Hero image */}
+                      {heroImg && (
+                        <div className="relative h-40 w-full overflow-hidden bg-[var(--bg-soft)]">
+                          <img
+                            src={heroImg}
+                            alt={item.name}
+                            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                            <AccIcon className="text-[10px]" />
+                            {acc[item.type]}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="p-4">
+                        {/* Name & type (when no image) */}
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            {!heroImg && (
+                              <div className="mb-2 flex items-center gap-1.5 text-xs text-muted">
+                                <AccIcon />
+                                {acc[item.type]}
+                              </div>
+                            )}
+                            <h3 className="text-lg font-semibold">{item.name}</h3>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-lg font-semibold text-[var(--primary)]">
+                              {formatPrice(item.pricePerPerson, item.currency)}
+                            </p>
+                            <p className="text-[11px] text-muted">{acc.perPerson}</p>
+                          </div>
+                        </div>
+
+                        {/* Quick info row */}
+                        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+                          <span className="flex items-center gap-1">
+                            <FaUsers className="text-[10px]" />
+                            {acc.upTo} {item.capacity} {acc.guests}
+                          </span>
+                          {item.boardType && (
+                            <span className="flex items-center gap-1">
+                              <FaUtensils className="text-[10px]" />
+                              {acc[item.boardType]}
+                            </span>
+                          )}
+                          {item.distanceToCenter && (
+                            <span className="flex items-center gap-1">
+                              <FaLocationDot className="text-[10px]" />
+                              {item.distanceToCenter}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Amenities chips */}
+                        {item.amenities.length > 0 && (
+                          <div className="mt-3 flex flex-wrap gap-1.5">
+                            {item.amenities.slice(0, isExpanded ? undefined : 4).map((a, i) => (
+                              <span
+                                key={i}
+                                className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px]"
+                              >
+                                {a}
+                              </span>
+                            ))}
+                            {!isExpanded && item.amenities.length > 4 && (
+                              <span className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px] text-muted">
+                                +{item.amenities.length - 4}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Expand / collapse button */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setExpandedAcc(isExpanded ? null : item._id)
+                          }
+                          className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl border border-[var(--line)] py-2 text-xs font-medium text-muted transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                        >
+                          {isExpanded
+                            ? language === "sr"
+                              ? "Sakrij detalje"
+                              : "Hide details"
+                            : acc.viewDetails}
+                          {isExpanded ? (
+                            <FaChevronUp className="text-[10px]" />
+                          ) : (
+                            <FaChevronDown className="text-[10px]" />
+                          )}
+                        </button>
+
+                        {/* Expanded details */}
+                        {isExpanded && (
+                          <div className="mt-3 space-y-3 border-t border-[var(--line)] pt-3">
+                            {item.description && (
+                              <p className="text-sm leading-6 text-muted">
+                                {item.description}
+                              </p>
+                            )}
+
+                            {/* Extra images */}
+                            {item.imageUrls.filter(Boolean).length > 1 && (
+                              <div className="flex gap-2 overflow-x-auto pb-1">
+                                {item.imageUrls
+                                  .filter(Boolean)
+                                  .slice(1)
+                                  .map((url, i) => (
+                                    <img
+                                      key={i}
+                                      src={url}
+                                      alt={`${item.name} ${i + 2}`}
+                                      className="h-24 w-auto shrink-0 rounded-xl border border-[var(--line)] object-cover"
+                                    />
+                                  ))}
+                              </div>
+                            )}
+
+                            <div className="grid gap-2 text-sm sm:grid-cols-2">
+                              {item.roomInfo && (
+                                <div className="flex items-center gap-2">
+                                  <FaDoorOpen className="shrink-0 text-xs text-[var(--primary)]" />
+                                  <span>{item.roomInfo}</span>
+                                </div>
+                              )}
+                              {item.checkIn && (
+                                <div className="flex items-center gap-2">
+                                  <FaClock className="shrink-0 text-xs text-[var(--primary)]" />
+                                  <span>Check-in: {item.checkIn}</span>
+                                </div>
+                              )}
+                              {item.checkOut && (
+                                <div className="flex items-center gap-2">
+                                  <FaClock className="shrink-0 text-xs text-[var(--primary)]" />
+                                  <span>Check-out: {item.checkOut}</span>
+                                </div>
+                              )}
+                              {item.distanceToCenter && (
+                                <div className="flex items-center gap-2">
+                                  <FaLocationDot className="shrink-0 text-xs text-[var(--primary)]" />
+                                  <span>{item.distanceToCenter}</span>
+                                </div>
+                              )}
+                            </div>
+
+                            {/* All amenities when expanded */}
+                            {item.amenities.length > 4 && (
+                              <div className="flex flex-wrap gap-1.5">
+                                {item.amenities.map((a, i) => (
+                                  <span
+                                    key={i}
+                                    className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px]"
+                                  >
+                                    {a}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            <Link
+                              href="/kontakt"
+                              className="btn-primary mt-2 w-full !justify-center text-sm"
+                            >
+                              {t.contactCta}
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           {trip.itinerary.length > 0 ? (
             <section>
               <h2 className="text-xl font-semibold">{t.itinerary}</h2>
@@ -225,6 +450,41 @@ export default function TripDetailPage() {
                 </span>
               </div>
             ) : null}
+
+            {/* Quick accommodation summary in sidebar */}
+            {activeAccommodations.length > 0 && (
+              <div className="mt-4 border-t border-[var(--line)] pt-3">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">
+                  {acc.title}
+                </p>
+                <div className="space-y-2">
+                  {activeAccommodations.slice(0, 3).map((item) => {
+                    const AccIcon = accommodationIcons[item.type];
+                    return (
+                      <div
+                        key={item._id}
+                        className="flex items-center justify-between gap-2 text-sm"
+                      >
+                        <span className="flex items-center gap-1.5 truncate">
+                          <AccIcon className="shrink-0 text-xs text-muted" />
+                          <span className="truncate">{item.name}</span>
+                        </span>
+                        <span className="shrink-0 font-medium text-[var(--primary)]">
+                          {formatPrice(item.pricePerPerson, item.currency)}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  {activeAccommodations.length > 3 && (
+                    <p className="text-xs text-muted">
+                      +{activeAccommodations.length - 3}{" "}
+                      {language === "sr" ? "još opcija" : "more options"}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
             <Link href="/kontakt" className="btn-primary mt-5 w-full !justify-center">
               {t.contactCta}
             </Link>

@@ -67,6 +67,9 @@ export default function ReligiousOffersEditor() {
   const [pdfFileName, setPdfFileName] = useState<string>("");
   const [pdfUploading, setPdfUploading] = useState(false);
   const [removePdfOnSave, setRemovePdfOnSave] = useState(false);
+  const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>([]);
+  const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
+  const [imageUploading, setImageUploading] = useState(false);
 
   const religiousOffers = useMemo(
     () =>
@@ -101,6 +104,8 @@ export default function ReligiousOffersEditor() {
     setPdfStorageId((offer.pdfStorageId as Id<"_storage"> | undefined) ?? null);
     setPdfUrl(offer.pdfUrl ?? null);
     setPdfFileName(offer.pdfFileName ?? "");
+    setImageStorageIds((offer.imageStorageIds as Id<"_storage">[] | undefined) ?? []);
+    setImagePreviewUrls((offer.imageUrls ?? []).filter(Boolean));
     setRemovePdfOnSave(false);
   };
 
@@ -110,6 +115,8 @@ export default function ReligiousOffersEditor() {
     setPdfStorageId(null);
     setPdfUrl(null);
     setPdfFileName("");
+    setImageStorageIds([]);
+    setImagePreviewUrls([]);
     setRemovePdfOnSave(false);
   };
 
@@ -147,9 +154,64 @@ export default function ReligiousOffersEditor() {
     }
   };
 
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+
+    setImageUploading(true);
+    setStatus(language === "sr" ? "Otpremanje slika..." : "Uploading images...");
+
+    try {
+      const nextStorageIds: Id<"_storage">[] = [];
+      const nextPreviewUrls: string[] = [];
+
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) {
+          continue;
+        }
+
+        const uploadUrl = await generateUploadUrl({});
+        const result = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": file.type || "application/octet-stream" },
+          body: file,
+        });
+        const json = await result.json();
+        const storageId = json.storageId as Id<"_storage"> | undefined;
+
+        if (!storageId) {
+          throw new Error("Missing storage id");
+        }
+
+        nextStorageIds.push(storageId);
+        nextPreviewUrls.push(URL.createObjectURL(file));
+      }
+
+      if (nextStorageIds.length === 0) {
+        setStatus(
+          language === "sr"
+            ? "Nijedna validna slika nije odabrana."
+            : "No valid image files were selected."
+        );
+        return;
+      }
+
+      setImageStorageIds((previous) => [...previous, ...nextStorageIds]);
+      setImagePreviewUrls((previous) => [...previous, ...nextPreviewUrls]);
+      setStatus(language === "sr" ? "Slike su uspesno dodate." : "Images uploaded successfully.");
+    } catch {
+      setStatus(language === "sr" ? "Upload slika nije uspeo." : "Image upload failed.");
+    } finally {
+      setImageUploading(false);
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImageStorageIds((previous) => previous.filter((_, i) => i !== index));
+    setImagePreviewUrls((previous) => previous.filter((_, i) => i !== index));
+  };
   const handleSave = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (busy || pdfUploading) return;
+    if (busy || pdfUploading || imageUploading) return;
 
     const title = form.title.trim();
     const destination = form.destination.trim();
@@ -195,6 +257,7 @@ export default function ReligiousOffersEditor() {
         tags,
         pdfStorageId: pdfStorageId ?? undefined,
         pdfFileName: pdfStorageId ? pdfFileName || "brochure.pdf" : undefined,
+        imageStorageIds,
         clearPdf: removePdfOnSave,
         normalizedHash: `${MANUAL_RELIGIOUS_SOURCE_SLUG}:${externalId}:${title}:${destination}:${price}`
           .toLowerCase()
@@ -446,6 +509,61 @@ export default function ReligiousOffersEditor() {
           </label>
           <div className="grid gap-2">
             <span className="text-sm font-semibold">
+              {language === "sr" ? "Slike ponude" : "Offer images"}
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <label className="btn-secondary cursor-pointer !px-3 !py-2 !text-xs">
+                {imageUploading
+                  ? language === "sr"
+                    ? "Otpremanje slika..."
+                    : "Uploading images..."
+                  : language === "sr"
+                    ? "Dodaj slike"
+                    : "Upload images"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  disabled={busy || pdfUploading || imageUploading}
+                  onChange={(event) => void handleImageUpload(event.target.files)}
+                />
+              </label>
+            </div>
+            {imagePreviewUrls.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {imagePreviewUrls.map((imageUrl, index) => (
+                  <div
+                    key={`${imageUrl}-${index}`}
+                    className="relative h-20 w-20 overflow-hidden rounded-xl border border-[var(--line)]"
+                  >
+                    <img
+                      src={imageUrl}
+                      alt={language === "sr" ? "Slika ponude" : "Offer image"}
+                      className="h-full w-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      className="absolute right-1 top-1 rounded-md bg-black/60 px-1.5 py-0.5 text-[10px] text-white"
+                      onClick={() => removeImage(index)}
+                      disabled={busy || pdfUploading || imageUploading}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            {imageStorageIds.length > 0 ? (
+              <p className="text-xs text-muted">
+                {language === "sr"
+                  ? `Ukupno slika: ${imageStorageIds.length}`
+                  : `Total images: ${imageStorageIds.length}`}
+              </p>
+            ) : null}
+          </div>
+          <div className="grid gap-2">
+            <span className="text-sm font-semibold">
               {language === "sr" ? "PDF brosura" : "PDF brochure"}
             </span>
             <div className="flex flex-wrap items-center gap-2">
@@ -461,7 +579,7 @@ export default function ReligiousOffersEditor() {
                   type="file"
                   accept="application/pdf,.pdf"
                   className="hidden"
-                  disabled={busy || pdfUploading}
+                  disabled={busy || pdfUploading || imageUploading}
                   onChange={(event) => void handlePdfUpload(event.target.files?.[0] ?? null)}
                 />
               </label>
@@ -475,7 +593,7 @@ export default function ReligiousOffersEditor() {
                     setPdfFileName("");
                     setRemovePdfOnSave(true);
                   }}
-                  disabled={busy || pdfUploading}
+                  disabled={busy || pdfUploading || imageUploading}
                 >
                   {language === "sr" ? "Ukloni PDF" : "Remove PDF"}
                 </button>
@@ -501,7 +619,7 @@ export default function ReligiousOffersEditor() {
             ) : null}
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <button type="submit" className="btn-primary" disabled={busy || pdfUploading}>
+            <button type="submit" className="btn-primary" disabled={busy || pdfUploading || imageUploading}>
               {editingExternalId
                 ? language === "sr"
                   ? "Sacuvaj izmene"
@@ -515,7 +633,7 @@ export default function ReligiousOffersEditor() {
                 type="button"
                 className="btn-secondary"
                 onClick={resetForm}
-                disabled={busy || pdfUploading}
+                disabled={busy || pdfUploading || imageUploading}
               >
                 {language === "sr" ? "OtkaZi izmenu" : "Cancel edit"}
               </button>
@@ -539,6 +657,13 @@ export default function ReligiousOffersEditor() {
                   className="surface fx-lift rounded-2xl p-4"
                   style={{ "--stagger-index": index } as CSSProperties}
                 >
+                  {offer.imageUrls && offer.imageUrls.length > 0 ? (
+                    <img
+                      src={offer.imageUrls[0]}
+                      alt={offer.title}
+                      className="mb-3 h-40 w-full rounded-xl border border-[var(--line)] object-cover"
+                    />
+                  ) : null}
                   <p className="text-xs uppercase tracking-[0.12em] text-muted">
                     {offer.sourceSlug}
                   </p>
@@ -621,3 +746,4 @@ export default function ReligiousOffersEditor() {
     </section>
   );
 }
+

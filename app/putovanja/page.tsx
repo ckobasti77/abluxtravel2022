@@ -27,7 +27,7 @@ export default function PutovanjaPage() {
         subtitle: "5 dana / 4 noci / Reykjavik + Golden Circle",
         badge: "4 nocenja",
         copy: "Vulkani, gejziri, lagune i aurora kao glavna scena.",
-        videoUrl: "",
+        mediaUrl: "",
       },
       {
         id: "cappadocia",
@@ -35,7 +35,7 @@ export default function PutovanjaPage() {
         subtitle: "4 dana / 3 noci / Let balonom u zoru",
         badge: "3 nocenja",
         copy: "Pecinske sobe, doline i panorame koje izgledaju nestvarno.",
-        videoUrl: "",
+        mediaUrl: "",
       },
       {
         id: "amalfi",
@@ -43,7 +43,7 @@ export default function PutovanjaPage() {
         subtitle: "7 dana / 6 noci / Obala, limuni i more",
         badge: "6 nocenja",
         copy: "Spoj opustanja i elegantnog tempa italijanske rivijere.",
-        videoUrl: "",
+        mediaUrl: "",
       },
     ],
     []
@@ -258,19 +258,30 @@ export default function PutovanjaPage() {
             slides.map((slide, index) => {
               const countrySlug = toCountrySlug(slide.title) || toCountrySlug(slide.id);
               const countryHref = countrySlug ? `/putovanja/${countrySlug}` : "/putovanja";
-              const shouldRenderVideo = Math.abs(index - activeIndex) <= 1;
+              const shouldRenderVideo =
+                slide.mediaType === "video" && Math.abs(index - activeIndex) <= 1;
+              const shouldRenderImage =
+                slide.mediaType === "image" && Boolean(slide.mediaUrl);
+
               return (
                 <section key={slide.id} className="relative h-screen w-full overflow-hidden">
-                  {slide.videoUrl && shouldRenderVideo ? (
+                  {shouldRenderVideo && slide.mediaUrl ? (
                     <video
                       className="absolute left-0 top-0 h-full w-full object-cover"
-                      src={slide.videoUrl}
+                      src={slide.mediaUrl}
                       autoPlay={index === activeIndex}
                       muted
                       loop
                       playsInline
                       preload={index === activeIndex ? "auto" : "metadata"}
                       disablePictureInPicture
+                    />
+                  ) : shouldRenderImage ? (
+                    <img
+                      className="absolute left-0 top-0 h-full w-full object-cover"
+                      src={slide.mediaUrl}
+                      alt={slide.title}
+                      loading={index === activeIndex ? "eager" : "lazy"}
                     />
                   ) : (
                     <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-br from-[#0b0f14] via-[#111827] to-[#1f2937]" />
@@ -338,3 +349,4 @@ export default function PutovanjaPage() {
     </div>
   );
 }
+

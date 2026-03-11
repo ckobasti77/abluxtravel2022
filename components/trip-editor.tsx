@@ -18,7 +18,9 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaImage,
+  FaBed,
 } from "react-icons/fa6";
+import AccommodationEditor from "./accommodation-editor";
 
 type ItineraryItem = { day: number; date: string; description: string };
 
@@ -87,7 +89,7 @@ const transportOptions: { value: TransportType; icon: typeof FaBus }[] = [
 ];
 
 type SectionProps = {
-  title: string;
+  title: React.ReactNode;
   defaultOpen?: boolean;
   children: React.ReactNode;
 };
@@ -626,6 +628,20 @@ export default function TripEditor() {
           </div>
         </CollapsibleSection>
       </div>
+
+      {editingId && (
+        <CollapsibleSection
+          title={
+            <>
+              <FaBed className="inline mr-2 text-sm" />
+              {language === "sr" ? "Smeštaj (Opcije)" : "Accommodation (Options)"}
+            </>
+          }
+          defaultOpen={false}
+        >
+          <AccommodationEditor tripId={editingId} />
+        </CollapsibleSection>
+      )}
 
       <div className="flex flex-wrap items-center gap-3">
         <button

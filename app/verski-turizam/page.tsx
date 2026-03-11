@@ -212,6 +212,13 @@ export default function VerskiTurizamPage() {
                 className="surface fx-lift rounded-2xl p-4"
                 style={{ "--stagger-index": index } as CSSProperties}
               >
+                {offer.imageUrls && offer.imageUrls.length > 0 ? (
+                  <img
+                    src={offer.imageUrls[0]}
+                    alt={offer.title}
+                    className="mb-3 h-44 w-full rounded-xl border border-[var(--line)] object-cover"
+                  />
+                ) : null}
                 <p className="text-xs uppercase tracking-[0.12em] text-muted">{offer.sourceSlug}</p>
                 <h3 className="mt-2 text-lg font-semibold">{offer.title}</h3>
                 <p className="mt-2 text-sm text-muted">{offer.destination}</p>
@@ -275,3 +282,4 @@ export default function VerskiTurizamPage() {
     </AlienShell>
   );
 }
+

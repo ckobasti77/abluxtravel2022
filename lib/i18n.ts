@@ -251,6 +251,53 @@ export type SiteDictionary = {
     saving: string;
     saved: string;
   };
+  accommodation: {
+    title: string;
+    subtitle: string;
+    addNew: string;
+    editUnit: string;
+    name: string;
+    type: string;
+    description: string;
+    pricePerPerson: string;
+    currency: string;
+    capacity: string;
+    capacityUnit: string;
+    amenities: string;
+    amenitiesPlaceholder: string;
+    boardType: string;
+    roomInfo: string;
+    checkIn: string;
+    checkOut: string;
+    distanceToCenter: string;
+    images: string;
+    order: string;
+    active: string;
+    save: string;
+    cancel: string;
+    delete: string;
+    deleteConfirm: string;
+    noUnits: string;
+    villa: string;
+    apartment: string;
+    hotel: string;
+    room: string;
+    hostel: string;
+    other: string;
+    ro: string;
+    bb: string;
+    hb: string;
+    fb: string;
+    ai: string;
+    from: string;
+    perPerson: string;
+    upTo: string;
+    guests: string;
+    mealPlan: string;
+    viewDetails: string;
+    available: string;
+    unavailable: string;
+  };
   tripDetail: {
     price: string;
     nights: string;
@@ -552,6 +599,53 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       saving: "Čuvanje...",
       saved: "Podešavanja su sačuvana.",
     },
+    accommodation: {
+      title: "Smeštaj",
+      subtitle: "Dostupne opcije smeštaja za ovaj aranžman",
+      addNew: "Dodaj smeštaj",
+      editUnit: "Izmeni smeštaj",
+      name: "Naziv",
+      type: "Tip smeštaja",
+      description: "Opis",
+      pricePerPerson: "Cena po osobi",
+      currency: "Valuta",
+      capacity: "Kapacitet",
+      capacityUnit: "osoba",
+      amenities: "Pogodnosti",
+      amenitiesPlaceholder: "WiFi, bazen, parking, klima... (svaka u novom redu)",
+      boardType: "Tip ishrane",
+      roomInfo: "Info o sobi",
+      checkIn: "Check-in",
+      checkOut: "Check-out",
+      distanceToCenter: "Udaljenost od centra",
+      images: "Slike smeštaja",
+      order: "Redosled",
+      active: "Aktivno",
+      save: "Sačuvaj smeštaj",
+      cancel: "Otkaži",
+      delete: "Obriši",
+      deleteConfirm: "Obrisati ovaj smeštaj?",
+      noUnits: "Nema dodatog smeštaja za ovaj aranžman.",
+      villa: "Vila",
+      apartment: "Apartman",
+      hotel: "Hotel",
+      room: "Soba",
+      hostel: "Hostel",
+      other: "Ostalo",
+      ro: "Samo smeštaj",
+      bb: "Noćenje sa doručkom",
+      hb: "Polupansion",
+      fb: "Pun pansion",
+      ai: "All inclusive",
+      from: "od",
+      perPerson: "po osobi",
+      upTo: "do",
+      guests: "gostiju",
+      mealPlan: "Ishrana",
+      viewDetails: "Pogledaj detalje",
+      available: "Dostupno",
+      unavailable: "Nedostupno",
+    },
     tripDetail: {
       price: "Cena",
       nights: "Noćenja",
@@ -850,6 +944,53 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       save: "Save",
       saving: "Saving...",
       saved: "Settings saved.",
+    },
+    accommodation: {
+      title: "Accommodation",
+      subtitle: "Available accommodation options for this package",
+      addNew: "Add accommodation",
+      editUnit: "Edit accommodation",
+      name: "Name",
+      type: "Accommodation type",
+      description: "Description",
+      pricePerPerson: "Price per person",
+      currency: "Currency",
+      capacity: "Capacity",
+      capacityUnit: "guests",
+      amenities: "Amenities",
+      amenitiesPlaceholder: "WiFi, pool, parking, AC... (one per line)",
+      boardType: "Board type",
+      roomInfo: "Room info",
+      checkIn: "Check-in",
+      checkOut: "Check-out",
+      distanceToCenter: "Distance to center",
+      images: "Accommodation images",
+      order: "Order",
+      active: "Active",
+      save: "Save accommodation",
+      cancel: "Cancel",
+      delete: "Delete",
+      deleteConfirm: "Delete this accommodation?",
+      noUnits: "No accommodations added for this package.",
+      villa: "Villa",
+      apartment: "Apartment",
+      hotel: "Hotel",
+      room: "Room",
+      hostel: "Hostel",
+      other: "Other",
+      ro: "Room only",
+      bb: "Bed & breakfast",
+      hb: "Half board",
+      fb: "Full board",
+      ai: "All inclusive",
+      from: "from",
+      perPerson: "per person",
+      upTo: "up to",
+      guests: "guests",
+      mealPlan: "Meal plan",
+      viewDetails: "View details",
+      available: "Available",
+      unavailable: "Unavailable",
     },
     tripDetail: {
       price: "Price",
