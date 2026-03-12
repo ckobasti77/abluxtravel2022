@@ -1,9 +1,10 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../../components/alien-shell";
+import AddToCartButton from "../../../components/add-to-cart-button";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { fromCountrySlug } from "../../../lib/country-route";
@@ -50,54 +51,113 @@ export default function CountryTripsPage() {
     });
   }, [offers, query]);
 
-  return (
-    <AlienShell className="site-fade">
-      <section className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-        <div className="space-y-4">
-          <span className="pill">{dictionary.country.badge}</span>
-          <h1 className="text-4xl font-semibold sm:text-5xl">
-            {dictionary.country.title} {countryName || "-"}
-          </h1>
-          <p className="max-w-2xl text-sm leading-6 text-muted sm:text-base">
-            {dictionary.country.description}
-          </p>
-        </div>
+  const uniqueTags = useMemo(
+    () => Array.from(new Set(offers.flatMap((offer) => offer.tags))).slice(0, 8),
+    [offers]
+  );
 
-        <Link href="/putovanja" className="btn-secondary h-11 px-6">
-          {dictionary.country.back}
-        </Link>
+  const minPrice = useMemo(() => {
+    if (filteredOffers.length === 0) {
+      return null;
+    }
+    return Math.min(...filteredOffers.map((offer) => offer.price));
+  }, [filteredOffers]);
+
+  const hasQuery = query.trim().length > 0;
+
+  return (
+    <AlienShell className="site-fade page-stack">
+      <section className="page-hero">
+        <span className="pill">{dictionary.country.badge}</span>
+        <h1 className="page-title">
+          {dictionary.country.title} {countryName || "-"}
+        </h1>
+        <p className="page-subtitle">{dictionary.country.description}</p>
+        <div className="page-hero__meta">
+          <Link href="/putovanja" className="btn-secondary !min-h-10 !px-5 !py-2 !text-xs">
+            {dictionary.country.back}
+          </Link>
+        </div>
       </section>
 
-      <section className="mt-8 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-        <article className="section-holo p-5">
-          <label htmlFor="country-offers-search" className="text-sm font-semibold">
+      <section className="metric-grid">
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Aktivne ponude" : "Active offers"}</p>
+          <p className="metric-card__value">{filteredOffers.length}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Ukupan broj trenutno vidljivih opcija." : "Total number of currently visible options."}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Izvori" : "Sources"}</p>
+          <p className="metric-card__value">{new Set(filteredOffers.map((offer) => offer.sourceSlug)).size}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Agencije i sistemi iz kojih dolaze ponude." : "Agencies and systems providing these offers."}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Najniza cena" : "Lowest price"}</p>
+          <p className="metric-card__value">
+            {minPrice === null
+              ? "-"
+              : new Intl.NumberFormat(locale, {
+                  style: "currency",
+                  currency: filteredOffers[0]?.currency ?? "EUR",
+                  maximumFractionDigits: 0,
+                }).format(minPrice)}
+          </p>
+          <p className="metric-card__hint">{language === "sr" ? "Brza procena budzeta za ovu zemlju." : "Quick budget orientation for this country."}</p>
+        </article>
+      </section>
+
+      <section className="filter-shell grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <article className="grid gap-3">
+          <label htmlFor="country-offers-search" className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">
             {dictionary.trips.searchLabel}
           </label>
-          <input
-            id="country-offers-search"
-            className="control mt-3"
-            placeholder={dictionary.trips.searchPlaceholder}
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <input
+              id="country-offers-search"
+              className="control"
+              placeholder={dictionary.trips.searchPlaceholder}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            {hasQuery ? (
+              <button type="button" className="btn-secondary !min-h-11 !px-4 !py-2 !text-xs" onClick={() => setQuery("")}>
+                {language === "sr" ? "Reset" : "Reset"}
+              </button>
+            ) : null}
+          </div>
+
+          {uniqueTags.length > 0 ? (
+            <div className="tag-list">
+              {uniqueTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  className="tag-chip cursor-pointer transition hover:border-[var(--primary)]"
+                  onClick={() => setQuery(tag)}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </article>
 
-        <article className="section-holo p-5">
-          <h2 className="text-xl font-semibold">{dictionary.trips.readyTitle}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted">{dictionary.trips.readyDescription}</p>
+        <article className="panel-glass">
+          <h2 className="text-lg font-semibold">{dictionary.trips.readyTitle}</h2>
+          <p className="panel-muted mt-2">{dictionary.trips.readyDescription}</p>
         </article>
       </section>
 
-      <section className="mt-6">
+      <section>
         {filteredOffers.length > 0 ? (
           <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {filteredOffers.map((offer, index) => (
               <article
                 key={offer.id}
-                className="surface fx-lift overflow-hidden rounded-3xl"
+                className="panel-glass fx-lift overflow-hidden"
                 style={{ "--stagger-index": index } as CSSProperties}
               >
-                <div className="relative h-20 w-full overflow-hidden">
+                <div className="relative h-20 w-full overflow-hidden rounded-xl border border-[var(--line)]">
                   <div className="absolute inset-0 bg-[linear-gradient(135deg,#1f3a70,#133050)]" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
                   <div className="relative flex h-full items-center justify-between gap-3 px-4">
@@ -108,66 +168,76 @@ export default function CountryTripsPage() {
                   </div>
                 </div>
 
-                <div className="p-5">
-                  <h2 className="text-xl font-semibold">{offer.title}</h2>
-                  <p className="mt-3 text-sm text-muted">
+                <div className="mt-4 grid gap-2">
+                  <h2 className="text-xl font-semibold leading-tight">{offer.title}</h2>
+                  <p className="text-sm text-muted">
                     {dictionary.offers.departure}: {offer.departureCity || dictionary.offers.tbd}
                   </p>
-                  <p className="mt-1 text-sm text-muted">
+                  <p className="text-sm text-muted">
                     {formatDate(offer.departureDate, locale, dictionary.offers.tbd)} -{" "}
                     {formatDate(offer.returnDate, locale, dictionary.offers.tbd)}
                   </p>
-                  <p className="mt-4 text-2xl font-semibold">{formatPrice(offer, locale)}</p>
-                  <p className="mt-1 text-sm text-muted">
+                  <p className="text-2xl font-semibold text-[var(--primary)]">{formatPrice(offer, locale)}</p>
+                  <p className="text-sm text-muted">
                     {dictionary.offers.seats}:{" "}
                     {typeof offer.seatsLeft === "number" ? offer.seatsLeft : dictionary.offers.unknown}
                   </p>
-                  {offer.pdfUrl ? (
-                    <div className="mt-3 space-y-2">
-                      <a
-                        href={offer.pdfUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
-                      >
-                        {language === "sr" ? "Otvori PDF program" : "Open PDF brochure"}
-                      </a>
-                      <details className="rounded-xl border border-[var(--line)] p-2">
-                        <summary className="cursor-pointer text-xs text-muted">
-                          {language === "sr" ? "Pregled / prelistavanje PDF-a" : "Preview / browse PDF"}
-                        </summary>
-                        <iframe
-                          src={`${offer.pdfUrl}#toolbar=1&navpanes=0`}
-                          className="mt-2 h-56 w-full rounded-lg border border-[var(--line)] bg-white"
-                          title={`${offer.id}-pdf-preview`}
-                        />
-                      </details>
-                    </div>
-                  ) : null}
+
                   {offer.tags.length > 0 ? (
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <div className="tag-list mt-1">
                       {offer.tags.map((tag) => (
-                        <span
-                          key={`${offer.id}-${tag}`}
-                          className="rounded-full border border-[var(--line)] bg-[var(--primary-soft)] px-2.5 py-1 text-xs"
-                        >
+                        <span key={`${offer.id}-${tag}`} className="tag-chip">
                           {tag}
                         </span>
                       ))}
                     </div>
                   ) : null}
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <AddToCartButton
+                      id={offer.id}
+                      type="offer"
+                      title={offer.title}
+                      price={offer.price}
+                      currency={offer.currency}
+                      meta={{ destination: offer.destination, departureCity: offer.departureCity ?? "" }}
+                      className="!min-h-10"
+                    />
+                    <Link href="/kontakt" className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs">
+                      {language === "sr" ? "Posalji upit" : "Send inquiry"}
+                    </Link>
+                    {offer.pdfUrl ? (
+                      <a
+                        href={offer.pdfUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs"
+                      >
+                        {language === "sr" ? "PDF program" : "PDF brochure"}
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="surface rounded-2xl p-6 text-sm text-muted">
-            {query.trim() ? dictionary.trips.noResults : dictionary.country.noOffers}
+          <div className="empty-state">
+            <h2 className="empty-state__title">
+              {query.trim() ? dictionary.trips.noResults : dictionary.country.noOffers}
+            </h2>
+            <p className="empty-state__copy">
+              {language === "sr"
+                ? "Pokusajte sa drugim pojmom ili uklonite filter da biste videli dostupne ponude."
+                : "Try another term or clear filters to see available offers."}
+            </p>
           </div>
         )}
       </section>
 
-      <PageAdminEditorDock slot="country" className="mt-10" />
+      <PageAdminEditorDock slot="country" className="mt-2" />
     </AlienShell>
   );
 }
+
+

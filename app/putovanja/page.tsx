@@ -1,14 +1,15 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FaArrowDown, FaArrowUp, FaCircle } from "react-icons/fa6";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import { toCountrySlug } from "../../lib/country-route";
 import { TripSlide, useSlides } from "../../lib/use-slides";
 import { useSession } from "../../lib/use-session";
 
-const IDLE_MS = 2500;
+const IDLE_MS = 3200;
 const SCROLL_COOLDOWN_MS = 900;
 const SWIPE_THRESHOLD = 50;
 
@@ -59,6 +60,10 @@ export default function PutovanjaPage() {
           emptyTitle: "Hero sekcija trenutno nema aktivne scene",
           emptyDescription:
             "Trenutno nema aktivnih scena. Novi prikazi destinacija bice dodati uskoro.",
+          previous: "Prethodna",
+          next: "Sledeca",
+          jumpTo: "Idi na scenu",
+          openPackages: "Otvori aranžmane",
         }
       : {
           slidePrefix: "Scene",
@@ -67,6 +72,10 @@ export default function PutovanjaPage() {
           emptyTitle: "Hero section currently has no active scenes",
           emptyDescription:
             "There are currently no active scenes. New destination highlights will be added soon.",
+          previous: "Previous",
+          next: "Next",
+          jumpTo: "Jump to scene",
+          openPackages: "Open packages",
         };
 
   const lastScrollRef = useRef(0);
@@ -83,9 +92,20 @@ export default function PutovanjaPage() {
       }
       const nextIndex = Math.min(Math.max(index, 0), slides.length - 1);
       setActiveIndex(nextIndex);
+      setOverlayVisible(true);
     },
     [slides.length]
   );
+
+  const goPrev = useCallback(() => {
+    if (activeIndex <= 0) return;
+    goTo(activeIndex - 1);
+  }, [activeIndex, goTo]);
+
+  const goNext = useCallback(() => {
+    if (activeIndex >= slides.length - 1) return;
+    goTo(activeIndex + 1);
+  }, [activeIndex, goTo, slides.length]);
 
   useEffect(() => {
     const clearIdle = () => {
@@ -245,8 +265,10 @@ export default function PutovanjaPage() {
     };
   }, [activeIndex, goTo, isAdmin, overlayLocked, slides.length]);
 
+  const activeSlide = slides[activeIndex];
+
   return (
-    <div className="bg-[#0b0f14] text-white">
+    <main id="main-content" className="bg-[#0b0f14] text-white">
       <section className="relative h-screen w-full overflow-hidden overscroll-none">
         <div
           className="absolute left-0 top-0 h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
@@ -293,7 +315,7 @@ export default function PutovanjaPage() {
                     }`}
                   >
                     <div className="absolute inset-0 bg-black/30 backdrop-blur-xl" />
-                    <div className="relative mx-auto flex w-[min(720px,90vw)] flex-col gap-5 px-5 text-center">
+                    <div className="relative mx-auto flex w-[min(760px,92vw)] flex-col gap-5 rounded-2xl border border-white/16 bg-black/30 px-5 py-6 text-center backdrop-blur-sm sm:px-8">
                       <div className="text-[11px] uppercase tracking-[0.35em] text-white/70">
                         {copy.slidePrefix} {index + 1} / {slides.length}
                       </div>
@@ -309,13 +331,21 @@ export default function PutovanjaPage() {
                       {slide.copy ? (
                         <p className="text-sm text-white/70 sm:text-base">{slide.copy}</p>
                       ) : null}
-                      <Link
-                        href={countryHref}
-                        className="mx-auto mt-3 inline-flex rounded-full border border-white/45 bg-black/25 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/90 transition hover:border-white hover:bg-black/35"
-                      >
-                        {copy.offersFor} {slide.title}
-                      </Link>
-                      <p className="mt-2 text-[10px] uppercase tracking-[0.35em] text-white/50 sm:text-[11px]">
+                      <div className="mt-2 flex flex-wrap justify-center gap-2">
+                        <Link
+                          href={countryHref}
+                          className="inline-flex rounded-full border border-white/45 bg-black/25 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/90 transition hover:border-white hover:bg-black/35"
+                        >
+                          {copy.offersFor} {slide.title}
+                        </Link>
+                        <Link
+                          href="/aranzmani"
+                          className="inline-flex rounded-full border border-white/25 bg-black/15 px-5 py-3 text-xs uppercase tracking-[0.28em] text-white/80 transition hover:border-white/40 hover:text-white"
+                        >
+                          {copy.openPackages}
+                        </Link>
+                      </div>
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.35em] text-white/50 sm:text-[11px]">
                         {copy.swipeHint}
                       </p>
                     </div>
@@ -338,6 +368,54 @@ export default function PutovanjaPage() {
             </section>
           )}
         </div>
+
+        {slides.length > 1 ? (
+          <div className="absolute bottom-5 left-1/2 z-20 flex w-[min(92vw,860px)] -translate-x-1/2 flex-col gap-3 rounded-2xl border border-white/20 bg-black/35 px-4 py-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={goPrev}
+                disabled={activeIndex === 0}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white/85 transition hover:border-white/50 disabled:cursor-not-allowed disabled:opacity-45"
+                aria-label={copy.previous}
+              >
+                <FaArrowUp aria-hidden />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                disabled={activeIndex >= slides.length - 1}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/30 text-white/85 transition hover:border-white/50 disabled:cursor-not-allowed disabled:opacity-45"
+                aria-label={copy.next}
+              >
+                <FaArrowDown aria-hidden />
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  type="button"
+                  onClick={() => goTo(index)}
+                  aria-label={`${copy.jumpTo} ${index + 1}`}
+                  className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] uppercase tracking-[0.08em] transition ${
+                    index === activeIndex
+                      ? "border-white/60 bg-white/20 text-white"
+                      : "border-white/20 bg-black/20 text-white/70 hover:border-white/40"
+                  }`}
+                >
+                  <FaCircle className="text-[8px]" aria-hidden />
+                  <span>{index + 1}</span>
+                </button>
+              ))}
+            </div>
+
+            {activeSlide ? (
+              <p className="hidden text-xs text-white/75 sm:block">{activeSlide.title}</p>
+            ) : null}
+          </div>
+        ) : null}
       </section>
 
       <div ref={editorDockRef}>
@@ -346,7 +424,7 @@ export default function PutovanjaPage() {
           className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-12 text-[var(--text)] sm:px-8 lg:px-12"
         />
       </div>
-    </div>
+    </main>
   );
 }
 

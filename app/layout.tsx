@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Manrope, Sora } from "next/font/google";
 import QuickActions from "../components/quick-actions";
 import SiteFooter from "../components/site-footer";
@@ -15,6 +15,7 @@ import {
   SITE_URL_OBJECT,
 } from "../lib/seo";
 import "./globals.css";
+import "./ui-enhancements.css";
 import Providers from "./providers";
 
 const manrope = Manrope({
@@ -163,6 +164,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <Providers>
+          <a className="skip-link" href="#main-content">
+            Skip to content
+          </a>
           <SiteNavigation />
           <QuickActions />
           {children}
@@ -172,3 +176,4 @@ export default function RootLayout({
     </html>
   );
 }
+

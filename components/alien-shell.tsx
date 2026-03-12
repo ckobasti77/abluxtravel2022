@@ -14,7 +14,8 @@ export default function AlienShell({ children, className = "" }: AlienShellProps
         <div className="alien-shell-glow alien-shell-glow--bottom" />
       </div>
       <main
-        className={`mx-auto w-full max-w-7xl px-4 pb-16 pt-28 sm:px-8 lg:px-12 ${className}`}
+        id="main-content"
+        className={`mx-auto w-full max-w-7xl px-4 pb-16 pt-28 sm:px-8 sm:pt-30 lg:px-12 ${className}`}
       >
         {children}
       </main>

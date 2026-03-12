@@ -1,13 +1,14 @@
-"use client";
+﻿"use client";
 
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { FaBus, FaPlane, FaCar, FaTrain, FaUser } from "react-icons/fa6";
+import { FaBus, FaCar, FaPlane, FaTrain, FaUser } from "react-icons/fa6";
 import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
-import { useTrips, TripStatus, TransportType } from "../../lib/use-trips";
+import AddToCartButton from "../../components/add-to-cart-button";
+import { TransportType, TripStatus, useTrips } from "../../lib/use-trips";
 
 const transportIcons: Record<TransportType, typeof FaBus> = {
   bus: FaBus,
@@ -22,6 +23,8 @@ const statusClass: Record<TripStatus, string> = {
   upcoming: "border-amber-400/35 bg-amber-400/10 text-amber-300",
   completed: "border-slate-400/35 bg-slate-400/10 text-slate-300",
 };
+
+const cx = (...values: Array<string | false | null | undefined>) => values.filter(Boolean).join(" ");
 
 export default function AranzmaniPage() {
   const { dictionary, language } = useSitePreferences();
@@ -49,6 +52,24 @@ export default function AranzmaniPage() {
     return result;
   }, [trips, statusFilter, search]);
 
+  const activeCount = useMemo(
+    () => trips.filter((trip) => trip.status === "active").length,
+    [trips]
+  );
+
+  const uniqueCities = useMemo(
+    () => new Set(filtered.map((trip) => trip.departureCity.toLowerCase())).size,
+    [filtered]
+  );
+
+  const averagePrice = useMemo(() => {
+    if (filtered.length === 0) {
+      return null;
+    }
+    const total = filtered.reduce((sum, trip) => sum + trip.price, 0);
+    return Math.round(total / filtered.length);
+  }, [filtered]);
+
   const formatPrice = (price: number, currency: string) =>
     new Intl.NumberFormat(locale, {
       style: "currency",
@@ -63,99 +84,206 @@ export default function AranzmaniPage() {
     return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(d);
   };
 
+  const resetFilters = () => {
+    setSearch("");
+    setStatusFilter("all");
+  };
+
+  const isFiltered = search.trim().length > 0 || statusFilter !== "all";
+
   return (
-    <AlienShell className="site-fade">
-      <section className="space-y-5">
+    <AlienShell className="site-fade page-stack">
+      <section className="page-hero">
         <span className="pill">{dictionary.arrangements.badge}</span>
-        <h1 className="max-w-3xl text-4xl font-semibold sm:text-5xl">
-          {dictionary.arrangements.title}
-        </h1>
-        <p className="max-w-3xl text-base leading-7 text-muted">
-          {dictionary.arrangements.description}
-        </p>
+        <h1 className="page-title">{dictionary.arrangements.title}</h1>
+        <p className="page-subtitle">{dictionary.arrangements.description}</p>
+        <div className="page-hero__meta tag-list">
+          <span className="tag-chip">{dictionary.arrangements.trackA}</span>
+          <span className="tag-chip">{dictionary.arrangements.trackB}</span>
+          <span className="tag-chip">{dictionary.arrangements.trackC}</span>
+        </div>
       </section>
 
-      <section className="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]">
-        <input
-          className="control"
-          placeholder={t.searchPlaceholder}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <select
-          className="control"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value as TripStatus | "all")}
-        >
-          <option value="all">{t.allTrips}</option>
-          <option value="active">{t.statusActive}</option>
-          <option value="upcoming">{t.statusUpcoming}</option>
-          <option value="completed">{t.statusCompleted}</option>
-        </select>
+      <section className="metric-grid" aria-label={language === "sr" ? "Kljucne metrike" : "Key metrics"}>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Ukupno aranzmana" : "Total packages"}</p>
+          <p className="metric-card__value">{trips.length}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Sve trenutno objavljene ponude." : "All currently published offers."}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Aktivno" : "Active now"}</p>
+          <p className="metric-card__value">{activeCount}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Programi spremni za upit i rezervaciju." : "Programs ready for inquiry and booking."}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Gradovi polaska" : "Departure cities"}</p>
+          <p className="metric-card__value">{uniqueCities}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Sirina ponude po polaznim tackama." : "Offer spread by departure points."}</p>
+        </article>
+      </section>
+
+      <section className="filter-shell">
+        <div className="grid gap-3 lg:grid-cols-[1fr_14rem_auto] lg:items-end">
+          <label className="grid gap-2" htmlFor="arrangements-search">
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">
+              {t.search}
+            </span>
+            <input
+              id="arrangements-search"
+              className="control"
+              placeholder={t.searchPlaceholder}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </label>
+
+          <label className="grid gap-2" htmlFor="arrangements-status">
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">
+              {t.filterByStatus}
+            </span>
+            <select
+              id="arrangements-status"
+              className="control"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value as TripStatus | "all")}
+            >
+              <option value="all">{t.allTrips}</option>
+              <option value="active">{t.statusActive}</option>
+              <option value="upcoming">{t.statusUpcoming}</option>
+              <option value="completed">{t.statusCompleted}</option>
+            </select>
+          </label>
+
+          <div className="flex flex-col gap-2 lg:min-w-[10.5rem]">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">
+              {language === "sr" ? "Rezultata" : "Results"}
+            </p>
+            <p className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-center text-sm font-semibold">
+              {filtered.length}
+            </p>
+            {isFiltered ? (
+              <button type="button" className="btn-secondary !min-h-9 !px-3 !py-2 !text-xs" onClick={resetFilters}>
+                {language === "sr" ? "Resetuj filtere" : "Reset filters"}
+              </button>
+            ) : null}
+          </div>
+        </div>
       </section>
 
       {filtered.length > 0 ? (
-        <section className="stagger-grid mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <section className="stagger-grid grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((trip, index) => {
             const TransportIcon = transportIcons[trip.transport];
             const heroImage = trip.imageUrls?.[0];
             return (
-              <Link
+              <article
                 key={trip._id}
-                href={`/aranzmani/${trip.slug}`}
-                className="surface fx-lift group block overflow-hidden rounded-2xl transition"
+                className="panel-glass group fx-lift overflow-hidden"
                 style={{ "--stagger-index": index } as CSSProperties}
               >
-                <div className="relative h-48 w-full overflow-hidden bg-[var(--bg-soft)]">
-                  {heroImage ? (
-                    <img
-                      src={heroImage}
-                      alt={trip.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-4xl text-muted/30">
-                      <TransportIcon />
-                    </div>
-                  )}
-                  <span
-                    className={`absolute right-3 top-3 rounded-full border px-2.5 py-1 text-xs font-semibold ${statusClass[trip.status]}`}
-                  >
-                    {trip.status === "active"
-                      ? t.statusActive
-                      : trip.status === "upcoming"
-                        ? t.statusUpcoming
-                        : t.statusCompleted}
-                  </span>
-                </div>
-                <div className="p-4">
+                <Link href={`/aranzmani/${trip.slug}`} className="block">
+                  <div className="relative h-52 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                    {heroImage ? (
+                      <img
+                        src={heroImage}
+                        alt={trip.title}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-4xl text-muted/40">
+                        <TransportIcon />
+                      </div>
+                    )}
+                    <span
+                      className={cx(
+                        "absolute right-3 top-3 rounded-full border px-2.5 py-1 text-xs font-semibold",
+                        statusClass[trip.status]
+                      )}
+                    >
+                      {trip.status === "active"
+                        ? t.statusActive
+                        : trip.status === "upcoming"
+                          ? t.statusUpcoming
+                          : t.statusCompleted}
+                    </span>
+                  </div>
+                </Link>
+
+                <div className="mt-4 grid gap-2">
                   <div className="flex items-center gap-2 text-xs text-muted">
                     <TransportIcon />
                     <span>
                       {trip.days} {t.days} | {trip.nights} {t.nights}
                     </span>
-                    <span className="ml-auto">{trip.departureCity}</span>
+                    <span className="ml-auto rounded-full border border-[var(--line)] px-2 py-0.5">
+                      {trip.departureCity}
+                    </span>
                   </div>
-                  <h3 className="mt-2 text-lg font-semibold">{trip.title}</h3>
-                  <p className="mt-1 text-sm text-muted">
+
+                  <h3 className="text-lg font-semibold leading-tight">{trip.title}</h3>
+                  <p className="text-sm leading-6 text-muted line-clamp-3">{trip.description}</p>
+                  <p className="text-sm text-muted">
                     {formatDate(trip.departureDate)}
                     {trip.returnDate ? ` - ${formatDate(trip.returnDate)}` : ""}
                   </p>
-                  <p className="mt-3 text-xl font-semibold text-[var(--primary)]">
-                    {formatPrice(trip.price, trip.currency)}
-                  </p>
+
+                  <div className="mt-2 flex items-end justify-between gap-3">
+                    <p className="text-2xl font-semibold text-[var(--primary)]">
+                      {formatPrice(trip.price, trip.currency)}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <AddToCartButton
+                        id={trip._id}
+                        type="trip"
+                        title={trip.title}
+                        price={trip.price}
+                        currency={trip.currency}
+                        imageUrl={heroImage}
+                        meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
+                        compact
+                      />
+                      <Link href={`/aranzmani/${trip.slug}`} className="btn-secondary !min-h-9 !px-4 !py-2 !text-xs">
+                        {language === "sr" ? "Detalji" : "Details"}
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </Link>
+              </article>
             );
           })}
         </section>
       ) : (
-        <div className="surface mt-6 rounded-2xl p-6 text-center text-sm text-muted">
-          {t.noTrips}
+        <div className="empty-state">
+          <h2 className="empty-state__title">{t.noTrips}</h2>
+          <p className="empty-state__copy">
+            {language === "sr"
+              ? "Pokusajte sa drugim statusom ili uklonite pojam pretrage da biste videli vise opcija."
+              : "Try another status or clear the search term to see more options."}
+          </p>
+          {isFiltered ? (
+            <button type="button" className="btn-secondary mt-4" onClick={resetFilters}>
+              {language === "sr" ? "Prikazi sve aransmane" : "Show all packages"}
+            </button>
+          ) : null}
         </div>
       )}
 
-      <PageAdminEditorDock slot="aranzmani" className="mt-10" />
+      {averagePrice !== null ? (
+        <section className="panel-glass">
+          <p className="metric-card__label">{language === "sr" ? "Prosecna cena trenutno filtriranih" : "Average price in current selection"}</p>
+          <p className="metric-card__value">{formatPrice(averagePrice, filtered[0]?.currency ?? "EUR")}</p>
+          <p className="panel-muted">
+            {language === "sr"
+              ? "Koristan signal za brzu procenu budzeta pre otvaranja detalja aranzmana."
+              : "Useful signal for quick budget estimation before opening package details."}
+          </p>
+        </section>
+      ) : null}
+
+      <PageAdminEditorDock slot="aranzmani" className="mt-2" />
     </AlienShell>
   );
 }
+
+
+

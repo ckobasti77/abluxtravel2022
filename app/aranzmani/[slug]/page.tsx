@@ -1,41 +1,37 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
-  FaBus,
-  FaPlane,
-  FaCar,
-  FaTrain,
-  FaUser,
-  FaCheck,
-  FaXmark,
   FaArrowLeft,
-  FaCalendarDays,
-  FaLocationDot,
-  FaHotel,
-  FaMoneyBillWave,
-  FaHouse,
-  FaBuilding,
-  FaDoorOpen,
   FaBed,
-  FaEllipsis,
-  FaUsers,
-  FaUtensils,
-  FaClock,
-  FaWifi,
+  FaBuilding,
+  FaBus,
+  FaCalendarDays,
+  FaCar,
+  FaCheck,
   FaChevronDown,
   FaChevronUp,
+  FaClock,
+  FaDoorOpen,
+  FaEllipsis,
+  FaHotel,
+  FaHouse,
+  FaLocationDot,
+  FaMoneyBillWave,
+  FaPlane,
+  FaTrain,
+  FaUser,
+  FaUsers,
+  FaUtensils,
+  FaXmark,
 } from "react-icons/fa6";
+import AddToCartButton from "../../../components/add-to-cart-button";
 import AlienShell from "../../../components/alien-shell";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
-import { useTripBySlug, TransportType } from "../../../lib/use-trips";
-import {
-  useAccommodationsByTrip,
-  AccommodationType,
-  Accommodation,
-} from "../../../lib/use-accommodations";
+import { AccommodationType, useAccommodationsByTrip } from "../../../lib/use-accommodations";
+import { TransportType, useTripBySlug } from "../../../lib/use-trips";
 
 const transportIcons: Record<TransportType, typeof FaBus> = {
   bus: FaBus,
@@ -54,6 +50,7 @@ const accommodationIcons: Record<AccommodationType, typeof FaHouse> = {
   other: FaEllipsis,
 };
 
+
 export default function TripDetailPage() {
   const params = useParams();
   const slug = typeof params.slug === "string" ? params.slug : "";
@@ -65,7 +62,6 @@ export default function TripDetailPage() {
 
   const accommodations = useAccommodationsByTrip(trip?._id);
   const activeAccommodations = accommodations.filter((a) => a.isActive);
-
   const [expandedAcc, setExpandedAcc] = useState<string | null>(null);
 
   if (trip === undefined) {
@@ -85,9 +81,7 @@ export default function TripDetailPage() {
       <AlienShell className="site-fade">
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
           <h1 className="text-3xl font-semibold">404</h1>
-          <p className="text-muted">
-            {language === "sr" ? "Aranzman nije pronadjen." : "Trip not found."}
-          </p>
+          <p className="text-muted">{language === "sr" ? "Aranzman nije pronadjen." : "Trip not found."}</p>
           <Link href="/aranzmani" className="btn-primary">
             {t.back}
           </Link>
@@ -113,78 +107,71 @@ export default function TripDetailPage() {
   };
 
   return (
-    <AlienShell className="site-fade">
-      <Link
-        href="/aranzmani"
-        className="inline-flex items-center gap-2 text-sm text-muted transition hover:text-[var(--primary)]"
-      >
-        <FaArrowLeft className="text-xs" />
-        {t.back}
-      </Link>
+    <AlienShell className="site-fade page-stack">
+      <section className="page-hero">
+        <Link href="/aranzmani" className="inline-flex w-fit items-center gap-2 text-sm text-muted transition hover:text-[var(--primary)]">
+          <FaArrowLeft className="text-xs" />
+          {t.back}
+        </Link>
+        <h1 className="page-title">{trip.title}</h1>
+        <p className="page-subtitle">{trip.description}</p>
+      </section>
 
       {trip.imageUrls.length > 0 ? (
-        <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
-          {trip.imageUrls.filter(Boolean).map((url, i) => (
-            <img
-              key={i}
-              src={url}
-              alt={`${trip.title} ${i + 1}`}
-              className="h-64 w-auto shrink-0 rounded-2xl border border-[var(--line)] object-cover sm:h-80"
-            />
-          ))}
-        </div>
+        <section className="panel-glass overflow-hidden">
+          <div className="flex snap-x gap-3 overflow-x-auto pb-2">
+            {trip.imageUrls.filter(Boolean).map((url, i) => (
+              <img
+                key={i}
+                src={url}
+                alt={`${trip.title} ${i + 1}`}
+                className="h-56 w-auto shrink-0 snap-center rounded-xl border border-[var(--line)] object-cover sm:h-72"
+              />
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_380px]">
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-semibold sm:text-4xl">{trip.title}</h1>
-            <p className="mt-3 text-base leading-7 text-muted">{trip.description}</p>
-          </div>
+      <section className="metric-grid">
+        <article className="metric-card">
+          <p className="metric-card__label">{t.transport}</p>
+          <p className="metric-card__value inline-flex items-center gap-2 text-[1.2rem] sm:text-[1.5rem]">
+            <TransportIcon className="text-[var(--primary)]" />
+            {t[trip.transport]}
+          </p>
+          <p className="metric-card__hint">{language === "sr" ? "Tip prevoza za ovaj aransman." : "Transport type for this package."}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{t.departure}</p>
+          <p className="metric-card__value">{formatDate(trip.departureDate)}</p>
+          <p className="metric-card__hint">{language === "sr" ? `Povratak: ${formatDate(trip.returnDate)}` : `Return: ${formatDate(trip.returnDate)}`}</p>
+        </article>
+        <article className="metric-card">
+          <p className="metric-card__label">{t.departureCity}</p>
+          <p className="metric-card__value">{trip.departureCity}</p>
+          <p className="metric-card__hint">{trip.days} {t.days} | {trip.nights} {t.nights}</p>
+        </article>
+      </section>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="surface flex items-center gap-3 rounded-xl p-3">
-              <TransportIcon className="text-lg text-[var(--primary)]" />
-              <div>
-                <p className="text-xs text-muted">{t.transport}</p>
-                <p className="text-sm font-semibold">{t[trip.transport]}</p>
-              </div>
-            </div>
-            <div className="surface flex items-center gap-3 rounded-xl p-3">
-              <FaCalendarDays className="text-lg text-[var(--primary)]" />
-              <div>
-                <p className="text-xs text-muted">{t.departure}</p>
-                <p className="text-sm font-semibold">{formatDate(trip.departureDate)}</p>
-              </div>
-            </div>
-            <div className="surface flex items-center gap-3 rounded-xl p-3">
-              <FaLocationDot className="text-lg text-[var(--primary)]" />
-              <div>
-                <p className="text-xs text-muted">{t.departureCity}</p>
-                <p className="text-sm font-semibold">{trip.departureCity}</p>
-              </div>
-            </div>
-          </div>
+      <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+        <div className="grid gap-6">
+          {activeAccommodations.length > 0 ? (
+            <section className="grid gap-4">
+              <header className="grid gap-1">
+                <h2 className="text-2xl font-semibold">{acc.title}</h2>
+                <p className="panel-muted">{acc.subtitle}</p>
+              </header>
 
-          {/* Accommodation Section */}
-          {activeAccommodations.length > 0 && (
-            <section>
-              <h2 className="text-xl font-semibold">{acc.title}</h2>
-              <p className="mt-1 text-sm text-muted">{acc.subtitle}</p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {activeAccommodations.map((item) => {
                   const AccIcon = accommodationIcons[item.type];
                   const isExpanded = expandedAcc === item._id;
                   const heroImg = item.imageUrls?.[0];
 
                   return (
-                    <div
-                      key={item._id}
-                      className="group overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] transition hover:border-[var(--primary)]/30"
-                    >
-                      {/* Hero image */}
-                      {heroImg && (
-                        <div className="relative h-40 w-full overflow-hidden bg-[var(--bg-soft)]">
+                    <article key={item._id} className="panel-glass group overflow-hidden">
+                      {heroImg ? (
+                        <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
                           <img
                             src={heroImg}
                             alt={item.name}
@@ -195,18 +182,17 @@ export default function TripDetailPage() {
                             {acc[item.type]}
                           </div>
                         </div>
-                      )}
+                      ) : null}
 
-                      <div className="p-4">
-                        {/* Name & type (when no image) */}
+                      <div className="mt-4 grid gap-3">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            {!heroImg && (
-                              <div className="mb-2 flex items-center gap-1.5 text-xs text-muted">
+                            {!heroImg ? (
+                              <div className="mb-1 flex items-center gap-1.5 text-xs text-muted">
                                 <AccIcon />
                                 {acc[item.type]}
                               </div>
-                            )}
+                            ) : null}
                             <h3 className="text-lg font-semibold">{item.name}</h3>
                           </div>
                           <div className="text-right">
@@ -217,76 +203,65 @@ export default function TripDetailPage() {
                           </div>
                         </div>
 
-                        {/* Quick info row */}
-                        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
                           <span className="flex items-center gap-1">
                             <FaUsers className="text-[10px]" />
                             {acc.upTo} {item.capacity} {acc.guests}
                           </span>
-                          {item.boardType && (
+                          {item.boardType ? (
                             <span className="flex items-center gap-1">
                               <FaUtensils className="text-[10px]" />
                               {acc[item.boardType]}
                             </span>
-                          )}
-                          {item.distanceToCenter && (
+                          ) : null}
+                          {item.distanceToCenter ? (
                             <span className="flex items-center gap-1">
                               <FaLocationDot className="text-[10px]" />
                               {item.distanceToCenter}
                             </span>
-                          )}
+                          ) : null}
                         </div>
 
-                        {/* Amenities chips */}
-                        {item.amenities.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-1.5">
+                        {item.amenities.length > 0 ? (
+                          <div className="tag-list">
                             {item.amenities.slice(0, isExpanded ? undefined : 4).map((a, i) => (
-                              <span
-                                key={i}
-                                className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px]"
-                              >
+                              <span key={i} className="tag-chip">
                                 {a}
                               </span>
                             ))}
-                            {!isExpanded && item.amenities.length > 4 && (
-                              <span className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px] text-muted">
-                                +{item.amenities.length - 4}
-                              </span>
-                            )}
+                            {!isExpanded && item.amenities.length > 4 ? (
+                              <span className="tag-chip text-muted">+{item.amenities.length - 4}</span>
+                            ) : null}
                           </div>
-                        )}
+                        ) : null}
 
-                        {/* Expand / collapse button */}
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setExpandedAcc(isExpanded ? null : item._id)
-                          }
-                          className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-xl border border-[var(--line)] py-2 text-xs font-medium text-muted transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
-                        >
-                          {isExpanded
-                            ? language === "sr"
-                              ? "Sakrij detalje"
-                              : "Hide details"
-                            : acc.viewDetails}
-                          {isExpanded ? (
-                            <FaChevronUp className="text-[10px]" />
-                          ) : (
-                            <FaChevronDown className="text-[10px]" />
-                          )}
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <AddToCartButton
+                            id={item._id}
+                            type="accommodation"
+                            title={`${item.name} â€” ${trip.title}`}
+                            price={item.pricePerPerson}
+                            currency={item.currency}
+                            imageUrl={heroImg}
+                            compact
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setExpandedAcc(isExpanded ? null : item._id)}
+                            className="btn-secondary !min-h-10 flex-1 !justify-center !px-3 !py-2 !text-xs"
+                          >
+                            {isExpanded ? (language === "sr" ? "Sakrij detalje" : "Hide details") : acc.viewDetails}
+                            {isExpanded ? <FaChevronUp className="text-[10px]" /> : <FaChevronDown className="text-[10px]" />}
+                          </button>
+                        </div>
 
-                        {/* Expanded details */}
-                        {isExpanded && (
-                          <div className="mt-3 space-y-3 border-t border-[var(--line)] pt-3">
-                            {item.description && (
-                              <p className="text-sm leading-6 text-muted">
-                                {item.description}
-                              </p>
-                            )}
+                        {isExpanded ? (
+                          <div className="grid gap-3 border-t border-[var(--line)] pt-3">
+                            {item.description ? (
+                              <p className="text-sm leading-6 text-muted">{item.description}</p>
+                            ) : null}
 
-                            {/* Extra images */}
-                            {item.imageUrls.filter(Boolean).length > 1 && (
+                            {item.imageUrls.filter(Boolean).length > 1 ? (
                               <div className="flex gap-2 overflow-x-auto pb-1">
                                 {item.imageUrls
                                   .filter(Boolean)
@@ -300,95 +275,73 @@ export default function TripDetailPage() {
                                     />
                                   ))}
                               </div>
-                            )}
+                            ) : null}
 
                             <div className="grid gap-2 text-sm sm:grid-cols-2">
-                              {item.roomInfo && (
+                              {item.roomInfo ? (
                                 <div className="flex items-center gap-2">
                                   <FaDoorOpen className="shrink-0 text-xs text-[var(--primary)]" />
                                   <span>{item.roomInfo}</span>
                                 </div>
-                              )}
-                              {item.checkIn && (
+                              ) : null}
+                              {item.checkIn ? (
                                 <div className="flex items-center gap-2">
                                   <FaClock className="shrink-0 text-xs text-[var(--primary)]" />
                                   <span>Check-in: {item.checkIn}</span>
                                 </div>
-                              )}
-                              {item.checkOut && (
+                              ) : null}
+                              {item.checkOut ? (
                                 <div className="flex items-center gap-2">
                                   <FaClock className="shrink-0 text-xs text-[var(--primary)]" />
                                   <span>Check-out: {item.checkOut}</span>
                                 </div>
-                              )}
-                              {item.distanceToCenter && (
+                              ) : null}
+                              {item.distanceToCenter ? (
                                 <div className="flex items-center gap-2">
                                   <FaLocationDot className="shrink-0 text-xs text-[var(--primary)]" />
                                   <span>{item.distanceToCenter}</span>
                                 </div>
-                              )}
+                              ) : null}
                             </div>
 
-                            {/* All amenities when expanded */}
-                            {item.amenities.length > 4 && (
-                              <div className="flex flex-wrap gap-1.5">
-                                {item.amenities.map((a, i) => (
-                                  <span
-                                    key={i}
-                                    className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px]"
-                                  >
-                                    {a}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-
-                            <Link
-                              href="/kontakt"
-                              className="btn-primary mt-2 w-full !justify-center text-sm"
-                            >
+                            <Link href="/kontakt" className="btn-primary mt-1 w-full !justify-center !text-sm">
                               {t.contactCta}
                             </Link>
                           </div>
-                        )}
+                        ) : null}
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
             </section>
-          )}
+          ) : null}
 
           {trip.itinerary.length > 0 ? (
-            <section>
-              <h2 className="text-xl font-semibold">{t.itinerary}</h2>
-              <div className="mt-4 space-y-3">
+            <section className="grid gap-3">
+              <h2 className="text-2xl font-semibold">{t.itinerary}</h2>
+              <div className="grid gap-3">
                 {trip.itinerary.map((item, i) => (
-                  <div
-                    key={i}
-                    className="surface flex gap-4 rounded-xl p-4"
-                  >
+                  <article key={i} className="panel-glass flex gap-4">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--primary-soft)] text-sm font-semibold text-[var(--primary)]">
                       {item.day}
                     </div>
                     <div>
-                      {item.date ? (
-                        <p className="text-xs text-muted">{formatDate(item.date)}</p>
-                      ) : null}
-                      <p className="text-sm">{item.description}</p>
+                      {item.date ? <p className="text-xs text-muted">{formatDate(item.date)}</p> : null}
+                      <p className="text-sm leading-6">{item.description}</p>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </section>
           ) : null}
 
-          {(trip.included.length > 0 || trip.notIncluded.length > 0) ? (
-            <section className="grid gap-6 sm:grid-cols-2">
+          {trip.included.length > 0 || trip.notIncluded.length > 0 ? (
+            <section className="grid gap-4 sm:grid-cols-2">
               {trip.included.length > 0 ? (
-                <div>
+                <article className="panel-glass">
                   <h3 className="text-lg font-semibold">{t.included}</h3>
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-3 grid gap-2">
                     {trip.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm">
                         <FaCheck className="mt-0.5 shrink-0 text-emerald-400" />
@@ -396,12 +349,13 @@ export default function TripDetailPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ) : null}
+
               {trip.notIncluded.length > 0 ? (
-                <div>
+                <article className="panel-glass">
                   <h3 className="text-lg font-semibold">{t.notIncluded}</h3>
-                  <ul className="mt-3 space-y-2">
+                  <ul className="mt-3 grid gap-2">
                     {trip.notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-muted">
                         <FaXmark className="mt-0.5 shrink-0 text-red-400" />
@@ -409,63 +363,62 @@ export default function TripDetailPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ) : null}
             </section>
           ) : null}
         </div>
 
-        <aside className="space-y-4 lg:sticky lg:top-28 lg:self-start">
-          <div className="section-holo rounded-2xl p-5">
-            <p className="text-3xl font-semibold text-[var(--primary)]">
-              {formatPrice(trip.price, trip.currency)}
-            </p>
+        <aside className="space-y-4 lg:sticky lg:top-30 lg:self-start">
+          <div className="filter-shell">
+            <p className="text-3xl font-semibold text-[var(--primary)]">{formatPrice(trip.price, trip.currency)}</p>
             <p className="mt-1 text-sm text-muted">
               {trip.days} {t.days} | {trip.nights} {t.nights}
             </p>
-            <div className="mt-3 space-y-2 text-sm">
-              <p>
-                <span className="text-muted">{t.departure}:</span>{" "}
-                {formatDate(trip.departureDate)}
+
+            <div className="mt-3 grid gap-2 text-sm">
+              <p className="inline-flex items-start gap-2">
+                <FaCalendarDays className="mt-0.5 text-muted" />
+                <span>
+                  <span className="text-muted">{t.departure}: </span>
+                  {formatDate(trip.departureDate)}
+                </span>
               </p>
-              <p>
-                <span className="text-muted">{t.returnLabel}:</span>{" "}
-                {formatDate(trip.returnDate)}
+              <p className="inline-flex items-start gap-2">
+                <FaLocationDot className="mt-0.5 text-muted" />
+                <span>
+                  <span className="text-muted">{t.departureCity}: </span>
+                  {trip.departureCity}
+                </span>
               </p>
             </div>
+
             {trip.hotelInfo ? (
-              <div className="mt-3 flex items-center gap-2 text-sm">
+              <p className="mt-3 inline-flex items-center gap-2 text-sm">
                 <FaHotel className="text-muted" />
                 <span>{trip.hotelInfo}</span>
-              </div>
-            ) : null}
-            {trip.depositPercentage ? (
-              <div className="mt-3 flex items-center gap-2 text-sm">
-                <FaMoneyBillWave className="text-muted" />
-                <span>
-                  {t.deposit}: {trip.depositPercentage}%
-                  {trip.depositDeadline
-                    ? ` (${t.depositDeadline}: ${formatDate(trip.depositDeadline)})`
-                    : ""}
-                </span>
-              </div>
+              </p>
             ) : null}
 
-            {/* Quick accommodation summary in sidebar */}
-            {activeAccommodations.length > 0 && (
+            {trip.depositPercentage ? (
+              <p className="mt-3 inline-flex items-start gap-2 text-sm">
+                <FaMoneyBillWave className="mt-0.5 text-muted" />
+                <span>
+                  {t.deposit}: {trip.depositPercentage}%
+                  {trip.depositDeadline ? ` (${t.depositDeadline}: ${formatDate(trip.depositDeadline)})` : ""}
+                </span>
+              </p>
+            ) : null}
+
+            {activeAccommodations.length > 0 ? (
               <div className="mt-4 border-t border-[var(--line)] pt-3">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted">
-                  {acc.title}
-                </p>
-                <div className="space-y-2">
+                <p className="metric-card__label">{acc.title}</p>
+                <div className="mt-2 grid gap-2">
                   {activeAccommodations.slice(0, 3).map((item) => {
                     const AccIcon = accommodationIcons[item.type];
                     return (
-                      <div
-                        key={item._id}
-                        className="flex items-center justify-between gap-2 text-sm"
-                      >
-                        <span className="flex items-center gap-1.5 truncate">
+                      <div key={item._id} className="flex items-center justify-between gap-2 text-sm">
+                        <span className="flex min-w-0 items-center gap-1.5 truncate">
                           <AccIcon className="shrink-0 text-xs text-muted" />
                           <span className="truncate">{item.name}</span>
                         </span>
@@ -475,17 +428,21 @@ export default function TripDetailPage() {
                       </div>
                     );
                   })}
-                  {activeAccommodations.length > 3 && (
-                    <p className="text-xs text-muted">
-                      +{activeAccommodations.length - 3}{" "}
-                      {language === "sr" ? "još opcija" : "more options"}
-                    </p>
-                  )}
                 </div>
               </div>
-            )}
+            ) : null}
 
-            <Link href="/kontakt" className="btn-primary mt-5 w-full !justify-center">
+            <AddToCartButton
+              id={trip._id}
+              type="trip"
+              title={trip.title}
+              price={trip.price}
+              currency={trip.currency}
+              imageUrl={trip.imageUrls?.[0]}
+              meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
+              className="mt-5 w-full !justify-center"
+            />
+            <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
               {t.contactCta}
             </Link>
           </div>
@@ -494,3 +451,7 @@ export default function TripDetailPage() {
     </AlienShell>
   );
 }
+
+
+
+

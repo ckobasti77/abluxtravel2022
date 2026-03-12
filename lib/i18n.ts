@@ -329,6 +329,21 @@ export type SiteDictionary = {
     searchPlaceholder: string;
     noTrips: string;
   };
+  cart: {
+    title: string;
+    empty: string;
+    addToCart: string;
+    removeItem: string;
+    clearCart: string;
+    checkout: string;
+    total: string;
+    item: string;
+    items: string;
+    added: string;
+    standbyMessage: string;
+    orderRecorded: string;
+    close: string;
+  };
 };
 
 export const DICTIONARY: Record<Language, SiteDictionary> = {
@@ -677,6 +692,22 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       searchPlaceholder: "Pretraži aranžmane...",
       noTrips: "Trenutno nema dostupnih aranžmana.",
     },
+    cart: {
+      title: "Korpa",
+      empty: "Vaša korpa je prazna.",
+      addToCart: "Dodaj u korpu",
+      removeItem: "Ukloni",
+      clearCart: "Isprazni korpu",
+      checkout: "Završi porudžbinu",
+      total: "Ukupno",
+      item: "stavka",
+      items: "stavki",
+      added: "Dodato u korpu",
+      standbyMessage:
+        "Trenutno plaćanje nije omogućeno. Vaša porudžbina je zabeležena i stiže Vam na email.",
+      orderRecorded: "Porudžbina je zabeležena.",
+      close: "Zatvori",
+    },
   },
   en: {
     nav: {
@@ -1022,6 +1053,22 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       search: "Search",
       searchPlaceholder: "Search packages...",
       noTrips: "No packages available at the moment.",
+    },
+    cart: {
+      title: "Cart",
+      empty: "Your cart is empty.",
+      addToCart: "Add to cart",
+      removeItem: "Remove",
+      clearCart: "Clear cart",
+      checkout: "Checkout",
+      total: "Total",
+      item: "item",
+      items: "items",
+      added: "Added to cart",
+      standbyMessage:
+        "Online payment is not currently available. Your order has been recorded and will be sent to your email.",
+      orderRecorded: "Order recorded.",
+      close: "Close",
     },
   },
 };

@@ -151,4 +151,37 @@ export default defineSchema({
     .index("by_source_external", ["sourceSlug", "externalId"])
     .index("by_active_updated", ["isActive", "updatedAt"])
     .index("by_destination_price", ["destination", "price"]),
+  orders: defineTable({
+    items: v.array(
+      v.object({
+        id: v.string(),
+        type: v.union(
+          v.literal("trip"),
+          v.literal("offer"),
+          v.literal("accommodation")
+        ),
+        title: v.string(),
+        price: v.number(),
+        currency: v.string(),
+        quantity: v.number(),
+        meta: v.optional(v.any()),
+      })
+    ),
+    totalAmount: v.number(),
+    currency: v.string(),
+    customerEmail: v.optional(v.string()),
+    customerName: v.optional(v.string()),
+    customerPhone: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("confirmed"),
+      v.literal("paid"),
+      v.literal("cancelled")
+    ),
+    stripeSessionId: v.optional(v.string()),
+    note: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_status", ["status"])
+    .index("by_created", ["createdAt"]),
 });

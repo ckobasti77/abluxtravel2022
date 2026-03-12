@@ -1,8 +1,9 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
+import AddToCartButton from "../../components/add-to-cart-button";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import { useSession } from "../../lib/use-session";
@@ -96,9 +97,9 @@ export default function VerskiTurizamPage() {
   const uniqueTags = useMemo(
     () =>
       Array.from(
-        new Set(filteredOffers.flatMap((offer) => offer.tags.map((tag) => tag.toLowerCase())))
-      ).slice(0, 8),
-    [filteredOffers]
+        new Set(religiousOffers.flatMap((offer) => offer.tags.map((tag) => tag.toLowerCase())))
+      ).slice(0, 10),
+    [religiousOffers]
   );
 
   const minPrice = useMemo(() => {
@@ -107,39 +108,31 @@ export default function VerskiTurizamPage() {
   }, [filteredOffers]);
 
   const isAdmin = session?.role === "admin";
+  const activeDestinations = new Set(filteredOffers.map((offer) => offer.destination)).size;
+  const hasFilter = query.trim().length > 0;
 
   return (
-    <AlienShell className="site-fade">
-      <section className="space-y-5">
+    <AlienShell className="site-fade page-stack">
+      <section className="page-hero">
         <span className="pill">{dictionary.religious.badge}</span>
-        <h1 className="max-w-4xl text-4xl font-semibold sm:text-5xl">
-          {dictionary.religious.title}
-        </h1>
-        <p className="max-w-3xl text-base leading-7 text-muted">
-          {dictionary.religious.description}
-        </p>
+        <h1 className="page-title">{dictionary.religious.title}</h1>
+        <p className="page-subtitle">{dictionary.religious.description}</p>
       </section>
 
-      <section className="stagger-grid mt-7 grid gap-3 sm:grid-cols-3">
-        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 0 } as CSSProperties}>
-          <p className="text-xs uppercase tracking-[0.12em] text-muted">
-            {language === "sr" ? "Aktivne verske" : "Active religious"}
-          </p>
-          <p className="mt-2 text-2xl font-semibold">{filteredOffers.length}</p>
+      <section className="metric-grid">
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Aktivne verske" : "Active religious"}</p>
+          <p className="metric-card__value">{filteredOffers.length}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Ponude koje trenutno odgovaraju filteru." : "Offers currently matching the filter."}</p>
         </article>
-        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 1 } as CSSProperties}>
-          <p className="text-xs uppercase tracking-[0.12em] text-muted">
-            {language === "sr" ? "Destinacije" : "Destinations"}
-          </p>
-          <p className="mt-2 text-2xl font-semibold">
-            {new Set(filteredOffers.map((offer) => offer.destination)).size}
-          </p>
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Destinacije" : "Destinations"}</p>
+          <p className="metric-card__value">{activeDestinations}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Raspon svetih lokacija i ruta." : "Range of holy places and routes."}</p>
         </article>
-        <article className="surface fx-lift rounded-2xl p-4" style={{ "--stagger-index": 2 } as CSSProperties}>
-          <p className="text-xs uppercase tracking-[0.12em] text-muted">
-            {language === "sr" ? "Najniza cena" : "Lowest price"}
-          </p>
-          <p className="mt-2 text-2xl font-semibold">
+        <article className="metric-card">
+          <p className="metric-card__label">{language === "sr" ? "Najniza cena" : "Lowest price"}</p>
+          <p className="metric-card__value">
             {minPrice !== null
               ? new Intl.NumberFormat(locale, {
                   style: "currency",
@@ -148,28 +141,40 @@ export default function VerskiTurizamPage() {
                 }).format(minPrice)
               : "-"}
           </p>
+          <p className="metric-card__hint">{language === "sr" ? "Brza orijentacija budzeta." : "Quick budget orientation."}</p>
         </article>
       </section>
 
-      <section className="mt-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-        <article className="section-holo p-5">
-          <label htmlFor="religious-search" className="text-sm font-semibold">
+      <section className="filter-shell grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+        <article className="grid gap-3">
+          <label htmlFor="religious-search" className="text-xs font-semibold uppercase tracking-[0.1em] text-muted">
             {dictionary.religious.searchLabel}
           </label>
-          <input
-            id="religious-search"
-            className="control mt-3"
-            placeholder={dictionary.religious.searchPlaceholder}
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <input
+              id="religious-search"
+              className="control"
+              placeholder={dictionary.religious.searchPlaceholder}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+            {hasFilter ? (
+              <button
+                type="button"
+                className="btn-secondary !min-h-11 !px-4 !py-2 !text-xs"
+                onClick={() => setQuery("")}
+              >
+                {language === "sr" ? "Reset" : "Reset"}
+              </button>
+            ) : null}
+          </div>
           {uniqueTags.length > 0 ? (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="tag-list">
               {uniqueTags.map((tag) => (
                 <button
                   key={tag}
                   type="button"
-                  className="rounded-full border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
+                  className="tag-chip cursor-pointer transition hover:border-[var(--primary)]"
                   onClick={() => setQuery(tag)}
                 >
                   #{tag}
@@ -179,107 +184,120 @@ export default function VerskiTurizamPage() {
           ) : null}
         </article>
 
-        <article className="section-holo p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
-            {dictionary.religious.boardTitle}
-          </p>
-          <p className="mt-2 text-3xl font-semibold">{filteredOffers.length}</p>
-          <p className="mt-2 text-sm text-muted">
+        <article className="panel-glass">
+          <p className="metric-card__label">{dictionary.religious.boardTitle}</p>
+          <p className="metric-card__value">{filteredOffers.length}</p>
+          <p className="panel-muted">
             {language === "sr"
               ? "Broj ponuda koje odgovaraju verskom turizmu i aktivnom filteru."
               : "Number of offers matching religious tourism and the active filter."}
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link href="/aranzmani" className="btn-secondary">
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link href="/aranzmani" className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs">
               {dictionary.religious.viewAllOffers}
             </Link>
             {isAdmin ? (
-              <Link href="/admin/verski-turizam" className="btn-primary">
-                {language === "sr" ? "Uredi verske ponude" : "Edit religious offers"}
+              <Link href="/admin/verski-turizam" className="btn-primary !min-h-10 !px-4 !py-2 !text-xs">
+                {language === "sr" ? "Uredi ponude" : "Edit offers"}
               </Link>
             ) : null}
           </div>
         </article>
       </section>
 
-      <section className="mt-8">
-        <h2 className="mb-4 text-xl font-semibold">{dictionary.religious.boardTitle}</h2>
+      <section className="stagger-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {filteredOffers.length > 0 ? (
-          <div className="stagger-grid grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {filteredOffers.map((offer, index) => (
-              <article
-                key={offer.id}
-                className="surface fx-lift rounded-2xl p-4"
-                style={{ "--stagger-index": index } as CSSProperties}
-              >
-                {offer.imageUrls && offer.imageUrls.length > 0 ? (
-                  <img
-                    src={offer.imageUrls[0]}
-                    alt={offer.title}
-                    className="mb-3 h-44 w-full rounded-xl border border-[var(--line)] object-cover"
-                  />
-                ) : null}
-                <p className="text-xs uppercase tracking-[0.12em] text-muted">{offer.sourceSlug}</p>
-                <h3 className="mt-2 text-lg font-semibold">{offer.title}</h3>
-                <p className="mt-2 text-sm text-muted">{offer.destination}</p>
-                <p className="mt-1 text-sm text-muted">
+          filteredOffers.map((offer, index) => (
+            <article
+              key={offer.id}
+              className="panel-glass fx-lift"
+              style={{ "--stagger-index": index } as CSSProperties}
+            >
+              {offer.imageUrls && offer.imageUrls.length > 0 ? (
+                <img
+                  src={offer.imageUrls[0]}
+                  alt={offer.title}
+                  className="mb-3 h-44 w-full rounded-xl border border-[var(--line)] object-cover"
+                />
+              ) : null}
+
+              <div className="grid gap-1">
+                <p className="text-xs uppercase tracking-[0.1em] text-muted">{offer.sourceSlug}</p>
+                <h2 className="text-lg font-semibold leading-tight">{offer.title}</h2>
+                <p className="text-sm text-muted">{offer.destination}</p>
+              </div>
+
+              <div className="mt-3 grid gap-1 text-sm text-muted">
+                <p>
                   {dictionary.offers.departure}: {offer.departureCity || dictionary.offers.tbd}
                 </p>
-                <p className="mt-1 text-sm text-muted">
+                <p>
                   {formatDate(offer.departureDate, locale, dictionary.offers.tbd)} -{" "}
                   {formatDate(offer.returnDate, locale, dictionary.offers.tbd)}
                 </p>
-                <p className="mt-4 text-2xl font-semibold">{formatPrice(offer, locale)}</p>
-                <p className="mt-1 text-sm text-muted">
+              </div>
+
+              <div className="mt-3 flex items-end justify-between gap-3">
+                <p className="text-2xl font-semibold text-[var(--primary)]">{formatPrice(offer, locale)}</p>
+                <p className="text-sm text-muted">
                   {dictionary.offers.seats}:{" "}
                   {typeof offer.seatsLeft === "number" ? offer.seatsLeft : dictionary.offers.unknown}
                 </p>
+              </div>
+
+              {offer.tags.length > 0 ? (
+                <div className="mt-3 tag-list">
+                  {offer.tags.map((tag) => (
+                    <span key={`${offer.id}-${tag}`} className="tag-chip">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                <AddToCartButton
+                  id={offer.id}
+                  type="offer"
+                  title={offer.title}
+                  price={offer.price}
+                  currency={offer.currency}
+                  imageUrl={offer.imageUrls?.[0]}
+                  meta={{ destination: offer.destination, departureCity: offer.departureCity ?? "" }}
+                  className="!min-h-10"
+                />
+                <Link href="/kontakt" className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs">
+                  {language === "sr" ? "Posalji upit" : "Send inquiry"}
+                </Link>
                 {offer.pdfUrl ? (
-                  <div className="mt-3 space-y-2">
-                    <a
-                      href={offer.pdfUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex rounded-xl border border-[var(--line)] px-3 py-2 text-xs text-muted transition hover:border-[var(--primary)] hover:text-[var(--text)]"
-                    >
-                      {language === "sr" ? "Otvori PDF program" : "Open PDF brochure"}
-                    </a>
-                    <details className="rounded-xl border border-[var(--line)] p-2">
-                      <summary className="cursor-pointer text-xs text-muted">
-                        {language === "sr" ? "Pregled / prelistavanje PDF-a" : "Preview / browse PDF"}
-                      </summary>
-                      <iframe
-                        src={`${offer.pdfUrl}#toolbar=1&navpanes=0`}
-                        className="mt-2 h-64 w-full rounded-lg border border-[var(--line)] bg-white"
-                        title={`${offer.id}-pdf-preview`}
-                      />
-                    </details>
-                  </div>
+                  <a
+                    href={offer.pdfUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs"
+                  >
+                    {language === "sr" ? "PDF program" : "PDF program"}
+                  </a>
                 ) : null}
-                {offer.tags.length > 0 ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {offer.tags.map((tag) => (
-                      <span
-                        key={`${offer.id}-${tag}`}
-                        className="rounded-full border border-[var(--line)] bg-[var(--primary-soft)] px-2.5 py-1 text-xs"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))
         ) : (
-          <div className="surface rounded-2xl p-5 text-sm text-muted">
-            {dictionary.religious.noResults}
+          <div className="empty-state md:col-span-2 xl:col-span-3">
+            <h2 className="empty-state__title">{dictionary.religious.noResults}</h2>
+            <p className="empty-state__copy">
+              {language === "sr"
+                ? "Pokusajte sa drugim pojmom ili odaberite neku od predlozenih oznaka iznad pretrage."
+                : "Try another keyword or choose one of the suggested tags above."}
+            </p>
           </div>
         )}
       </section>
 
-      <PageAdminEditorDock slot="religious" className="mt-10" />
+      <PageAdminEditorDock slot="religious" className="mt-2" />
     </AlienShell>
   );
 }
+
+
 

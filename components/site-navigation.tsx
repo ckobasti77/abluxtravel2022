@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import { signOut } from "../lib/local-auth";
 import { SITE_NAV_ITEMS } from "../lib/site-nav";
 import { useSession } from "../lib/use-session";
 import { useSitePreferences } from "./site-preferences-provider";
+import CartButton from "./cart-button";
 
 const isActivePath = (pathname: string, href: string) => {
   if (href === "/") {
@@ -47,6 +48,18 @@ export default function SiteNavigation() {
     }
     router.refresh();
   };
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      document.body.style.removeProperty("overflow");
+      return;
+    }
+
+    document.body.style.setProperty("overflow", "hidden");
+    return () => {
+      document.body.style.removeProperty("overflow");
+    };
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,15 +126,15 @@ export default function SiteNavigation() {
             />
           </Link>
 
-          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-6 text-sm font-medium md:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm font-medium md:flex">
             {SITE_NAV_ITEMS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={
                   isActivePath(pathname, item.href)
-                    ? "text-[var(--primary)]"
-                    : "text-muted transition hover:text-[var(--text)]"
+                    ? "site-nav-link site-nav-link--active"
+                    : "site-nav-link"
                 }
               >
                 {dictionary.nav[item.key]}
@@ -159,6 +172,7 @@ export default function SiteNavigation() {
             >
               {themeIcon}
             </button>
+            <CartButton />
             {session ? (
               <>
                 <span className="surface-strong inline-flex min-h-9 max-w-[11rem] items-center rounded-full px-3 text-xs font-semibold text-muted truncate">
@@ -220,6 +234,7 @@ export default function SiteNavigation() {
             >
               {themeIcon}
             </button>
+            <CartButton />
             <button
               type="button"
               aria-label={mobileOpen ? dictionary.nav.closeMenu : dictionary.nav.openMenu}
@@ -233,20 +248,22 @@ export default function SiteNavigation() {
 
         {mobileOpen ? (
           <div className="surface site-fade site-nav-mobile mt-3 flex w-full min-w-0 flex-col gap-3 rounded-2xl p-4 md:hidden">
-            {SITE_NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  isActivePath(pathname, item.href)
-                    ? "font-semibold text-[var(--primary)]"
-                    : "text-muted"
-                }
-                onClick={() => setMobileOpen(false)}
-              >
-                {dictionary.nav[item.key]}
-              </Link>
-            ))}
+            <nav className="grid gap-1" aria-label={dictionary.nav.openMenu}>
+              {SITE_NAV_ITEMS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={
+                    isActivePath(pathname, item.href)
+                      ? "site-nav-link site-nav-link--active"
+                      : "site-nav-link"
+                  }
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {dictionary.nav[item.key]}
+                </Link>
+              ))}
+            </nav>
 
             <div className="mt-1 flex flex-wrap items-center gap-2">
               <button
@@ -316,3 +333,5 @@ export default function SiteNavigation() {
     </header>
   );
 }
+
+

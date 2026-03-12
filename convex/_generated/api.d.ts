@@ -11,9 +11,12 @@
 import type * as accommodations from "../accommodations.js";
 import type * as auth from "../auth.js";
 import type * as files from "../files.js";
+import type * as http from "../http.js";
 import type * as offers from "../offers.js";
+import type * as orders from "../orders.js";
 import type * as settings from "../settings.js";
 import type * as slides from "../slides.js";
+import type * as stripe from "../stripe.js";
 import type * as trips from "../trips.js";
 
 import type {
@@ -26,9 +29,12 @@ declare const fullApi: ApiFromModules<{
   accommodations: typeof accommodations;
   auth: typeof auth;
   files: typeof files;
+  http: typeof http;
   offers: typeof offers;
+  orders: typeof orders;
   settings: typeof settings;
   slides: typeof slides;
+  stripe: typeof stripe;
   trips: typeof trips;
 }>;
 
