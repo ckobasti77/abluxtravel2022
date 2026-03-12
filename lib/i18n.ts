@@ -67,6 +67,8 @@ export type SiteDictionary = {
     modelA: string;
     modelB: string;
     modelC: string;
+    partnersBadge: string;
+    partnersTitle: string;
   };
   about: {
     badge: string;
@@ -420,6 +422,8 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       modelA: "Vaši aranžmani i putovanja na jednom mestu",
       modelB: "Agregacija ponuda drugih agencija uz provizijsku prodaju",
       modelC: "Brza i transparentna odluka pri izboru putovanja",
+      partnersBadge: "Saradnici",
+      partnersTitle: "Agencije kojima verujemo",
     },
     about: {
       badge: "Ko smo mi",
@@ -782,6 +786,8 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       modelA: "Your own trips and packages in one place",
       modelB: "Aggregated partner offers with commission-based sales",
       modelC: "Fast and transparent traveler decision flow",
+      partnersBadge: "Partners",
+      partnersTitle: "Agencies we trust",
     },
     about: {
       badge: "Who we are",

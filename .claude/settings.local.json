@@ -11,7 +11,9 @@
       "Bash(cd C:/Users/admin/Desktop/ablux_travel_2022 && npx tsc --noEmit 2>&1 | head -30)",
       "Bash(cd C:/Users/admin/Desktop/ablux_travel_2022 && npm run build 2>&1 | tail -30)",
       "Bash(mkdir -p /c/Users/admin/Desktop/ablux_travel_2022/app/lady-gaga-studio && mkdir -p /c/Users/admin/Desktop/ablux_travel_2022/components/lady-gaga)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(find /c/Users/admin/Desktop/ablux_travel_2022 -name \"layout.tsx\" | xargs grep -l \"Cormorant\" 2>/dev/null)",
+      "Bash(cd \"/c/Users/admin/Desktop/ablux_travel_2022\" && npx tsc --noEmit --pretty 2>&1 | head -30)"
     ]
   }
 }

@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import AlienShell from "../components/alien-shell";
 import HomeAlienSignals from "../components/home-alien-signals";
 import HomeHero from "../components/home-hero";
+import HomePartnersCarousel from "../components/home-partners-carousel";
 import HomeScrollGallery from "../components/home-scroll-gallery";
 import PageAdminEditorDock from "../components/page-admin-editor-dock";
 import { useSitePreferences } from "../components/site-preferences-provider";
@@ -70,6 +71,8 @@ export default function HomePage() {
             </article>
           </div>
         </section>
+
+        <HomePartnersCarousel />
 
         <PageAdminEditorDock slot="home" className="mt-10" />
       </div>

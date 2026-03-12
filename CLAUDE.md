@@ -80,3 +80,4 @@ Tailwind CSS v4 via PostCSS (`@tailwindcss/postcss`). Global styles in `app/glob
 - **Navbar Integration:** The cart icon must sit perfectly inline with the Theme and Language switchers inside the Navbar component. On mobile, it must be fixed at the top alongside them.
 - **Stripe Setup:** Stripe integration requires Convex Node.js actions (`convex/stripe.ts` for checkout sessions) and Convex HTTP actions (`convex/http.ts` for webhooks).
 - **Phase 1 (Standby Mode):** We are in a pre-live phase. `NEXT_PUBLIC_STRIPE_LIVE=false` must be strictly respected. When false, the final checkout does not redirect to Stripe; instead, it triggers an internal Convex action to send an email order to the admin.
+
