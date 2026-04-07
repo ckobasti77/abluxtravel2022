@@ -27,6 +27,9 @@ export type Trip = {
   imageStorageIds: string[];
   imageUrls: string[];
   status: TripStatus;
+  categoryId?: string;
+  isHero?: boolean;
+  heroIcon?: string;
   featured: boolean;
   order: number;
   updatedAt: number;

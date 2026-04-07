@@ -3,6 +3,7 @@
 import type { IconType } from "react-icons";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import {
   FaArrowRightLong,
@@ -30,10 +31,11 @@ type FooterNavItem = {
 };
 
 export default function SiteFooter() {
+  const pathname = usePathname();
   const { dictionary, language, theme } = useSitePreferences();
   const settings = useSettings();
   const currentYear = new Date().getFullYear();
-  const logoSrc = theme === "dark" ? "/logo-dark.png" : "/logo-light.png";
+  const logoSrc = theme === "dark" ? "/logo-dark.avif" : "/logo-light.avif";
   const logoSize = theme === "dark" ? { width: 500, height: 500 } : { width: 301, height: 318 };
 
   const copy =
@@ -124,6 +126,8 @@ export default function SiteFooter() {
       phoneHref,
     ]
   );
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <footer className="site-footer pb-8 pt-12 sm:pt-14">

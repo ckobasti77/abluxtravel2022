@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
@@ -24,13 +25,9 @@ import {
   FaDoorOpen,
   FaBed,
   FaEllipsis,
-  FaWifi,
-  FaUsers,
   FaUtensils,
   FaLocationDot,
   FaClock,
-  FaCheck,
-  FaXmark,
 } from "react-icons/fa6";
 
 const typeIcons: Record<AccommodationType, typeof FaHouse> = {
@@ -132,7 +129,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
       }
     } catch {
       setStatus(
-        language === "sr" ? "Greška pri uploadu slika." : "Image upload failed."
+        language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed."
       );
     }
     setUploading(false);
@@ -177,11 +174,11 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
         order: Number(form.order),
         isActive: form.isActive,
       });
-      setStatus(language === "sr" ? "Smeštaj sačuvan." : "Accommodation saved.");
+      setStatus(language === "sr" ? "SmeÅ¡taj saÄuvan." : "Accommodation saved.");
       resetForm();
     } catch {
       setStatus(
-        language === "sr" ? "Greška pri čuvanju." : "Save failed."
+        language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed."
       );
     }
     setSaving(false);
@@ -230,8 +227,6 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
     setStatus(null);
   };
 
-  const TypeIcon = typeIcons[form.type];
-
   return (
     <section className="grid gap-5">
       {/* Header */}
@@ -272,7 +267,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                     key={i}
                     className="group relative h-20 w-20 overflow-hidden rounded-xl border border-[var(--line)]"
                   >
-                    <img
+                    <CmsImage
                       src={url}
                       alt=""
                       className="h-full w-full object-cover"
@@ -511,7 +506,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
               >
                 {saving
                   ? language === "sr"
-                    ? "Čuvanje..."
+                    ? "ÄŒuvanje..."
                     : "Saving..."
                   : t.save}
               </button>
@@ -571,7 +566,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted">
                       <span>{t[acc.type]}</span>
-                      <span>·</span>
+                      <span>Â·</span>
                       <span>
                         {new Intl.NumberFormat(
                           language === "sr" ? "sr-RS" : "en-US",
@@ -583,13 +578,13 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                         ).format(acc.pricePerPerson)}{" "}
                         {t.perPerson}
                       </span>
-                      <span>·</span>
+                      <span>Â·</span>
                       <span>
                         {t.upTo} {acc.capacity} {t.guests}
                       </span>
                       {acc.boardType && (
                         <>
-                          <span>·</span>
+                          <span>Â·</span>
                           <span>{t[acc.boardType]}</span>
                         </>
                       )}
@@ -631,7 +626,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                     {acc.imageUrls.filter(Boolean).length > 0 && (
                       <div className="mb-4 flex gap-2 overflow-x-auto pb-2">
                         {acc.imageUrls.filter(Boolean).map((url, i) => (
-                          <img
+                          <CmsImage
                             key={i}
                             src={url}
                             alt={`${acc.name} ${i + 1}`}
@@ -704,3 +699,4 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
     </section>
   );
 }
+

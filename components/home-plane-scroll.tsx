@@ -62,7 +62,7 @@ export default function HomePlaneScroll({ children }: HomePlaneScrollProps) {
       {/* Plane flies down on scroll — positioned fixed, animates via GSAP */}
       <div ref={planeRef} className="plane-flyby-track" aria-hidden="true">
         <Image
-          src="/plane-top-view.png"
+          src="/plane.avif"
           alt=""
           width={900}
           height={900}

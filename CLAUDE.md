@@ -35,8 +35,6 @@ All routes use Serbian names:
 
 Server function files: `auth.ts`, `trips.ts`, `accommodations.ts`, `offers.ts`, `slides.ts`, `settings.ts`, `files.ts`.
 
-
-
 ### Client-side Data Layer
 
 Custom hooks in `lib/` wrap Convex queries/mutations: `use-trips.ts`, `use-accommodations.ts`, `use-offers.ts`, `use-slides.ts`, `use-settings.ts`, `use-session.ts`.
@@ -65,13 +63,18 @@ Tailwind CSS v4 via PostCSS (`@tailwindcss/postcss`). Global styles in `app/glob
 
 `@/*` maps to project root (tsconfig paths). Use `@/lib/...`, `@/components/...`, `@/convex/...`, `@/app/...`.
 
+### Animations (GSAP)
+
+- **React Integration:** Always use the `@gsap/react` package and the `useGSAP` hook for animations to ensure proper cleanup in React 19.
+- **Scroll-Bound Video:** For video scrubbing animations, strictly map `video.currentTime` directly to a GSAP `ScrollTrigger` timeline. Do NOT mix `.play()` or native playback with scroll-scrubbing, as this causes desynchronization.
+- **Transitions:** Handle heavy visual transitions (e.g., masks, overlay sweeps) using optimized DOM elements (WebP/PNG/Lottie) animated via CSS transforms (`y`, `x`) on a shared timeline with the video, rather than rendering them directly into the video file.
+
 ### Key Patterns
 
 - Country slugs are generated via `lib/country-route.ts` which handles Serbian character latinization (đ→dj, č→c, š→s, ž→z)
 - SEO constants centralized in `lib/seo.ts`
 - Image optimization configured for AVIF and WebP formats (`next.config.ts`)
 - Components use `"use client"` directive extensively since most pages rely on Convex real-time queries and browser APIs
-
 
 ## Payment & Cart Architecture (Stripe)
 
@@ -80,4 +83,3 @@ Tailwind CSS v4 via PostCSS (`@tailwindcss/postcss`). Global styles in `app/glob
 - **Navbar Integration:** The cart icon must sit perfectly inline with the Theme and Language switchers inside the Navbar component. On mobile, it must be fixed at the top alongside them.
 - **Stripe Setup:** Stripe integration requires Convex Node.js actions (`convex/stripe.ts` for checkout sessions) and Convex HTTP actions (`convex/http.ts` for webhooks).
 - **Phase 1 (Standby Mode):** We are in a pre-live phase. `NEXT_PUBLIC_STRIPE_LIVE=false` must be strictly respected. When false, the final checkout does not redirect to Stripe; instead, it triggers an internal Convex action to send an email order to the admin.
-

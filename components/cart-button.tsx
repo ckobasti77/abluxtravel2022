@@ -40,7 +40,7 @@ export default function CartButton() {
         onClick={() => setDrawerOpen(true)}
         aria-label={`${dictionary.cart.title} (${itemCount})`}
         title={dictionary.cart.title}
-        className="surface-strong relative inline-flex h-9 w-9 items-center justify-center rounded-full text-sm transition hover:bg-[var(--primary-soft)]"
+        className="site-nav-icon-btn relative"
       >
         <FaCartShopping aria-hidden size={15} />
         {itemCount > 0 && (

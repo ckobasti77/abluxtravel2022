@@ -131,19 +131,16 @@ export default function HomeScrollGallery() {
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const narrowViewportQuery = window.matchMedia("(max-width: 920px)");
 
     const syncLayoutMode = () => {
-      setIsStaticLayout(reducedMotionQuery.matches || narrowViewportQuery.matches);
+      setIsStaticLayout(reducedMotionQuery.matches);
     };
 
     syncLayoutMode();
     reducedMotionQuery.addEventListener("change", syncLayoutMode);
-    narrowViewportQuery.addEventListener("change", syncLayoutMode);
 
     return () => {
       reducedMotionQuery.removeEventListener("change", syncLayoutMode);
-      narrowViewportQuery.removeEventListener("change", syncLayoutMode);
     };
   }, []);
 
@@ -230,6 +227,57 @@ export default function HomeScrollGallery() {
 
     return () => {
       window.removeEventListener("wheel", onWheel);
+    };
+  }, [boundedActiveIndex, isStaticLayout, maxIndex]);
+
+  /* ── Touch / swipe navigation for mobile ── */
+  useEffect(() => {
+    if (isStaticLayout) return;
+
+    const stack = trackRef.current;
+    if (!stack) return;
+
+    let startY = 0;
+    let startX = 0;
+    let swiping = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+      startX = e.touches[0].clientX;
+      swiping = true;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!swiping) return;
+      swiping = false;
+
+      const deltaY = startY - e.changedTouches[0].clientY;
+      const deltaX = startX - e.changedTouches[0].clientX;
+
+      // Only act on primarily vertical swipes with enough distance
+      if (Math.abs(deltaY) < 40 || Math.abs(deltaX) > Math.abs(deltaY)) return;
+
+      const now = Date.now();
+      if (now - lastStepAtRef.current < SCROLL_COOLDOWN_MS) return;
+
+      const direction = Math.sign(deltaY);
+      const canStep =
+        (direction > 0 && boundedActiveIndex < maxIndex) ||
+        (direction < 0 && boundedActiveIndex > 0);
+
+      if (canStep) {
+        e.preventDefault();
+        lastStepAtRef.current = now;
+        setActiveIndex((prev) => clamp(prev + direction, 0, maxIndex));
+      }
+    };
+
+    stack.addEventListener("touchstart", onTouchStart, { passive: true });
+    stack.addEventListener("touchend", onTouchEnd, { passive: false });
+
+    return () => {
+      stack.removeEventListener("touchstart", onTouchStart);
+      stack.removeEventListener("touchend", onTouchEnd);
     };
   }, [boundedActiveIndex, isStaticLayout, maxIndex]);
 

@@ -9,12 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "convex": "^1.17.0",
+    "fuse.js": "^7.1.0",
     "gsap": "^3.14.2",
+    "lucide-react": "^1.7.0",
     "next": "16.1.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.5.0",
+    "sanity-plugin-lucide-icon-picker": "^1.0.3",
     "zustand": "^5.0.11"
   },
   "devDependencies": {

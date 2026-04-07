@@ -99,9 +99,9 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: [{ url: "/logo-light.png", type: "image/png" }],
-    shortcut: [{ url: "/logo-light.png", type: "image/png" }],
-    apple: [{ url: "/logo-light.png", type: "image/png" }],
+    icon: [{ url: "/stari-logo.png", type: "image/png" }],
+    shortcut: [{ url: "/stari-logo.png", type: "image/png" }],
+    apple: [{ url: "/stari-logo.png", type: "image/png" }],
   },
 };
 

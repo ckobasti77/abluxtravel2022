@@ -20,6 +20,20 @@ export type SiteDictionary = {
     switchToDark: string;
     openMenu: string;
     closeMenu: string;
+    searchPlaceholder: string;
+    subExotic: string;
+    subEurope: string;
+    subCountries: string;
+    subAllPackages: string;
+    subSummer: string;
+    subExcursions: string;
+    subPilgrimages: string;
+    subMonasteries: string;
+    heroExotic: string;
+    heroEurope: string;
+    heroSvetinje: string;
+    heroCta1: string;
+    heroCta2: string;
   };
   footer: {
     rights: string;
@@ -240,6 +254,28 @@ export type SiteDictionary = {
     currentSlides: string;
     signIn: string;
     optional: string;
+    categoriesTitle: string;
+    categoriesDescription: string;
+    categoryNameSr: string;
+    categoryNameEn: string;
+    categorySlug: string;
+    categoryType: string;
+    categoryIcon: string;
+    categoryOrder: string;
+    categoryActive: string;
+    categoryItems: string;
+    categoryTypeTripLabel: string;
+    categoryTypeArrangementLabel: string;
+    categoryTypeReligiousLabel: string;
+    categoryCreate: string;
+    categoryEdit: string;
+    categoryDelete: string;
+    categoryDeleteConfirm: string;
+    categoryNoCategories: string;
+    categorySelectPlaceholder: string;
+    iconPickerTitle: string;
+    iconPickerSearch: string;
+    iconPickerNoResults: string;
   };
   settings: {
     title: string;
@@ -368,6 +404,20 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       switchToDark: "Tamna",
       openMenu: "Otvori meni",
       closeMenu: "Zatvori meni",
+      searchPlaceholder: "Pretraži destinacije...",
+      subExotic: "Egzotična putovanja",
+      subEurope: "Evropske metropole",
+      subCountries: "Sve zemlje",
+      subAllPackages: "Svi aranžmani",
+      subSummer: "Letovanja",
+      subExcursions: "Ekskurzije",
+      subPilgrimages: "Hodočašća",
+      subMonasteries: "Manastiri",
+      heroExotic: "EGZOTIČNA PUTOVANJA",
+      heroEurope: "EVROPSKE METROPOLE",
+      heroSvetinje: "SRPSKE SVETINJE",
+      heroCta1: "Istražite destinacije",
+      heroCta2: "Verska putovanja u Srbiji",
     },
     footer: {
       rights: "Sva prava zadržana.",
@@ -605,6 +655,28 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       currentSlides: "Trenutni slajdovi",
       signIn: "Prijava",
       optional: "Opciono",
+      categoriesTitle: "Kategorije",
+      categoriesDescription: "Upravljanje kategorijama za navigaciju i filtriranje ponuda.",
+      categoryNameSr: "Naziv (SR)",
+      categoryNameEn: "Naziv (EN)",
+      categorySlug: "Slug (URL)",
+      categoryType: "Tip",
+      categoryIcon: "Ikonica",
+      categoryOrder: "Redosled",
+      categoryActive: "Aktivna",
+      categoryItems: "stavki",
+      categoryTypeTripLabel: "Putovanje",
+      categoryTypeArrangementLabel: "Aranzman",
+      categoryTypeReligiousLabel: "Verski turizam",
+      categoryCreate: "Dodaj kategoriju",
+      categoryEdit: "Izmeni",
+      categoryDelete: "Obrisi",
+      categoryDeleteConfirm: "Da li ste sigurni da zelite da obrisete ovu kategoriju?",
+      categoryNoCategories: "Nema kategorija. Kreirajte prvu.",
+      categorySelectPlaceholder: "Izaberite kategoriju",
+      iconPickerTitle: "Izaberite ikonicu",
+      iconPickerSearch: "Pretrazite ikonice...",
+      iconPickerNoResults: "Nema rezultata",
     },
     settings: {
       title: "Podešavanja sajta",
@@ -732,6 +804,20 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       switchToDark: "Dark",
       openMenu: "Open menu",
       closeMenu: "Close menu",
+      searchPlaceholder: "Search destinations...",
+      subExotic: "Exotic Trips",
+      subEurope: "European Cities",
+      subCountries: "All Countries",
+      subAllPackages: "All Packages",
+      subSummer: "Summer Vacations",
+      subExcursions: "Excursions",
+      subPilgrimages: "Pilgrimages",
+      subMonasteries: "Monasteries",
+      heroExotic: "EXOTIC TRIPS",
+      heroEurope: "EUROPEAN CITIES",
+      heroSvetinje: "SERBIAN SANCTUARIES",
+      heroCta1: "Explore Destinations",
+      heroCta2: "Religious Travel in Serbia",
     },
     footer: {
       rights: "All rights reserved.",
@@ -969,6 +1055,28 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       currentSlides: "Current slides",
       signIn: "Sign In",
       optional: "Optional",
+      categoriesTitle: "Categories",
+      categoriesDescription: "Manage categories for navigation and offer filtering.",
+      categoryNameSr: "Name (SR)",
+      categoryNameEn: "Name (EN)",
+      categorySlug: "Slug (URL)",
+      categoryType: "Type",
+      categoryIcon: "Icon",
+      categoryOrder: "Order",
+      categoryActive: "Active",
+      categoryItems: "items",
+      categoryTypeTripLabel: "Trip",
+      categoryTypeArrangementLabel: "Arrangement",
+      categoryTypeReligiousLabel: "Religious tourism",
+      categoryCreate: "Add category",
+      categoryEdit: "Edit",
+      categoryDelete: "Delete",
+      categoryDeleteConfirm: "Are you sure you want to delete this category?",
+      categoryNoCategories: "No categories yet. Create the first one.",
+      categorySelectPlaceholder: "Select category",
+      iconPickerTitle: "Choose an icon",
+      iconPickerSearch: "Search icons...",
+      iconPickerNoResults: "No results",
     },
     settings: {
       title: "Site Settings",

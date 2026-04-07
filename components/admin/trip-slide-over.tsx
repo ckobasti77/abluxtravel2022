@@ -1,0 +1,904 @@
+﻿"use client";
+
+import CmsImage from "@/components/cms-image";
+import { useState } from "react";
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+import { useSitePreferences } from "../site-preferences-provider";
+import { Trip, TripStatus, TransportType } from "../../lib/use-trips";
+import { useCategories } from "../../lib/use-categories";
+import IconPicker from "../icon-picker";
+import {
+  FaXmark,
+  FaCloudArrowUp,
+  FaTrash,
+  FaPlus,
+  FaBus,
+  FaPlane,
+  FaCar,
+  FaTrain,
+  FaUser,
+  FaChevronDown,
+} from "react-icons/fa6";
+
+/* ------------------------------------------------------------------ */
+/*  Types                                                              */
+/* ------------------------------------------------------------------ */
+
+type ItineraryItem = { day: number; date: string; description: string };
+
+type TripForm = {
+  title: string;
+  description: string;
+  slug: string;
+  price: number;
+  currency: string;
+  nights: number;
+  days: number;
+  transport: TransportType;
+  departureDate: string;
+  returnDate: string;
+  departureCity: string;
+  hotelInfo: string;
+  depositPercentage: number;
+  depositDeadline: string;
+  itinerary: ItineraryItem[];
+  includedText: string;
+  notIncludedText: string;
+  categoryId: string;
+  isHero: boolean;
+  heroIcon: string;
+  status: TripStatus;
+  featured: boolean;
+  order: number;
+};
+
+const emptyForm: TripForm = {
+  title: "",
+  description: "",
+  slug: "",
+  price: 0,
+  currency: "RSD",
+  nights: 0,
+  days: 0,
+  transport: "bus",
+  departureDate: "",
+  returnDate: "",
+  departureCity: "",
+  hotelInfo: "",
+  depositPercentage: 0,
+  depositDeadline: "",
+  itinerary: [{ day: 1, date: "", description: "" }],
+  includedText: "",
+  notIncludedText: "",
+  categoryId: "",
+  isHero: false,
+  heroIcon: "",
+  status: "upcoming",
+  featured: false,
+  order: 1,
+};
+
+const formFromTrip = (trip: Trip): TripForm => ({
+  title: trip.title,
+  description: trip.description,
+  slug: trip.slug,
+  price: trip.price,
+  currency: trip.currency,
+  nights: trip.nights,
+  days: trip.days,
+  transport: trip.transport,
+  departureDate: trip.departureDate,
+  returnDate: trip.returnDate,
+  departureCity: trip.departureCity,
+  hotelInfo: trip.hotelInfo || "",
+  depositPercentage: trip.depositPercentage || 0,
+  depositDeadline: trip.depositDeadline || "",
+  itinerary:
+    trip.itinerary.length > 0
+      ? trip.itinerary
+      : [{ day: 1, date: "", description: "" }],
+  includedText: trip.included.join("\n"),
+  notIncludedText: trip.notIncluded.join("\n"),
+  categoryId: trip.categoryId || "",
+  isHero: trip.isHero || false,
+  heroIcon: trip.heroIcon || "",
+  status: trip.status,
+  featured: trip.featured,
+  order: trip.order,
+});
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[ÄÄ‡]/g, "c")
+    .replace(/[Å¡]/g, "s")
+    .replace(/[Å¾]/g, "z")
+    .replace(/[Ä‘]/g, "dj")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const transportOptions: { value: TransportType; icon: typeof FaBus }[] = [
+  { value: "bus", icon: FaBus },
+  { value: "plane", icon: FaPlane },
+  { value: "car", icon: FaCar },
+  { value: "train", icon: FaTrain },
+  { value: "self", icon: FaUser },
+];
+
+type TripSlideOverProps = {
+  open: boolean;
+  trip: Trip | null;
+  onClose: () => void;
+};
+
+/* ------------------------------------------------------------------ */
+/*  Lightweight collapsible section (inside slide-over)               */
+/* ------------------------------------------------------------------ */
+
+function Section({
+  title,
+  defaultOpen = true,
+  children,
+}: {
+  title: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center gap-3 py-2"
+      >
+        <span className="text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+          {title}
+        </span>
+        <div className="flex-1 border-t border-[var(--line)]" />
+        <FaChevronDown
+          className={`text-[10px] text-[var(--muted)] transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      {open ? <div className="grid gap-4 pb-2">{children}</div> : null}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Component                                                          */
+/* ------------------------------------------------------------------ */
+
+export default function TripSlideOver({
+  open,
+  trip,
+  onClose,
+}: TripSlideOverProps) {
+  const { language, dictionary } = useSitePreferences();
+  const upsertTrip = useMutation(api.trips.upsert);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
+  const arrangementCategories = useCategories("arrangement");
+
+  const t = dictionary.tripDetail;
+  const a = dictionary.admin;
+
+  const [form, setForm] = useState<TripForm>(() =>
+    trip ? formFromTrip(trip) : emptyForm
+  );
+  const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>(
+    () => (trip ? (trip.imageStorageIds as Id<"_storage">[]) : [])
+  );
+  const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>(() =>
+    trip ? trip.imageUrls.filter(Boolean) : []
+  );
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+
+
+  /* â”€â”€ Helpers â”€â”€ */
+  const updateField = <K extends keyof TripForm>(
+    key: K,
+    value: TripForm[K]
+  ) => {
+    setForm((prev) => {
+      const next = { ...prev, [key]: value };
+      if (key === "title" && !trip) {
+        next.slug = slugify(value as string);
+      }
+      return next;
+    });
+  };
+
+  const handleImageUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      for (const file of Array.from(files)) {
+        const uploadUrl = await generateUploadUrl({});
+        const result = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": file.type },
+          body: file,
+        });
+        const json = await result.json();
+        const storageId = json.storageId as Id<"_storage">;
+        if (storageId) {
+          setImageStorageIds((prev) => [...prev, storageId]);
+          setImagePreviewUrls((prev) => [...prev, URL.createObjectURL(file)]);
+        }
+      }
+    } catch {
+      setStatus(
+        language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed."
+      );
+    }
+    setUploading(false);
+  };
+
+  const removeImage = (index: number) => {
+    setImageStorageIds((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviewUrls((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    void handleImageUpload(e.dataTransfer.files);
+  };
+
+  const addItineraryDay = () => {
+    setForm((prev) => ({
+      ...prev,
+      itinerary: [
+        ...prev.itinerary,
+        { day: prev.itinerary.length + 1, date: "", description: "" },
+      ],
+    }));
+  };
+
+  const removeItineraryDay = (index: number) => {
+    setForm((prev) => ({
+      ...prev,
+      itinerary: prev.itinerary
+        .filter((_, i) => i !== index)
+        .map((item, i) => ({ ...item, day: i + 1 })),
+    }));
+  };
+
+  const updateItinerary = (
+    index: number,
+    field: keyof ItineraryItem,
+    value: string | number
+  ) => {
+    setForm((prev) => ({
+      ...prev,
+      itinerary: prev.itinerary.map((item, i) =>
+        i === index ? { ...item, [field]: value } : item
+      ),
+    }));
+  };
+
+  /* â”€â”€ Save â”€â”€ */
+  const handleSave = async () => {
+    if (!form.title || !form.slug) {
+      setStatus(
+        language === "sr" ? "Naslov je obavezan." : "Title is required."
+      );
+      return;
+    }
+
+    setSaving(true);
+    setStatus(null);
+
+    try {
+      await upsertTrip({
+        id: trip ? (trip._id as Id<"trips">) : undefined,
+        slug: form.slug,
+        title: form.title,
+        description: form.description,
+        price: Number(form.price),
+        currency: form.currency,
+        nights: Number(form.nights),
+        days: Number(form.days),
+        transport: form.transport,
+        departureDate: form.departureDate,
+        returnDate: form.returnDate,
+        departureCity: form.departureCity,
+        hotelInfo: form.hotelInfo || undefined,
+        depositPercentage: form.depositPercentage || undefined,
+        depositDeadline: form.depositDeadline || undefined,
+        itinerary: form.itinerary,
+        included: form.includedText
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean),
+        notIncluded: form.notIncludedText
+          .split("\n")
+          .map((l) => l.trim())
+          .filter(Boolean),
+        imageStorageIds,
+        categoryId: form.categoryId
+          ? (form.categoryId as Id<"categories">)
+          : undefined,
+        isHero: form.isHero || undefined,
+        heroIcon: form.isHero && form.heroIcon ? form.heroIcon : undefined,
+        status: form.status,
+        featured: form.featured,
+        order: Number(form.order),
+      });
+
+      onClose();
+    } catch {
+      setStatus(
+        language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed."
+      );
+    }
+    setSaving(false);
+  };
+
+  if (!open) return null;
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 z-40 bg-black/40 transition-opacity"
+        onClick={onClose}
+      />
+
+      {/* Panel */}
+      <div
+        className="fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l border-[var(--line)] bg-[var(--surface-strong)] shadow-2xl sm:max-w-xl"
+        style={{ animation: "admin-slide-in-right 0.25s ease-out" }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-[var(--line)] px-4 py-4 sm:px-6">
+          <h3 className="min-w-0 truncate text-base font-bold">
+            {trip
+              ? `${language === "sr" ? "Uredi" : "Edit"}: ${trip.title}`
+              : language === "sr"
+                ? "Novi AranÅ¾man"
+                : "New Trip"}
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            className="shrink-0 rounded-lg p-1.5 text-[var(--muted)] transition hover:bg-[var(--bg-soft)] hover:text-[var(--text)]"
+          >
+            <FaXmark className="text-lg" />
+          </button>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6">
+          <div className="grid gap-5">
+            {/* â”€â”€ Images â”€â”€ */}
+            <Section title={language === "sr" ? "Slike" : "Images"}>
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition ${
+                  dragOver
+                    ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                    : "border-[var(--line)] bg-[var(--bg-soft)]"
+                }`}
+              >
+                <FaCloudArrowUp className="mb-2 text-2xl text-[var(--muted)]" />
+                <p className="text-sm font-semibold">
+                  {language === "sr" ? "Dodaj slike" : "Upload images"}
+                </p>
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  {language === "sr"
+                    ? "Prevucite slike ovde ili kliknite"
+                    : "Drag & drop or click to browse"}
+                </p>
+                <label className="mt-3 cursor-pointer rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]">
+                  {language === "sr" ? "Odaberi fajlove" : "Choose files"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => void handleImageUpload(e.target.files)}
+                  />
+                </label>
+                {uploading ? (
+                  <p className="mt-2 text-xs text-[var(--muted)]">
+                    {language === "sr" ? "Otpremanje..." : "Uploading..."}
+                  </p>
+                ) : null}
+              </div>
+              {imagePreviewUrls.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {imagePreviewUrls.map((url, i) => (
+                    <div
+                      key={i}
+                      className="group relative h-16 w-16 overflow-hidden rounded-lg border border-[var(--line)]"
+                    >
+                      <CmsImage
+                        src={url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100"
+                      >
+                        <FaTrash className="text-xs text-white" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </Section>
+
+            {/* â”€â”€ Basic info â”€â”€ */}
+            <Section
+              title={language === "sr" ? "Osnovne informacije" : "Basic info"}
+            >
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{a.slideTitle}</span>
+                  <input
+                    className="control"
+                    value={form.title}
+                    onChange={(e) => updateField("title", e.target.value)}
+                    required
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">Slug</span>
+                  <input
+                    className="control"
+                    value={form.slug}
+                    onChange={(e) => updateField("slug", e.target.value)}
+                  />
+                </label>
+              </div>
+              <label className="grid gap-1.5">
+                <span className="text-sm font-semibold">{a.slideCopy}</span>
+                <textarea
+                  className="control !min-h-[80px]"
+                  value={form.description}
+                  onChange={(e) => updateField("description", e.target.value)}
+                />
+              </label>
+            </Section>
+
+            {/* â”€â”€ Category & hero â”€â”€ */}
+            <Section
+              title={
+                language === "sr" ? "Kategorija & hero" : "Category & hero"
+              }
+              defaultOpen={false}
+            >
+              <label className="grid gap-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
+                  {language === "sr"
+                    ? "Kategorija aranzmana"
+                    : "Arrangement category"}
+                </span>
+                <select
+                  className="control"
+                  value={form.categoryId}
+                  onChange={(e) => updateField("categoryId", e.target.value)}
+                >
+                  <option value="">{a.categorySelectPlaceholder}</option>
+                  {arrangementCategories.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {language === "sr" ? cat.name.sr : cat.name.en}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+                <input
+                  type="checkbox"
+                  checked={form.isHero}
+                  onChange={(e) => updateField("isHero", e.target.checked)}
+                  className="h-4 w-4 rounded accent-[var(--primary)]"
+                />
+                <span className="font-semibold">
+                  {language === "sr"
+                    ? "Glavno putovanje (prikazuje se na pocetnoj)"
+                    : "Main trip (shown on homepage hero)"}
+                </span>
+              </label>
+              {form.isHero ? (
+                <IconPicker
+                  value={form.heroIcon}
+                  onChange={(icon) => updateField("heroIcon", icon)}
+                  label={
+                    language === "sr"
+                      ? "Ikonica za hero sekciju"
+                      : "Hero section icon"
+                  }
+                />
+              ) : null}
+            </Section>
+
+            {/* â”€â”€ Price & duration â”€â”€ */}
+            <Section
+              title={language === "sr" ? "Cena i trajanje" : "Price & duration"}
+            >
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.price}</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="control"
+                    value={form.price}
+                    onChange={(e) =>
+                      updateField("price", Number(e.target.value))
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Valuta" : "Currency"}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.currency}
+                    onChange={(e) => updateField("currency", e.target.value)}
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.nights}</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="control"
+                    value={form.nights}
+                    onChange={(e) =>
+                      updateField("nights", Number(e.target.value))
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.days}</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="control"
+                    value={form.days}
+                    onChange={(e) =>
+                      updateField("days", Number(e.target.value))
+                    }
+                  />
+                </label>
+              </div>
+            </Section>
+
+            {/* â”€â”€ Transport â”€â”€ */}
+            <Section title={t.transport}>
+              <div className="flex flex-wrap gap-2">
+                {transportOptions.map((opt) => {
+                  const Icon = opt.icon;
+                  const active = form.transport === opt.value;
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => updateField("transport", opt.value)}
+                      className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                        active
+                          ? "border-[var(--primary)] bg-[var(--primary-soft)] text-[var(--primary)]"
+                          : "border-[var(--line)] hover:border-[var(--primary)]"
+                      }`}
+                    >
+                      <Icon />
+                      {t[opt.value]}
+                    </button>
+                  );
+                })}
+              </div>
+            </Section>
+
+            {/* â”€â”€ Dates & departure â”€â”€ */}
+            <Section
+              title={
+                language === "sr" ? "Datumi i polazak" : "Dates & departure"
+              }
+            >
+              <div className="grid gap-4 sm:grid-cols-3">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.departure}</span>
+                  <input
+                    type="date"
+                    className="control"
+                    value={form.departureDate}
+                    onChange={(e) =>
+                      updateField("departureDate", e.target.value)
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {t.returnLabel}
+                  </span>
+                  <input
+                    type="date"
+                    className="control"
+                    value={form.returnDate}
+                    onChange={(e) => updateField("returnDate", e.target.value)}
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {t.departureCity}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.departureCity}
+                    onChange={(e) =>
+                      updateField("departureCity", e.target.value)
+                    }
+                  />
+                </label>
+              </div>
+            </Section>
+
+            {/* â”€â”€ Hotel & deposit â”€â”€ */}
+            <Section
+              title={
+                language === "sr" ? "Hotel i depozit" : "Hotel & deposit"
+              }
+              defaultOpen={false}
+            >
+              <div className="grid gap-4 sm:grid-cols-3">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.hotel}</span>
+                  <input
+                    className="control"
+                    value={form.hotelInfo}
+                    onChange={(e) => updateField("hotelInfo", e.target.value)}
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {t.deposit} (%)
+                  </span>
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    className="control"
+                    value={form.depositPercentage}
+                    onChange={(e) =>
+                      updateField(
+                        "depositPercentage",
+                        Number(e.target.value)
+                      )
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {t.depositDeadline}
+                  </span>
+                  <input
+                    type="date"
+                    className="control"
+                    value={form.depositDeadline}
+                    onChange={(e) =>
+                      updateField("depositDeadline", e.target.value)
+                    }
+                  />
+                </label>
+              </div>
+            </Section>
+
+            {/* â”€â”€ Itinerary â”€â”€ */}
+            <Section title={t.itinerary} defaultOpen={false}>
+              <div className="grid gap-2">
+                {form.itinerary.map((item, index) => (
+                  <div
+                    key={index}
+                    className="grid gap-2 rounded-lg border border-[var(--line)] bg-[var(--bg-soft)] p-2.5 sm:grid-cols-[50px_120px_1fr_auto]"
+                  >
+                    <label className="grid gap-1">
+                      <span className="text-[10px] uppercase text-[var(--muted)]">
+                        {t.days}
+                      </span>
+                      <input
+                        type="number"
+                        min={1}
+                        className="control !text-xs"
+                        value={item.day}
+                        onChange={(e) =>
+                          updateItinerary(
+                            index,
+                            "day",
+                            Number(e.target.value)
+                          )
+                        }
+                      />
+                    </label>
+                    <label className="grid gap-1">
+                      <span className="text-[10px] uppercase text-[var(--muted)]">
+                        {language === "sr" ? "Datum" : "Date"}
+                      </span>
+                      <input
+                        type="date"
+                        className="control !text-xs"
+                        value={item.date}
+                        onChange={(e) =>
+                          updateItinerary(index, "date", e.target.value)
+                        }
+                      />
+                    </label>
+                    <label className="grid gap-1">
+                      <span className="text-[10px] uppercase text-[var(--muted)]">
+                        {a.slideCopy}
+                      </span>
+                      <input
+                        className="control !text-xs"
+                        value={item.description}
+                        onChange={(e) =>
+                          updateItinerary(
+                            index,
+                            "description",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => removeItineraryDay(index)}
+                      className="self-end rounded-lg border border-[var(--line)] p-1.5 text-xs text-[var(--muted)] transition hover:border-red-400 hover:text-red-400"
+                    >
+                      <FaTrash className="text-[10px]" />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={addItineraryDay}
+                  className="flex w-fit items-center gap-1.5 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-3 py-1.5 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                >
+                  <FaPlus className="text-[10px]" />
+                  {language === "sr" ? "Dodaj dan" : "Add day"}
+                </button>
+              </div>
+            </Section>
+
+            {/* â”€â”€ Included / Not included â”€â”€ */}
+            <Section
+              title={`${t.included} / ${t.notIncluded}`}
+              defaultOpen={false}
+            >
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{t.included}</span>
+                  <textarea
+                    className="control !min-h-[100px]"
+                    value={form.includedText}
+                    onChange={(e) =>
+                      updateField("includedText", e.target.value)
+                    }
+                    placeholder={
+                      language === "sr"
+                        ? "Svaki red = jedna stavka"
+                        : "Each line = one item"
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {t.notIncluded}
+                  </span>
+                  <textarea
+                    className="control !min-h-[100px]"
+                    value={form.notIncludedText}
+                    onChange={(e) =>
+                      updateField("notIncludedText", e.target.value)
+                    }
+                    placeholder={
+                      language === "sr"
+                        ? "Svaki red = jedna stavka"
+                        : "Each line = one item"
+                    }
+                  />
+                </label>
+              </div>
+            </Section>
+
+            {/* â”€â”€ Status & order â”€â”€ */}
+            <Section
+              title={
+                language === "sr" ? "Status i redosled" : "Status & order"
+              }
+            >
+              <div className="grid gap-4 sm:grid-cols-3">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">Status</span>
+                  <select
+                    className="control"
+                    value={form.status}
+                    onChange={(e) =>
+                      updateField("status", e.target.value as TripStatus)
+                    }
+                  >
+                    <option value="active">{t.statusActive}</option>
+                    <option value="upcoming">{t.statusUpcoming}</option>
+                    <option value="completed">{t.statusCompleted}</option>
+                  </select>
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">{a.order}</span>
+                  <input
+                    type="number"
+                    min={1}
+                    className="control"
+                    value={form.order}
+                    onChange={(e) =>
+                      updateField("order", Number(e.target.value))
+                    }
+                  />
+                </label>
+                <label className="flex items-end gap-2 pb-2">
+                  <input
+                    type="checkbox"
+                    checked={form.featured}
+                    onChange={(e) =>
+                      updateField("featured", e.target.checked)
+                    }
+                    className="h-4 w-4 rounded accent-[var(--primary)]"
+                  />
+                  <span className="text-sm font-semibold">{t.featured}</span>
+                </label>
+              </div>
+            </Section>
+
+            {/* Error message */}
+            {status ? (
+              <p className="rounded-lg border border-red-400/30 bg-red-400/10 px-3 py-2 text-sm text-red-400">
+                {status}
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-end gap-3 border-t border-[var(--line)] px-4 py-4 sm:px-6">
+          <button
+            type="button"
+            onClick={onClose}
+            className="btn-secondary text-sm"
+          >
+            {language === "sr" ? "OtkaÅ¾i" : "Cancel"}
+          </button>
+          <button
+            type="button"
+            onClick={() => void handleSave()}
+            disabled={saving || uploading}
+            className="btn-primary text-sm"
+          >
+            {saving
+              ? language === "sr"
+                ? "ÄŒuvanje..."
+                : "Saving..."
+              : language === "sr"
+                ? "SaÄuvaj"
+                : "Save"}
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+

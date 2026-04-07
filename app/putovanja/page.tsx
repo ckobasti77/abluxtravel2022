@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaArrowDown, FaArrowUp, FaCircle } from "react-icons/fa6";
@@ -299,7 +300,7 @@ export default function PutovanjaPage() {
                       disablePictureInPicture
                     />
                   ) : shouldRenderImage ? (
-                    <img
+                    <CmsImage
                       className="absolute left-0 top-0 h-full w-full object-cover"
                       src={slide.mediaUrl}
                       alt={slide.title}
@@ -427,4 +428,5 @@ export default function PutovanjaPage() {
     </main>
   );
 }
+
 

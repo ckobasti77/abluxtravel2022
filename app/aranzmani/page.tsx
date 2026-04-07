@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -184,7 +185,7 @@ export default function AranzmaniPage() {
                 <Link href={`/aranzmani/${trip.slug}`} className="block">
                   <div className="relative h-52 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
                     {heroImage ? (
-                      <img
+                      <CmsImage
                         src={heroImage}
                         alt={trip.title}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
@@ -284,6 +285,7 @@ export default function AranzmaniPage() {
     </AlienShell>
   );
 }
+
 
 
 

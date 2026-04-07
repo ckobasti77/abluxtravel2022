@@ -100,11 +100,25 @@ export const upsert = mutation({
       v.literal("upcoming"),
       v.literal("completed")
     ),
+    categoryId: v.optional(v.id("categories")),
+    isHero: v.optional(v.boolean()),
+    heroIcon: v.optional(v.string()),
     featured: v.boolean(),
     order: v.number(),
   },
   handler: async (ctx, args) => {
     const { id, ...data } = args;
+
+    // If marking as hero, unset isHero on other trips
+    if (data.isHero) {
+      const others = await ctx.db.query("trips").collect();
+      for (const trip of others) {
+        if (trip.isHero && trip._id !== id) {
+          await ctx.db.patch(trip._id, { isHero: false, heroIcon: undefined });
+        }
+      }
+    }
+
     const payload = { ...data, updatedAt: Date.now() };
 
     if (id) {

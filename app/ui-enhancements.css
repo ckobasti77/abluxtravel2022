@@ -46,7 +46,7 @@ a {
 }
 
 .btn-primary {
-  box-shadow: 0 16px 30px -22px color-mix(in srgb, var(--primary) 62%, transparent);
+  box-shadow: 0 16px 30px -22px color-mix(in srgb, var(--accent) 62%, transparent);
 }
 
 .btn-primary:active,
@@ -227,36 +227,17 @@ select.control {
     transform 0.22s ease;
 }
 
-.site-nav-link::after {
-  content: "";
-  position: absolute;
-  left: 24%;
-  right: 24%;
-  bottom: 0.35rem;
-  height: 2px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--primary) 78%, #67e8f9 22%);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.22s ease;
-}
-
 .site-nav-link:hover {
-  color: var(--text);
-  border-color: color-mix(in srgb, var(--line) 72%, var(--primary) 28%);
-  background: color-mix(in srgb, var(--primary-soft) 64%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--line) 72%, var(--accent) 28%);
+  background: color-mix(in srgb, var(--accent-soft) 64%, transparent);
   transform: translateY(-1px);
 }
 
-.site-nav-link:hover::after,
-.site-nav-link--active::after {
-  transform: scaleX(1);
-}
-
 .site-nav-link--active {
-  color: var(--text);
-  border-color: color-mix(in srgb, var(--line) 64%, var(--primary) 36%);
-  background: color-mix(in srgb, var(--primary-soft) 74%, transparent);
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--line) 64%, var(--accent) 36%);
+  background: color-mix(in srgb, var(--accent-soft) 74%, transparent);
 }
 
 .site-nav-mobile .site-nav-link {
@@ -273,60 +254,7 @@ select.control {
   bottom: 0.5rem;
 }
 
-.quick-action-bar {
-  right: 1rem;
-  bottom: 1rem;
-  gap: 0.55rem;
-  border-radius: 1.2rem;
-  border: 1px solid color-mix(in srgb, var(--line) 72%, #67e8f9 28%);
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, var(--surface-strong) 90%, transparent) 0%,
-      color-mix(in srgb, var(--surface) 80%, transparent) 100%
-    ),
-    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--primary-soft) 72%, transparent) 0, transparent 48%);
-  padding: 0.5rem;
-}
-
-.quick-action-btn {
-  width: auto;
-  height: auto;
-  min-height: 2.55rem;
-  border-radius: 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--line) 76%, #67e8f9 24%);
-  background: color-mix(in srgb, var(--surface-strong) 86%, transparent);
-  box-shadow: 0 10px 26px -24px color-mix(in srgb, var(--primary) 48%, transparent);
-  padding: 0 0.72rem;
-  gap: 0.52rem;
-  font-size: 0.9rem;
-}
-
-.quick-action-btn__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.65rem;
-  height: 1.65rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--line) 72%, #67e8f9 28%);
-  background: color-mix(in srgb, var(--primary-soft) 62%, transparent);
-}
-
-.quick-action-btn__label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.quick-action-btn:hover {
-  border-color: color-mix(in srgb, var(--primary) 58%, var(--line));
-  background: color-mix(in srgb, var(--primary-soft) 64%, var(--surface-strong));
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--primary) 52%, transparent);
-}
+/* quick-action styles now in globals.css as qa-fab */
 
 @media (max-width: 1024px) {
   .metric-grid {
@@ -349,20 +277,6 @@ select.control {
     padding: 0.78rem;
   }
 
-  .quick-action-bar {
-    right: 0.75rem;
-    bottom: 0.75rem;
-    padding: 0.4rem;
-  }
-
-  .quick-action-btn {
-    min-height: 2.35rem;
-    padding: 0 0.6rem;
-  }
-
-  .quick-action-btn__label {
-    font-size: 0.62rem;
-    letter-spacing: 0.06em;
-  }
+  /* quick-action mobile styles now in globals.css as qa-fab */
 }
 

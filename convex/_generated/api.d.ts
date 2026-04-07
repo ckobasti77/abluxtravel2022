@@ -10,6 +10,8 @@
 
 import type * as accommodations from "../accommodations.js";
 import type * as auth from "../auth.js";
+import type * as categories from "../categories.js";
+import type * as destinations from "../destinations.js";
 import type * as files from "../files.js";
 import type * as http from "../http.js";
 import type * as offers from "../offers.js";
@@ -28,6 +30,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   accommodations: typeof accommodations;
   auth: typeof auth;
+  categories: typeof categories;
+  destinations: typeof destinations;
   files: typeof files;
   http: typeof http;
   offers: typeof offers;

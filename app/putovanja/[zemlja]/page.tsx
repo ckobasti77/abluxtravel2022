@@ -1,14 +1,18 @@
 ﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../../components/alien-shell";
 import AddToCartButton from "../../../components/add-to-cart-button";
+import DestinationEditor from "../../../components/destination-editor";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { fromCountrySlug } from "../../../lib/country-route";
+import { useDestinationsByPage } from "../../../lib/use-destinations";
 import { AggregatedOffer, useOffersLiveBoard } from "../../../lib/use-offers";
+import { useSession } from "../../../lib/use-session";
 
 const formatPrice = (offer: AggregatedOffer, locale: string) =>
   new Intl.NumberFormat(locale, {
@@ -28,10 +32,13 @@ export default function CountryTripsPage() {
   const params = useParams<{ zemlja: string }>();
   const slug = typeof params?.zemlja === "string" ? params.zemlja : "";
   const { dictionary, language } = useSitePreferences();
+  const session = useSession();
   const [query, setQuery] = useState("");
+  const isAdmin = session?.role === "admin";
 
   const countryName = useMemo(() => fromCountrySlug(slug), [slug]);
   const offers = useOffersLiveBoard(countryName);
+  const destinations = useDestinationsByPage(slug);
   const locale = language === "sr" ? "sr-RS" : "en-US";
 
   const filteredOffers = useMemo(() => {
@@ -64,6 +71,10 @@ export default function CountryTripsPage() {
   }, [filteredOffers]);
 
   const hasQuery = query.trim().length > 0;
+  const activeDestinations = useMemo(
+    () => destinations.filter((item) => item.isActive),
+    [destinations],
+  );
 
   return (
     <AlienShell className="site-fade page-stack">
@@ -147,6 +158,66 @@ export default function CountryTripsPage() {
           <p className="panel-muted mt-2">{dictionary.trips.readyDescription}</p>
         </article>
       </section>
+
+      {activeDestinations.length > 0 ? (
+        <section className="grid gap-4">
+          <header className="grid gap-1">
+            <h2 className="text-2xl font-semibold">
+              {language === "sr"
+                ? "Istaknute destinacije za ovu stranicu"
+                : "Featured destinations for this page"}
+            </h2>
+            <p className="panel-muted">
+              {language === "sr"
+                ? "Kurirana lista destinacija sa cenama i opisima."
+                : "Curated destination list with pricing and descriptions."}
+            </p>
+          </header>
+
+          <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {activeDestinations.map((item, index) => {
+              const heroImage = item.imageUrls.find(Boolean);
+              return (
+                <article
+                  key={item._id}
+                  className="panel-glass fx-lift overflow-hidden"
+                  style={{ "--stagger-index": index } as CSSProperties}
+                >
+                  <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                    {heroImage ? (
+                      <CmsImage
+                        src={heroImage}
+                        alt={item.title}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-sm text-muted">
+                        {language === "sr" ? "Bez slike" : "No image"}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-4 grid gap-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-lg font-semibold">{item.title}</h3>
+                      <span className="shrink-0 text-base font-semibold text-[var(--primary)]">
+                        {new Intl.NumberFormat(locale, {
+                          style: "currency",
+                          currency: item.currency,
+                          maximumFractionDigits: 0,
+                        }).format(item.price)}
+                      </span>
+                    </div>
+                    {item.description ? (
+                      <p className="text-sm leading-6 text-muted">{item.description}</p>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <section>
         {filteredOffers.length > 0 ? (
@@ -235,9 +306,28 @@ export default function CountryTripsPage() {
         )}
       </section>
 
+      {isAdmin && slug ? (
+        <section className="mt-2">
+          <DestinationEditor
+            pageSlug={slug}
+            title={
+              language === "sr"
+                ? `Admin: destinacije za ${countryName || slug}`
+                : `Admin: destinations for ${countryName || slug}`
+            }
+            description={
+              language === "sr"
+                ? "Dodaj, izmeni i obrisi destinacije direktno na ovoj /putovanja stranici."
+                : "Add, edit, and delete destinations directly on this /putovanja page."
+            }
+          />
+        </section>
+      ) : null}
+
       <PageAdminEditorDock slot="country" className="mt-2" />
     </AlienShell>
   );
 }
+
 
 

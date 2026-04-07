@@ -36,7 +36,7 @@ export const createCheckoutSession = action({
     ),
     customerEmail: v.optional(v.string()),
   },
-  handler: async (_ctx, args) => {
+  handler: async () => {
     // ------------------------------------------------------------------
     // TODO (Phase 2): Uncomment when Stripe is live.
     //

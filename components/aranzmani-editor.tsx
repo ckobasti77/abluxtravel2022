@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useEffect, useMemo, useState } from "react";
 import type { CSSProperties, FormEvent } from "react";
 import { useMutation, useQuery } from "convex/react";
@@ -422,7 +423,7 @@ export default function AranzmaniEditor({
 
                   {slide.mediaUrl && !shouldHideMediaPreview ? (
                     slide.mediaType === "image" ? (
-                      <img
+                      <CmsImage
                         className="h-36 w-full rounded-xl border border-[var(--line)] object-cover"
                         src={slide.mediaUrl}
                         alt={slide.title}
@@ -477,4 +478,5 @@ export default function AranzmaniEditor({
     </section>
   );
 }
+
 

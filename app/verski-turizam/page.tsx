@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import Link from "next/link";
 import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../components/alien-shell";
@@ -214,7 +215,7 @@ export default function VerskiTurizamPage() {
               style={{ "--stagger-index": index } as CSSProperties}
             >
               {offer.imageUrls && offer.imageUrls.length > 0 ? (
-                <img
+                <CmsImage
                   src={offer.imageUrls[0]}
                   alt={offer.title}
                   className="mb-3 h-44 w-full rounded-xl border border-[var(--line)] object-cover"
@@ -298,6 +299,7 @@ export default function VerskiTurizamPage() {
     </AlienShell>
   );
 }
+
 
 
 

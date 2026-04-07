@@ -72,6 +72,29 @@ export const listLiveBoard = query({
   },
 });
 
+export const listForNav = query({
+  args: {},
+  handler: async (ctx) => {
+    const offers = await ctx.db
+      .query("offers")
+      .withIndex("by_active_updated", (q) => q.eq("isActive", true))
+      .order("desc")
+      .take(250);
+
+    return offers
+      .filter((o) => o.navTitle && o.navTitle.trim().length > 0)
+      .map((o) => ({
+        _id: o._id,
+        title: o.title,
+        navTitle: o.navTitle!,
+        externalId: o.externalId,
+        sourceSlug: o.sourceSlug,
+        tags: o.tags,
+        destination: o.destination,
+      }));
+  },
+});
+
 export const upsertSource = mutation({
   args: {
     slug: v.string(),
@@ -116,6 +139,8 @@ export const upsertOffer = mutation({
     pdfFileName: v.optional(v.string()),
     imageStorageIds: v.optional(v.array(v.id("_storage"))),
     clearPdf: v.optional(v.boolean()),
+    navTitle: v.optional(v.string()),
+    categoryId: v.optional(v.id("categories")),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
     rawSnapshot: v.optional(v.string()),

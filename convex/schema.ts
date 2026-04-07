@@ -11,6 +11,22 @@ export default defineSchema({
     instagramUrl: v.string(),
     updatedAt: v.number(),
   }).index("by_key", ["key"]),
+  categories: defineTable({
+    name: v.object({ sr: v.string(), en: v.string() }),
+    slug: v.string(),
+    type: v.union(
+      v.literal("arrangement"),
+      v.literal("religious")
+    ),
+    isMain: v.optional(v.boolean()),
+    mainIcon: v.optional(v.string()),
+    isActive: v.boolean(),
+    order: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_type", ["type"])
+    .index("by_slug", ["slug"])
+    .index("by_type_active", ["type", "isActive"]),
   trips: defineTable({
     slug: v.string(),
     title: v.string(),
@@ -47,13 +63,17 @@ export default defineSchema({
       v.literal("upcoming"),
       v.literal("completed")
     ),
+    categoryId: v.optional(v.id("categories")),
+    isHero: v.optional(v.boolean()),
+    heroIcon: v.optional(v.string()),
     featured: v.boolean(),
     order: v.number(),
     updatedAt: v.number(),
   })
     .index("by_slug", ["slug"])
     .index("by_status_order", ["status", "order"])
-    .index("by_featured", ["featured"]),
+    .index("by_featured", ["featured"])
+    .index("by_category", ["categoryId"]),
   accommodations: defineTable({
     tripId: v.id("trips"),
     name: v.string(),
@@ -88,6 +108,20 @@ export default defineSchema({
     isActive: v.boolean(),
     updatedAt: v.number(),
   }).index("by_trip_order", ["tripId", "order"]),
+  destinations: defineTable({
+    tripId: v.optional(v.id("trips")),
+    pageSlug: v.optional(v.string()),
+    title: v.string(),
+    description: v.string(),
+    price: v.number(),
+    currency: v.string(),
+    imageStorageIds: v.array(v.id("_storage")),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  })
+    .index("by_trip_order", ["tripId", "order"])
+    .index("by_page_order", ["pageSlug", "order"]),
   users: defineTable({
     username: v.string(),
     email: v.optional(v.string()),
@@ -142,15 +176,18 @@ export default defineSchema({
     pdfStorageId: v.optional(v.id("_storage")),
     pdfFileName: v.optional(v.string()),
     imageStorageIds: v.optional(v.array(v.id("_storage"))),
+    navTitle: v.optional(v.string()),
     normalizedHash: v.string(),
     score: v.optional(v.number()),
     rawSnapshot: v.optional(v.string()),
+    categoryId: v.optional(v.id("categories")),
     isActive: v.boolean(),
     updatedAt: v.number(),
   })
     .index("by_source_external", ["sourceSlug", "externalId"])
     .index("by_active_updated", ["isActive", "updatedAt"])
-    .index("by_destination_price", ["destination", "price"]),
+    .index("by_destination_price", ["destination", "price"])
+    .index("by_category", ["categoryId"]),
   orders: defineTable({
     items: v.array(
       v.object({

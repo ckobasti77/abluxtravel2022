@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { FaMinus, FaPlus, FaTrash, FaXmark } from "react-icons/fa6";
@@ -137,7 +138,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                   className="surface-strong flex items-start gap-3 rounded-xl p-3"
                 >
                   {item.imageUrl ? (
-                    <img
+                    <CmsImage
                       src={item.imageUrl}
                       alt=""
                       className="h-14 w-14 shrink-0 rounded-lg object-cover"
@@ -227,3 +228,4 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
     document.body
   );
 }
+

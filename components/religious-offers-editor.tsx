@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useMemo, useState, type CSSProperties, type FormEvent } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
@@ -11,10 +12,13 @@ import {
   isReligiousOffer,
   normalizeReligiousTags,
 } from "../lib/religious";
+import { useCategories } from "../lib/use-categories";
+import InlineCategories from "./inline-categories";
 
 type ReligiousOfferForm = {
   externalId: string;
   title: string;
+  navTitle: string;
   destination: string;
   departureCity: string;
   departureDate: string;
@@ -28,6 +32,7 @@ type ReligiousOfferForm = {
 const emptyForm: ReligiousOfferForm = {
   externalId: "",
   title: "",
+  navTitle: "",
   destination: "",
   departureCity: "",
   departureDate: "",
@@ -51,7 +56,7 @@ const parseNumber = (value: string) => {
 };
 
 export default function ReligiousOffersEditor() {
-  const { language } = useSitePreferences();
+  const { language, dictionary } = useSitePreferences();
   const locale = language === "sr" ? "sr-RS" : "en-US";
   const upsertOffer = useMutation(api.offers.upsertOffer);
   const deactivateOffer = useMutation(api.offers.deactivateOffer);
@@ -70,6 +75,9 @@ export default function ReligiousOffersEditor() {
   const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>([]);
   const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
+  const [categoryId, setCategoryId] = useState<string>("");
+
+  const religiousCategories = useCategories("religious");
 
   const religiousOffers = useMemo(
     () =>
@@ -92,6 +100,7 @@ export default function ReligiousOffersEditor() {
     setForm({
       externalId: offer.externalId,
       title: offer.title,
+      navTitle: (offer as AggregatedOffer & { navTitle?: string }).navTitle ?? "",
       destination: offer.destination,
       departureCity: offer.departureCity ?? "",
       departureDate: offer.departureDate ?? "",
@@ -107,6 +116,7 @@ export default function ReligiousOffersEditor() {
     setImageStorageIds((offer.imageStorageIds as Id<"_storage">[] | undefined) ?? []);
     setImagePreviewUrls((offer.imageUrls ?? []).filter(Boolean));
     setRemovePdfOnSave(false);
+    setCategoryId((offer as AggregatedOffer & { categoryId?: string }).categoryId ?? "");
   };
 
   const resetForm = () => {
@@ -118,6 +128,7 @@ export default function ReligiousOffersEditor() {
     setImageStorageIds([]);
     setImagePreviewUrls([]);
     setRemovePdfOnSave(false);
+    setCategoryId("");
   };
 
   const handlePdfUpload = async (file: File | null) => {
@@ -255,9 +266,13 @@ export default function ReligiousOffersEditor() {
         currency: form.currency.trim().toUpperCase() || "EUR",
         seatsLeft: seatsLeft ?? undefined,
         tags,
+        navTitle: form.navTitle.trim() || undefined,
         pdfStorageId: pdfStorageId ?? undefined,
         pdfFileName: pdfStorageId ? pdfFileName || "brochure.pdf" : undefined,
         imageStorageIds,
+        categoryId: categoryId
+          ? (categoryId as unknown as Id<"categories">)
+          : undefined,
         clearPdf: removePdfOnSave,
         normalizedHash: `${MANUAL_RELIGIOUS_SOURCE_SLUG}:${externalId}:${title}:${destination}:${price}`
           .toLowerCase()
@@ -324,6 +339,8 @@ export default function ReligiousOffersEditor() {
 
   return (
     <section className="grid gap-6">
+      <InlineCategories type="religious" />
+
       <article className="section-holo p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.16em] text-muted">
           {language === "sr" ? "Verski market pulse" : "Religious market pulse"}
@@ -396,6 +413,24 @@ export default function ReligiousOffersEditor() {
               }
               required
             />
+          </label>
+          <label className="grid gap-1.5">
+            <span className="text-sm font-semibold">
+              {language === "sr" ? "Kratak naslov za navigaciju" : "Short nav title"}
+            </span>
+            <input
+              className="control"
+              value={form.navTitle}
+              onChange={(event) =>
+                setForm((previous) => ({ ...previous, navTitle: event.target.value }))
+              }
+              placeholder={language === "sr" ? "npr. Ostrog i CG manastiri" : "e.g. Ostrog & Montenegro"}
+            />
+            <span className="text-xs text-muted">
+              {language === "sr"
+                ? "Prikazuje se kao pod-link u navigaciji. Ostavite prazno ako ne zelite da se prikazuje."
+                : "Shown as a sub-link in navigation. Leave empty to hide from nav."}
+            </span>
           </label>
           <label className="grid gap-1.5">
             <span className="text-sm font-semibold">
@@ -507,6 +542,25 @@ export default function ReligiousOffersEditor() {
               placeholder="verski, hodocasce, manastiri"
             />
           </label>
+          <label className="grid gap-1.5">
+            <span className="text-sm font-semibold">
+              {language === "sr" ? "Kategorija" : "Category"}
+            </span>
+            <select
+              className="control"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+            >
+              <option value="">
+                {dictionary.admin.categorySelectPlaceholder}
+              </option>
+              {religiousCategories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {language === "sr" ? cat.name.sr : cat.name.en}
+                </option>
+              ))}
+            </select>
+          </label>
           <div className="grid gap-2">
             <span className="text-sm font-semibold">
               {language === "sr" ? "Slike ponude" : "Offer images"}
@@ -537,7 +591,7 @@ export default function ReligiousOffersEditor() {
                     key={`${imageUrl}-${index}`}
                     className="relative h-20 w-20 overflow-hidden rounded-xl border border-[var(--line)]"
                   >
-                    <img
+                    <CmsImage
                       src={imageUrl}
                       alt={language === "sr" ? "Slika ponude" : "Offer image"}
                       className="h-full w-full object-cover"
@@ -658,7 +712,7 @@ export default function ReligiousOffersEditor() {
                   style={{ "--stagger-index": index } as CSSProperties}
                 >
                   {offer.imageUrls && offer.imageUrls.length > 0 ? (
-                    <img
+                    <CmsImage
                       src={offer.imageUrls[0]}
                       alt={offer.title}
                       className="mb-3 h-40 w-full rounded-xl border border-[var(--line)] object-cover"

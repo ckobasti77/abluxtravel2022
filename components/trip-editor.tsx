@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import { useMutation } from "convex/react";
@@ -19,8 +20,13 @@ import {
   FaChevronUp,
   FaImage,
   FaBed,
+  FaLocationDot,
 } from "react-icons/fa6";
 import AccommodationEditor from "./accommodation-editor";
+import DestinationEditor from "./destination-editor";
+import IconPicker from "./icon-picker";
+import { useCategories } from "../lib/use-categories";
+import InlineCategories from "./inline-categories";
 
 type ItineraryItem = { day: number; date: string; description: string };
 
@@ -42,6 +48,9 @@ type TripForm = {
   itinerary: ItineraryItem[];
   includedText: string;
   notIncludedText: string;
+  categoryId: string;
+  isHero: boolean;
+  heroIcon: string;
   status: TripStatus;
   featured: boolean;
   order: number;
@@ -65,6 +74,9 @@ const emptyForm: TripForm = {
   itinerary: [{ day: 1, date: "", description: "" }],
   includedText: "",
   notIncludedText: "",
+  categoryId: "",
+  isHero: false,
+  heroIcon: "",
   status: "upcoming",
   featured: false,
   order: 1,
@@ -73,10 +85,10 @@ const emptyForm: TripForm = {
 const slugify = (text: string) =>
   text
     .toLowerCase()
-    .replace(/[čć]/g, "c")
-    .replace(/[š]/g, "s")
-    .replace(/[ž]/g, "z")
-    .replace(/[đ]/g, "dj")
+    .replace(/[ÄÄ‡]/g, "c")
+    .replace(/[Å¡]/g, "s")
+    .replace(/[Å¾]/g, "z")
+    .replace(/[Ä‘]/g, "dj")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
@@ -118,6 +130,8 @@ export default function TripEditor() {
   const removeTrip = useMutation(api.trips.remove);
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
 
+  const arrangementCategories = useCategories("arrangement");
+
   const [form, setForm] = useState<TripForm>(emptyForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>([]);
@@ -157,7 +171,7 @@ export default function TripEditor() {
         }
       }
     } catch {
-      setStatus(language === "sr" ? "Greška pri uploadu slika." : "Image upload failed.");
+      setStatus(language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed.");
     }
     setUploading(false);
   };
@@ -229,6 +243,11 @@ export default function TripEditor() {
           .map((l) => l.trim())
           .filter(Boolean),
         imageStorageIds,
+        categoryId: form.categoryId
+          ? (form.categoryId as Id<"categories">)
+          : undefined,
+        isHero: form.isHero || undefined,
+        heroIcon: form.isHero && form.heroIcon ? form.heroIcon : undefined,
         status: form.status,
         featured: form.featured,
         order: Number(form.order),
@@ -236,7 +255,7 @@ export default function TripEditor() {
       setStatus(a.saved);
       resetForm();
     } catch {
-      setStatus(language === "sr" ? "Greška pri čuvanju." : "Save failed.");
+      setStatus(language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed.");
     }
   };
 
@@ -260,6 +279,9 @@ export default function TripEditor() {
       itinerary: trip.itinerary.length > 0 ? trip.itinerary : [{ day: 1, date: "", description: "" }],
       includedText: trip.included.join("\n"),
       notIncludedText: trip.notIncluded.join("\n"),
+      categoryId: trip.categoryId || "",
+      isHero: trip.isHero || false,
+      heroIcon: trip.heroIcon || "",
       status: trip.status,
       featured: trip.featured,
       order: trip.order,
@@ -277,7 +299,7 @@ export default function TripEditor() {
 
   const handleDelete = async (tripId: string) => {
     const confirmed = window.confirm(
-      language === "sr" ? "Obrisati ovaj aranžman?" : "Delete this trip?"
+      language === "sr" ? "Obrisati ovaj aranÅ¾man?" : "Delete this trip?"
     );
     if (!confirmed) return;
     await removeTrip({ id: tripId as Id<"trips"> });
@@ -296,19 +318,21 @@ export default function TripEditor() {
 
   return (
     <section className="grid gap-6">
+      <InlineCategories type="arrangement" />
+
       <article className="section-holo p-6 sm:p-8">
         <h2 className="text-2xl font-semibold sm:text-3xl">
           {editingId
             ? language === "sr"
-              ? "Izmeni aranžman"
+              ? "Izmeni aranÅ¾man"
               : "Edit trip"
             : language === "sr"
-              ? "Novi aranžman"
+              ? "Novi aranÅ¾man"
               : "New trip"}
         </h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">
           {language === "sr"
-            ? "Popunite sve detalje aranžmana. Svako polje se čuva u Convex bazi."
+            ? "Popunite sve detalje aranÅ¾mana. Svako polje se Äuva u Convex bazi."
             : "Fill in all trip details. Every field is persisted to the Convex database."}
         </p>
       </article>
@@ -319,7 +343,7 @@ export default function TripEditor() {
             <div className="flex flex-wrap gap-3">
               {imagePreviewUrls.map((url, i) => (
                 <div key={i} className="group relative h-24 w-24 overflow-hidden rounded-xl border border-[var(--line)]">
-                  <img src={url} alt="" className="h-full w-full object-cover" />
+                  <CmsImage src={url} alt="" className="h-full w-full object-cover" />
                   <button
                     type="button"
                     onClick={() => removeImage(i)}
@@ -375,6 +399,50 @@ export default function TripEditor() {
                 onChange={(e) => updateField("description", e.target.value)}
               />
             </label>
+          </div>
+        </CollapsibleSection>
+
+        <CollapsibleSection title={language === "sr" ? "Kategorija & hero" : "Category & hero"}>
+          <div className="grid gap-4">
+            <div>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
+                {language === "sr" ? "Kategorija aranzmana" : "Arrangement category"}
+              </label>
+              <select
+                className="control w-full"
+                value={form.categoryId}
+                onChange={(e) => updateField("categoryId", e.target.value)}
+              >
+                <option value="">
+                  {a.categorySelectPlaceholder}
+                </option>
+                {arrangementCategories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {language === "sr" ? cat.name.sr : cat.name.en}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+              <input
+                type="checkbox"
+                checked={form.isHero}
+                onChange={(e) => updateField("isHero", e.target.checked)}
+                className="h-4 w-4 rounded accent-[var(--primary)]"
+              />
+              <span className="font-semibold">
+                {language === "sr"
+                  ? "Glavno putovanje (prikazuje se na pocetnoj)"
+                  : "Main trip (shown on homepage hero)"}
+              </span>
+            </label>
+            {form.isHero && (
+              <IconPicker
+                value={form.heroIcon}
+                onChange={(icon) => updateField("heroIcon", icon)}
+                label={language === "sr" ? "Ikonica za hero sekciju" : "Hero section icon"}
+              />
+            )}
           </div>
         </CollapsibleSection>
 
@@ -633,8 +701,24 @@ export default function TripEditor() {
         <CollapsibleSection
           title={
             <>
+              <FaLocationDot className="inline mr-2 text-sm" />
+              {language === "sr"
+                ? "Destinacije putovanja"
+                : "Trip destinations"}
+            </>
+          }
+          defaultOpen={false}
+        >
+          <DestinationEditor tripId={editingId} />
+        </CollapsibleSection>
+      )}
+
+      {editingId && (
+        <CollapsibleSection
+          title={
+            <>
               <FaBed className="inline mr-2 text-sm" />
-              {language === "sr" ? "Smeštaj (Opcije)" : "Accommodation (Options)"}
+              {language === "sr" ? "SmeÅ¡taj (Opcije)" : "Accommodation (Options)"}
             </>
           }
           defaultOpen={false}
@@ -657,7 +741,7 @@ export default function TripEditor() {
             className="btn-secondary"
             onClick={resetForm}
           >
-            {language === "sr" ? "Otkaži izmenu" : "Cancel edit"}
+            {language === "sr" ? "OtkaÅ¾i izmenu" : "Cancel edit"}
           </button>
         ) : null}
         {status ? (
@@ -667,7 +751,7 @@ export default function TripEditor() {
 
       <section className="mt-4">
         <h3 className="mb-4 text-xl font-semibold">
-          {language === "sr" ? "Postojeći aranžmani" : "Existing trips"}
+          {language === "sr" ? "PostojeÄ‡i aranÅ¾mani" : "Existing trips"}
         </h3>
         {trips.length > 0 ? (
           <div className="stagger-grid grid gap-4 md:grid-cols-2">
@@ -697,8 +781,8 @@ export default function TripEditor() {
                   </span>
                 </div>
                 <p className="mt-2 text-sm text-muted">
-                  {trip.days} {t.days} · {trip.nights} {t.nights} ·{" "}
-                  {transportLabel(trip.transport)} · {trip.departureCity}
+                  {trip.days} {t.days} Â· {trip.nights} {t.nights} Â·{" "}
+                  {transportLabel(trip.transport)} Â· {trip.departureCity}
                 </p>
                 <p className="mt-1 text-xl font-semibold">
                   {new Intl.NumberFormat(language === "sr" ? "sr-RS" : "en-US", {
@@ -720,7 +804,7 @@ export default function TripEditor() {
                     className="rounded-lg border border-[var(--line)] px-3 py-1.5 text-xs text-muted transition hover:border-red-400 hover:text-red-400"
                     onClick={() => void handleDelete(trip._id)}
                   >
-                    {language === "sr" ? "Obriši" : "Delete"}
+                    {language === "sr" ? "ObriÅ¡i" : "Delete"}
                   </button>
                 </div>
               </article>
@@ -735,3 +819,4 @@ export default function TripEditor() {
     </section>
   );
 }
+

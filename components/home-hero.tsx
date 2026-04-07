@@ -2,155 +2,137 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { type CSSProperties, useMemo, useState } from "react";
 import { useSitePreferences } from "./site-preferences-provider";
+import { useHeroData } from "../lib/use-categories";
+import DynamicIcon from "./dynamic-icon";
 
-type HeroAction = {
-  href: string;
-  label: string;
-};
-
-type HeroParticle = CSSProperties;
-
-const deterministicNoise = (seed: number) => {
-  const value = Math.sin(seed * 9999.91) * 43758.5453123;
-  return value - Math.floor(value);
-};
-
-const buildParticleStyles = (count: number): HeroParticle[] =>
-  Array.from({ length: count }, (_, index) => {
-    const base = index + 1;
-    const x = 5 + deterministicNoise(base * 1.37) * 90;
-    const y = 5 + deterministicNoise(base * 2.11) * 90;
-    const size = 2 + deterministicNoise(base * 2.89) * 4;
-    const duration = 3 + deterministicNoise(base * 3.73) * 6;
-    const delay = deterministicNoise(base * 4.19) * 5;
-    const opacity = 0.2 + deterministicNoise(base * 5.21) * 0.6;
-
-    return {
-      "--p-x": `${x.toFixed(2)}%`,
-      "--p-y": `${y.toFixed(2)}%`,
-      "--p-size": `${size.toFixed(2)}px`,
-      "--p-dur": `${duration.toFixed(2)}s`,
-      "--p-delay": `${delay.toFixed(2)}s`,
-      "--p-opacity": opacity.toFixed(3),
-    } as CSSProperties;
-  });
+const STAR_PARTICLES = Array.from({ length: 40 }, (_, i) => ({
+  left: `${(i * 17) % 100}%`,
+  top: `${(i * 29 + 13) % 100}%`,
+  animationDelay: `${(i % 10) * 0.5}s`,
+  animationDuration: `${3 + (i % 4)}s`,
+}));
 
 export default function HomeHero() {
-  const { dictionary } = useSitePreferences();
-  const [toolkitOpen, setToolkitOpen] = useState(false);
-  const toolkitId = "home-command-toolkit";
-
-  const actions = useMemo<HeroAction[]>(
-    () => [
-      { href: "/aranzmani", label: dictionary.home.heroToolkitOffers },
-      { href: "/aranzmani", label: dictionary.home.heroToolkitArrangements },
-      { href: "/verski-turizam", label: dictionary.home.heroToolkitReligious },
-    ],
-    [
-      dictionary.home.heroToolkitArrangements,
-      dictionary.home.heroToolkitOffers,
-      dictionary.home.heroToolkitReligious,
-    ]
-  );
-
-  const particleStyles = useMemo(() => buildParticleStyles(24), []);
+  const { dictionary, language } = useSitePreferences();
+  const heroData = useHeroData();
 
   return (
-    <section className={`home-command-hero ${toolkitOpen ? "is-expanded" : ""}`}>
+    <section className="hero-travel">
+      {/* Desktop background */}
       <Image
-        src="/pocetna.avif"
+        src="/background.avif"
         alt={dictionary.home.title}
         fill
         priority
-        sizes="100vw"
-        className="home-command-hero__image"
+        sizes="(min-width: 769px) 100vw, 0vw"
+        className="hero-travel__bg hero-travel__bg--desktop"
       />
-      <div className="home-command-hero__dimmer" aria-hidden />
-      <div className="home-command-hero__ambient" aria-hidden />
-      <div className="home-command-hero__scanline" aria-hidden />
+      {/* Mobile background */}
+      <Image
+        src="/background-mobile.avif"
+        alt={dictionary.home.title}
+        fill
+        priority
+        sizes="(max-width: 768px) 100vw, 0vw"
+        className="hero-travel__bg hero-travel__bg--mobile"
+      />
+      <div className="hero-travel__overlay" aria-hidden />
 
-      <div className="home-command-hero__holo-grid" aria-hidden />
-      <div className="home-command-hero__aurora" aria-hidden />
-      <div className="home-command-hero__aurora home-command-hero__aurora--alt" aria-hidden />
-
-      <div className="home-command-hero__particles" aria-hidden>
-        {particleStyles.map((particleStyle, index) => (
-          <span key={index} className="home-command-hero__particle" style={particleStyle} />
+      {/* Subtle particle dots */}
+      <div className="hero-travel__stars" aria-hidden>
+        {STAR_PARTICLES.map((star, i) => (
+          <span
+            key={i}
+            className="hero-travel__star"
+            style={{
+              left: star.left,
+              top: star.top,
+              animationDelay: star.animationDelay,
+              animationDuration: star.animationDuration,
+            }}
+          />
         ))}
       </div>
 
-      <div className="home-command-hero__ring-pulse" aria-hidden />
-      <div className="home-command-hero__ring-pulse home-command-hero__ring-pulse--2" aria-hidden />
-      <div className="home-command-hero__ring-pulse home-command-hero__ring-pulse--3" aria-hidden />
+      {/* Center Content */}
+      <div className="hero-travel__content">
+        <div className="hero-travel__center">
+          <h1 className="hero-travel__title">{dictionary.home.title}</h1>
+          <p className="hero-travel__subtitle">{dictionary.home.description}</p>
 
-      <div className="home-command-hero__content">
-        <div className="home-command-hero__intro">
-          <span className="home-command-hero__pill">
-            <span className="home-command-hero__pill-dot" aria-hidden />
-            {dictionary.home.badge}
-          </span>
-          <h1 className="home-command-hero__title">
-            <span className="home-command-hero__title-main">{dictionary.home.title}</span>
-            <span className="home-command-hero__title-glow" aria-hidden>
-              {dictionary.home.title}
-            </span>
-          </h1>
-          <p className="home-command-hero__description">{dictionary.home.description}</p>
-        </div>
-
-        <div className={`home-command-hero__actions ${toolkitOpen ? "is-open" : ""}`}>
-          <div className="home-command-hero__cta-row">
-            <button
-              type="button"
-              aria-expanded={toolkitOpen}
-              aria-controls={toolkitId}
-              className="home-command-hero__trigger"
-              onClick={() => setToolkitOpen((open) => !open)}
-            >
-              <span className="home-command-hero__trigger-text">
-                {dictionary.home.heroPrimaryCta}
-              </span>
-              <span className="home-command-hero__trigger-icon" aria-hidden>
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
-                  <path d="M2.5 4.5L6.5 8.5L10.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
-            </button>
-            <Link href="/kontakt" className="home-command-hero__inquiry">
-              <span className="home-command-hero__inquiry-glow" aria-hidden />
-              {dictionary.home.ctaContact}
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ opacity: 0.7 }}>
-                <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+          <div className="hero-travel__ctas">
+            <Link href="/aranzmani" className="hero-travel__btn hero-travel__btn--primary">
+              {dictionary.nav.heroCta1}
+            </Link>
+            <Link href="/verski-turizam" className="hero-travel__btn hero-travel__btn--outline">
+              {dictionary.nav.heroCta2}
             </Link>
           </div>
+        </div>
 
-          <div
-            id={toolkitId}
-            role="group"
-            aria-label={dictionary.home.heroToolkitLabel}
-            aria-hidden={!toolkitOpen}
-            className="home-command-hero__toolkit"
-          >
-            {actions.map((action, index) => (
-              <Link
-                key={`${action.href}-${action.label}-${index}`}
-                href={action.href}
-                tabIndex={toolkitOpen ? 0 : -1}
-                className="home-command-hero__tool"
-                style={{ "--hero-tool-index": index } as CSSProperties}
-              >
-                <span className="home-command-hero__tool-label">{action.label}</span>
-                <span className="home-command-hero__tool-arrow" aria-hidden>
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <path d="M2.5 6.5H10.5M10.5 6.5L7 3M10.5 6.5L7 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              </Link>
-            ))}
-          </div>
+        {/* Bottom 3 Category Buttons */}
+        <div className="hero-travel__categories">
+          {/* Hero trip */}
+          {heroData?.heroTrip ? (
+            <Link href={`/aranzmani/${heroData.heroTrip.slug}`} className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <DynamicIcon name={heroData.heroTrip.icon} size={28} />
+              </span>
+              <span className="hero-travel__category-label">{heroData.heroTrip.title}</span>
+            </Link>
+          ) : (
+            <Link href="/putovanja" className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 22V8" /><path d="M5 12s1-6 7-8c0 0-3 4-2 8" /><path d="M19 12s-1-6-7-8c0 0 3 4 2 8" /><path d="M12 4c-3-2-6-1-8 0 2-1 5 0 8 4" /><path d="M12 4c3-2 6-1 8 0-2-1-5 0-8 4" />
+                </svg>
+              </span>
+              <span className="hero-travel__category-label">{dictionary.nav.heroExotic}</span>
+            </Link>
+          )}
+
+          {/* Main arrangement category */}
+          {heroData?.arrangement ? (
+            <Link href={`/aranzmani?category=${heroData.arrangement.slug}`} className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <DynamicIcon name={heroData.arrangement.mainIcon} size={28} />
+              </span>
+              <span className="hero-travel__category-label">
+                {language === "sr" ? heroData.arrangement.name.sr : heroData.arrangement.name.en}
+              </span>
+            </Link>
+          ) : (
+            <Link href="/aranzmani" className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2" /><path d="M9 22v-4h6v4" /><path d="M8 6h.01M16 6h.01M12 6h.01" /><path d="M8 10h.01M16 10h.01M12 10h.01" /><path d="M8 14h.01M16 14h.01M12 14h.01" />
+                </svg>
+              </span>
+              <span className="hero-travel__category-label">{dictionary.nav.heroEurope}</span>
+            </Link>
+          )}
+
+          {/* Main religious category */}
+          {heroData?.religious ? (
+            <Link href={`/verski-turizam?category=${heroData.religious.slug}`} className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <DynamicIcon name={heroData.religious.mainIcon} size={28} />
+              </span>
+              <span className="hero-travel__category-label">
+                {language === "sr" ? heroData.religious.name.sr : heroData.religious.name.en}
+              </span>
+            </Link>
+          ) : (
+            <Link href="/verski-turizam" className="hero-travel__category">
+              <span className="hero-travel__category-icon" aria-hidden>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 22V8l-6-6-6 6v14" /><path d="M2 22h20" /><path d="M12 2v4" /><path d="M10 4h4" /><path d="M10 22v-5a2 2 0 0 1 4 0v5" />
+                </svg>
+              </span>
+              <span className="hero-travel__category-label">{dictionary.nav.heroSvetinje}</span>
+            </Link>
+          )}
         </div>
       </div>
     </section>

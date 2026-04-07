@@ -9,11 +9,21 @@ export type AdminSectionKey =
   | "verski-turizam"
   | "podesavanja";
 
+export type AdminSectionIcon =
+  | "dashboard"
+  | "arrangements"
+  | "trips"
+  | "users"
+  | "media"
+  | "settings"
+  | "religious";
+
 export type AdminSectionConfig = {
   key: AdminSectionKey;
   href: `/admin/${AdminSectionKey}`;
   label: LocalizedText;
   hint: LocalizedText;
+  icon: AdminSectionIcon;
 };
 
 export const ADMIN_SECTIONS: AdminSectionConfig[] = [
@@ -25,6 +35,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
       sr: "Kreiranje i uredjivanje kompletnih aranzmana",
       en: "Create and edit full package details",
     },
+    icon: "arrangements",
   },
   {
     key: "putovanja",
@@ -34,6 +45,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
       sr: "Video slajdovi i hero scene za stranicu Putovanja",
       en: "Video slides and hero scenes for the Trips page",
     },
+    icon: "trips",
   },
   {
     key: "verski-turizam",
@@ -43,6 +55,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
       sr: "Editor verskih ponuda i hodocasca",
       en: "Religious offers and pilgrimage editor",
     },
+    icon: "religious",
   },
   {
     key: "podesavanja",
@@ -52,6 +65,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
       sr: "Radno vreme, kontakt i Instagram",
       en: "Working hours, contact and Instagram",
     },
+    icon: "settings",
   },
 ];
 

@@ -25,6 +25,34 @@ const detectMediaTypeFromName = (
   return undefined;
 };
 
+export const listAll = query({
+  args: {},
+  handler: async (ctx) => {
+    const slides = await ctx.db
+      .query("slides")
+      .withIndex("by_order", (q) => q)
+      .collect();
+
+    return Promise.all(
+      slides.map(async (slide) => {
+        const mediaUrl = slide.storageId
+          ? await ctx.storage.getUrl(slide.storageId)
+          : null;
+
+        return {
+          ...slide,
+          mediaType:
+            slide.mediaType ??
+            detectMediaTypeFromName(slide.videoUrl) ??
+            (slide.storageId ? "video" : undefined),
+          mediaName: slide.videoUrl ?? null,
+          mediaUrl,
+        };
+      })
+    );
+  },
+});
+
 export const list = query({
   args: {},
   handler: async (ctx) => {
@@ -94,5 +122,12 @@ export const upsert = mutation({
       order: args.order,
       isActive: args.isActive,
     });
+  },
+});
+
+export const remove = mutation({
+  args: { id: v.id("slides") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
   },
 });

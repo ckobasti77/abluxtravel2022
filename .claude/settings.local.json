@@ -13,7 +13,23 @@
       "Bash(mkdir -p /c/Users/admin/Desktop/ablux_travel_2022/app/lady-gaga-studio && mkdir -p /c/Users/admin/Desktop/ablux_travel_2022/components/lady-gaga)",
       "Bash(npx next:*)",
       "Bash(find /c/Users/admin/Desktop/ablux_travel_2022 -name \"layout.tsx\" | xargs grep -l \"Cormorant\" 2>/dev/null)",
-      "Bash(cd \"/c/Users/admin/Desktop/ablux_travel_2022\" && npx tsc --noEmit --pretty 2>&1 | head -30)"
+      "Bash(cd \"/c/Users/admin/Desktop/ablux_travel_2022\" && npx tsc --noEmit --pretty 2>&1 | head -30)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npm run:*)",
+      "WebSearch",
+      "WebFetch(domain:checkoutdocs.payoneer.com)",
+      "WebFetch(domain:developer.payoneer.com)",
+      "WebFetch(domain:www.echoapi.com)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:www.postman.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(ls -la /c/Users/admin/Desktop/Web Dev Projects/ablux_travel_2022/app/*.css)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:www.sanity.io)",
+      "Bash(npm i:*)"
     ]
   }
 }

@@ -32,6 +32,8 @@ export type AggregatedOffer = {
   pdfUrl?: string;
   imageStorageIds?: string[];
   imageUrls?: string[];
+  navTitle?: string;
+  categoryId?: string;
   updatedAt: number;
 };
 
@@ -139,6 +141,8 @@ type ConvexOffer = {
   pdfUrl?: string;
   imageStorageIds?: string[];
   imageUrls?: string[];
+  navTitle?: string;
+  categoryId?: string;
   updatedAt: number;
 };
 
@@ -220,6 +224,8 @@ export const useOffersLiveBoard = (destination?: string, fallback?: AggregatedOf
           pdfUrl: offer.pdfUrl,
           imageStorageIds: offer.imageStorageIds,
           imageUrls: offer.imageUrls,
+          navTitle: offer.navTitle,
+          categoryId: (offer as ConvexOffer & { categoryId?: string }).categoryId,
           updatedAt: offer.updatedAt,
         }))
       : base;

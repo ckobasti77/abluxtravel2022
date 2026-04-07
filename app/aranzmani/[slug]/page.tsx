@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import CmsImage from "@/components/cms-image";
 import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -31,6 +32,7 @@ import AddToCartButton from "../../../components/add-to-cart-button";
 import AlienShell from "../../../components/alien-shell";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { AccommodationType, useAccommodationsByTrip } from "../../../lib/use-accommodations";
+import { useDestinationsByTrip } from "../../../lib/use-destinations";
 import { TransportType, useTripBySlug } from "../../../lib/use-trips";
 
 const transportIcons: Record<TransportType, typeof FaBus> = {
@@ -62,6 +64,8 @@ export default function TripDetailPage() {
 
   const accommodations = useAccommodationsByTrip(trip?._id);
   const activeAccommodations = accommodations.filter((a) => a.isActive);
+  const destinations = useDestinationsByTrip(trip?._id);
+  const activeDestinations = destinations.filter((item) => item.isActive);
   const [expandedAcc, setExpandedAcc] = useState<string | null>(null);
 
   if (trip === undefined) {
@@ -121,7 +125,7 @@ export default function TripDetailPage() {
         <section className="panel-glass overflow-hidden">
           <div className="flex snap-x gap-3 overflow-x-auto pb-2">
             {trip.imageUrls.filter(Boolean).map((url, i) => (
-              <img
+              <CmsImage
                 key={i}
                 src={url}
                 alt={`${trip.title} ${i + 1}`}
@@ -172,7 +176,7 @@ export default function TripDetailPage() {
                     <article key={item._id} className="panel-glass group overflow-hidden">
                       {heroImg ? (
                         <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                          <img
+                          <CmsImage
                             src={heroImg}
                             alt={item.name}
                             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
@@ -267,7 +271,7 @@ export default function TripDetailPage() {
                                   .filter(Boolean)
                                   .slice(1)
                                   .map((url, i) => (
-                                    <img
+                                    <CmsImage
                                       key={i}
                                       src={url}
                                       alt={`${item.name} ${i + 2}`}
@@ -308,6 +312,56 @@ export default function TripDetailPage() {
                               {t.contactCta}
                             </Link>
                           </div>
+                        ) : null}
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
+
+          {activeDestinations.length > 0 ? (
+            <section className="grid gap-4">
+              <header className="grid gap-1">
+                <h2 className="text-2xl font-semibold">
+                  {language === "sr" ? "Destinacije u ovom putovanju" : "Destinations in this trip"}
+                </h2>
+                <p className="panel-muted">
+                  {language === "sr"
+                    ? "Izaberite destinaciju i pogledajte osnovne informacije i cenu."
+                    : "Browse destinations with key details and pricing."}
+                </p>
+              </header>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {activeDestinations.map((item) => {
+                  const heroImage = item.imageUrls?.find(Boolean);
+                  return (
+                    <article key={item._id} className="panel-glass overflow-hidden">
+                      <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                        {heroImage ? (
+                          <CmsImage
+                            src={heroImage}
+                            alt={item.title}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center text-sm text-muted">
+                            {language === "sr" ? "Bez slike" : "No image"}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="mt-4 grid gap-2">
+                        <div className="flex items-start justify-between gap-3">
+                          <h3 className="text-lg font-semibold">{item.title}</h3>
+                          <span className="shrink-0 text-base font-semibold text-[var(--primary)]">
+                            {formatPrice(item.price, item.currency)}
+                          </span>
+                        </div>
+                        {item.description ? (
+                          <p className="text-sm leading-6 text-muted">{item.description}</p>
                         ) : null}
                       </div>
                     </article>
@@ -451,6 +505,7 @@ export default function TripDetailPage() {
     </AlienShell>
   );
 }
+
 
 
 

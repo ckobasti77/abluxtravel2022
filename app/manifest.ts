@@ -19,7 +19,7 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ["travel", "tourism"],
     icons: [
       {
-        src: "/logo-light.png",
+        src: "/stari-logo.png",
         sizes: "301x318",
         type: "image/png",
         purpose: "any",
