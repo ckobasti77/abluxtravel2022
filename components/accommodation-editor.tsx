@@ -129,7 +129,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
       }
     } catch {
       setStatus(
-        language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed."
+        language === "sr" ? "Greška pri uploadu slika." : "Image upload failed."
       );
     }
     setUploading(false);
@@ -174,11 +174,11 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
         order: Number(form.order),
         isActive: form.isActive,
       });
-      setStatus(language === "sr" ? "SmeÅ¡taj saÄuvan." : "Accommodation saved.");
+      setStatus(language === "sr" ? "Smeštaj sačuvan." : "Accommodation saved.");
       resetForm();
     } catch {
       setStatus(
-        language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed."
+        language === "sr" ? "Greška pri čuvanju." : "Save failed."
       );
     }
     setSaving(false);
@@ -506,7 +506,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
               >
                 {saving
                   ? language === "sr"
-                    ? "ÄŒuvanje..."
+                    ? "Čuvanje..."
                     : "Saving..."
                   : t.save}
               </button>
@@ -566,7 +566,7 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                     </div>
                     <div className="flex items-center gap-3 text-xs text-muted">
                       <span>{t[acc.type]}</span>
-                      <span>Â·</span>
+                      <span>|</span>
                       <span>
                         {new Intl.NumberFormat(
                           language === "sr" ? "sr-RS" : "en-US",
@@ -578,13 +578,13 @@ export default function AccommodationEditor({ tripId }: { tripId: string }) {
                         ).format(acc.pricePerPerson)}{" "}
                         {t.perPerson}
                       </span>
-                      <span>Â·</span>
+                      <span>|</span>
                       <span>
                         {t.upTo} {acc.capacity} {t.guests}
                       </span>
                       {acc.boardType && (
                         <>
-                          <span>Â·</span>
+                          <span>|</span>
                           <span>{t[acc.boardType]}</span>
                         </>
                       )}

@@ -112,10 +112,10 @@ const formFromTrip = (trip: Trip): TripForm => ({
 const slugify = (text: string) =>
   text
     .toLowerCase()
-    .replace(/[ÄÄ‡]/g, "c")
-    .replace(/[Å¡]/g, "s")
-    .replace(/[Å¾]/g, "z")
-    .replace(/[Ä‘]/g, "dj")
+    .replace(/[čć]/g, "c")
+    .replace(/[š]/g, "s")
+    .replace(/[ž]/g, "z")
+    .replace(/[đ]/g, "dj")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
@@ -201,7 +201,7 @@ export default function TripSlideOver({
   const [dragOver, setDragOver] = useState(false);
 
 
-  /* â”€â”€ Helpers â”€â”€ */
+  /* Helpers */
   const updateField = <K extends keyof TripForm>(
     key: K,
     value: TripForm[K]
@@ -235,7 +235,7 @@ export default function TripSlideOver({
       }
     } catch {
       setStatus(
-        language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed."
+        language === "sr" ? "Greška pri uploadu slika." : "Image upload failed."
       );
     }
     setUploading(false);
@@ -284,7 +284,7 @@ export default function TripSlideOver({
     }));
   };
 
-  /* â”€â”€ Save â”€â”€ */
+  /* Save */
   const handleSave = async () => {
     if (!form.title || !form.slug) {
       setStatus(
@@ -336,7 +336,7 @@ export default function TripSlideOver({
       onClose();
     } catch {
       setStatus(
-        language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed."
+        language === "sr" ? "Greška pri čuvanju." : "Save failed."
       );
     }
     setSaving(false);
@@ -363,7 +363,7 @@ export default function TripSlideOver({
             {trip
               ? `${language === "sr" ? "Uredi" : "Edit"}: ${trip.title}`
               : language === "sr"
-                ? "Novi AranÅ¾man"
+                ? "Novi Aranžman"
                 : "New Trip"}
           </h3>
           <button
@@ -378,7 +378,7 @@ export default function TripSlideOver({
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           <div className="grid gap-5">
-            {/* â”€â”€ Images â”€â”€ */}
+            {/* Images */}
             <Section title={language === "sr" ? "Slike" : "Images"}>
               <div
                 onDragOver={(e) => {
@@ -443,7 +443,7 @@ export default function TripSlideOver({
               ) : null}
             </Section>
 
-            {/* â”€â”€ Basic info â”€â”€ */}
+            {/* Basic info */}
             <Section
               title={language === "sr" ? "Osnovne informacije" : "Basic info"}
             >
@@ -476,7 +476,7 @@ export default function TripSlideOver({
               </label>
             </Section>
 
-            {/* â”€â”€ Category & hero â”€â”€ */}
+            {/* Category and hero */}
             <Section
               title={
                 language === "sr" ? "Kategorija & hero" : "Category & hero"
@@ -486,7 +486,7 @@ export default function TripSlideOver({
               <label className="grid gap-1.5">
                 <span className="text-xs font-semibold uppercase tracking-wide text-[var(--muted)]">
                   {language === "sr"
-                    ? "Kategorija aranzmana"
+                    ? "Kategorija aranžmana"
                     : "Arrangement category"}
                 </span>
                 <select
@@ -511,7 +511,7 @@ export default function TripSlideOver({
                 />
                 <span className="font-semibold">
                   {language === "sr"
-                    ? "Glavno putovanje (prikazuje se na pocetnoj)"
+                    ? "Glavno putovanje (prikazuje se na početnoj)"
                     : "Main trip (shown on homepage hero)"}
                 </span>
               </label>
@@ -528,7 +528,7 @@ export default function TripSlideOver({
               ) : null}
             </Section>
 
-            {/* â”€â”€ Price & duration â”€â”€ */}
+            {/* Price and duration */}
             <Section
               title={language === "sr" ? "Cena i trajanje" : "Price & duration"}
             >
@@ -582,7 +582,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Transport â”€â”€ */}
+            {/* Transport */}
             <Section title={t.transport}>
               <div className="flex flex-wrap gap-2">
                 {transportOptions.map((opt) => {
@@ -607,7 +607,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Dates & departure â”€â”€ */}
+            {/* Dates and departure */}
             <Section
               title={
                 language === "sr" ? "Datumi i polazak" : "Dates & departure"
@@ -651,7 +651,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Hotel & deposit â”€â”€ */}
+            {/* Hotel and deposit */}
             <Section
               title={
                 language === "sr" ? "Hotel i depozit" : "Hotel & deposit"
@@ -701,7 +701,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Itinerary â”€â”€ */}
+            {/* Itinerary */}
             <Section title={t.itinerary} defaultOpen={false}>
               <div className="grid gap-2">
                 {form.itinerary.map((item, index) => (
@@ -776,7 +776,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Included / Not included â”€â”€ */}
+            {/* Included / Not included */}
             <Section
               title={`${t.included} / ${t.notIncluded}`}
               defaultOpen={false}
@@ -817,7 +817,7 @@ export default function TripSlideOver({
               </div>
             </Section>
 
-            {/* â”€â”€ Status & order â”€â”€ */}
+            {/* Status and order */}
             <Section
               title={
                 language === "sr" ? "Status i redosled" : "Status & order"
@@ -880,7 +880,7 @@ export default function TripSlideOver({
             onClick={onClose}
             className="btn-secondary text-sm"
           >
-            {language === "sr" ? "OtkaÅ¾i" : "Cancel"}
+            {language === "sr" ? "Otkaži" : "Cancel"}
           </button>
           <button
             type="button"
@@ -890,10 +890,10 @@ export default function TripSlideOver({
           >
             {saving
               ? language === "sr"
-                ? "ÄŒuvanje..."
+                ? "Čuvanje..."
                 : "Saving..."
               : language === "sr"
-                ? "SaÄuvaj"
+                ? "Sačuvaj"
                 : "Save"}
           </button>
         </div>

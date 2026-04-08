@@ -40,7 +40,7 @@ const emptyForm: ReligiousOfferForm = {
   price: "",
   currency: "EUR",
   seatsLeft: "",
-  tags: "verski, hodocasce",
+  tags: "verski, hodočašće",
 };
 
 const formatPrice = (offer: AggregatedOffer, locale: string) =>
@@ -53,6 +53,15 @@ const formatPrice = (offer: AggregatedOffer, locale: string) =>
 const parseNumber = (value: string) => {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+};
+
+const formatTagLabel = (tag: string, language: "sr" | "en") => {
+  if (language !== "sr") return tag;
+
+  const normalized = tag.trim().toLowerCase();
+  if (normalized === "hodocasce") return "hodočašće";
+
+  return tag;
 };
 
 export default function ReligiousOffersEditor() {
@@ -157,7 +166,7 @@ export default function ReligiousOffersEditor() {
       setPdfUrl(URL.createObjectURL(file));
       setPdfFileName(file.name);
       setRemovePdfOnSave(false);
-      setStatus(language === "sr" ? "PDF je uspesno dodat." : "PDF uploaded successfully.");
+      setStatus(language === "sr" ? "PDF je uspešno dodat." : "PDF uploaded successfully.");
     } catch {
       setStatus(language === "sr" ? "Upload PDF fajla nije uspeo." : "PDF upload failed.");
     } finally {
@@ -208,7 +217,7 @@ export default function ReligiousOffersEditor() {
 
       setImageStorageIds((previous) => [...previous, ...nextStorageIds]);
       setImagePreviewUrls((previous) => [...previous, ...nextPreviewUrls]);
-      setStatus(language === "sr" ? "Slike su uspesno dodate." : "Images uploaded successfully.");
+      setStatus(language === "sr" ? "Slike su uspešno dodate." : "Images uploaded successfully.");
     } catch {
       setStatus(language === "sr" ? "Upload slika nije uspeo." : "Image upload failed.");
     } finally {
@@ -239,12 +248,12 @@ export default function ReligiousOffersEditor() {
     }
 
     if (seatsLeft !== null && seatsLeft < 0) {
-      setStatus(language === "sr" ? "Broj mesta ne moze biti negativan." : "Seats cannot be negative.");
+      setStatus(language === "sr" ? "Broj mesta ne može biti negativan." : "Seats cannot be negative.");
       return;
     }
 
     setBusy(true);
-    setStatus(language === "sr" ? "Cuvanje ponude..." : "Saving offer...");
+    setStatus(language === "sr" ? "Čuvanje ponude..." : "Saving offer...");
     try {
       const externalId = form.externalId.trim() || `REL-${Date.now()}`;
       const tags = normalizeReligiousTags(
@@ -288,8 +297,8 @@ export default function ReligiousOffersEditor() {
       setStatus(
         language === "sr"
           ? editingExternalId
-            ? "Ponuda je azurirana."
-            : "Nova verska ponuda je sacuvana."
+            ? "Ponuda je ažurirana."
+            : "Nova verska ponuda je sačuvana."
           : editingExternalId
             ? "Offer has been updated."
             : "Religious offer has been created."
@@ -298,7 +307,7 @@ export default function ReligiousOffersEditor() {
     } catch {
       setStatus(
         language === "sr"
-          ? "Doslo je do greske pri cuvanju."
+          ? "Došlo je do greške pri čuvanju."
           : "Failed to save the offer."
       );
     } finally {
@@ -310,7 +319,7 @@ export default function ReligiousOffersEditor() {
     if (busy) return;
     const confirmed = window.confirm(
       language === "sr"
-        ? "Da li sigurno zelite da deaktivirate ovu ponudu?"
+        ? "Da li sigurno želite da deaktivirate ovu ponudu?"
         : "Are you sure you want to deactivate this offer?"
     );
     if (!confirmed) return;
@@ -343,14 +352,14 @@ export default function ReligiousOffersEditor() {
 
       <article className="section-holo p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.16em] text-muted">
-          {language === "sr" ? "Verski market pulse" : "Religious market pulse"}
+          {language === "sr" ? "Verski operativni pregled" : "Religious operations overview"}
         </p>
         <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
           {language === "sr" ? "Editor verskih ponuda" : "Religious offers editor"}
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
           {language === "sr"
-            ? "Ovde upravljas ponudama za hodocasca i verske ture. Sve izmene se odmah reflektuju na stranici Verski turizam."
+            ? "Ovde upravljate ponudama za hodočašća i verske ture. Sve izmene se odmah reflektuju na stranici Verski turizam."
             : "Manage pilgrimage and faith-focused offers here. All changes are reflected immediately on the Religious Tourism page."}
         </p>
       </article>
@@ -370,7 +379,7 @@ export default function ReligiousOffersEditor() {
           style={{ "--stagger-index": 1 } as CSSProperties}
         >
           <p className="text-xs uppercase tracking-[0.12em] text-muted">
-            {language === "sr" ? "Rucno uredjene" : "Manually managed"}
+            {language === "sr" ? "Ručno uređene" : "Manually managed"}
           </p>
           <p className="mt-2 text-2xl font-semibold">{manualOffers.length}</p>
         </article>
@@ -428,7 +437,7 @@ export default function ReligiousOffersEditor() {
             />
             <span className="text-xs text-muted">
               {language === "sr"
-                ? "Prikazuje se kao pod-link u navigaciji. Ostavite prazno ako ne zelite da se prikazuje."
+                ? "Prikazuje se kao podlink u navigaciji. Ostavite prazno ako ne želite da se prikazuje."
                 : "Shown as a sub-link in navigation. Leave empty to hide from nav."}
             </span>
           </label>
@@ -539,7 +548,7 @@ export default function ReligiousOffersEditor() {
               onChange={(event) =>
                 setForm((previous) => ({ ...previous, tags: event.target.value }))
               }
-              placeholder="verski, hodocasce, manastiri"
+              placeholder="verski, hodočašće, manastiri"
             />
           </label>
           <label className="grid gap-1.5">
@@ -618,7 +627,7 @@ export default function ReligiousOffersEditor() {
           </div>
           <div className="grid gap-2">
             <span className="text-sm font-semibold">
-              {language === "sr" ? "PDF brosura" : "PDF brochure"}
+              {language === "sr" ? "PDF brošura" : "PDF brochure"}
             </span>
             <div className="flex flex-wrap items-center gap-2">
               <label className="btn-secondary cursor-pointer !px-3 !py-2 !text-xs">
@@ -668,7 +677,7 @@ export default function ReligiousOffersEditor() {
               <iframe
                 src={`${pdfUrl}#toolbar=1&navpanes=0`}
                 className="h-60 w-full rounded-xl border border-[var(--line)] bg-white"
-                title={language === "sr" ? "Pregled PDF brosure" : "PDF brochure preview"}
+                title={language === "sr" ? "Pregled PDF brošure" : "PDF brochure preview"}
               />
             ) : null}
           </div>
@@ -676,7 +685,7 @@ export default function ReligiousOffersEditor() {
             <button type="submit" className="btn-primary" disabled={busy || pdfUploading || imageUploading}>
               {editingExternalId
                 ? language === "sr"
-                  ? "Sacuvaj izmene"
+                  ? "Sačuvaj izmene"
                   : "Save changes"
                 : language === "sr"
                   ? "Dodaj ponudu"
@@ -689,7 +698,7 @@ export default function ReligiousOffersEditor() {
                 onClick={resetForm}
                 disabled={busy || pdfUploading || imageUploading}
               >
-                {language === "sr" ? "OtkaZi izmenu" : "Cancel edit"}
+              {language === "sr" ? "Otkaži izmenu" : "Cancel edit"}
               </button>
             ) : null}
             {status ? <span className="text-sm text-muted">{status}</span> : null}
@@ -738,7 +747,7 @@ export default function ReligiousOffersEditor() {
                           key={`${offer.id}-${tag}`}
                           className="rounded-full border border-[var(--line)] bg-[var(--primary-soft)] px-2.5 py-1 text-xs"
                         >
-                          {tag}
+                          {formatTagLabel(tag, language)}
                         </span>
                       ))}
                     </div>

@@ -76,7 +76,7 @@ export default function DestinationEditor({
   const editorDescription =
     description ??
     (language === "sr"
-      ? "Dodaj, izmeni ili obrisi destinacije vezane za ovo putovanje."
+      ? "Dodaj, izmeni ili obriši destinacije vezane za ovo putovanje."
       : "Add, edit, or remove destinations linked to this trip.");
 
   const updateField = <K extends keyof DestinationForm>(
@@ -107,7 +107,7 @@ export default function DestinationEditor({
     } catch {
       setStatus(
         language === "sr"
-          ? "Greska pri uploadu slika."
+          ? "Greška pri uploadu slika."
           : "Image upload failed.",
       );
     }
@@ -144,7 +144,7 @@ export default function DestinationEditor({
       if (!tripId && !pageSlug) {
         setStatus(
           language === "sr"
-            ? "Nije pronadjeno putovanje za ovu stranicu."
+            ? "Nije pronađeno putovanje za ovu stranicu."
             : "No travel page found for this destination.",
         );
         setSaving(false);
@@ -164,12 +164,12 @@ export default function DestinationEditor({
         isActive: form.isActive,
       });
       setStatus(
-        language === "sr" ? "Destinacija je sacuvana." : "Destination saved.",
+        language === "sr" ? "Destinacija je sačuvana." : "Destination saved.",
       );
       resetForm();
     } catch {
       setStatus(
-        language === "sr" ? "Greska pri cuvanju." : "Save failed.",
+        language === "sr" ? "Greška pri čuvanju." : "Save failed.",
       );
     }
     setSaving(false);
@@ -361,14 +361,14 @@ export default function DestinationEditor({
               >
                 {saving
                   ? language === "sr"
-                    ? "Cuvanje..."
+                    ? "Čuvanje..."
                     : "Saving..."
                   : language === "sr"
-                    ? "Sacuvaj destinaciju"
+                    ? "Sačuvaj destinaciju"
                     : "Save destination"}
               </button>
               <button type="button" className="btn-secondary" onClick={resetForm}>
-                {language === "sr" ? "Otkazi" : "Cancel"}
+                {language === "sr" ? "Otkaži" : "Cancel"}
               </button>
               {status ? <span className="text-sm text-muted">{status}</span> : null}
             </div>

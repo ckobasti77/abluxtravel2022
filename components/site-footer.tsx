@@ -46,7 +46,7 @@ export default function SiteFooter() {
           quickActions: "Brze akcije",
           contactCenter: "Kontakt centar",
           response: "Odgovaramo na upite u roku od 24h.",
-          footerTag: "Digitalna platforma za modernu turisticku agenciju.",
+          footerTag: "Digitalna platforma za modernu turističku agenciju.",
         }
       : {
           navigation: "Navigation",

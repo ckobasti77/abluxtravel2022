@@ -163,7 +163,7 @@ export default function SlideSlideOver({
       onClose();
     } catch {
       setStatus(
-        language === "sr" ? "Greska pri cuvanju." : "Save failed."
+        language === "sr" ? "Greška pri čuvanju." : "Save failed."
       );
     }
     setSaving(false);
@@ -190,10 +190,10 @@ export default function SlideSlideOver({
           <h3 className="text-base font-bold">
             {slide
               ? language === "sr"
-                ? "Uredi Slajd"
+                ? "Uredi slajd"
                 : "Edit Slide"
               : language === "sr"
-                ? "Novi Slajd"
+                ? "Novi slajd"
                 : "New Slide"}
           </h3>
           <button
@@ -246,7 +246,7 @@ export default function SlideSlideOver({
               )}
               <p className="text-sm font-semibold">
                 {language === "sr"
-                  ? "Mediju ucitaj"
+                  ? "Otpremite medij"
                   : "Upload media"}
               </p>
               <p className="mt-1 text-xs text-[var(--muted)]">
@@ -255,7 +255,7 @@ export default function SlideSlideOver({
                   : "MP4 video or image (JPG, PNG, WEBP)"}
               </p>
               <label className="mt-3 cursor-pointer rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]">
-                {language === "sr" ? "Odaberi fajl" : "Choose file"}
+                {language === "sr" ? "Odaberite fajl" : "Choose file"}
                 <input
                   type="file"
                   accept="video/mp4,image/jpeg,image/png,image/webp,image/avif"
@@ -304,7 +304,7 @@ export default function SlideSlideOver({
             {/* Badge (optional) */}
             <label className="grid gap-1.5">
               <span className="text-sm font-semibold">
-                {language === "sr" ? "Bedz" : "Badge"}{" "}
+                {language === "sr" ? "Bedž" : "Badge"}{" "}
                 <span className="font-normal text-[var(--muted)]">
                   ({language === "sr" ? "opciono" : "optional"})
                 </span>
@@ -383,7 +383,7 @@ export default function SlideSlideOver({
               >
                 {form.isActive
                   ? language === "sr"
-                    ? "Aktiven"
+                    ? "Aktivan"
                     : "Active"
                   : language === "sr"
                     ? "Neaktivno"
@@ -407,7 +407,7 @@ export default function SlideSlideOver({
             onClick={onClose}
             className="btn-secondary text-sm"
           >
-            {language === "sr" ? "Otkazi" : "Cancel"}
+            {language === "sr" ? "Otkaži" : "Cancel"}
           </button>
           <button
             type="button"
@@ -417,10 +417,10 @@ export default function SlideSlideOver({
           >
             {saving
               ? language === "sr"
-                ? "Cuvanje..."
+                ? "Čuvanje..."
                 : "Saving..."
               : language === "sr"
-                ? "Sacuvaj"
+                ? "Sačuvaj"
                 : "Save"}
           </button>
         </div>

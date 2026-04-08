@@ -37,7 +37,7 @@ export default function AdminPutovanjaPage() {
     return [...allSlides].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   }, [allSlides]);
 
-  /* â”€â”€ Slide slide-over state â”€â”€ */
+  /* Slide slide-over state */
   const [slideOverOpen, setSlideOverOpen] = useState(false);
   const [editingSlide, setEditingSlide] = useState<SlideRecord | null>(
     null
@@ -62,7 +62,7 @@ export default function AdminPutovanjaPage() {
     await removeSlide({ id: id as Id<"slides"> });
   };
 
-  /* â”€â”€ Destination slide-over state â”€â”€ */
+  /* Destination slide-over state */
   const [destSlideOverOpen, setDestSlideOverOpen] = useState(false);
   const [editingDest, setEditingDest] = useState<Destination | null>(
     null
@@ -81,7 +81,7 @@ export default function AdminPutovanjaPage() {
     setDestSlideOverOpen(true);
   };
 
-  /* â”€â”€ Expanded/collapsed slide sections â”€â”€ */
+  /* Expanded/collapsed slide sections */
   const [expandedSlides, setExpandedSlides] = useState<Set<string>>(
     new Set()
   );
@@ -98,7 +98,7 @@ export default function AdminPutovanjaPage() {
     });
   };
 
-  /* â”€â”€ Breadcrumbs â”€â”€ */
+  /* Breadcrumbs */
   const breadcrumbs = [
     { label: "Admin", href: "/admin" },
     {
@@ -113,7 +113,7 @@ export default function AdminPutovanjaPage() {
         breadcrumbs={breadcrumbs}
         title={
           language === "sr"
-            ? "Pregled Putovanja"
+            ? "Pregled putovanja"
             : "Trip Overview"
         }
         subtitle={
@@ -124,13 +124,13 @@ export default function AdminPutovanjaPage() {
         actions={[
           {
             label:
-              language === "sr" ? "Novi Slajd" : "New Slide",
+              language === "sr" ? "Novi slajd" : "New Slide",
             onClick: openNewSlide,
           },
         ]}
       />
 
-      {/* Slides list â€” each with destinations underneath */}
+        {/* Slides list, each with destinations underneath */}
       {sortedSlides.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--line)] bg-[var(--bg-soft)] py-12 text-center">
           <p className="text-sm font-semibold">
@@ -179,7 +179,7 @@ export default function AdminPutovanjaPage() {
                   )
                 ) : (
                   <div className="flex h-full items-center justify-center text-xs text-[var(--muted)]">
-                    {language === "sr" ? "Nema medije" : "No media"}
+                    {language === "sr" ? "Nema medija" : "No media"}
                   </div>
                 )}
               </div>
@@ -199,7 +199,7 @@ export default function AdminPutovanjaPage() {
                   {slide.isActive ? (
                     <span className="shrink-0 inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                      {language === "sr" ? "Aktiven" : "Active"}
+                      {language === "sr" ? "Aktivan" : "Active"}
                     </span>
                   ) : (
                     <span className="shrink-0 inline-flex items-center gap-1 rounded-full bg-slate-400/15 px-2 py-0.5 text-[10px] font-semibold text-slate-400">
@@ -216,6 +216,8 @@ export default function AdminPutovanjaPage() {
                   type="button"
                   onClick={() => openEditSlide(slide)}
                   className="flex items-center gap-1.5 rounded-lg border border-[var(--line)] px-2.5 py-1.5 text-xs text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                  aria-label={language === "sr" ? "Uredi slajd" : "Edit slide"}
+                  title={language === "sr" ? "Uredi slajd" : "Edit slide"}
                 >
                   <FaPen className="text-[10px]" />
                   <span className="hidden sm:inline">
@@ -226,6 +228,8 @@ export default function AdminPutovanjaPage() {
                   type="button"
                   onClick={() => void handleDeleteSlide(slide._id)}
                   className="flex items-center justify-center rounded-lg border border-[var(--line)] p-1.5 text-xs text-[var(--muted)] transition hover:border-red-400 hover:text-red-400"
+                  aria-label={language === "sr" ? "Obriši slajd" : "Delete slide"}
+                  title={language === "sr" ? "Obriši slajd" : "Delete slide"}
                 >
                   <FaTrash className="text-[10px]" />
                 </button>
@@ -237,6 +241,11 @@ export default function AdminPutovanjaPage() {
                       ? "border-[var(--primary)] text-[var(--primary)]"
                       : "text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)]"
                   }`}
+                  aria-label={
+                    language === "sr"
+                      ? "Prikaži destinacije"
+                      : "Toggle destinations"
+                  }
                 >
                   <FaChevronDown
                     className={`text-[10px] transition-transform ${
@@ -266,7 +275,7 @@ export default function AdminPutovanjaPage() {
                   >
                     <FaPlus className="text-[10px]" />
                     {language === "sr"
-                      ? "Nova Destinacija"
+                      ? "Nova destinacija"
                       : "New Destination"}
                   </button>
                 </div>

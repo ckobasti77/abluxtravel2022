@@ -33,10 +33,12 @@ export default function SiteNavigation() {
   const pathname = usePathname();
   const router = useRouter();
   const session = useSession();
+  const isHome = pathname === "/";
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isOverHero, setIsOverHero] = useState(isHome);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -123,6 +125,7 @@ export default function SiteNavigation() {
   const tickingRef = useRef(false);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navBarRef = useRef<HTMLDivElement>(null);
 
   const adminLink = useMemo(
     () =>
@@ -196,6 +199,8 @@ export default function SiteNavigation() {
   }, [mobileOpen]);
 
   useEffect(() => {
+    if (!isHome) return;
+
     const onScroll = () => {
       if (tickingRef.current) return;
       tickingRef.current = true;
@@ -205,6 +210,9 @@ export default function SiteNavigation() {
         const delta = y - prev;
 
         setIsScrolled(y > 20);
+        const heroElement = document.querySelector<HTMLElement>(".hero-travel");
+        const navHeight = navBarRef.current?.offsetHeight ?? 0;
+        setIsOverHero((heroElement?.getBoundingClientRect().bottom ?? 0) > navHeight);
 
         if (mobileOpen) setIsNavVisible(true);
         else if (y <= 12) setIsNavVisible(true);
@@ -217,13 +225,15 @@ export default function SiteNavigation() {
     lastScrollYRef.current = window.scrollY;
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [mobileOpen]);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [isHome, mobileOpen]);
 
   /* close mobile/search on navigation — handled via onClick on links */
-
-  const isHome = pathname === "/";
-  const isOverHero = isHome && !isScrolled;
+  const isHeroUnderNav = isHome && isOverHero;
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -235,7 +245,8 @@ export default function SiteNavigation() {
       } ${mobileOpen ? "site-nav--mobile-open" : ""}`}
     >
       <div
-        className={`nav-bar ${isScrolled ? "nav-bar--scrolled" : ""} ${isOverHero ? "nav-bar--hero" : ""}`}
+        ref={navBarRef}
+        className={`nav-bar ${isScrolled ? "nav-bar--scrolled" : ""} ${isHeroUnderNav ? "nav-bar--hero" : ""}`}
       >
         <div className="nav-bar__inner">
           {/* ─── Logo ─── */}

@@ -22,13 +22,13 @@ type GalleryContent = {
 const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
   sr: {
     badge: "Istaknute destinacije",
-    title: "Brz pregled najtrazenijih ruta",
+    title: "Brz pregled najtraženijih ruta",
     description:
-      "Kratak vizuelni pregled destinacija koje putnici najcesce biraju.",
+      "Kratak vizuelni pregled destinacija koje putnici najčešće biraju.",
     cards: [
       {
         id: "pilgrimage",
-        title: "Sveti gradovi i hodocasca",
+        title: "Sveti gradovi i hodočašća",
         caption: "Destinacija 01",
         src: "/home-swiper/20251120_155602.jpg",
         accent: "#67e8f9",
@@ -127,7 +127,7 @@ export default function HomeScrollGallery() {
   const content = useMemo(() => ORBIT_CONTENT[language], [language]);
   const maxIndex = Math.max(content.cards.length - 1, 0);
   const boundedActiveIndex = clamp(activeIndex, 0, maxIndex);
-  const nextSectionLabel = language === "sr" ? "Sledeca sekcija" : "Next section";
+  const nextSectionLabel = language === "sr" ? "Sledeća sekcija" : "Next section";
 
   useEffect(() => {
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");

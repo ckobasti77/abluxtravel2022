@@ -85,10 +85,10 @@ const emptyForm: TripForm = {
 const slugify = (text: string) =>
   text
     .toLowerCase()
-    .replace(/[ÄÄ‡]/g, "c")
-    .replace(/[Å¡]/g, "s")
-    .replace(/[Å¾]/g, "z")
-    .replace(/[Ä‘]/g, "dj")
+    .replace(/[čć]/g, "c")
+    .replace(/[š]/g, "s")
+    .replace(/[ž]/g, "z")
+    .replace(/[đ]/g, "dj")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
@@ -171,7 +171,7 @@ export default function TripEditor() {
         }
       }
     } catch {
-      setStatus(language === "sr" ? "GreÅ¡ka pri uploadu slika." : "Image upload failed.");
+      setStatus(language === "sr" ? "Greška pri uploadu slika." : "Image upload failed.");
     }
     setUploading(false);
   };
@@ -215,7 +215,7 @@ export default function TripEditor() {
       return;
     }
 
-    setStatus(a.uploading);
+    setStatus(language === "sr" ? "Čuvanje aranžmana..." : "Saving trip...");
     try {
       await upsertTrip({
         id: editingId ? (editingId as Id<"trips">) : undefined,
@@ -252,10 +252,10 @@ export default function TripEditor() {
         featured: form.featured,
         order: Number(form.order),
       });
-      setStatus(a.saved);
+      setStatus(language === "sr" ? "Aranžman je sačuvan." : "Trip saved.");
       resetForm();
     } catch {
-      setStatus(language === "sr" ? "GreÅ¡ka pri Äuvanju." : "Save failed.");
+      setStatus(language === "sr" ? "Greška pri čuvanju." : "Save failed.");
     }
   };
 
@@ -299,7 +299,7 @@ export default function TripEditor() {
 
   const handleDelete = async (tripId: string) => {
     const confirmed = window.confirm(
-      language === "sr" ? "Obrisati ovaj aranÅ¾man?" : "Delete this trip?"
+      language === "sr" ? "Obrisati ovaj aranžman?" : "Delete this trip?"
     );
     if (!confirmed) return;
     await removeTrip({ id: tripId as Id<"trips"> });
@@ -324,15 +324,15 @@ export default function TripEditor() {
         <h2 className="text-2xl font-semibold sm:text-3xl">
           {editingId
             ? language === "sr"
-              ? "Izmeni aranÅ¾man"
+              ? "Izmeni aranžman"
               : "Edit trip"
             : language === "sr"
-              ? "Novi aranÅ¾man"
+              ? "Novi aranžman"
               : "New trip"}
         </h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">
           {language === "sr"
-            ? "Popunite sve detalje aranÅ¾mana. Svako polje se Äuva u Convex bazi."
+            ? "Popunite sve detalje aranžmana. Svako polje se čuva u Convex bazi."
             : "Fill in all trip details. Every field is persisted to the Convex database."}
         </p>
       </article>
@@ -406,7 +406,7 @@ export default function TripEditor() {
           <div className="grid gap-4">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-                {language === "sr" ? "Kategorija aranzmana" : "Arrangement category"}
+                {language === "sr" ? "Kategorija aranžmana" : "Arrangement category"}
               </label>
               <select
                 className="control w-full"
@@ -432,7 +432,7 @@ export default function TripEditor() {
               />
               <span className="font-semibold">
                 {language === "sr"
-                  ? "Glavno putovanje (prikazuje se na pocetnoj)"
+                  ? "Glavno putovanje (prikazuje se na početnoj)"
                   : "Main trip (shown on homepage hero)"}
               </span>
             </label>
@@ -718,7 +718,7 @@ export default function TripEditor() {
           title={
             <>
               <FaBed className="inline mr-2 text-sm" />
-              {language === "sr" ? "SmeÅ¡taj (Opcije)" : "Accommodation (Options)"}
+              {language === "sr" ? "Smeštaj (opcije)" : "Accommodation (options)"}
             </>
           }
           defaultOpen={false}
@@ -733,7 +733,7 @@ export default function TripEditor() {
           className="btn-primary"
           onClick={() => void handleSave()}
         >
-          {a.save}
+          {language === "sr" ? "Sačuvaj aranžman" : "Save trip"}
         </button>
         {editingId ? (
           <button
@@ -741,7 +741,7 @@ export default function TripEditor() {
             className="btn-secondary"
             onClick={resetForm}
           >
-            {language === "sr" ? "OtkaÅ¾i izmenu" : "Cancel edit"}
+            {language === "sr" ? "Otkaži izmenu" : "Cancel edit"}
           </button>
         ) : null}
         {status ? (
@@ -751,7 +751,7 @@ export default function TripEditor() {
 
       <section className="mt-4">
         <h3 className="mb-4 text-xl font-semibold">
-          {language === "sr" ? "PostojeÄ‡i aranÅ¾mani" : "Existing trips"}
+          {language === "sr" ? "Postojeći aranžmani" : "Existing trips"}
         </h3>
         {trips.length > 0 ? (
           <div className="stagger-grid grid gap-4 md:grid-cols-2">
@@ -781,8 +781,8 @@ export default function TripEditor() {
                   </span>
                 </div>
                 <p className="mt-2 text-sm text-muted">
-                  {trip.days} {t.days} Â· {trip.nights} {t.nights} Â·{" "}
-                  {transportLabel(trip.transport)} Â· {trip.departureCity}
+                  {trip.days} {t.days} | {trip.nights} {t.nights} |{" "}
+                  {transportLabel(trip.transport)} | {trip.departureCity}
                 </p>
                 <p className="mt-1 text-xl font-semibold">
                   {new Intl.NumberFormat(language === "sr" ? "sr-RS" : "en-US", {
@@ -804,7 +804,7 @@ export default function TripEditor() {
                     className="rounded-lg border border-[var(--line)] px-3 py-1.5 text-xs text-muted transition hover:border-red-400 hover:text-red-400"
                     onClick={() => void handleDelete(trip._id)}
                   >
-                    {language === "sr" ? "ObriÅ¡i" : "Delete"}
+                    {language === "sr" ? "Obriši" : "Delete"}
                   </button>
                 </div>
               </article>

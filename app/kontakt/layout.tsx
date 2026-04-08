@@ -5,9 +5,9 @@ import { createPageMetadata } from "../../lib/page-metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Kontakt",
   description:
-    "Kontaktiraj ABLux Travel tim za verski turizam, letovanja, gradske ture i personalizovane upite.",
+    "Kontaktirajte ABLux Travel tim za verski turizam, letovanja, gradske ture i personalizovane upite.",
   canonical: "/kontakt",
-  keywords: ["kontakt", "turisticka agencija kontakt", "ablux travel beograd"],
+  keywords: ["kontakt", "turistička agencija kontakt", "ABLux Travel Beograd"],
 });
 
 export default function KontaktLayout({ children }: Readonly<{ children: ReactNode }>) {

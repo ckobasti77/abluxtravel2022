@@ -16,7 +16,7 @@ const RELIGIOUS_FALLBACK_OFFERS: AggregatedOffer[] = [
     id: "religious-a",
     sourceSlug: "ablux",
     externalId: "ABL-REL-101",
-    title: "Hodocasce Ostrog i manastiri Crne Gore",
+    title: "Hodočašće Ostrog i manastiri Crne Gore",
     destination: "Crna Gora",
     departureCity: "Beograd",
     departureDate: "2026-04-18",
@@ -24,7 +24,7 @@ const RELIGIOUS_FALLBACK_OFFERS: AggregatedOffer[] = [
     price: 289,
     currency: "EUR",
     seatsLeft: 14,
-    tags: ["verski", "hodocasce", "manastiri"],
+    tags: ["verski", "hodočašće", "manastiri"],
     updatedAt: Date.parse("2026-02-12T10:00:00.000Z"),
   },
   {
@@ -48,7 +48,7 @@ const RELIGIOUS_FALLBACK_OFFERS: AggregatedOffer[] = [
     externalId: "ABL-REL-103",
     title: "Sinajska ruta i sveta mesta Egipta",
     destination: "Egipat",
-    departureCity: "Nis",
+    departureCity: "Ni?",
     departureDate: "2026-06-02",
     returnDate: "2026-06-08",
     price: 870,
@@ -132,7 +132,7 @@ export default function VerskiTurizamPage() {
           <p className="metric-card__hint">{language === "sr" ? "Raspon svetih lokacija i ruta." : "Range of holy places and routes."}</p>
         </article>
         <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Najniza cena" : "Lowest price"}</p>
+          <p className="metric-card__label">{language === "sr" ? "Najniža cena" : "Lowest price"}</p>
           <p className="metric-card__value">
             {minPrice !== null
               ? new Intl.NumberFormat(locale, {
@@ -142,7 +142,7 @@ export default function VerskiTurizamPage() {
                 }).format(minPrice)
               : "-"}
           </p>
-          <p className="metric-card__hint">{language === "sr" ? "Brza orijentacija budzeta." : "Quick budget orientation."}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Brza orijentacija budžeta." : "Quick budget orientation."}</p>
         </article>
       </section>
 
@@ -268,7 +268,7 @@ export default function VerskiTurizamPage() {
                   className="!min-h-10"
                 />
                 <Link href="/kontakt" className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs">
-                  {language === "sr" ? "Posalji upit" : "Send inquiry"}
+                  {language === "sr" ? "Pošalji upit" : "Send inquiry"}
                 </Link>
                 {offer.pdfUrl ? (
                   <a
@@ -288,7 +288,7 @@ export default function VerskiTurizamPage() {
             <h2 className="empty-state__title">{dictionary.religious.noResults}</h2>
             <p className="empty-state__copy">
               {language === "sr"
-                ? "Pokusajte sa drugim pojmom ili odaberite neku od predlozenih oznaka iznad pretrage."
+                ? "Pokušajte sa drugim pojmom ili odaberite neku od predloženih oznaka iznad pretrage."
                 : "Try another keyword or choose one of the suggested tags above."}
             </p>
           </div>

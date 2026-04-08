@@ -103,7 +103,7 @@ export default function CountryTripsPage() {
           <p className="metric-card__hint">{language === "sr" ? "Agencije i sistemi iz kojih dolaze ponude." : "Agencies and systems providing these offers."}</p>
         </article>
         <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Najniza cena" : "Lowest price"}</p>
+          <p className="metric-card__label">{language === "sr" ? "Najniža cena" : "Lowest price"}</p>
           <p className="metric-card__value">
             {minPrice === null
               ? "-"
@@ -113,7 +113,7 @@ export default function CountryTripsPage() {
                   maximumFractionDigits: 0,
                 }).format(minPrice)}
           </p>
-          <p className="metric-card__hint">{language === "sr" ? "Brza procena budzeta za ovu zemlju." : "Quick budget orientation for this country."}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Brza procena budžeta za ovu zemlju." : "Quick budget orientation for this country."}</p>
         </article>
       </section>
 
@@ -275,7 +275,7 @@ export default function CountryTripsPage() {
                       className="!min-h-10"
                     />
                     <Link href="/kontakt" className="btn-secondary !min-h-10 !px-4 !py-2 !text-xs">
-                      {language === "sr" ? "Posalji upit" : "Send inquiry"}
+                      {language === "sr" ? "Pošalji upit" : "Send inquiry"}
                     </Link>
                     {offer.pdfUrl ? (
                       <a
@@ -299,7 +299,7 @@ export default function CountryTripsPage() {
             </h2>
             <p className="empty-state__copy">
               {language === "sr"
-                ? "Pokusajte sa drugim pojmom ili uklonite filter da biste videli dostupne ponude."
+                ? "Pokušajte sa drugim pojmom ili uklonite filter da biste videli dostupne ponude."
                 : "Try another term or clear filters to see available offers."}
             </p>
           </div>
@@ -317,7 +317,7 @@ export default function CountryTripsPage() {
             }
             description={
               language === "sr"
-                ? "Dodaj, izmeni i obrisi destinacije direktno na ovoj /putovanja stranici."
+                ? "Dodaj, izmeni i obriši destinacije direktno na ovoj /putovanja stranici."
                 : "Add, edit, and delete destinations directly on this /putovanja page."
             }
           />

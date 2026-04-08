@@ -107,7 +107,7 @@ export default function AranzmaniPage() {
 
       <section className="metric-grid" aria-label={language === "sr" ? "Kljucne metrike" : "Key metrics"}>
         <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Ukupno aranzmana" : "Total packages"}</p>
+          <p className="metric-card__label">{language === "sr" ? "Ukupno aranžmana" : "Total packages"}</p>
           <p className="metric-card__value">{trips.length}</p>
           <p className="metric-card__hint">{language === "sr" ? "Sve trenutno objavljene ponude." : "All currently published offers."}</p>
         </article>
@@ -258,12 +258,12 @@ export default function AranzmaniPage() {
           <h2 className="empty-state__title">{t.noTrips}</h2>
           <p className="empty-state__copy">
             {language === "sr"
-              ? "Pokusajte sa drugim statusom ili uklonite pojam pretrage da biste videli vise opcija."
+              ? "Pokušajte sa drugim statusom ili uklonite pojam pretrage da biste videli više opcija."
               : "Try another status or clear the search term to see more options."}
           </p>
           {isFiltered ? (
             <button type="button" className="btn-secondary mt-4" onClick={resetFilters}>
-              {language === "sr" ? "Prikazi sve aransmane" : "Show all packages"}
+              {language === "sr" ? "Prikaži sve aranžmane" : "Show all packages"}
             </button>
           ) : null}
         </div>
@@ -271,11 +271,11 @@ export default function AranzmaniPage() {
 
       {averagePrice !== null ? (
         <section className="panel-glass">
-          <p className="metric-card__label">{language === "sr" ? "Prosecna cena trenutno filtriranih" : "Average price in current selection"}</p>
+          <p className="metric-card__label">{language === "sr" ? "Prosečna cena trenutno filtriranih" : "Average price in current selection"}</p>
           <p className="metric-card__value">{formatPrice(averagePrice, filtered[0]?.currency ?? "EUR")}</p>
           <p className="panel-muted">
             {language === "sr"
-              ? "Koristan signal za brzu procenu budzeta pre otvaranja detalja aranzmana."
+              ? "Koristan signal za brzu procenu budžeta pre otvaranja detalja aranžmana."
               : "Useful signal for quick budget estimation before opening package details."}
           </p>
         </section>

@@ -30,9 +30,9 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
   {
     key: "aranzmani",
     href: "/admin/aranzmani",
-    label: { sr: "Aranzmani", en: "Packages" },
+    label: { sr: "Aranžmani", en: "Packages" },
     hint: {
-      sr: "Kreiranje i uredjivanje kompletnih aranzmana",
+      sr: "Kreiranje i uređivanje kompletnih aranžmana",
       en: "Create and edit full package details",
     },
     icon: "arrangements",
@@ -52,7 +52,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
     href: "/admin/verski-turizam",
     label: { sr: "Verski turizam", en: "Religious tourism" },
     hint: {
-      sr: "Editor verskih ponuda i hodocasca",
+      sr: "Uređivanje verskih ponuda i hodočašća",
       en: "Religious offers and pilgrimage editor",
     },
     icon: "religious",
@@ -60,7 +60,7 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
   {
     key: "podesavanja",
     href: "/admin/podesavanja",
-    label: { sr: "Podesavanja", en: "Settings" },
+    label: { sr: "Podešavanja", en: "Settings" },
     hint: {
       sr: "Radno vreme, kontakt i Instagram",
       en: "Working hours, contact and Instagram",
@@ -87,7 +87,7 @@ export type PageEditorConfig = {
 export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
   home: {
     adminSection: "podesavanja",
-    title: { sr: "Pocetna command zona", en: "Home command zone" },
+    title: { sr: "Početna command zona", en: "Home command zone" },
     description: {
       sr: "Upravljanje glavnim porukama, CTA blokovima i ritmom prve impresije.",
       en: "Control hero messaging, CTA blocks, and first-impression pacing.",
@@ -96,9 +96,9 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
   },
   aranzmani: {
     adminSection: "aranzmani",
-    title: { sr: "Aranzmani editor", en: "Packages editor" },
+    title: { sr: "Aranžmani editor", en: "Packages editor" },
     description: {
-      sr: "Upravljanje aranzmanima: cene, itinerer, slike i detalji putovanja.",
+      sr: "Upravljanje aranžmanima: cene, itinerer, slike i detalji putovanja.",
       en: "Manage trip packages: pricing, itinerary, images, and travel details.",
     },
     status: "ready",
@@ -107,7 +107,7 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     adminSection: "putovanja",
     title: { sr: "Putovanja video editor zona", en: "Trips media editor zone" },
     description: {
-      sr: "Uredjivanje fullscreen destinacijskih scena, redosleda slajdova i CTA prelaza na stranicu pojedinacne zemlje.",
+      sr: "Uređivanje fullscreen destinacijskih scena, redosleda slajdova i CTA prelaza na stranicu pojedinačne zemlje.",
       en: "Edit full-screen destination scenes, slide order, and CTA transitions to individual country pages.",
     },
     status: "ready",
@@ -116,7 +116,7 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     adminSection: "verski-turizam",
     title: { sr: "Verski editor zona", en: "Religious editor zone" },
     description: {
-      sr: "Uredjivanje ponuda za hodocasca, svetinje i verske destinacije.",
+      sr: "Uređivanje ponuda za hodočašća, svetinje i verske destinacije.",
       en: "Manage pilgrimage, holy-site, and faith-focused travel offers.",
     },
     status: "ready",
@@ -134,7 +134,7 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     adminSection: "podesavanja",
     title: { sr: "O nama editor zona", en: "About editor zone" },
     description: {
-      sr: "Uredjivanje narativa brenda, misije i vrednosti koje grade poverenje.",
+      sr: "Uređivanje narativa brenda, misije i vrednosti koje grade poverenje.",
       en: "Edit brand narrative, mission, and trust-building value statements.",
     },
     status: "ready",

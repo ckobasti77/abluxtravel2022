@@ -24,17 +24,17 @@ export default function AdminPage() {
         <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.16em] text-muted">
-              {language === "sr" ? "Main admin gateway" : "Main admin gateway"}
+              {language === "sr" ? "ABLux Travel administracija" : "ABLux Travel administration"}
             </p>
             <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
               {language === "sr"
-                ? "Centralni komandni most"
-                : "Central command bridge"}
+                ? "Komandni centar"
+                : "Command center"}
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
               {language === "sr"
-                ? "Ovo je glavna admin stranica. Odavde biras editor module, pratis prioritetne zone i upravljas celim sajtom iz jednog mesta."
-                : "This is the main admin page. Launch editor modules, monitor priority zones, and manage the full website from one place."}
+                ? "Na jednom mestu upravljate aranžmanima, slajdovima, verskim ponudama i operativnim podacima sajta."
+                : "Manage packages, slide content, religious offers, and core site operations from one place."}
             </p>
           </div>
           <div className="grid gap-3">
@@ -56,7 +56,7 @@ export default function AdminPage() {
 
       <section>
         <h3 className="mb-3 text-xl font-semibold">
-          {language === "sr" ? "Izaberi editor" : "Choose editor"}
+          {language === "sr" ? "Operativni moduli" : "Operational modules"}
         </h3>
         <div className="stagger-grid grid gap-4 sm:grid-cols-2">
           {ADMIN_SECTIONS.map((section, index) => {
@@ -90,7 +90,7 @@ export default function AdminPage() {
                 </div>
                 <p className="text-sm text-muted">{hint}</p>
                 <span className="mt-auto inline-flex items-center gap-1 text-xs font-semibold text-[var(--primary)]">
-                  {language === "sr" ? "Otvori modul ->" : "Open module ->"}
+                  {language === "sr" ? "Otvori modul" : "Open module"}
                 </span>
               </Link>
             );

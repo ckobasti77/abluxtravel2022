@@ -90,7 +90,7 @@ export default function DestinationsDataTable({
             onChange={(e) => setSearch(e.target.value)}
             placeholder={
               language === "sr"
-                ? "Trazi destinaciju..."
+                ? "Pretraži destinaciju..."
                 : "Search destination..."
             }
             className="control !pl-9 !h-9 text-sm"
@@ -137,7 +137,7 @@ export default function DestinationsDataTable({
                       />
                     ) : (
                       <div className="flex h-full items-center justify-center text-[8px] text-[var(--muted)]">
-                        â€”
+                        -
                       </div>
                     )}
                   </div>
@@ -225,7 +225,7 @@ export default function DestinationsDataTable({
                 />
               ) : (
                 <div className="flex h-full items-center justify-center text-[8px] text-[var(--muted)]">
-                  â€”
+                  -
                 </div>
               )}
             </div>

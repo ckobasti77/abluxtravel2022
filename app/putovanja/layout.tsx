@@ -5,9 +5,9 @@ import { createPageMetadata } from "../../lib/page-metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Putovanja",
   description:
-    "Istrazi aktivne destinacije i putovanja ABLux Travel agencije, sa pregledom ponuda po zemlji i terminu.",
+    "Istraži aktivne destinacije i putovanja ABLux Travel agencije, sa pregledom ponuda po zemlji i terminu.",
   canonical: "/putovanja",
-  keywords: ["putovanja", "destinacije", "turisticka ponuda"],
+  keywords: ["putovanja", "destinacije", "turistička ponuda"],
 });
 
 export default function PutovanjaLayout({ children }: Readonly<{ children: ReactNode }>) {

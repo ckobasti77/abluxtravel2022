@@ -257,7 +257,7 @@ export default function InlineCategories({ type }: InlineCategoriesProps) {
               {busy ? d.uploading : editingId ? d.categoryEdit : d.categoryCreate}
             </button>
             <button type="button" onClick={cancelEdit} className="btn-secondary">
-              {language === "sr" ? "Otkazi" : "Cancel"}
+                {language === "sr" ? "Otkaži" : "Cancel"}
             </button>
             {status && (
               <span className="self-center text-xs font-semibold text-emerald-400">{status}</span>

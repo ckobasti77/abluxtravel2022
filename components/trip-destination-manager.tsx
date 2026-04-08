@@ -35,7 +35,7 @@ export default function TripDestinationManager() {
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
           {language === "sr"
-            ? "Izaberite putovanje i zatim dodajte, izmenite ili obrisite destinacije sa slikom, opisom i cenom."
+            ? "Izaberite putovanje i zatim dodajte, izmenite ili obrišite destinacije sa slikom, opisom i cenom."
             : "Select a trip and then add, edit, or remove destinations with image, description, and pricing."}
         </p>
       </article>
@@ -73,7 +73,7 @@ export default function TripDestinationManager() {
       ) : (
         <article className="surface rounded-2xl p-4 text-sm text-muted">
           {language === "sr"
-            ? "Nema putovanja za uredjivanje. Prvo kreirajte putovanje u admin sekciji Aranzmani."
+            ? "Nema putovanja za uređivanje. Prvo kreirajte putovanje u admin sekciji Aranžmani."
             : "No trips available to edit. First create a trip in the Packages admin section."}
         </article>
       )}

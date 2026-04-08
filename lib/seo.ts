@@ -3,18 +3,18 @@ const FALLBACK_SITE_URL = "https://www.abluxtravel2022.rs";
 export const SITE_NAME = "ABLux Travel";
 export const SITE_SHORT_NAME = "ABLux";
 export const SITE_DESCRIPTION =
-  "ABLux Travel je premium turisticka agencija za verski turizam, letovanja, gradske ture i grupna putovanja sa jasnom organizacijom i sigurnim iskustvom.";
+  "ABLux Travel je premium turistička agencija za verski turizam, letovanja, gradske ture i grupna putovanja sa jasnom organizacijom i sigurnim iskustvom.";
 export const SITE_KEYWORDS = [
   "ABLux Travel",
-  "turisticka agencija",
+  "turistička agencija",
   "verski turizam",
-  "hodocasca",
+  "hodočašća",
   "putovanja",
-  "aranzmani",
+  "aranžmani",
   "letovanja",
   "gradske ture",
   "ekskurzije",
-  "turisticka ponuda Srbija",
+  "turistička ponuda Srbija",
   "premium putovanja",
   "religious tourism",
   "travel agency Serbia",

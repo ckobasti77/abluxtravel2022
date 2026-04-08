@@ -75,7 +75,7 @@ export default function PageAdminEditorDock({
         <article className="section-holo rounded-2xl p-5 sm:p-6">
           <p className="text-sm leading-6 text-muted">
             {language === "sr"
-              ? "Ovaj modul je spreman za operativno uredjivanje. Fokus je da marketing tim brzo menja poruke i ponude bez zastoja."
+              ? "Ovaj modul je spreman za operativno uređivanje. Fokus je da marketing tim brzo menja poruke i ponude bez zastoja."
               : "This module is ready for operational editing. The focus is enabling fast content and offer updates without bottlenecks."}
           </p>
           <ul className="stagger-grid mt-4 grid gap-2 text-sm text-muted">

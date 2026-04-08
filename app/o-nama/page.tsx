@@ -52,50 +52,50 @@ const ABOUT_EXPERIENCE: Record<Language, AboutExperience> = {
     heroBadge: "ABLux Travel od 2022.",
     heroTitle: "Planiramo putovanja koja su jasna, bezbedna i dobro organizovana.",
     heroDescription:
-      "ABLux je turisticka agencija koja spaja proverenu logistiku, iskustvo u organizaciji i direktnu podrsku putnicima.",
+      "ABLux je turistička agencija koja spaja proverenu logistiku, iskustvo u organizaciji i direktnu podršku putnicima.",
     heroChips: ["Verski turizam", "Letovanja i city break", "Ekskurzije za decu"],
     panelLabel: "Pouzdanost",
     panelValue: "Jedan tim od upita do realizacije",
     panelHint: "Svaki program proveravamo pre objave i pratimo tokom cele realizacije.",
     primaryCta: "Pogledaj ponudu",
-    secondaryCta: "Posalji upit",
-    metricsTitle: "Brojevi koji su nam vazni",
+    secondaryCta: "Pošalji upit",
+    metricsTitle: "Brojevi koji su nam važni",
     metricsDescription:
       "Kvalitet merimo kroz pouzdanost organizacije, jasnu komunikaciju i dostupnost tima.",
     metrics: [
       {
         value: "2022",
         label: "Godina osnivanja",
-        description: "Od pocetka gradimo saradnju sa provernim partnerima i jasnim procesima.",
+        description: "Od početka gradimo saradnju sa proverenim partnerima i jasnim procesima.",
         tone: "cyan",
       },
       {
         value: "48h",
-        label: "Prosecan rok odgovora",
-        description: "Na vecinu upita odgovaramo u roku do 48 sati sa konkretnim predlogom.",
+        label: "Prosečan rok odgovora",
+        description: "Na većinu upita odgovaramo u roku do 48 sati sa konkretnim predlogom.",
         tone: "violet",
       },
       {
         value: "100%",
         label: "Provera itinerera",
-        description: "Svaki plan prolazi proveru termina, logistike, smestaja i cene.",
+        description: "Svaki plan prolazi proveru termina, logistike, smeštaja i cene.",
         tone: "emerald",
       },
       {
         value: "1 tim",
-        label: "Podrska od pocetka do kraja",
+        label: "Podrška od početka do kraja",
         description: "Isti tim vodi komunikaciju pre puta, tokom puta i po povratku.",
         tone: "amber",
       },
     ],
     protocolTitle: "Kako organizujemo putovanje",
-    protocolDescription: "Proces je jednostavan, transparentan i prilagodjen vasim prioritetima.",
+    protocolDescription: "Proces je jednostavan, transparentan i prilagođen vašim prioritetima.",
     protocolSteps: [
       {
         step: "01",
         title: "Razgovor i potrebe",
         description:
-          "Saslusamo vase zelje, budzet i termin kako bismo predlozili realnu i kvalitetnu opciju.",
+          "Saslušamo vaše želje, budžet i termin kako bismo predložili realnu i kvalitetnu opciju.",
       },
       {
         step: "02",
@@ -107,23 +107,23 @@ const ABOUT_EXPERIENCE: Record<Language, AboutExperience> = {
         step: "03",
         title: "Potvrda i priprema",
         description:
-          "Nakon potvrde dobijate sve vazne informacije i plan realizacije pre polaska.",
+          "Nakon potvrde dobijate sve važne informacije i plan realizacije pre polaska.",
       },
       {
         step: "04",
-        title: "Podrska tokom putovanja",
+        title: "Podrška tokom putovanja",
         description:
-          "Tokom puta ostajemo dostupni za pitanja i brzo resavanje operativnih situacija.",
+          "Tokom puta ostajemo dostupni za pitanja i brzo rešavanje operativnih situacija.",
       },
     ],
-    crewTitle: "Nas tim",
+    crewTitle: "Naš tim",
     crewDescription:
-      "Spajamo iskustvo iz turizma, operacija i korisnicke podrske kako bi svako putovanje proteklo sigurno.",
+      "Spajamo iskustvo iz turizma, operacija i korisničke podrške kako bi svako putovanje proteklo sigurno.",
     crew: [
       {
         name: "Savetnik za putovanja",
         role: "Planiranje",
-        description: "Pomaze pri izboru destinacije i programa u skladu sa vasim ciljevima.",
+        description: "Pomaže pri izboru destinacije i programa u skladu sa vašim ciljevima.",
       },
       {
         name: "Koordinator realizacije",
@@ -131,21 +131,21 @@ const ABOUT_EXPERIENCE: Record<Language, AboutExperience> = {
         description: "Vodi logistiku, termine i koordinaciju kako bi putovanje teklo po planu.",
       },
       {
-        name: "Podrska putnicima",
+        name: "Podrška putnicima",
         role: "Komunikacija",
         description: "Dostupna je za pitanja i brzu razmenu informacija tokom celog procesa.",
       },
     ],
     valuesDescription: "Poverenje gradimo odgovornim radom i jasnom komunikacijom.",
     valueExtensions: [
-      "Svaki plan putovanja prilagodjavamo budzetu, terminu i prioritetima putnika.",
-      "Uslovi, termini i troskovi su prikazani unapred bez skrivenih stavki.",
-      "Partnerstva gradimo sa agencijama i dobavljacima koji imaju proverenu reputaciju.",
+      "Svaki plan putovanja prilagođavamo budžetu, terminu i prioritetima putnika.",
+      "Uslovi, termini i troškovi su prikazani unapred bez skrivenih stavki.",
+      "Partnerstva gradimo sa agencijama i dobavljačima koji imaju proverenu reputaciju.",
     ],
-    ctaTitle: "Planirate sledece putovanje?",
+    ctaTitle: "Planirate sledeće putovanje?",
     ctaDescription:
-      "Posaljite upit i dobicete predlog puta sa jasnim terminima, cenama i organizacijom.",
-    ctaPrimary: "Pogledaj aranzmane",
+      "Pošaljite upit i dobićete predlog puta sa jasnim terminima, cenama i organizacijom.",
+    ctaPrimary: "Pogledaj aranžmane",
     ctaSecondary: "Kontakt",
   },
   en: {

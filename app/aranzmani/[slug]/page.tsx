@@ -73,7 +73,7 @@ export default function TripDetailPage() {
       <AlienShell className="site-fade">
         <div className="flex min-h-[50vh] items-center justify-center">
           <div className="surface animate-pulse rounded-2xl px-8 py-6 text-muted">
-            {language === "sr" ? "Ucitavanje..." : "Loading..."}
+            {language === "sr" ? "Učitavanje..." : "Loading..."}
           </div>
         </div>
       </AlienShell>
@@ -85,7 +85,7 @@ export default function TripDetailPage() {
       <AlienShell className="site-fade">
         <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4">
           <h1 className="text-3xl font-semibold">404</h1>
-          <p className="text-muted">{language === "sr" ? "Aranzman nije pronadjen." : "Trip not found."}</p>
+          <p className="text-muted">{language === "sr" ? "Aranžman nije pronađen." : "Trip not found."}</p>
           <Link href="/aranzmani" className="btn-primary">
             {t.back}
           </Link>
@@ -143,7 +143,7 @@ export default function TripDetailPage() {
             <TransportIcon className="text-[var(--primary)]" />
             {t[trip.transport]}
           </p>
-          <p className="metric-card__hint">{language === "sr" ? "Tip prevoza za ovaj aransman." : "Transport type for this package."}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Tip prevoza za ovaj aranžman." : "Transport type for this package."}</p>
         </article>
         <article className="metric-card">
           <p className="metric-card__label">{t.departure}</p>
@@ -243,7 +243,7 @@ export default function TripDetailPage() {
                           <AddToCartButton
                             id={item._id}
                             type="accommodation"
-                            title={`${item.name} â€” ${trip.title}`}
+                            title={`${item.name} - ${trip.title}`}
                             price={item.pricePerPerson}
                             currency={item.currency}
                             imageUrl={heroImg}

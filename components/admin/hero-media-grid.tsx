@@ -53,7 +53,7 @@ export default function HeroMediaGrid() {
     return [...slides].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   }, [slides]);
 
-  /* â”€â”€ Add / Edit form state â”€â”€ */
+  /* Add / Edit form state */
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<SlideForm>({
@@ -384,11 +384,11 @@ export default function HeroMediaGrid() {
                   onClick={closeForm}
                   className="btn-secondary text-sm"
                 >
-                  {language === "sr" ? "Otkazi" : "Cancel"}
+                  {language === "sr" ? "Otkaži" : "Cancel"}
                 </button>
                 <button type="submit" className="btn-primary text-sm">
                   {language === "sr"
-                    ? "Sacuvaj"
+                    ? "Sačuvaj"
                     : "Save"}
                 </button>
               </div>

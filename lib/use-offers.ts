@@ -238,4 +238,3 @@ export const useOffersLiveBoard = (destination?: string, fallback?: AggregatedOf
     return data.filter((offer) => offer.destination.toLowerCase().includes(query));
   }, [base, normalizedDestination, rows]);
 };
-

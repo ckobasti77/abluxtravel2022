@@ -624,12 +624,21 @@ textarea.control {
   text-shadow: none;
 }
 
+:root:not([data-theme="dark"]) .nav-bar--hero .nav-bar__link:not(.nav-bar__link--active) {
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 .nav-bar__link:hover {
   color: var(--accent);
 }
 
 :root:not([data-theme="dark"]) .nav-bar__link:hover {
   color: var(--accent-strong);
+}
+
+:root:not([data-theme="dark"]) .nav-bar--hero .nav-bar__link:not(.nav-bar__link--active):hover {
+  color: var(--accent);
 }
 
 /* active link: gold text only, no underline */

@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 import { createPageMetadata } from "../../lib/page-metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Aranzmani",
+  title: "Aranžmani",
   description:
-    "Premium aranzmani ABLux Travel agencije sa jasnim terminima, cenama i detaljnim programom putovanja.",
+    "Premium aranžmani ABLux Travel agencije sa jasnim terminima, cenama i detaljnim programom putovanja.",
   canonical: "/aranzmani",
-  keywords: ["aranzmani", "premium putovanja", "ablux travel aranzmani"],
+  keywords: ["aranžmani", "premium putovanja", "ABLux Travel aranžmani"],
 });
 
 export default function AranzmaniLayout({ children }: Readonly<{ children: ReactNode }>) {

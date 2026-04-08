@@ -102,7 +102,7 @@ export default function DestinationSlideOver({
     } catch {
       setStatus(
         language === "sr"
-          ? "Greska pri uploadu slika."
+          ? "Greška pri uploadu slika."
           : "Image upload failed."
       );
     }
@@ -133,7 +133,7 @@ export default function DestinationSlideOver({
     if (!tripId && !pageSlug) {
       setStatus(
         language === "sr"
-          ? "Nije pronadjeno putovanje."
+          ? "Nije pronađeno putovanje."
           : "No trip/page context found."
       );
       return;
@@ -161,7 +161,7 @@ export default function DestinationSlideOver({
       onClose();
     } catch {
       setStatus(
-        language === "sr" ? "Greska pri cuvanju." : "Save failed."
+        language === "sr" ? "Greška pri čuvanju." : "Save failed."
       );
     }
     setSaving(false);
@@ -177,7 +177,7 @@ export default function DestinationSlideOver({
         onClick={onClose}
       />
 
-      {/* Slide-over panel â€” full-screen on mobile, max-w-md on desktop */}
+      {/* Slide-over panel, full-screen on mobile and max-w-md on desktop */}
       <div
         ref={panelRef}
         className="fixed right-0 top-0 z-50 flex h-full w-full flex-col border-l border-[var(--line)] bg-[var(--surface-strong)] shadow-2xl transition-transform sm:max-w-md"
@@ -189,7 +189,7 @@ export default function DestinationSlideOver({
             {destination
               ? `${language === "sr" ? "Uredi" : "Edit"}: ${destination.title}`
               : language === "sr"
-                ? "Nova Destinacija"
+                ? "Nova destinacija"
                 : "New Destination"}
           </h3>
           <button
@@ -318,7 +318,7 @@ export default function DestinationSlideOver({
               </div>
             </label>
 
-            {/* Description â€” plain textarea */}
+            {/* Description, plain textarea */}
             <label className="grid gap-1.5">
               <span className="text-sm font-semibold">
                 {language === "sr" ? "Kratak opis" : "Short description"}
@@ -368,7 +368,7 @@ export default function DestinationSlideOver({
               >
                 {form.isActive
                   ? language === "sr"
-                    ? "Aktiven"
+                    ? "Aktivan"
                     : "Active"
                   : language === "sr"
                     ? "Neaktivno"
@@ -392,7 +392,7 @@ export default function DestinationSlideOver({
             onClick={onClose}
             className="btn-secondary text-sm"
           >
-            {language === "sr" ? "Otkazi" : "Cancel"}
+            {language === "sr" ? "Otkaži" : "Cancel"}
           </button>
           <button
             type="button"
@@ -402,10 +402,10 @@ export default function DestinationSlideOver({
           >
             {saving
               ? language === "sr"
-                ? "Cuvanje..."
+                ? "Čuvanje..."
                 : "Saving..."
               : language === "sr"
-                ? "Sacuvaj Promene"
+                ? "Sačuvaj promene"
                 : "Save Changes"}
           </button>
         </div>

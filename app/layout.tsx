@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   metadataBase: SITE_URL_OBJECT,
   applicationName: SITE_NAME,
   title: {
-    default: `${SITE_NAME} | Turisticka agencija`,
+    default: `${SITE_NAME} | Turistička agencija`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     alternateLocale: ["en_US"],
     url: "/",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} | Turisticka agencija`,
+    title: `${SITE_NAME} | Turistička agencija`,
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Turisticka agencija`,
+    title: `${SITE_NAME} | Turistička agencija`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },

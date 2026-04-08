@@ -313,7 +313,7 @@ export default function AranzmaniEditor({
           />
           <p className="text-xs text-muted">
             {language === "sr"
-              ? "Media je opciona. Mozete sacuvati slajd i bez slike ili videa."
+              ? "Media je opciona. Možete sačuvati slajd i bez slike ili videa."
               : "Media is optional. You can save a slide without image or video."}
           </p>
 
@@ -460,7 +460,7 @@ export default function AranzmaniEditor({
                     className="btn-secondary w-full !justify-center"
                     onClick={() => void saveExistingSlide(slide)}
                   >
-                    {language === "sr" ? "Sacuvaj izmene" : "Save changes"}
+                    {language === "sr" ? "Sačuvaj izmene" : "Save changes"}
                   </button>
                 </div>
               </article>

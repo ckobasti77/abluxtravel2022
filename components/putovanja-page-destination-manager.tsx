@@ -61,7 +61,7 @@ export default function PutovanjaPageDestinationManager() {
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted sm:text-base">
           {language === "sr"
-            ? "Izaberi stranicu putovanja i upravljaj njenim destinacijama (dodaj, izmeni, obrisi)."
+            ? "Izaberi stranicu putovanja i upravljaj njenim destinacijama (dodaj, izmeni, obriši)."
             : "Choose a putovanja page and manage its destinations (add, edit, delete)."}
         </p>
       </article>
@@ -106,7 +106,7 @@ export default function PutovanjaPageDestinationManager() {
       ) : (
         <article className="surface rounded-2xl p-4 text-sm text-muted">
           {language === "sr"
-            ? "Nema putovanja stranica za uredjivanje. Prvo dodaj aktivne slajdove."
+            ? "Nema stranica putovanja za uređivanje. Prvo dodaj aktivne slajdove."
             : "No putovanja pages available to edit yet. Add active slides first."}
         </article>
       )}
