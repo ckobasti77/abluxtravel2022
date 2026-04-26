@@ -1,16 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import gsap from "gsap";
 import { useCartStore } from "@/lib/store/use-cart-store";
 import { useSitePreferences } from "./site-preferences-provider";
 import CartDrawer from "./cart-drawer";
 
+const subscribeHydration = () => () => {};
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
+
 export default function CartButton() {
   const { dictionary } = useSitePreferences();
   const itemCount = useCartStore((s) => s.itemCount());
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const isHydrated = useSyncExternalStore(
+    subscribeHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot
+  );
   const iconRef = useRef<HTMLButtonElement>(null);
   const prevCountRef = useRef(itemCount);
 
@@ -32,20 +41,22 @@ export default function CartButton() {
     prevCountRef.current = itemCount;
   }, [itemCount]);
 
+  const visibleItemCount = isHydrated ? itemCount : 0;
+
   return (
     <>
       <button
         ref={iconRef}
         type="button"
         onClick={() => setDrawerOpen(true)}
-        aria-label={`${dictionary.cart.title} (${itemCount})`}
+        aria-label={`${dictionary.cart.title} (${visibleItemCount})`}
         title={dictionary.cart.title}
         className="site-nav-icon-btn relative"
       >
         <FaCartShopping aria-hidden size={15} />
-        {itemCount > 0 && (
+        {visibleItemCount > 0 && (
           <span className="absolute -right-1 -top-1 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-[var(--primary)] px-1 text-[0.6rem] font-bold leading-none text-white">
-            {itemCount > 99 ? "99+" : itemCount}
+            {visibleItemCount > 99 ? "99+" : visibleItemCount}
           </span>
         )}
       </button>

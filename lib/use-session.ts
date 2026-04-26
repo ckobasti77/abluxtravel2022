@@ -5,14 +5,19 @@ export const useSession = () => {
   const [session, setSession] = useState<ReturnType<typeof getSession>>(null);
 
   useEffect(() => {
+    let mounted = true;
+
     const onSessionChanged = () => {
-      setSession(getSession());
+      if (mounted) {
+        setSession(getSession());
+      }
     };
 
     onSessionChanged();
     window.addEventListener("storage", onSessionChanged);
     window.addEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
     return () => {
+      mounted = false;
       window.removeEventListener("storage", onSessionChanged);
       window.removeEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
     };

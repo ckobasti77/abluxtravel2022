@@ -54,10 +54,22 @@ export const upsert = mutation({
     id: v.optional(v.id("destinations")),
     tripId: v.optional(v.id("trips")),
     pageSlug: v.optional(v.string()),
+    offerType: v.optional(
+      v.union(v.literal("own"), v.literal("subagency"))
+    ),
     title: v.string(),
     description: v.string(),
     price: v.number(),
     currency: v.string(),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    departureCity: v.optional(v.string()),
+    durationLabel: v.optional(v.string()),
+    partnerName: v.optional(v.string()),
+    partnerOfferCode: v.optional(v.string()),
+    iframeUrl: v.optional(v.string()),
+    externalUrl: v.optional(v.string()),
+    contactNote: v.optional(v.string()),
     imageStorageIds: v.array(v.id("_storage")),
     order: v.number(),
     isActive: v.boolean(),
@@ -67,8 +79,24 @@ export const upsert = mutation({
     if (!data.tripId && !data.pageSlug) {
       throw new Error("Destination must belong to a trip or a putovanja page.");
     }
+    if (data.offerType === "subagency" && !data.iframeUrl?.trim()) {
+      throw new Error("Subagency destination must include an iframe URL.");
+    }
 
-    const payload = { ...data, updatedAt: Date.now() };
+    const payload = {
+      ...data,
+      offerType: data.offerType,
+      departureDate: data.departureDate?.trim() || undefined,
+      returnDate: data.returnDate?.trim() || undefined,
+      departureCity: data.departureCity?.trim() || undefined,
+      durationLabel: data.durationLabel?.trim() || undefined,
+      partnerName: data.partnerName?.trim() || undefined,
+      partnerOfferCode: data.partnerOfferCode?.trim() || undefined,
+      iframeUrl: data.iframeUrl?.trim() || undefined,
+      externalUrl: data.externalUrl?.trim() || undefined,
+      contactNote: data.contactNote?.trim() || undefined,
+      updatedAt: Date.now(),
+    };
 
     if (id) {
       await ctx.db.patch(id, payload);

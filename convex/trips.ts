@@ -28,15 +28,36 @@ export const list = query({
     trips.sort((a, b) => a.order - b.order);
 
     return Promise.all(
-      trips.map(async (trip) => ({
-        ...trip,
-        imageUrls: await Promise.all(
-          trip.imageStorageIds.map(async (id) => {
-            const url = await ctx.storage.getUrl(id);
-            return url ?? "";
-          })
-        ),
-      }))
+      trips.map(async (trip) => {
+        const destinations = await ctx.db
+          .query("destinations")
+          .withIndex("by_trip_order", (q) => q.eq("tripId", trip._id))
+          .collect();
+        const activeDestinations = destinations.filter((item) => item.isActive);
+        const lowestDestination = activeDestinations.reduce<
+          (typeof activeDestinations)[number] | null
+        >(
+          (lowest, item) =>
+            !lowest || item.price < lowest.price ? item : lowest,
+          null,
+        );
+
+        return {
+          ...trip,
+          destinationCount: activeDestinations.length,
+          subagencyDestinationCount: activeDestinations.filter(
+            (item) => item.offerType === "subagency",
+          ).length,
+          lowestDestinationPrice: lowestDestination?.price,
+          lowestDestinationCurrency: lowestDestination?.currency,
+          imageUrls: await Promise.all(
+            trip.imageStorageIds.map(async (id) => {
+              const url = await ctx.storage.getUrl(id);
+              return url ?? "";
+            })
+          ),
+        };
+      })
     );
   },
 });

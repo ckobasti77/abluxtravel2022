@@ -1,0 +1,1909 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "ABLux Travel" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "ABLux Travel" [ref=e7]
+        - navigation [ref=e8]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e11]:
+            - link "Trips" [ref=e12] [cursor=pointer]:
+              - /url: /putovanja
+              - text: Trips
+              - img [ref=e13]
+            - generic:
+              - generic:
+                - link "Turska":
+                  - /url: /aranzmani/turska
+          - generic [ref=e15]:
+            - link "Packages" [ref=e16] [cursor=pointer]:
+              - /url: /aranzmani
+              - text: Packages
+              - img [ref=e17]
+            - generic:
+              - generic:
+                - link "Turska":
+                  - /url: /aranzmani/turska
+          - generic [ref=e19]:
+            - link "Religious Tourism" [ref=e20] [cursor=pointer]:
+              - /url: /verski-turizam
+              - text: Religious Tourism
+              - img [ref=e21]
+            - generic:
+              - generic:
+                - link "Pilgrimages":
+                  - /url: /verski-turizam
+                - link "Monasteries":
+                  - /url: /verski-turizam
+          - link "Rent a bus" [ref=e24] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+          - link "About" [ref=e26] [cursor=pointer]:
+            - /url: /o-nama
+          - link "Contact" [ref=e28] [cursor=pointer]:
+            - /url: /kontakt
+        - generic [ref=e29]:
+          - button "Search" [ref=e30] [cursor=pointer]:
+            - img [ref=e31]
+          - generic [ref=e33]:
+            - button "SR" [ref=e34] [cursor=pointer]
+            - button "EN" [ref=e36] [cursor=pointer]
+          - button "Dark" [ref=e37] [cursor=pointer]:
+            - img [ref=e38]
+          - button "Cart (0)" [ref=e40] [cursor=pointer]:
+            - img [ref=e41]
+          - generic [ref=e43]:
+            - link "Admin" [ref=e44] [cursor=pointer]:
+              - /url: /admin
+            - button "Sign Out" [ref=e45] [cursor=pointer]
+      - generic [ref=e46]:
+        - img [ref=e47]
+        - textbox "Search destinations..." [ref=e49]
+        - button "Close menu" [ref=e50] [cursor=pointer]:
+          - img [ref=e51]
+  - navigation "Quick contact actions" [ref=e53]:
+    - generic:
+      - link "Instagram":
+        - /url: https://instagram.com/abluxtravel
+        - generic:
+          - img
+        - generic: Instagram
+      - link "Call":
+        - /url: tel:+381111234567
+        - generic:
+          - img
+        - generic: Call
+      - link "Email":
+        - /url: mailto:info@abluxtravel2022.rs
+        - generic:
+          - img
+        - generic: Email
+    - button "Contact" [ref=e54] [cursor=pointer]:
+      - img [ref=e56]
+      - img [ref=e59]
+  - generic [ref=e61]:
+    - img "Reliable trips designed with care." [ref=e62]
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - heading "Reliable trips designed with care." [level=1] [ref=e65]
+        - paragraph [ref=e66]: "ABLux Travel was founded with a clear vision: to provide high-quality, carefully planned, and dependable travel experiences. Our main focus is religious tourism, supported by summer programs, European city breaks, and excursions for children."
+        - generic [ref=e67]:
+          - link "Explore Destinations" [ref=e68] [cursor=pointer]:
+            - /url: /aranzmani
+          - link "Religious Travel in Serbia" [ref=e69] [cursor=pointer]:
+            - /url: /verski-turizam
+      - generic [ref=e70]:
+        - link "EXOTIC TRIPS" [ref=e71] [cursor=pointer]:
+          - /url: /putovanja
+          - img [ref=e73]
+          - generic [ref=e78]: EXOTIC TRIPS
+        - link "EUROPEAN CITIES" [ref=e79] [cursor=pointer]:
+          - /url: /aranzmani
+          - img [ref=e81]
+          - generic [ref=e84]: EUROPEAN CITIES
+        - link "SERBIAN SANCTUARIES" [ref=e85] [cursor=pointer]:
+          - /url: /verski-turizam
+          - img [ref=e87]
+          - generic [ref=e90]: SERBIAN SANCTUARIES
+  - main [ref=e92]:
+    - generic [ref=e93]:
+      - region "4 reasons travelers choose ABLux" [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - generic [ref=e97]: Why travelers choose ABLux
+            - heading "4 reasons travelers choose ABLux" [level=2] [ref=e98]
+            - paragraph [ref=e99]: From first idea to return journey, every step is optimized for clarity, speed, and full traveler confidence.
+          - generic [ref=e100]:
+            - article [ref=e101]:
+              - img [ref=e103]
+              - heading "Carefully planned routes" [level=3] [ref=e107]
+              - paragraph [ref=e108]: Religious and premium destinations are selected by program quality, travel rhythm, and trusted local partners.
+            - article [ref=e109]:
+              - img [ref=e111]
+              - heading "Safety first" [level=3] [ref=e114]
+              - paragraph [ref=e115]: Routes, live trip details, and group logistics stay synchronized to keep every traveler secure and informed.
+            - article [ref=e116]:
+              - img [ref=e118]
+              - heading "Clear prices and timelines" [level=3] [ref=e122]
+              - paragraph [ref=e123]: Availability, conditions, and trip tempo are presented transparently without hidden steps or information noise.
+            - article [ref=e124]:
+              - img [ref=e126]
+              - heading "Support with instant response" [level=3] [ref=e132]
+              - paragraph [ref=e133]: Our team stays available before, during, and after the trip with guidance tailored to your specific group.
+      - generic [ref=e134]:
+        - heading "What we focus on" [level=2] [ref=e135]
+        - generic [ref=e136]:
+          - article [ref=e137]:
+            - paragraph [ref=e138]: Religious journeys with carefully planned routes and reliable logistics.
+          - article [ref=e139]:
+            - paragraph [ref=e140]: Summer and city tours adapted to different budgets and travel styles.
+          - article [ref=e141]:
+            - paragraph [ref=e142]: Children excursions with strong safety and content standards.
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - generic [ref=e145]: Featured destinations
+          - heading "A quick look at our most requested routes" [level=2] [ref=e146]
+          - paragraph [ref=e147]: A visual overview of destinations travelers book most often.
+        - generic [ref=e149]:
+          - generic [ref=e150]:
+            - article [ref=e151]:
+              - img "Sacred cities and pilgrimages" [ref=e153]
+              - generic [ref=e155]:
+                - paragraph [ref=e156]: Destination 01
+                - heading "Sacred cities and pilgrimages" [level=3] [ref=e157]
+            - article [ref=e158]:
+              - img "Mediterranean summer" [ref=e160]
+              - generic [ref=e162]:
+                - paragraph [ref=e163]: Destination 02
+                - heading "Mediterranean summer" [level=3] [ref=e164]
+            - article [ref=e165]:
+              - img "Northern nature routes" [ref=e167]
+              - generic [ref=e169]:
+                - paragraph [ref=e170]: Destination 03
+                - heading "Northern nature routes" [level=3] [ref=e171]
+            - article [ref=e172]:
+              - img "Desert and heritage tours" [ref=e174]
+              - generic [ref=e176]:
+                - paragraph [ref=e177]: Destination 04
+                - heading "Desert and heritage tours" [level=3] [ref=e178]
+            - article [ref=e179]:
+              - img "European city breaks" [ref=e181]
+              - generic [ref=e183]:
+                - paragraph [ref=e184]: Destination 05
+                - heading "European city breaks" [level=3] [ref=e185]
+          - button "Next section" [ref=e192] [cursor=pointer]
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - generic [ref=e196]: New service
+          - heading "Vehicle rental with driver" [level=2] [ref=e197]
+          - paragraph [ref=e198]: Organized transport for groups, business guests, transfers, and special occasions with clear coordination and a professional driver.
+          - link "View vehicles" [ref=e199] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+            - text: View vehicles
+            - img [ref=e200]
+        - generic [ref=e202]:
+          - link "Groups and organized travel Coach with driver" [ref=e203] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+            - generic [ref=e204]:
+              - img [ref=e206]
+              - generic [ref=e209]:
+                - paragraph [ref=e210]: Groups and organized travel
+                - heading "Coach with driver" [level=3] [ref=e211]
+          - link "Private transfers and VIP travel Luxury van with driver" [ref=e212] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+            - generic [ref=e213]:
+              - img [ref=e215]
+              - generic [ref=e218]:
+                - paragraph [ref=e219]: Private transfers and VIP travel
+                - heading "Luxury van with driver" [level=3] [ref=e220]
+      - generic [ref=e221]:
+        - heading "One platform for complete sales" [level=2] [ref=e222]
+        - paragraph [ref=e223]: A single, high-conversion hub for your own premium packages and selected partner offers, designed for clarity, trust, and fast traveler decisions.
+        - generic [ref=e224]:
+          - article [ref=e225]: Your own trips and packages in one place
+          - article [ref=e226]: Aggregated partner offers with commission-based sales
+          - article [ref=e227]: Fast and transparent traveler decision flow
+      - iframe [ref=e228]:
+        - generic [active] [ref=f15e1]:
+          - generic [ref=f15e2]:
+            - generic [ref=f15e4]:
+              - text:                                             
+              - generic [ref=f15e7]:
+                - generic [ref=f15e10]:
+                  - generic [ref=f15e12]:
+                    - generic [ref=f15e14]:
+                      - list [ref=f15e16]:
+                        - listitem [ref=f15e17]
+                      - generic [ref=f15e18]:
+                        - list:
+                          - listitem [ref=f15e19] [cursor=pointer]:
+                            - img [ref=f15e21]
+                          - listitem [ref=f15e22] [cursor=pointer]:
+                            - img [ref=f15e24]
+                          - listitem [ref=f15e25] [cursor=pointer]:
+                            - img [ref=f15e27]
+                          - listitem [ref=f15e28] [cursor=pointer]:
+                            - img [ref=f15e30]
+                          - listitem [ref=f15e31] [cursor=pointer]:
+                            - img [ref=f15e33]
+                          - listitem [ref=f15e34] [cursor=pointer]:
+                            - img [ref=f15e36]
+                          - listitem [ref=f15e37] [cursor=pointer]:
+                            - img [ref=f15e39]
+                          - listitem [ref=f15e40] [cursor=pointer]:
+                            - img [ref=f15e42]
+                          - listitem [ref=f15e43] [cursor=pointer]:
+                            - img [ref=f15e45]
+                    - link [ref=f15e47] [cursor=pointer]:
+                      - /url: javascript:;
+                      - img [ref=f15e50]
+                  - generic [ref=f15e55]:
+                    - generic [ref=f15e56]:
+                      - generic [ref=f15e57]: ALANJA
+                      - generic [ref=f15e58]:
+                        - paragraph:
+                          - strong
+                        - paragraph
+                        - paragraph [ref=f15e59]:
+                          - link "POGLEDAJTE VIŠE INFORMACIJA O IZLETIMA" [ref=f15e61] [cursor=pointer]:
+                            - /url: https://bigblue.rs/sr/alanjainfo
+                        - paragraph [ref=f15e62]:
+                          - generic [ref=f15e64]: Letovalište raskošne obale sa hotelima različih kategorija dostupnih većini ljubitelja kvalitetnog odmora
+                          - generic [ref=f15e65]: Direktan čarter let, pažljivo birani smeštajni kapaciteti, sjani uslovi plaćanja uz uštede u varijanti porodičnog letovanja
+                          - generic [ref=f15e66]: Letovalište koje gostima nudi mir i tišinu ali i vrhunsku zabavu ne samo u gradskom okruženju već i na fantastičnim krstarenjima
+                        - paragraph [ref=f15e67]:
+                          - generic [ref=f15e68]: Alanja je bez dileme jedan od najslikovitijih turističkih centara Turske s kilometrima dugim peščanim plažama od kojih se svojom lepotom izdvaja ona s imenom Kleopatra.
+                          - generic [ref=f15e69]: U senci borove šume je bezbroj hotela uglavnom na obali ili u njenoj neposrednoj blizini. Najveći broj plaža okružen je šetalištima usmerenim ka centru grada. Grada, kojim dominira Crvena kula s pogledom na okolinu nalik onom s razglednica.
+                          - generic [ref=f15e70]:
+                            - generic [ref=f15e71]: Uveče, Alanja nudi raskošnu paletu dobrog uživanja od koncerata na gradskom trgu do uvek zanosnog trbušnog plesa u ekskluzivnim barovima i restoranima. Ovo tursko letovalište gostima daruje i užitak u nezaboravnim krstarenjima duž raskošne obale kao i svu lepotu ličnog uzbuđenja zarad direktnog susretanja sa istorijom i arheološkim lokalitetima
+                            - text: .
+                        - paragraph
+                    - generic [ref=f15e73] [cursor=pointer]: Više informacija »
+                - generic [ref=f15e74]:
+                  - form [ref=f15e83]:
+                    - tabpanel [ref=f15e84]:
+                      - text:  
+                      - generic: 
+                      - tabpanel [ref=f15e86]:
+                        - form [ref=f15e88]:
+                          - generic [ref=f15e89]:
+                            - generic: Destinacija
+                            - combobox "Destinacija" [ref=f15e90]:
+                              - option "Izaberite"
+                              - option "AMERIKA" [disabled]
+                              - option "HAVAJI"
+                              - option "NJUJORK"
+                              - option "ARUBA KARIBI" [disabled]
+                              - option "ARUBA"
+                              - option "DOMINIKANSKA REPUBLIKA" [disabled]
+                              - option "PUNTA CANA"
+                              - option "EGIPAT" [disabled]
+                              - option "HURGADA"
+                              - option "FRANCUSKA" [disabled]
+                              - option "DIZNILEND"
+                              - option "NICA"
+                              - option "PARIZ"
+                              - option "GRCKA" [disabled]
+                              - option "GLIFADA"
+                              - option "HANJA"
+                              - option "KEFALONIJA"
+                              - option "KRF"
+                              - option "KRIT"
+                              - option "LEFKADA"
+                              - option "LUTRAKI"
+                              - option "MIKONOS"
+                              - option "PARGA"
+                              - option "RODOS"
+                              - option "SKIJATOS"
+                              - option "SKOPELOS"
+                              - option "TASOS"
+                              - option "TASOS OSTRVO"
+                              - option "ZAKINTOS"
+                              - option "INDONEZIJA" [disabled]
+                              - option "BALI"
+                              - option "ITALIJA" [disabled]
+                              - option "KATANIJA"
+                              - option "PALERMO"
+                              - option "SARDINIJA"
+                              - option "JAMAJKA OSTRVO" [disabled]
+                              - option "JAMAJKA"
+                              - option "KATAR" [disabled]
+                              - option "DOHA"
+                              - option "KIPARSKA REPUBLIKA" [disabled]
+                              - option "AJA NAPA"
+                              - option "LARNAKA"
+                              - option "LIMASOL"
+                              - option "PAFOS"
+                              - option "PROTARAS"
+                              - option "MAURITIUS REPUBLIK" [disabled]
+                              - option "MAURICIJUS"
+                              - option "PORTUGALIJA" [disabled]
+                              - option "LISABON"
+                              - option "REPUBLIKA MALDIVI" [disabled]
+                              - option "MALDIVI"
+                              - option "REPUBLIKA MALTA" [disabled]
+                              - option "MALTA"
+                              - option "SEJSELI REPUBLIKA" [disabled]
+                              - option "SEJŠELI"
+                              - option "ŠPANIJA" [disabled]
+                              - option "ALIKANTE-BENIDORM"
+                              - option "KOSTA BRAVA - KOSTA MARESME"
+                              - option "KOSTA DEL SOL"
+                              - option "MAJORKA"
+                              - option "TAJLAND" [disabled]
+                              - option "KOH SAMUI"
+                              - option "TANZANIJA" [disabled]
+                              - option "ZANZIBAR"
+                              - option "TUNIS REPUBLIKA" [disabled]
+                              - option "HAMAMET"
+                              - option "JASMIN HAMAMET"
+                              - option "MAHDIA"
+                              - option "MONASTIR"
+                              - option "SKANES"
+                              - option "PORT EL KANTAOUI"
+                              - option "SUS"
+                              - option "TURSKA" [disabled]
+                              - option "ANTALIJA"
+                              - option "ALANJA" [selected]
+                              - option "BELEK"
+                              - option "Bodrum"
+                              - option "ČEŠME"
+                              - option "DIDIM"
+                              - option "FETIJE"
+                              - option "IZMIR"
+                              - option "KAŠ"
+                              - option "KEMER"
+                              - option "KRSTARENJE GULETOM"
+                              - option "KUŠADASI"
+                              - option "MARMARIS"
+                              - option "SIDE"
+                              - option "UJEDINJENI ARAPSKI EMIRATI" [disabled]
+                              - option "ABU DABI"
+                              - option "DUBAI"
+                              - option "DUBAI GRAD"
+                              - option "DUBAI JUMEIRAH"
+                          - generic [ref=f15e91]:
+                            - generic: Datum prijave
+                            - textbox [ref=f15e93]: 16.05.2026
+                          - generic [ref=f15e94]:
+                            - generic: Noći
+                            - combobox "Noći" [ref=f15e95]:
+                              - option "Izaberite"
+                              - option "7" [selected]
+                              - option "14"
+                          - generic [ref=f15e97]:
+                            - generic: Soba i broj osobe
+                            - generic [ref=f15e98] [cursor=pointer]:
+                              - text: 
+                              - generic [ref=f15e99]: 1 Soba
+                              - generic [ref=f15e100]: 2 Odraslih
+                              - generic [ref=f15e101]: 0 Dece
+                          - button "Pretraga" [ref=f15e103] [cursor=pointer]
+                          - generic [ref=f15e105]:
+                            - checkbox "Napredna pretraga" [ref=f15e106]
+                            - generic [ref=f15e107] [cursor=pointer]: Napredna pretraga
+                  - generic [ref=f15e112]:
+                    - generic [ref=f15e113]:
+                      - generic:
+                        - list [ref=f15e115]:
+                          - listitem [ref=f15e116]:
+                            - link "Pretraga kriterijuma" [ref=f15e117] [cursor=pointer]:
+                              - /url: "#SubdSearchMenuMultiRoomContainer"
+                              - generic [ref=f15e118]: 
+                              - text: Pretraga kriterijuma
+                          - listitem [ref=f15e119]:
+                            - link "FILTERI ZA PRETRAGU" [ref=f15e120] [cursor=pointer]:
+                              - /url: javascript:void(0)
+                              - generic [ref=f15e121]: 
+                              - text: FILTERI ZA PRETRAGU
+                        - generic [ref=f15e122]:
+                          - generic:
+                            - text: FILTERI ZA PRETRAGU
+                            - link [ref=f15e123] [cursor=pointer]:
+                              - /url: javascript:void(0)
+                              - generic [ref=f15e124]: 
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Pretraga hotela":
+                                        - /url: javascript:void(0)
+                                  - textbox "Pretraga hotela po imenu" [ref=f15e126]
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Cena hotela":
+                                        - /url: javascript:void(0)
+                                  - generic [ref=f15e127]:
+                                    - generic [ref=f15e128]:
+                                      - generic:
+                                        - generic:
+                                          - slider [ref=f15e129]
+                                          - slider [ref=f15e130]
+                                    - generic:
+                                      - generic [ref=f15e132] [cursor=pointer]:
+                                        - generic [ref=f15e133]: "1.092"
+                                        - text: ","
+                                        - generic [ref=f15e134]: €
+                                      - generic [ref=f15e136] [cursor=pointer]:
+                                        - generic [ref=f15e137]: "2.673"
+                                        - text: ","
+                                        - generic [ref=f15e138]: €
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Kategorija" [expanded]:
+                                        - /url: javascript:void(0)
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - checkbox "   12" [ref=f15e139]
+                                        - generic [ref=f15e140] [cursor=pointer]:
+                                          - generic [ref=f15e141]:
+                                            - generic [ref=f15e142]: 
+                                            - generic [ref=f15e143]: 
+                                            - generic [ref=f15e144]: 
+                                          - generic [ref=f15e145]: "12"
+                                      - generic:
+                                        - checkbox "    49" [ref=f15e147]
+                                        - generic [ref=f15e148] [cursor=pointer]:
+                                          - generic [ref=f15e149]:
+                                            - generic [ref=f15e150]: 
+                                            - generic [ref=f15e151]: 
+                                            - generic [ref=f15e152]: 
+                                            - generic [ref=f15e153]: 
+                                          - generic [ref=f15e154]: "49"
+                                      - generic:
+                                        - checkbox "     59" [ref=f15e156]
+                                        - generic [ref=f15e157] [cursor=pointer]:
+                                          - generic [ref=f15e158]:
+                                            - generic [ref=f15e159]: 
+                                            - generic [ref=f15e160]: 
+                                            - generic [ref=f15e161]: 
+                                            - generic [ref=f15e162]: 
+                                            - generic [ref=f15e163]: 
+                                          - generic [ref=f15e164]: "59"
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Usluga" [expanded]:
+                                        - /url: javascript:void(0)
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - checkbox "ALL INCLUSIVE 58" [ref=f15e166]
+                                        - generic [ref=f15e167] [cursor=pointer]:
+                                          - text: ALL INCLUSIVE
+                                          - generic [ref=f15e168]: "58"
+                                      - generic:
+                                        - checkbox "Ultra All Inclusive 37" [ref=f15e170]
+                                        - generic [ref=f15e171] [cursor=pointer]:
+                                          - text: Ultra All Inclusive
+                                          - generic [ref=f15e172]: "37"
+                                      - generic:
+                                        - checkbox "Room Only 22" [ref=f15e174]
+                                        - generic [ref=f15e175] [cursor=pointer]:
+                                          - text: Room Only
+                                          - generic [ref=f15e176]: "22"
+                                      - generic:
+                                        - checkbox "Bed and Breakfast 4" [ref=f15e178]
+                                        - generic [ref=f15e179] [cursor=pointer]:
+                                          - text: Bed and Breakfast
+                                          - generic [ref=f15e180]: "4"
+                                      - generic:
+                                        - checkbox "Half Board 10" [ref=f15e182]
+                                        - generic [ref=f15e183] [cursor=pointer]:
+                                          - text: Half Board
+                                          - generic [ref=f15e184]: "10"
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Lokacije hotela" [expanded]:
+                                        - /url: javascript:void(0)
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - generic:
+                                          - checkbox "ALANJA 120" [ref=f15e186]
+                                          - generic [ref=f15e187] [cursor=pointer]:
+                                            - text: ALANJA
+                                            - generic [ref=f15e188]: "120"
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Teme hotela" [expanded]:
+                                        - /url: javascript:void(0)
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - checkbox "AQUA PARK 4" [ref=f15e190]
+                                        - generic [ref=f15e191] [cursor=pointer]:
+                                          - text: AQUA PARK
+                                          - generic [ref=f15e192]: "4"
+                                      - generic:
+                                        - checkbox "BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU 12" [ref=f15e194]
+                                        - generic [ref=f15e195] [cursor=pointer]:
+                                          - text: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU
+                                          - generic [ref=f15e196]: "12"
+                                      - generic:
+                                        - checkbox "DECIJI KLUB 3" [ref=f15e198]
+                                        - generic [ref=f15e199] [cursor=pointer]:
+                                          - text: DECIJI KLUB
+                                          - generic [ref=f15e200]: "3"
+                                      - generic:
+                                        - checkbox "DOBAR ODNOS CENE I KVALITETA 5" [ref=f15e202]
+                                        - generic [ref=f15e203] [cursor=pointer]:
+                                          - text: DOBAR ODNOS CENE I KVALITETA
+                                          - generic [ref=f15e204]: "5"
+                                      - generic:
+                                        - checkbox "EKONOMIČAN HOTEL 3" [ref=f15e206]
+                                        - generic [ref=f15e207] [cursor=pointer]:
+                                          - text: EKONOMIČAN HOTEL
+                                          - generic [ref=f15e208]: "3"
+                                      - generic:
+                                        - checkbox "EKSKLUZIVNO 2" [ref=f15e210]
+                                        - generic [ref=f15e211] [cursor=pointer]:
+                                          - text: EKSKLUZIVNO
+                                          - generic [ref=f15e212]: "2"
+                                      - generic:
+                                        - checkbox "GRADSKI HOTEL 23" [ref=f15e214]
+                                        - generic [ref=f15e215] [cursor=pointer]:
+                                          - text: GRADSKI HOTEL
+                                          - generic [ref=f15e216]: "23"
+                                      - generic:
+                                        - checkbox "GRATIS LEŽALJKE I SUNCOBRANI 8" [ref=f15e218]
+                                        - generic [ref=f15e219] [cursor=pointer]:
+                                          - text: GRATIS LEŽALJKE I SUNCOBRANI
+                                          - generic [ref=f15e220]: "8"
+                                      - generic:
+                                        - checkbox "HOLIDAY VILLAGE 1" [ref=f15e222]
+                                        - generic [ref=f15e223] [cursor=pointer]:
+                                          - text: HOLIDAY VILLAGE
+                                          - generic [ref=f15e224]: "1"
+                                      - generic:
+                                        - checkbox "HOTEL NA PLAŽI 44" [ref=f15e226]
+                                        - generic [ref=f15e227] [cursor=pointer]:
+                                          - text: HOTEL NA PLAŽI
+                                          - generic [ref=f15e228]: "44"
+                                      - generic:
+                                        - checkbox "KLEOPATRINA PLAŽA 22" [ref=f15e230]
+                                        - generic [ref=f15e231] [cursor=pointer]:
+                                          - text: KLEOPATRINA PLAŽA
+                                          - generic [ref=f15e232]: "22"
+                                      - generic:
+                                        - checkbox "LUKSUZAN HOTEL 9" [ref=f15e234]
+                                        - generic [ref=f15e235] [cursor=pointer]:
+                                          - text: LUKSUZAN HOTEL
+                                          - generic [ref=f15e236]: "9"
+                                      - generic:
+                                        - checkbox "NA ŠETALIŠTU 20" [ref=f15e238]
+                                        - generic [ref=f15e239] [cursor=pointer]:
+                                          - text: NA ŠETALIŠTU
+                                          - generic [ref=f15e240]: "20"
+                                      - generic:
+                                        - checkbox "NOVO U PONUDI 4" [ref=f15e242]
+                                        - generic [ref=f15e243] [cursor=pointer]:
+                                          - text: NOVO U PONUDI
+                                          - generic [ref=f15e244]: "4"
+                                      - generic:
+                                        - checkbox "ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA 3" [ref=f15e246]
+                                        - generic [ref=f15e247] [cursor=pointer]:
+                                          - text: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA
+                                          - generic [ref=f15e248]: "3"
+                                      - generic:
+                                        - checkbox "OKRUZEN ZELENILOM 9" [ref=f15e250]
+                                        - generic [ref=f15e251] [cursor=pointer]:
+                                          - text: OKRUZEN ZELENILOM
+                                          - generic [ref=f15e252]: "9"
+                                      - generic:
+                                        - checkbox "PORODIČAN HOTEL 1" [ref=f15e254]
+                                        - generic [ref=f15e255] [cursor=pointer]:
+                                          - text: PORODIČAN HOTEL
+                                          - generic [ref=f15e256]: "1"
+                                      - generic:
+                                        - checkbox "PREPORUKA ZA MLADE I PAROVE 6" [ref=f15e258]
+                                        - generic [ref=f15e259] [cursor=pointer]:
+                                          - text: PREPORUKA ZA MLADE I PAROVE
+                                          - generic [ref=f15e260]: "6"
+                                      - generic:
+                                        - checkbox "PREPORUČUJEMO 33" [ref=f15e262]
+                                        - generic [ref=f15e263] [cursor=pointer]:
+                                          - text: PREPORUČUJEMO
+                                          - generic [ref=f15e264]: "33"
+                                      - generic:
+                                        - checkbox "PREVOZ DO PLAŽE 3" [ref=f15e266]
+                                        - generic [ref=f15e267] [cursor=pointer]:
+                                          - text: PREVOZ DO PLAŽE
+                                          - generic [ref=f15e268]: "3"
+                                      - generic:
+                                        - checkbox "SAMO ZA ODRASLE 6" [ref=f15e270]
+                                        - generic [ref=f15e271] [cursor=pointer]:
+                                          - text: SAMO ZA ODRASLE
+                                          - generic [ref=f15e272]: "6"
+                                      - generic:
+                                        - checkbox "SWIM UP SOBE 3" [ref=f15e274]
+                                        - generic [ref=f15e275] [cursor=pointer]:
+                                          - text: SWIM UP SOBE
+                                          - generic [ref=f15e276]: "3"
+                                      - generic:
+                                        - checkbox "U CENTRU GRADA 1" [ref=f15e278]
+                                        - generic [ref=f15e279] [cursor=pointer]:
+                                          - text: U CENTRU GRADA
+                                          - generic [ref=f15e280]: "1"
+                                      - generic:
+                                        - checkbox "VELIKI AQUA PARK 8" [ref=f15e282]
+                                        - generic [ref=f15e283] [cursor=pointer]:
+                                          - text: VELIKI AQUA PARK
+                                          - generic [ref=f15e284]: "8"
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - link " Hotelske pogodnosti":
+                                        - /url: javascript:void(0)
+                                  - generic:
+                                    - generic:
+                                      - generic:
+                                        - checkbox "24H DEŽURSTVO DOKTORA 2" [ref=f15e286]
+                                        - generic [ref=f15e287] [cursor=pointer]:
+                                          - text: 24H DEŽURSTVO DOKTORA
+                                          - generic [ref=f15e288]: "2"
+                                      - generic:
+                                        - checkbox "BAR 57" [ref=f15e290]
+                                        - generic [ref=f15e291] [cursor=pointer]:
+                                          - text: BAR
+                                          - generic [ref=f15e292]: "57"
+                                      - generic:
+                                        - checkbox "HOTEL NA PLAZI 12" [ref=f15e294]
+                                        - generic [ref=f15e295] [cursor=pointer]:
+                                          - text: HOTEL NA PLAZI
+                                          - generic [ref=f15e296]: "12"
+                                      - generic:
+                                        - checkbox "PRIVATNA PLAŽA 1" [ref=f15e298]
+                                        - generic [ref=f15e299] [cursor=pointer]:
+                                          - text: PRIVATNA PLAŽA
+                                          - generic [ref=f15e300]: "1"
+                                      - generic:
+                                        - checkbox "RESTORAN 51" [ref=f15e302]
+                                        - generic [ref=f15e303] [cursor=pointer]:
+                                          - text: RESTORAN
+                                          - generic [ref=f15e304]: "51"
+                                      - generic:
+                                        - checkbox "ROOM SERVICE 1" [ref=f15e306]
+                                        - generic [ref=f15e307] [cursor=pointer]:
+                                          - text: ROOM SERVICE
+                                          - generic [ref=f15e308]: "1"
+                    - generic [ref=f15e310]:
+                      - generic [ref=f15e311]:
+                        - generic [ref=f15e312]:
+                          - generic [ref=f15e313]:
+                            - text: Odgovara vašim kriterijumima pretrage
+                            - generic [ref=f15e314]: "120"
+                            - text: Prikaz rezultata
+                          - generic [ref=f15e315]:
+                            - generic [ref=f15e316]: Deli na društvenim mrežama
+                            - list [ref=f15e317]:
+                              - listitem [ref=f15e318]:
+                                - generic [ref=f15e319] [cursor=pointer]: 
+                              - listitem [ref=f15e320]
+                              - listitem [ref=f15e322]:
+                                - generic [ref=f15e323] [cursor=pointer]: 
+                                - generic: 
+                        - generic [ref=f15e324]:
+                          - generic [ref=f15e325]:
+                            - checkbox "Prikaži samo raspoložive hotele" [ref=f15e326]
+                            - generic [ref=f15e327] [cursor=pointer]: Prikaži samo raspoložive hotele
+                          - combobox [ref=f15e330]:
+                            - option "Sortiraj po" [selected]
+                            - option "Cena rastuće"
+                            - option "Cena opadajuće"
+                            - option "Usluga rastuće"
+                            - option "Usluga opadajuće"
+                            - option "Kategorija rastuće"
+                            - option "Kategorija opadajuće"
+                      - generic [ref=f15e332]:
+                        - generic [ref=f15e333]:
+                          - generic [ref=f15e335]:
+                            - generic [ref=f15e337] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e338]:
+                                - generic [ref=f15e339]: 10 %
+                                - generic [ref=f15e340]: Specijalna ponuda
+                              - generic [ref=f15e341]: Hotel
+                              - link "XPERIA SARAY BEACH" [ref=f15e342]:
+                                - /url: ../../hotel/turska/alanja/xperia-saray-beach?SearchType=1&Hotel=1428&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - img "XPERIA SARAY BEACH" [ref=f15e344]
+                            - generic [ref=f15e345]:
+                              - generic [ref=f15e346]:
+                                - link "XPERIA SARAY BEACH    " [ref=f15e347] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/xperia-saray-beach?SearchType=1&Hotel=1428&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                  - generic [ref=f15e348]:
+                                    - text: XPERIA SARAY BEACH
+                                    - generic [ref=f15e350]:
+                                      - generic [ref=f15e351]: 
+                                      - generic [ref=f15e352]: 
+                                      - generic [ref=f15e353]: 
+                                      - generic [ref=f15e354]: 
+                                - generic [ref=f15e355]: TURSKA / ALANJA
+                              - generic [ref=f15e356]:
+                                - generic [ref=f15e357]:
+                                  - generic [ref=f15e358]: 
+                                  - text: STANDARD WITHOUT BALCONY
+                                - generic [ref=f15e359]:
+                                  - generic [ref=f15e360]: 
+                                  - text: ALL INCLUSIVE
+                                - generic [ref=f15e362]:
+                                  - generic [ref=f15e363]: 
+                                  - generic [ref=f15e364]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e365]: noći
+                              - generic [ref=f15e367]:
+                                - generic [ref=f15e368]: Uključuje
+                                - generic [ref=f15e371] [cursor=pointer]: 
+                              - generic [ref=f15e375]:
+                                - generic [ref=f15e376]: PREPORUČUJEMO ,
+                                - generic [ref=f15e377]: HOTEL NA PLAŽI ,
+                                - generic [ref=f15e378]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e379]: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA
+                              - text: ", € , €"
+                              - link "1.940 ,00 € Cene od Cena sobe 1.751 ,35 €" [ref=f15e380] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/xperia-saray-beach?SearchType=1&Hotel=1428&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - generic [ref=f15e382]:
+                                  - generic [ref=f15e383]: "1.940"
+                                  - generic [ref=f15e384]: ",00"
+                                  - generic [ref=f15e385]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e387]:
+                                  - generic [ref=f15e388]: "1.751"
+                                  - generic [ref=f15e389]: ",35"
+                                  - generic [ref=f15e390]: €
+                          - generic [ref=f15e392]:
+                            - generic [ref=f15e394] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e395]:
+                                - generic [ref=f15e396]: 24 %
+                                - generic [ref=f15e397]: Specijalna ponuda
+                              - generic [ref=f15e398]: Hotel
+                              - link "KANDELOR HOTEL" [ref=f15e399]:
+                                - /url: ../../hotel/turska/alanja/kandelor-hotel?SearchType=1&Hotel=1812&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - img "KANDELOR HOTEL" [ref=f15e401]
+                            - generic [ref=f15e402]:
+                              - generic [ref=f15e403]:
+                                - link "KANDELOR HOTEL    " [ref=f15e404] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/kandelor-hotel?SearchType=1&Hotel=1812&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                  - generic [ref=f15e405]:
+                                    - text: KANDELOR HOTEL
+                                    - generic [ref=f15e407]:
+                                      - generic [ref=f15e408]: 
+                                      - generic [ref=f15e409]: 
+                                      - generic [ref=f15e410]: 
+                                      - generic [ref=f15e411]: 
+                                - generic [ref=f15e412]: TURSKA / ALANJA
+                              - generic [ref=f15e413]:
+                                - generic [ref=f15e414]:
+                                  - generic [ref=f15e415]: 
+                                  - text: STANDARDNA SOBA
+                                - generic [ref=f15e416]:
+                                  - generic [ref=f15e417]: 
+                                  - text: ALL INCLUSIVE
+                                - generic [ref=f15e419]:
+                                  - generic [ref=f15e420]: 
+                                  - generic [ref=f15e421]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e422]: noći
+                              - generic [ref=f15e424]:
+                                - generic [ref=f15e425]: Uključuje
+                                - generic [ref=f15e428] [cursor=pointer]: 
+                              - generic [ref=f15e432]:
+                                - generic [ref=f15e433]: PREPORUČUJEMO ,
+                                - generic [ref=f15e434]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e435]: GRATIS LEŽALJKE I SUNCOBRANI ,
+                                - generic [ref=f15e436]: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA ,
+                                - generic [ref=f15e437]: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU
+                              - text: ", € , €"
+                              - link "1.450 ,00 € Cene od Cena sobe 1.098 ,00 €" [ref=f15e438] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/kandelor-hotel?SearchType=1&Hotel=1812&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - generic [ref=f15e440]:
+                                  - generic [ref=f15e441]: "1.450"
+                                  - generic [ref=f15e442]: ",00"
+                                  - generic [ref=f15e443]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e445]:
+                                  - generic [ref=f15e446]: "1.098"
+                                  - generic [ref=f15e447]: ",00"
+                                  - generic [ref=f15e448]: €
+                          - generic [ref=f15e450]:
+                            - generic [ref=f15e452] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e453]:
+                                - generic [ref=f15e454]: 14 %
+                                - generic [ref=f15e455]: Specijalna ponuda
+                              - generic [ref=f15e456]: Hotel
+                              - link "XPERIA GRAND BALI" [ref=f15e457]:
+                                - /url: ../../hotel/turska/alanja/xperia-grand-bali?SearchType=1&Hotel=1427&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - img "XPERIA GRAND BALI" [ref=f15e459]
+                            - generic [ref=f15e460]:
+                              - generic [ref=f15e461]:
+                                - link "XPERIA GRAND BALI    " [ref=f15e462] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/xperia-grand-bali?SearchType=1&Hotel=1427&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                  - generic [ref=f15e463]:
+                                    - text: XPERIA GRAND BALI
+                                    - generic [ref=f15e465]:
+                                      - generic [ref=f15e466]: 
+                                      - generic [ref=f15e467]: 
+                                      - generic [ref=f15e468]: 
+                                      - generic [ref=f15e469]: 
+                                - generic [ref=f15e470]: TURSKA / ALANJA
+                              - generic [ref=f15e471]:
+                                - generic [ref=f15e472]:
+                                  - generic [ref=f15e473]: 
+                                  - text: STANDARD WITHOUT BALCONY
+                                - generic [ref=f15e474]:
+                                  - generic [ref=f15e475]: 
+                                  - text: ALL INCLUSIVE
+                                - generic [ref=f15e477]:
+                                  - generic [ref=f15e478]: 
+                                  - generic [ref=f15e479]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e480]: noći
+                              - generic [ref=f15e482]:
+                                - generic [ref=f15e483]: Uključuje
+                                - generic [ref=f15e486] [cursor=pointer]: 
+                              - generic [ref=f15e490]:
+                                - generic [ref=f15e491]: PREPORUČUJEMO ,
+                                - generic [ref=f15e492]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e493]: GRATIS LEŽALJKE I SUNCOBRANI ,
+                                - generic [ref=f15e494]: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA ,
+                                - generic [ref=f15e495]: NA ŠETALIŠTU
+                              - text: ", € , €"
+                              - link "1.720 ,00 € Cene od Cena sobe 1.483 ,34 €" [ref=f15e496] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/xperia-grand-bali?SearchType=1&Hotel=1427&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - generic [ref=f15e498]:
+                                  - generic [ref=f15e499]: "1.720"
+                                  - generic [ref=f15e500]: ",00"
+                                  - generic [ref=f15e501]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e503]:
+                                  - generic [ref=f15e504]: "1.483"
+                                  - generic [ref=f15e505]: ",34"
+                                  - generic [ref=f15e506]: €
+                          - generic [ref=f15e508]:
+                            - generic [ref=f15e510] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e511]: Hotel
+                              - generic [ref=f15e512]: Big Blue
+                              - link "Beach Club Doganay" [ref=f15e513]:
+                                - /url: ../../hotel/turska/alanja/beach-club-doganay?SearchType=1&Hotel=25&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Beach Club Doganay" [ref=f15e515]
+                            - generic [ref=f15e516]:
+                              - generic [ref=f15e517]:
+                                - link "Beach Club Doganay     " [ref=f15e518] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/beach-club-doganay?SearchType=1&Hotel=25&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e519]:
+                                    - text: Beach Club Doganay
+                                    - generic [ref=f15e521]:
+                                      - generic [ref=f15e522]: 
+                                      - generic [ref=f15e523]: 
+                                      - generic [ref=f15e524]: 
+                                      - generic [ref=f15e525]: 
+                                      - generic [ref=f15e526]: 
+                                - generic [ref=f15e527]: TURSKA / ALANJA
+                              - generic [ref=f15e528]:
+                                - generic [ref=f15e529]:
+                                  - generic [ref=f15e530]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e531]:
+                                  - generic [ref=f15e532]: 
+                                  - text: Ultra All Inclusive
+                                - generic [ref=f15e534]:
+                                  - generic [ref=f15e535]: 
+                                  - generic [ref=f15e536]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e537]: noći
+                              - generic [ref=f15e539]:
+                                - generic [ref=f15e540]: Uključuje
+                                - generic [ref=f15e543] [cursor=pointer]: 
+                              - generic [ref=f15e547]:
+                                - generic [ref=f15e548]: PREPORUČUJEMO ,
+                                - generic [ref=f15e549]: PORODIČAN HOTEL ,
+                                - generic [ref=f15e550]: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU
+                              - text: ", € , €"
+                              - link "1.242 ,26 € Cene od Cena sobe 1.231 ,64 €" [ref=f15e551] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/beach-club-doganay?SearchType=1&Hotel=25&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e553]:
+                                  - generic [ref=f15e554]: "1.242"
+                                  - generic [ref=f15e555]: ",26"
+                                  - generic [ref=f15e556]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e558]:
+                                  - generic [ref=f15e559]: "1.231"
+                                  - generic [ref=f15e560]: ",64"
+                                  - generic [ref=f15e561]: €
+                          - generic [ref=f15e563]:
+                            - generic [ref=f15e565] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e566]: Hotel
+                              - generic [ref=f15e567]: Big Blue
+                              - link "Utopia Resort And Residence" [ref=f15e568]:
+                                - /url: ../../hotel/turska/alanja/utopia-resort---residence?SearchType=1&Hotel=14426&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Utopia Resort And Residence" [ref=f15e570]
+                            - generic [ref=f15e571]:
+                              - generic [ref=f15e572]:
+                                - link "Utopia Resort And Residence     " [ref=f15e573] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/utopia-resort---residence?SearchType=1&Hotel=14426&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e574]:
+                                    - text: Utopia Resort And Residence
+                                    - generic [ref=f15e576]:
+                                      - generic [ref=f15e577]: 
+                                      - generic [ref=f15e578]: 
+                                      - generic [ref=f15e579]: 
+                                      - generic [ref=f15e580]: 
+                                      - generic [ref=f15e581]: 
+                                - generic [ref=f15e582]: TURSKA / ALANJA
+                              - generic [ref=f15e583]:
+                                - generic [ref=f15e584]:
+                                  - generic [ref=f15e585]: 
+                                  - text: Double Standard Room (GardenView)
+                                - generic [ref=f15e586]:
+                                  - generic [ref=f15e587]: 
+                                  - text: Ultra All Inclusive
+                                - generic [ref=f15e589]:
+                                  - generic [ref=f15e590]: 
+                                  - generic [ref=f15e591]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e592]: noći
+                              - generic [ref=f15e594]:
+                                - generic [ref=f15e595]: Uključuje
+                                - generic [ref=f15e598] [cursor=pointer]: 
+                              - generic [ref=f15e602]:
+                                - generic [ref=f15e603]: PREPORUČUJEMO ,
+                                - generic [ref=f15e604]: HOTEL NA PLAŽI ,
+                                - generic [ref=f15e605]: OKRUZEN ZELENILOM ,
+                                - generic [ref=f15e606]: SWIM UP SOBE
+                              - text: ", € , €"
+                              - link "1.906 ,51 € Cene od Cena sobe 1.792 ,57 €" [ref=f15e607] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/utopia-resort---residence?SearchType=1&Hotel=14426&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e609]:
+                                  - generic [ref=f15e610]: "1.906"
+                                  - generic [ref=f15e611]: ",51"
+                                  - generic [ref=f15e612]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e614]:
+                                  - generic [ref=f15e615]: "1.792"
+                                  - generic [ref=f15e616]: ",57"
+                                  - generic [ref=f15e617]: €
+                          - generic [ref=f15e619]:
+                            - generic [ref=f15e621] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e622]: Hotel
+                              - generic [ref=f15e623]: Big Blue
+                              - link "Xoria Deluxe Hotel" [ref=f15e624]:
+                                - /url: ../../hotel/turska/alanja/xoria-deluxe-hotel?SearchType=1&Hotel=11890&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Xoria Deluxe Hotel" [ref=f15e626]
+                            - generic [ref=f15e627]:
+                              - generic [ref=f15e628]:
+                                - link "Xoria Deluxe Hotel     " [ref=f15e629] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/xoria-deluxe-hotel?SearchType=1&Hotel=11890&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e630]:
+                                    - text: Xoria Deluxe Hotel
+                                    - generic [ref=f15e632]:
+                                      - generic [ref=f15e633]: 
+                                      - generic [ref=f15e634]: 
+                                      - generic [ref=f15e635]: 
+                                      - generic [ref=f15e636]: 
+                                      - generic [ref=f15e637]: 
+                                - generic [ref=f15e638]: TURSKA / ALANJA
+                              - generic [ref=f15e639]:
+                                - generic [ref=f15e640]:
+                                  - generic [ref=f15e641]: 
+                                  - text: Double Annex Room (LateralSeaView)
+                                - generic [ref=f15e642]:
+                                  - generic [ref=f15e643]: 
+                                  - text: Ultra All Inclusive
+                                - generic [ref=f15e645]:
+                                  - generic [ref=f15e646]: 
+                                  - generic [ref=f15e647]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e648]: noći
+                              - generic [ref=f15e650]:
+                                - generic [ref=f15e651]: Uključuje
+                                - generic [ref=f15e654] [cursor=pointer]: 
+                              - generic [ref=f15e659]: PREPORUČUJEMO
+                              - text: ", € , €"
+                              - link "1.404 ,69 € Cene od Cena sobe 1.379 ,77 €" [ref=f15e660] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/xoria-deluxe-hotel?SearchType=1&Hotel=11890&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e662]:
+                                  - generic [ref=f15e663]: "1.404"
+                                  - generic [ref=f15e664]: ",69"
+                                  - generic [ref=f15e665]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e667]:
+                                  - generic [ref=f15e668]: "1.379"
+                                  - generic [ref=f15e669]: ",77"
+                                  - generic [ref=f15e670]: €
+                          - generic [ref=f15e672]:
+                            - generic [ref=f15e674] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e675]:
+                                - generic [ref=f15e676]: 14 %
+                                - generic [ref=f15e677]: Specijalna ponuda
+                              - generic [ref=f15e678]: Hotel
+                              - link "Tac Premier Hotel & Spa" [ref=f15e679]:
+                                - /url: ../../hotel/turska/alanja/tac-premier-hotel---spa?SearchType=1&Hotel=5276&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - img "Tac Premier Hotel & Spa" [ref=f15e681]
+                            - generic [ref=f15e682]:
+                              - generic [ref=f15e683]:
+                                - link "Tac Premier Hotel & Spa    " [ref=f15e684] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/tac-premier-hotel---spa?SearchType=1&Hotel=5276&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                  - generic [ref=f15e685]:
+                                    - text: Tac Premier Hotel & Spa
+                                    - generic [ref=f15e687]:
+                                      - generic [ref=f15e688]: 
+                                      - generic [ref=f15e689]: 
+                                      - generic [ref=f15e690]: 
+                                      - generic [ref=f15e691]: 
+                                - generic [ref=f15e692]: TURSKA / ALANJA
+                              - generic [ref=f15e693]:
+                                - generic [ref=f15e694]:
+                                  - generic [ref=f15e695]: 
+                                  - text: STANDARDNA SOBA
+                                - generic [ref=f15e696]:
+                                  - generic [ref=f15e697]: 
+                                  - text: ALL INCLUSIVE
+                                - generic [ref=f15e699]:
+                                  - generic [ref=f15e700]: 
+                                  - generic [ref=f15e701]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e702]: noći
+                              - generic [ref=f15e704]:
+                                - generic [ref=f15e705]: Uključuje
+                                - generic [ref=f15e708] [cursor=pointer]: 
+                              - generic [ref=f15e712]:
+                                - generic [ref=f15e713]: PREPORUČUJEMO ,
+                                - generic [ref=f15e714]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e715]: GRADSKI HOTEL ,
+                                - generic [ref=f15e716]: NA ŠETALIŠTU
+                              - text: ", € , €"
+                              - link "1.610 ,00 € Cene od Cena sobe 1.382 ,19 €" [ref=f15e717] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/tac-premier-hotel---spa?SearchType=1&Hotel=5276&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26XP&ClId=1240
+                                - generic [ref=f15e719]:
+                                  - generic [ref=f15e720]: "1.610"
+                                  - generic [ref=f15e721]: ",00"
+                                  - generic [ref=f15e722]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e724]:
+                                  - generic [ref=f15e725]: "1.382"
+                                  - generic [ref=f15e726]: ",19"
+                                  - generic [ref=f15e727]: €
+                          - generic [ref=f15e729]:
+                            - generic [ref=f15e731] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e732]: Hotel
+                              - generic [ref=f15e733]: Big Blue
+                              - link "Oba Star Hotel & Spa" [ref=f15e734]:
+                                - /url: ../../hotel/turska/alanja/oba-star-hotel---spa?SearchType=1&Hotel=614&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Oba Star Hotel & Spa" [ref=f15e736]
+                            - generic [ref=f15e737]:
+                              - generic [ref=f15e738]:
+                                - link "Oba Star Hotel & Spa    " [ref=f15e739] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/oba-star-hotel---spa?SearchType=1&Hotel=614&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e740]:
+                                    - text: Oba Star Hotel & Spa
+                                    - generic [ref=f15e742]:
+                                      - generic [ref=f15e743]: 
+                                      - generic [ref=f15e744]: 
+                                      - generic [ref=f15e745]: 
+                                      - generic [ref=f15e746]: 
+                                - generic [ref=f15e747]: TURSKA / ALANJA
+                              - generic [ref=f15e748]:
+                                - generic [ref=f15e749]:
+                                  - generic [ref=f15e750]: 
+                                  - text: 1 Double Bed Standard Room (FrenchBalcony Economy)
+                                - generic [ref=f15e751]:
+                                  - generic [ref=f15e752]: 
+                                  - text: All Inclusive Plus
+                                - generic [ref=f15e754]:
+                                  - generic [ref=f15e755]: 
+                                  - generic [ref=f15e756]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e757]: noći
+                              - generic [ref=f15e759]:
+                                - generic [ref=f15e760]: Uključuje
+                                - generic [ref=f15e763] [cursor=pointer]: 
+                              - generic [ref=f15e767]:
+                                - generic [ref=f15e768]: PREPORUČUJEMO ,
+                                - generic [ref=f15e769]: DOBAR ODNOS CENE I KVALITETA ,
+                                - generic [ref=f15e770]: GRATIS LEŽALJKE I SUNCOBRANI ,
+                                - generic [ref=f15e771]: GRADSKI HOTEL
+                              - text: ", € , €"
+                              - link "1.363 ,46 € Cene od Cena sobe 1.340 ,36 €" [ref=f15e772] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/oba-star-hotel---spa?SearchType=1&Hotel=614&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e774]:
+                                  - generic [ref=f15e775]: "1.363"
+                                  - generic [ref=f15e776]: ",46"
+                                  - generic [ref=f15e777]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e779]:
+                                  - generic [ref=f15e780]: "1.340"
+                                  - generic [ref=f15e781]: ",36"
+                                  - generic [ref=f15e782]: €
+                          - generic [ref=f15e784]:
+                            - generic [ref=f15e786] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e787]: Big Blue
+                              - link "Ergun Hotel Alanya" [ref=f15e788]:
+                                - /url: ../../hotel/turska/alanja/ergun-hotel-alanya?SearchType=1&Hotel=617&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Ergun Hotel Alanya" [ref=f15e790]
+                            - generic [ref=f15e791]:
+                              - generic [ref=f15e792]:
+                                - link "Ergun Hotel Alanya   " [ref=f15e793] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/ergun-hotel-alanya?SearchType=1&Hotel=617&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e794]:
+                                    - text: Ergun Hotel Alanya
+                                    - generic [ref=f15e796]:
+                                      - generic [ref=f15e797]: 
+                                      - generic [ref=f15e798]: 
+                                      - generic [ref=f15e799]: 
+                                - generic [ref=f15e800]: TURSKA / ALANJA
+                              - generic [ref=f15e801]:
+                                - generic [ref=f15e802]:
+                                  - generic [ref=f15e803]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e804]:
+                                  - generic [ref=f15e805]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e807]:
+                                  - generic [ref=f15e808]: 
+                                  - generic [ref=f15e809]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e810]: noći
+                              - generic [ref=f15e812]:
+                                - generic [ref=f15e813]: Uključuje
+                                - generic [ref=f15e816] [cursor=pointer]: 
+                              - generic [ref=f15e821]: U CENTRU GRADA
+                              - text: ", € , €"
+                              - link "1.104 ,37 € Cene od Cena sobe 1.092 ,70 €" [ref=f15e822] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/ergun-hotel-alanya?SearchType=1&Hotel=617&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e824]:
+                                  - generic [ref=f15e825]: "1.104"
+                                  - generic [ref=f15e826]: ",37"
+                                  - generic [ref=f15e827]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e829]:
+                                  - generic [ref=f15e830]: "1.092"
+                                  - generic [ref=f15e831]: ",70"
+                                  - generic [ref=f15e832]: €
+                          - generic [ref=f15e834]:
+                            - generic [ref=f15e836] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e837]: Big Blue
+                              - link "Arsi Enfi City Beach" [ref=f15e838]:
+                                - /url: ../../hotel/turska/alanja/arsi-enfi-city-beach?SearchType=1&Hotel=11214&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Arsi Enfi City Beach" [ref=f15e840]
+                            - generic [ref=f15e841]:
+                              - generic [ref=f15e842]:
+                                - link "Arsi Enfi City Beach    " [ref=f15e843] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/arsi-enfi-city-beach?SearchType=1&Hotel=11214&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e844]:
+                                    - text: Arsi Enfi City Beach
+                                    - generic [ref=f15e846]:
+                                      - generic [ref=f15e847]: 
+                                      - generic [ref=f15e848]: 
+                                      - generic [ref=f15e849]: 
+                                      - generic [ref=f15e850]: 
+                                - generic [ref=f15e851]: TURSKA / ALANJA
+                              - generic [ref=f15e852]:
+                                - generic [ref=f15e853]:
+                                  - generic [ref=f15e854]: 
+                                  - text: Double Standard Room (Without Balcony-Terrace Economy)
+                                - generic [ref=f15e855]:
+                                  - generic [ref=f15e856]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e858]:
+                                  - generic [ref=f15e859]: 
+                                  - generic [ref=f15e860]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e861]: noći
+                              - generic [ref=f15e863]:
+                                - generic [ref=f15e864]: Uključuje
+                                - generic [ref=f15e867] [cursor=pointer]: 
+                              - generic [ref=f15e871]:
+                                - generic [ref=f15e872]: GRADSKI HOTEL ,
+                                - generic [ref=f15e873]: NA ŠETALIŠTU
+                              - text: ", € , €"
+                              - link "1.126 ,12 € Cene od Cena sobe 1.113 ,49 €" [ref=f15e874] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/arsi-enfi-city-beach?SearchType=1&Hotel=11214&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e876]:
+                                  - generic [ref=f15e877]: "1.126"
+                                  - generic [ref=f15e878]: ",12"
+                                  - generic [ref=f15e879]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e881]:
+                                  - generic [ref=f15e882]: "1.113"
+                                  - generic [ref=f15e883]: ",49"
+                                  - generic [ref=f15e884]: €
+                          - generic [ref=f15e886]:
+                            - generic [ref=f15e888] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e889]: Big Blue
+                              - link "Arsi Blue Beach" [ref=f15e890]:
+                                - /url: ../../hotel/turska/alanja/arsi-blue-beach?SearchType=1&Hotel=18365&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Arsi Blue Beach" [ref=f15e892]
+                            - generic [ref=f15e893]:
+                              - generic [ref=f15e894]:
+                                - link "Arsi Blue Beach    " [ref=f15e895] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/arsi-blue-beach?SearchType=1&Hotel=18365&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e896]:
+                                    - text: Arsi Blue Beach
+                                    - generic [ref=f15e898]:
+                                      - generic [ref=f15e899]: 
+                                      - generic [ref=f15e900]: 
+                                      - generic [ref=f15e901]: 
+                                      - generic [ref=f15e902]: 
+                                - generic [ref=f15e903]: TURSKA / ALANJA
+                              - generic [ref=f15e904]:
+                                - generic [ref=f15e905]:
+                                  - generic [ref=f15e906]: 
+                                  - text: Double Standard Room (Economy)
+                                - generic [ref=f15e907]:
+                                  - generic [ref=f15e908]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e910]:
+                                  - generic [ref=f15e911]: 
+                                  - generic [ref=f15e912]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e913]: noći
+                              - generic [ref=f15e915]:
+                                - generic [ref=f15e916]: Uključuje
+                                - generic [ref=f15e919] [cursor=pointer]: 
+                              - text: ", € , €"
+                              - link "1.126 ,12 € Cene od Cena sobe 1.113 ,49 €" [ref=f15e923] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/arsi-blue-beach?SearchType=1&Hotel=18365&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e925]:
+                                  - generic [ref=f15e926]: "1.126"
+                                  - generic [ref=f15e927]: ",12"
+                                  - generic [ref=f15e928]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e930]:
+                                  - generic [ref=f15e931]: "1.113"
+                                  - generic [ref=f15e932]: ",49"
+                                  - generic [ref=f15e933]: €
+                          - generic [ref=f15e935]:
+                            - generic [ref=f15e937] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e938]: Big Blue
+                              - link "Kleopatra Arsi Hotel" [ref=f15e939]:
+                                - /url: ../../hotel/turska/alanja/kleopatra-arsi-hotel?SearchType=1&Hotel=10717&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Kleopatra Arsi Hotel" [ref=f15e941]
+                            - generic [ref=f15e942]:
+                              - generic [ref=f15e943]:
+                                - link "Kleopatra Arsi Hotel    " [ref=f15e944] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/kleopatra-arsi-hotel?SearchType=1&Hotel=10717&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e945]:
+                                    - text: Kleopatra Arsi Hotel
+                                    - generic [ref=f15e947]:
+                                      - generic [ref=f15e948]: 
+                                      - generic [ref=f15e949]: 
+                                      - generic [ref=f15e950]: 
+                                      - generic [ref=f15e951]: 
+                                - generic [ref=f15e952]: TURSKA / ALANJA
+                              - generic [ref=f15e953]:
+                                - generic [ref=f15e954]:
+                                  - generic [ref=f15e955]: 
+                                  - text: Standard Room (Economy)
+                                - generic [ref=f15e956]:
+                                  - generic [ref=f15e957]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e959]:
+                                  - generic [ref=f15e960]: 
+                                  - generic [ref=f15e961]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e962]: noći
+                              - generic [ref=f15e964]:
+                                - generic [ref=f15e965]: Uključuje
+                                - generic [ref=f15e968] [cursor=pointer]: 
+                              - generic [ref=f15e972]:
+                                - generic [ref=f15e973]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e974]: GRADSKI HOTEL ,
+                                - generic [ref=f15e975]: NA ŠETALIŠTU
+                              - text: ", € , €"
+                              - link "1.153 ,36 € Cene od Cena sobe 1.139 ,53 €" [ref=f15e976] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/kleopatra-arsi-hotel?SearchType=1&Hotel=10717&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e978]:
+                                  - generic [ref=f15e979]: "1.153"
+                                  - generic [ref=f15e980]: ",36"
+                                  - generic [ref=f15e981]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e983]:
+                                  - generic [ref=f15e984]: "1.139"
+                                  - generic [ref=f15e985]: ",53"
+                                  - generic [ref=f15e986]: €
+                          - generic [ref=f15e988]:
+                            - generic [ref=f15e990] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e991]: Big Blue
+                              - link "Sunpark Garden Hotel" [ref=f15e992]:
+                                - /url: ../../hotel/turska/alanja/sunpark-garden-hotel?SearchType=1&Hotel=17993&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Sunpark Garden Hotel" [ref=f15e994]
+                            - generic [ref=f15e995]:
+                              - generic [ref=f15e996]:
+                                - link "Sunpark Garden Hotel   " [ref=f15e997] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/sunpark-garden-hotel?SearchType=1&Hotel=17993&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e998]:
+                                    - text: Sunpark Garden Hotel
+                                    - generic [ref=f15e1000]:
+                                      - generic [ref=f15e1001]: 
+                                      - generic [ref=f15e1002]: 
+                                      - generic [ref=f15e1003]: 
+                                - generic [ref=f15e1004]: TURSKA / ALANJA
+                              - generic [ref=f15e1005]:
+                                - generic [ref=f15e1006]:
+                                  - generic [ref=f15e1007]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e1008]:
+                                  - generic [ref=f15e1009]: 
+                                  - text: Breakfast
+                                - generic [ref=f15e1011]:
+                                  - generic [ref=f15e1012]: 
+                                  - generic [ref=f15e1013]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1014]: noći
+                              - generic [ref=f15e1016]:
+                                - generic [ref=f15e1017]: Uključuje
+                                - generic [ref=f15e1020] [cursor=pointer]: 
+                              - text: ", € , €"
+                              - link "1.266 ,04 € Cene od Cena sobe 1.169 ,65 €" [ref=f15e1024] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/sunpark-garden-hotel?SearchType=1&Hotel=17993&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1026]:
+                                  - generic [ref=f15e1027]: "1.266"
+                                  - generic [ref=f15e1028]: ",04"
+                                  - generic [ref=f15e1029]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1031]:
+                                  - generic [ref=f15e1032]: "1.169"
+                                  - generic [ref=f15e1033]: ",65"
+                                  - generic [ref=f15e1034]: €
+                          - generic [ref=f15e1036]:
+                            - generic [ref=f15e1038] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1039]: Big Blue
+                              - link "Elysee Beach" [ref=f15e1040]:
+                                - /url: ../../hotel/turska/alanja/elysee-beach?SearchType=1&Hotel=4513&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Elysee Beach" [ref=f15e1042]
+                            - generic [ref=f15e1043]:
+                              - generic [ref=f15e1044]:
+                                - link "Elysee Beach   " [ref=f15e1045] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/elysee-beach?SearchType=1&Hotel=4513&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1046]:
+                                    - text: Elysee Beach
+                                    - generic [ref=f15e1048]:
+                                      - generic [ref=f15e1049]: 
+                                      - generic [ref=f15e1050]: 
+                                      - generic [ref=f15e1051]: 
+                                - generic [ref=f15e1052]: TURSKA / ALANJA
+                              - generic [ref=f15e1053]:
+                                - generic [ref=f15e1054]:
+                                  - generic [ref=f15e1055]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e1056]:
+                                  - generic [ref=f15e1057]: 
+                                  - text: Half Board
+                                - generic [ref=f15e1059]:
+                                  - generic [ref=f15e1060]: 
+                                  - generic [ref=f15e1061]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1062]: noći
+                              - generic [ref=f15e1064]:
+                                - generic [ref=f15e1065]: Uključuje
+                                - generic [ref=f15e1068] [cursor=pointer]: 
+                              - generic [ref=f15e1072]:
+                                - generic [ref=f15e1073]: HOTEL NA PLAŽI ,
+                                - generic [ref=f15e1074]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e1075]: GRADSKI HOTEL
+                              - text: ", € , €"
+                              - link "1.267 ,12 € Cene od Cena sobe 1.178 ,44 €" [ref=f15e1076] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/elysee-beach?SearchType=1&Hotel=4513&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1078]:
+                                  - generic [ref=f15e1079]: "1.267"
+                                  - generic [ref=f15e1080]: ",12"
+                                  - generic [ref=f15e1081]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1083]:
+                                  - generic [ref=f15e1084]: "1.178"
+                                  - generic [ref=f15e1085]: ",44"
+                                  - generic [ref=f15e1086]: €
+                          - generic [ref=f15e1088]:
+                            - generic [ref=f15e1090] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1091]: Big Blue
+                              - link "Sun Star Resort" [ref=f15e1092]:
+                                - /url: ../../hotel/turska/alanja/sun-star-resort?SearchType=1&Hotel=18864&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Sun Star Resort" [ref=f15e1094]
+                            - generic [ref=f15e1095]:
+                              - generic [ref=f15e1096]:
+                                - link "Sun Star Resort     " [ref=f15e1097] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/sun-star-resort?SearchType=1&Hotel=18864&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1098]:
+                                    - text: Sun Star Resort
+                                    - generic [ref=f15e1100]:
+                                      - generic [ref=f15e1101]: 
+                                      - generic [ref=f15e1102]: 
+                                      - generic [ref=f15e1103]: 
+                                      - generic [ref=f15e1104]: 
+                                      - generic [ref=f15e1105]: 
+                                - generic [ref=f15e1106]: TURSKA / ALANJA
+                              - generic [ref=f15e1107]:
+                                - generic [ref=f15e1108]:
+                                  - generic [ref=f15e1109]: 
+                                  - text: Standard Room (Economy)
+                                - generic [ref=f15e1110]:
+                                  - generic [ref=f15e1111]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e1113]:
+                                  - generic [ref=f15e1114]: 
+                                  - generic [ref=f15e1115]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1116]: noći
+                              - generic [ref=f15e1118]:
+                                - generic [ref=f15e1119]: Uključuje
+                                - generic [ref=f15e1122] [cursor=pointer]: 
+                              - generic [ref=f15e1127]: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU
+                              - text: ", € , €"
+                              - link "1.334 ,12 € Cene od Cena sobe 1.222 ,33 €" [ref=f15e1128] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/sun-star-resort?SearchType=1&Hotel=18864&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1130]:
+                                  - generic [ref=f15e1131]: "1.334"
+                                  - generic [ref=f15e1132]: ",12"
+                                  - generic [ref=f15e1133]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1135]:
+                                  - generic [ref=f15e1136]: "1.222"
+                                  - generic [ref=f15e1137]: ",33"
+                                  - generic [ref=f15e1138]: €
+                          - generic [ref=f15e1140]:
+                            - generic [ref=f15e1142] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1143]: Big Blue
+                              - link "Kleopatra Micador Hotel" [ref=f15e1144]:
+                                - /url: ../../hotel/turska/alanja/kleopatra-micador-hotel?SearchType=1&Hotel=8831&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Kleopatra Micador Hotel" [ref=f15e1146]
+                            - generic [ref=f15e1147]:
+                              - generic [ref=f15e1148]:
+                                - link "Kleopatra Micador Hotel    " [ref=f15e1149] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/kleopatra-micador-hotel?SearchType=1&Hotel=8831&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1150]:
+                                    - text: Kleopatra Micador Hotel
+                                    - generic [ref=f15e1152]:
+                                      - generic [ref=f15e1153]: 
+                                      - generic [ref=f15e1154]: 
+                                      - generic [ref=f15e1155]: 
+                                      - generic [ref=f15e1156]: 
+                                - generic [ref=f15e1157]: TURSKA / ALANJA
+                              - generic [ref=f15e1158]:
+                                - generic [ref=f15e1159]:
+                                  - generic [ref=f15e1160]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e1161]:
+                                  - generic [ref=f15e1162]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e1164]:
+                                  - generic [ref=f15e1165]: 
+                                  - generic [ref=f15e1166]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1167]: noći
+                              - generic [ref=f15e1169]:
+                                - generic [ref=f15e1170]: Uključuje
+                                - generic [ref=f15e1173] [cursor=pointer]: 
+                              - generic [ref=f15e1177]:
+                                - generic [ref=f15e1178]: KLEOPATRINA PLAŽA ,
+                                - generic [ref=f15e1179]: GRADSKI HOTEL
+                              - text: ", € , €"
+                              - link "1.573 ,42 € Cene od Cena sobe 1.230 ,70 €" [ref=f15e1180] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/kleopatra-micador-hotel?SearchType=1&Hotel=8831&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1182]:
+                                  - generic [ref=f15e1183]: "1.573"
+                                  - generic [ref=f15e1184]: ",42"
+                                  - generic [ref=f15e1185]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1187]:
+                                  - generic [ref=f15e1188]: "1.230"
+                                  - generic [ref=f15e1189]: ",70"
+                                  - generic [ref=f15e1190]: €
+                          - generic [ref=f15e1192]:
+                            - generic [ref=f15e1194] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1195]: Big Blue
+                              - link "Hawaii Suite Beach Hotel" [ref=f15e1196]:
+                                - /url: ../../hotel/turska/alanja/hawaii-suite-beach-hotel?SearchType=1&Hotel=12548&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Hawaii Suite Beach Hotel" [ref=f15e1198]
+                            - generic [ref=f15e1199]:
+                              - generic [ref=f15e1200]:
+                                - link "Hawaii Suite Beach Hotel   " [ref=f15e1201] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/hawaii-suite-beach-hotel?SearchType=1&Hotel=12548&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1202]:
+                                    - text: Hawaii Suite Beach Hotel
+                                    - generic [ref=f15e1204]:
+                                      - generic [ref=f15e1205]: 
+                                      - generic [ref=f15e1206]: 
+                                      - generic [ref=f15e1207]: 
+                                - generic [ref=f15e1208]: TURSKA / ALANJA
+                              - generic [ref=f15e1209]:
+                                - generic [ref=f15e1210]:
+                                  - generic [ref=f15e1211]: 
+                                  - text: Standard Room (Without Balcony-Terrace)
+                                - generic [ref=f15e1212]:
+                                  - generic [ref=f15e1213]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e1215]:
+                                  - generic [ref=f15e1216]: 
+                                  - generic [ref=f15e1217]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1218]: noći
+                              - generic [ref=f15e1220]:
+                                - generic [ref=f15e1221]: Uključuje
+                                - generic [ref=f15e1224] [cursor=pointer]: 
+                              - generic [ref=f15e1228]:
+                                - generic [ref=f15e1229]: GRADSKI HOTEL ,
+                                - generic [ref=f15e1230]: NA ŠETALIŠTU
+                              - text: ", € , €"
+                              - link "1.459 ,18 € Cene od Cena sobe 1.230 ,70 €" [ref=f15e1231] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/hawaii-suite-beach-hotel?SearchType=1&Hotel=12548&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1233]:
+                                  - generic [ref=f15e1234]: "1.459"
+                                  - generic [ref=f15e1235]: ",18"
+                                  - generic [ref=f15e1236]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1238]:
+                                  - generic [ref=f15e1239]: "1.230"
+                                  - generic [ref=f15e1240]: ",70"
+                                  - generic [ref=f15e1241]: €
+                          - generic [ref=f15e1243]:
+                            - generic [ref=f15e1245] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1246]: Big Blue
+                              - link "Royalisa Palmiye Beach Hotel" [ref=f15e1247]:
+                                - /url: ../../hotel/turska/alanja/royalisa-palmiye-beach-hotel?SearchType=1&Hotel=14170&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Royalisa Palmiye Beach Hotel" [ref=f15e1249]
+                            - generic [ref=f15e1250]:
+                              - generic [ref=f15e1251]:
+                                - link "Royalisa Palmiye Beach Hotel   " [ref=f15e1252] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/royalisa-palmiye-beach-hotel?SearchType=1&Hotel=14170&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1253]:
+                                    - text: Royalisa Palmiye Beach Hotel
+                                    - generic [ref=f15e1255]:
+                                      - generic [ref=f15e1256]: 
+                                      - generic [ref=f15e1257]: 
+                                      - generic [ref=f15e1258]: 
+                                - generic [ref=f15e1259]: TURSKA / ALANJA
+                              - generic [ref=f15e1260]:
+                                - generic [ref=f15e1261]:
+                                  - generic [ref=f15e1262]: 
+                                  - text: Double Standard Room (Economy)
+                                - generic [ref=f15e1263]:
+                                  - generic [ref=f15e1264]: 
+                                  - text: Breakfast
+                                - generic [ref=f15e1266]:
+                                  - generic [ref=f15e1267]: 
+                                  - generic [ref=f15e1268]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1269]: noći
+                              - generic [ref=f15e1271]:
+                                - generic [ref=f15e1272]: Uključuje
+                                - generic [ref=f15e1275] [cursor=pointer]: 
+                              - generic [ref=f15e1279]:
+                                - generic [ref=f15e1280]: SAMO ZA ODRASLE ,
+                                - generic [ref=f15e1281]: HOTEL NA PLAŽI ,
+                                - generic [ref=f15e1282]: PREPORUKA ZA MLADE I PAROVE
+                              - text: ", € , €"
+                              - link "1.573 ,42 € Cene od Cena sobe 1.230 ,70 €" [ref=f15e1283] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/royalisa-palmiye-beach-hotel?SearchType=1&Hotel=14170&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1285]:
+                                  - generic [ref=f15e1286]: "1.573"
+                                  - generic [ref=f15e1287]: ",42"
+                                  - generic [ref=f15e1288]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1290]:
+                                  - generic [ref=f15e1291]: "1.230"
+                                  - generic [ref=f15e1292]: ",70"
+                                  - generic [ref=f15e1293]: €
+                          - generic [ref=f15e1295]:
+                            - generic [ref=f15e1297] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1298]: Big Blue
+                              - link "Parador Sky Hotel" [ref=f15e1299]:
+                                - /url: ../../hotel/turska/alanja/parador-sky-hotel?SearchType=1&Hotel=18862&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Parador Sky Hotel" [ref=f15e1301]
+                            - generic [ref=f15e1302]:
+                              - generic [ref=f15e1303]:
+                                - link "Parador Sky Hotel    " [ref=f15e1304] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/parador-sky-hotel?SearchType=1&Hotel=18862&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1305]:
+                                    - text: Parador Sky Hotel
+                                    - generic [ref=f15e1307]:
+                                      - generic [ref=f15e1308]: 
+                                      - generic [ref=f15e1309]: 
+                                      - generic [ref=f15e1310]: 
+                                      - generic [ref=f15e1311]: 
+                                - generic [ref=f15e1312]: TURSKA / ALANJA
+                              - generic [ref=f15e1313]:
+                                - generic [ref=f15e1314]:
+                                  - generic [ref=f15e1315]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e1316]:
+                                  - generic [ref=f15e1317]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e1319]:
+                                  - generic [ref=f15e1320]: 
+                                  - generic [ref=f15e1321]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1322]: noći
+                              - generic [ref=f15e1324]:
+                                - generic [ref=f15e1325]: Uključuje
+                                - generic [ref=f15e1328] [cursor=pointer]: 
+                              - text: ", € , €"
+                              - link "1.512 ,31 € Cene od Cena sobe 1.231 ,40 €" [ref=f15e1332] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/parador-sky-hotel?SearchType=1&Hotel=18862&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1334]:
+                                  - generic [ref=f15e1335]: "1.512"
+                                  - generic [ref=f15e1336]: ",31"
+                                  - generic [ref=f15e1337]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1339]:
+                                  - generic [ref=f15e1340]: "1.231"
+                                  - generic [ref=f15e1341]: ",40"
+                                  - generic [ref=f15e1342]: €
+                          - generic [ref=f15e1344]:
+                            - generic [ref=f15e1346] [cursor=pointer]:
+                              - generic: +
+                              - generic [ref=f15e1347]: Big Blue
+                              - link "Grand Alisa Hotel" [ref=f15e1348]:
+                                - /url: ../../hotel/turska/alanja/grand-alisa-hotel?SearchType=1&Hotel=13324&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - img "Grand Alisa Hotel" [ref=f15e1350]
+                            - generic [ref=f15e1351]:
+                              - generic [ref=f15e1352]:
+                                - link "Grand Alisa Hotel   " [ref=f15e1353] [cursor=pointer]:
+                                  - /url: ../../hotel/turska/alanja/grand-alisa-hotel?SearchType=1&Hotel=13324&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                  - generic [ref=f15e1354]:
+                                    - text: Grand Alisa Hotel
+                                    - generic [ref=f15e1356]:
+                                      - generic [ref=f15e1357]: 
+                                      - generic [ref=f15e1358]: 
+                                      - generic [ref=f15e1359]: 
+                                - generic [ref=f15e1360]: TURSKA / ALANJA
+                              - generic [ref=f15e1361]:
+                                - generic [ref=f15e1362]:
+                                  - generic [ref=f15e1363]: 
+                                  - text: Double Standard Room
+                                - generic [ref=f15e1364]:
+                                  - generic [ref=f15e1365]: 
+                                  - text: All Inclusive
+                                - generic [ref=f15e1367]:
+                                  - generic [ref=f15e1368]: 
+                                  - generic [ref=f15e1369]: 16.05.2026
+                                  - text: / 7
+                                  - generic [ref=f15e1370]: noći
+                              - generic [ref=f15e1372]:
+                                - generic [ref=f15e1373]: Uključuje
+                                - generic [ref=f15e1376] [cursor=pointer]: 
+                              - generic [ref=f15e1380]:
+                                - generic [ref=f15e1381]: GRATIS LEŽALJKE I SUNCOBRANI ,
+                                - generic [ref=f15e1382]: GRADSKI HOTEL
+                              - text: ", € , €"
+                              - link "1.553 ,81 € Cene od Cena sobe 1.234 ,43 €" [ref=f15e1383] [cursor=pointer]:
+                                - /url: ../../hotel/turska/alanja/grand-alisa-hotel?SearchType=1&Hotel=13324&P=1&CheckIn=2026-05-16&Night=7&HpCode=ALVW26&ClId=1240
+                                - generic [ref=f15e1385]:
+                                  - generic [ref=f15e1386]: "1.553"
+                                  - generic [ref=f15e1387]: ",81"
+                                  - generic [ref=f15e1388]: €
+                                - generic: Cene od
+                                - generic: Cena sobe
+                                - generic [ref=f15e1390]:
+                                  - generic [ref=f15e1391]: "1.234"
+                                  - generic [ref=f15e1392]: ",43"
+                                  - generic [ref=f15e1393]: €
+                        - list [ref=f15e1395]:
+                          - listitem:
+                            - link "First " [ref=f15e1396]:
+                              - /url: "#"
+                          - listitem:
+                            - link "Previous " [ref=f15e1397]:
+                              - /url: "#"
+                          - listitem:
+                            - link "1" [ref=f15e1398]:
+                              - /url: "#"
+                          - listitem:
+                            - link "2" [ref=f15e1399] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "3" [ref=f15e1400] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "4" [ref=f15e1401] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "5" [ref=f15e1402] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "6" [ref=f15e1403] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "Next " [ref=f15e1404] [cursor=pointer]:
+                              - /url: "#"
+                          - listitem:
+                            - link "Last " [ref=f15e1405] [cursor=pointer]:
+                              - /url: "#"
+            - text:    
+            - text:  
+            - generic [ref=f15e1410]:
+              - generic [ref=f15e1411]:
+                - paragraph [ref=f15e1412]:
+                  - strong [ref=f15e1413]: www.bigblue.rs koristi kolačiće za pružanje boljeg korisničkog iskustva i funkcionalnosti sajta.
+                - link "„Više o kolačićima“" [ref=f15e1414] [cursor=pointer]:
+                  - /url: ../../cookie-gdpr
+              - generic [ref=f15e1415]:
+                - button "Prihvati" [ref=f15e1416] [cursor=pointer]
+                - button "Odbaci" [ref=f15e1417] [cursor=pointer]
+            - contentinfo
+          - generic "Page Top" [ref=f15e1418] [cursor=pointer]: 
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - generic [ref=e231]: Partners
+          - heading "Agencies we trust" [level=2] [ref=e232]
+        - generic "Partner logos" [ref=e234]:
+          - img "Partner 1" [ref=e236]
+          - img "Partner 2" [ref=e238]
+          - img "Partner 3" [ref=e240]
+          - img "Partner 4" [ref=e242]
+          - img "Partner 5" [ref=e244]
+          - img "Partner 6" [ref=e246]
+          - img "Partner 7" [ref=e248]
+          - img "Partner 8" [ref=e250]
+          - img "Partner 9" [ref=e252]
+          - img "Partner 10" [ref=e254]
+          - img "Partner 11" [ref=e256]
+          - img "Partner 12" [ref=e258]
+          - img "Partner 13" [ref=e260]
+          - img "Partner 14" [ref=e262]
+          - img "Partner 15" [ref=e264]
+          - img "Partner 16" [ref=e266]
+          - img "Partner 17" [ref=e268]
+      - generic [ref=e287]:
+        - generic [ref=e288]:
+          - generic [ref=e289]:
+            - paragraph [ref=e290]: Page editor dock
+            - heading "Home command zone" [level=2] [ref=e291]
+            - paragraph [ref=e292]: Control hero messaging, CTA blocks, and first-impression pacing.
+          - generic [ref=e293]: Active
+        - article [ref=e294]:
+          - paragraph [ref=e295]: This module is ready for operational editing. The focus is enabling fast content and offer updates without bottlenecks.
+          - list [ref=e296]:
+            - listitem [ref=e297]: Update section headlines, tone, and CTA copy from the admin panel.
+            - listitem [ref=e298]: Sync offers, priorities, and visual order without touching code.
+            - listitem [ref=e299]: Validate experience in preview flow and publish immediately.
+          - link "Open control center" [ref=e300] [cursor=pointer]:
+            - /url: /admin/pocetna
+  - contentinfo [ref=e301]:
+    - generic [ref=e303]:
+      - generic [ref=e304]:
+        - generic [ref=e305]:
+          - link "ABLux Travel" [ref=e306] [cursor=pointer]:
+            - /url: /
+            - img "ABLux Travel" [ref=e307]
+          - paragraph [ref=e308]: Religious tourism, summer vacations, European city tours, and school excursions.
+          - generic [ref=e309]:
+            - generic [ref=e310]: "Founded: 2022"
+            - generic [ref=e311]: "Core focus: religious tourism"
+        - region "Quick Actions" [ref=e312]:
+          - heading "Quick Actions" [level=2] [ref=e313]
+          - paragraph [ref=e314]: We respond to inquiries within 24h.
+          - generic [ref=e315]:
+            - link "Browse full offer Offer aggregator" [ref=e316] [cursor=pointer]:
+              - /url: /aranzmani
+              - generic [ref=e317]: Browse full offer
+              - generic [ref=e318]: Offer aggregator
+              - img [ref=e319]
+            - link "Send inquiry Contact and inquiries" [ref=e321] [cursor=pointer]:
+              - /url: /kontakt
+              - generic [ref=e322]: Send inquiry
+              - generic [ref=e323]: Contact and inquiries
+              - img [ref=e324]
+      - generic [ref=e327]:
+        - navigation "Navigation" [ref=e328]:
+          - heading "Navigation" [level=2] [ref=e329]
+          - list [ref=e330]:
+            - listitem [ref=e331]:
+              - link "Home" [ref=e332] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e333]:
+              - link "Trips" [ref=e334] [cursor=pointer]:
+                - /url: /putovanja
+            - listitem [ref=e335]:
+              - link "Packages" [ref=e336] [cursor=pointer]:
+                - /url: /aranzmani
+            - listitem [ref=e337]:
+              - link "Religious Tourism" [ref=e338] [cursor=pointer]:
+                - /url: /verski-turizam
+        - navigation "Services" [ref=e339]:
+          - heading "Services" [level=2] [ref=e340]
+          - list [ref=e341]:
+            - listitem [ref=e342]:
+              - link "Rent a bus" [ref=e343] [cursor=pointer]:
+                - /url: /iznajmljivanje-vozila
+            - listitem [ref=e344]:
+              - link "About" [ref=e345] [cursor=pointer]:
+                - /url: /o-nama
+            - listitem [ref=e346]:
+              - link "Contact" [ref=e347] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e348]:
+              - link "Sign In" [ref=e349] [cursor=pointer]:
+                - /url: /auth
+        - region "Contact Center" [ref=e350]:
+          - heading "Contact Center" [level=2] [ref=e351]
+          - generic [ref=e352]:
+            - generic [ref=e353]:
+              - img [ref=e355]
+              - generic [ref=e357]:
+                - paragraph [ref=e358]: Address
+                - link "Bulevar Putnika 22, Beograd" [ref=e359] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/search/?api=1&query=Bulevar%20Putnika%2022%2C%20Beograd
+                  - generic [ref=e360]: Bulevar Putnika 22, Beograd
+                  - img [ref=e361]
+            - generic [ref=e363]:
+              - img [ref=e365]
+              - generic [ref=e367]:
+                - paragraph [ref=e368]: Email
+                - link "info@abluxtravel2022.rs" [ref=e369] [cursor=pointer]:
+                  - /url: mailto:info@abluxtravel2022.rs
+                  - generic [ref=e370]: info@abluxtravel2022.rs
+            - generic [ref=e371]:
+              - img [ref=e373]
+              - generic [ref=e375]:
+                - paragraph [ref=e376]: Phone
+                - link "+381 11 123 45 67" [ref=e377] [cursor=pointer]:
+                  - /url: tel:+381111234567
+                  - generic [ref=e378]: +381 11 123 45 67
+            - generic [ref=e379]:
+              - img [ref=e381]
+              - generic [ref=e383]:
+                - paragraph [ref=e384]: Working hours
+                - paragraph [ref=e385]: "Pon-Pet: 09:00-17:00, Sub: 10:00-14:00"
+      - generic [ref=e386]:
+        - paragraph [ref=e387]: 2026 ABLux Travel. All rights reserved.
+        - paragraph [ref=e388]: Digital platform for modern travel operations.
+  - alert [ref=e389]

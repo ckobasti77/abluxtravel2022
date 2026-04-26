@@ -26,6 +26,10 @@ export type Trip = {
   notIncluded: string[];
   imageStorageIds: string[];
   imageUrls: string[];
+  destinationCount?: number;
+  subagencyDestinationCount?: number;
+  lowestDestinationPrice?: number;
+  lowestDestinationCurrency?: string;
   status: TripStatus;
   categoryId?: string;
   isHero?: boolean;

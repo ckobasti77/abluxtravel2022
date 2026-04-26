@@ -20,12 +20,14 @@ import {
 type DestinationsDataTableProps = {
   tripId?: string;
   pageSlug?: string;
+  offerMode?: boolean;
   onEdit: (destination: Destination) => void;
 };
 
 export default function DestinationsDataTable({
   tripId,
   pageSlug,
+  offerMode = false,
   onEdit,
 }: DestinationsDataTableProps) {
   const { language } = useSitePreferences();
@@ -61,10 +63,20 @@ export default function DestinationsDataTable({
       id: dest._id as Id<"destinations">,
       tripId: tripId ? (tripId as Id<"trips">) : undefined,
       pageSlug: pageSlug || undefined,
+      offerType: offerMode ? dest.offerType ?? "own" : dest.offerType,
       title: dest.title,
       description: dest.description,
       price: dest.price,
       currency: dest.currency,
+      departureDate: dest.departureDate,
+      returnDate: dest.returnDate,
+      departureCity: dest.departureCity,
+      durationLabel: dest.durationLabel,
+      partnerName: dest.partnerName,
+      partnerOfferCode: dest.partnerOfferCode,
+      iframeUrl: dest.iframeUrl,
+      externalUrl: dest.externalUrl,
+      contactNote: dest.contactNote,
       imageStorageIds: dest.imageStorageIds as Id<"_storage">[],
       order: dest.order,
       isActive: !dest.isActive,
@@ -109,6 +121,11 @@ export default function DestinationsDataTable({
               <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                 {language === "sr" ? "Naziv" : "Name"}
               </th>
+              {offerMode ? (
+                <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
+                  {language === "sr" ? "Tip" : "Type"}
+                </th>
+              ) : null}
               <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
                 {language === "sr" ? "Cena" : "Price"}
               </th>
@@ -143,6 +160,17 @@ export default function DestinationsDataTable({
                   </div>
                 </td>
                 <td className="px-4 py-2.5 font-medium">{dest.title}</td>
+                {offerMode ? (
+                  <td className="px-4 py-2.5">
+                    <span className="rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2 py-0.5 text-[11px] text-[var(--muted)]">
+                      {(dest.offerType ?? "own") === "subagency"
+                        ? "Subagentura"
+                        : language === "sr"
+                          ? "Naša ponuda"
+                          : "Our offer"}
+                    </span>
+                  </td>
+                ) : null}
                 <td className="px-4 py-2.5 text-[var(--muted)]">
                   {formatPrice(dest.price, dest.currency)}
                 </td>
@@ -190,7 +218,7 @@ export default function DestinationsDataTable({
             {filtered.length === 0 ? (
               <tr>
                 <td
-                  colSpan={5}
+                  colSpan={offerMode ? 6 : 5}
                   className="px-4 py-6 text-center text-sm text-[var(--muted)]"
                 >
                   {search.trim()
@@ -234,6 +262,16 @@ export default function DestinationsDataTable({
             <div className="flex-1 min-w-0">
               <p className="truncate text-sm font-medium">{dest.title}</p>
               <p className="text-xs text-[var(--muted)]">
+                {offerMode ? (
+                  <>
+                    {(dest.offerType ?? "own") === "subagency"
+                      ? "Subagentura"
+                      : language === "sr"
+                        ? "Naša ponuda"
+                        : "Our offer"}{" "}
+                    ·{" "}
+                  </>
+                ) : null}
                 {formatPrice(dest.price, dest.currency)}
               </p>
             </div>

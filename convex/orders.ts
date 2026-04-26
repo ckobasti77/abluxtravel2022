@@ -19,6 +19,7 @@ export const create = mutation({
         id: v.string(),
         type: v.union(
           v.literal("trip"),
+          v.literal("destination"),
           v.literal("offer"),
           v.literal("accommodation")
         ),
@@ -35,6 +36,23 @@ export const create = mutation({
     customerName: v.optional(v.string()),
     customerPhone: v.optional(v.string()),
     note: v.optional(v.string()),
+    paymentMethod: v.optional(
+      v.union(v.literal("nbs_ips_qr"), v.literal("stripe"), v.literal("manual"))
+    ),
+    paymentStatus: v.optional(
+      v.union(
+        v.literal("awaiting_payment"),
+        v.literal("paid"),
+        v.literal("failed")
+      )
+    ),
+    ipsReference: v.optional(v.string()),
+    ipsPayload: v.optional(v.string()),
+    ipsAmountRsd: v.optional(v.number()),
+    ipsExchangeRate: v.optional(v.number()),
+    ipsExchangeRateDate: v.optional(v.string()),
+    ipsPayeeAccount: v.optional(v.string()),
+    ipsPayeeName: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const orderId = await ctx.db.insert("orders", {

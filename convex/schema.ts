@@ -111,10 +111,22 @@ export default defineSchema({
   destinations: defineTable({
     tripId: v.optional(v.id("trips")),
     pageSlug: v.optional(v.string()),
+    offerType: v.optional(
+      v.union(v.literal("own"), v.literal("subagency"))
+    ),
     title: v.string(),
     description: v.string(),
     price: v.number(),
     currency: v.string(),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    departureCity: v.optional(v.string()),
+    durationLabel: v.optional(v.string()),
+    partnerName: v.optional(v.string()),
+    partnerOfferCode: v.optional(v.string()),
+    iframeUrl: v.optional(v.string()),
+    externalUrl: v.optional(v.string()),
+    contactNote: v.optional(v.string()),
     imageStorageIds: v.array(v.id("_storage")),
     order: v.number(),
     isActive: v.boolean(),
@@ -143,6 +155,20 @@ export default defineSchema({
     order: v.number(),
     isActive: v.boolean(),
   }).index("by_order", ["order"]),
+  homeRouteSlides: defineTable({
+    title: v.object({ sr: v.string(), en: v.string() }),
+    caption: v.object({ sr: v.string(), en: v.string() }),
+    accent: v.string(),
+    storageId: v.id("_storage"),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  }).index("by_order", ["order"]),
+  vehicleRentalImages: defineTable({
+    key: v.union(v.literal("bus"), v.literal("luxuryVan")),
+    storageId: v.id("_storage"),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
   sources: defineTable({
     slug: v.string(),
     name: v.string(),
@@ -194,6 +220,7 @@ export default defineSchema({
         id: v.string(),
         type: v.union(
           v.literal("trip"),
+          v.literal("destination"),
           v.literal("offer"),
           v.literal("accommodation")
         ),
@@ -209,6 +236,23 @@ export default defineSchema({
     customerEmail: v.optional(v.string()),
     customerName: v.optional(v.string()),
     customerPhone: v.optional(v.string()),
+    paymentMethod: v.optional(
+      v.union(v.literal("nbs_ips_qr"), v.literal("stripe"), v.literal("manual"))
+    ),
+    paymentStatus: v.optional(
+      v.union(
+        v.literal("awaiting_payment"),
+        v.literal("paid"),
+        v.literal("failed")
+      )
+    ),
+    ipsReference: v.optional(v.string()),
+    ipsPayload: v.optional(v.string()),
+    ipsAmountRsd: v.optional(v.number()),
+    ipsExchangeRate: v.optional(v.number()),
+    ipsExchangeRateDate: v.optional(v.string()),
+    ipsPayeeAccount: v.optional(v.string()),
+    ipsPayeeName: v.optional(v.string()),
     status: v.union(
       v.literal("pending"),
       v.literal("confirmed"),

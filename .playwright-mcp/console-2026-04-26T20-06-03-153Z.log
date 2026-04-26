@@ -1,0 +1,25 @@
+[     240ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[     263ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[    1295ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    1534ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    3213ms] [WARNING] [Meta pixel] 657863114945334 is unavailable on this website due to it's traffic permission settings. Go to https://www.facebook.com/business/help/572690630080597 to learn more. @ https://connect.facebook.net/en_US/fbevents.js:181
+[    3941ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3942ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3942ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3942ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3942ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3942ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3943ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3943ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3943ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3944ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3944ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3944ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3944ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3944ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3945ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3945ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3945ms] [WARNING] Non-Latin lexicon code detected: PREVOZ DO PLAŽE. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    3945ms] [WARNING] Non-Latin lexicon code detected: EKONOMIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    8799ms] [WARNING] The resource http://localhost:3010/_next/static/chunks/315e40c003e0f3c8.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3010/:0
+[    8799ms] [WARNING] The resource http://localhost:3010/_next/static/chunks/7d0304be8137f322.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3010/:0

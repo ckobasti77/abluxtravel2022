@@ -85,19 +85,19 @@ export default function SiteNavigation() {
       label: t.title,
     }));
 
-    // Religious dropdown: categories or fallback to individual offers
+    // Religious dropdown: individual offers or fallback to categories
+    const religiousOfferChildren: SiteNavSubItem[] = offers
+      .filter((o) => isReligiousOffer(o))
+      .map((o) => ({
+        key: `rel-${o.id}`,
+        href: `/verski-turizam#${encodeURIComponent(o.id)}`,
+        label: o.navTitle?.trim() || o.title,
+      }));
     const relCatChildren: SiteNavSubItem[] = religiousCategories.map((c) => ({
       key: `cat-rel-${c._id}`,
       href: `/verski-turizam?category=${c.slug}`,
       label: language === "sr" ? c.name.sr : c.name.en,
     }));
-    const relFallback: SiteNavSubItem[] = offers
-      .filter((o) => isReligiousOffer(o) && o.navTitle)
-      .map((o) => ({
-        key: `rel-${o.id}`,
-        href: "/verski-turizam",
-        label: o.navTitle!,
-      }));
 
     return SITE_NAV_ITEMS.map((item) => {
       if (item.key === "trips") {
@@ -114,7 +114,8 @@ export default function SiteNavigation() {
         return { ...item, children: children.length > 0 ? children : item.children };
       }
       if (item.key === "religiousTourism") {
-        const children = relCatChildren.length > 0 ? relCatChildren : relFallback;
+        const children =
+          religiousOfferChildren.length > 0 ? religiousOfferChildren : relCatChildren;
         return { ...item, children: children.length > 0 ? children : item.children };
       }
       return item;
@@ -385,7 +386,7 @@ export default function SiteNavigation() {
             {/* Auth */}
             {session ? (
               <div className="flex items-center gap-1.5">
-                <span className="nav-bar__user">{session.displayName}</span>
+                {/* <span className="nav-bar__user">{session.displayName}</span> */}
                 {adminLink && (
                   <Link
                     href={adminLink.href}

@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type CartItemType = "trip" | "offer" | "accommodation";
+export type CartItemType = "trip" | "destination" | "offer" | "accommodation";
 
 export type CartItem = {
   /** Convex document _id */

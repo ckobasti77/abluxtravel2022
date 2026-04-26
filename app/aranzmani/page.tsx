@@ -8,7 +8,6 @@ import { FaBus, FaCar, FaPlane, FaTrain, FaUser } from "react-icons/fa6";
 import AlienShell from "../../components/alien-shell";
 import PageAdminEditorDock from "../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../components/site-preferences-provider";
-import AddToCartButton from "../../components/add-to-cart-button";
 import { TransportType, TripStatus, useTrips } from "../../lib/use-trips";
 
 const transportIcons: Record<TransportType, typeof FaBus> = {
@@ -59,7 +58,8 @@ export default function AranzmaniPage() {
   );
 
   const uniqueCities = useMemo(
-    () => new Set(filtered.map((trip) => trip.departureCity.toLowerCase())).size,
+    () =>
+      filtered.reduce((sum, trip) => sum + (trip.destinationCount ?? 0), 0),
     [filtered]
   );
 
@@ -67,8 +67,14 @@ export default function AranzmaniPage() {
     if (filtered.length === 0) {
       return null;
     }
-    const total = filtered.reduce((sum, trip) => sum + trip.price, 0);
-    return Math.round(total / filtered.length);
+    const priced = filtered
+      .map((trip) => trip.lowestDestinationPrice ?? trip.price)
+      .filter((price) => price > 0);
+    if (priced.length === 0) {
+      return null;
+    }
+    const total = priced.reduce((sum, price) => sum + price, 0);
+    return Math.round(total / priced.length);
   }, [filtered]);
 
   const formatPrice = (price: number, currency: string) =>
@@ -111,15 +117,16 @@ export default function AranzmaniPage() {
           <p className="metric-card__value">{trips.length}</p>
           <p className="metric-card__hint">{language === "sr" ? "Sve trenutno objavljene ponude." : "All currently published offers."}</p>
         </article>
+
         <article className="metric-card">
           <p className="metric-card__label">{language === "sr" ? "Aktivno" : "Active now"}</p>
           <p className="metric-card__value">{activeCount}</p>
           <p className="metric-card__hint">{language === "sr" ? "Programi spremni za upit i rezervaciju." : "Programs ready for inquiry and booking."}</p>
         </article>
         <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Gradovi polaska" : "Departure cities"}</p>
+          <p className="metric-card__label">{language === "sr" ? "Destinacije" : "Destinations"}</p>
           <p className="metric-card__value">{uniqueCities}</p>
-          <p className="metric-card__hint">{language === "sr" ? "Sirina ponude po polaznim tackama." : "Offer spread by departure points."}</p>
+          <p className="metric-card__hint">{language === "sr" ? "Ukupan broj ponuda vezanih za aranžmane." : "Total offers attached to package groups."}</p>
         </article>
       </section>
 
@@ -176,6 +183,9 @@ export default function AranzmaniPage() {
           {filtered.map((trip, index) => {
             const TransportIcon = transportIcons[trip.transport];
             const heroImage = trip.imageUrls?.[0];
+            const visiblePrice = trip.lowestDestinationPrice ?? trip.price;
+            const visibleCurrency =
+              trip.lowestDestinationCurrency ?? trip.currency;
             return (
               <article
                 key={trip._id}
@@ -214,37 +224,36 @@ export default function AranzmaniPage() {
                   <div className="flex items-center gap-2 text-xs text-muted">
                     <TransportIcon />
                     <span>
-                      {trip.days} {t.days} | {trip.nights} {t.nights}
+                      {trip.destinationCount ?? 0}{" "}
+                      {language === "sr" ? "destinacija" : "destinations"}
                     </span>
-                    <span className="ml-auto rounded-full border border-[var(--line)] px-2 py-0.5">
-                      {trip.departureCity}
-                    </span>
+                    {(trip.subagencyDestinationCount ?? 0) > 0 ? (
+                      <span className="ml-auto rounded-full border border-[var(--line)] px-2 py-0.5">
+                        {trip.subagencyDestinationCount} Subagentura
+                      </span>
+                    ) : null}
                   </div>
 
                   <h3 className="text-lg font-semibold leading-tight">{trip.title}</h3>
                   <p className="text-sm leading-6 text-muted line-clamp-3">{trip.description}</p>
-                  <p className="text-sm text-muted">
-                    {formatDate(trip.departureDate)}
-                    {trip.returnDate ? ` - ${formatDate(trip.returnDate)}` : ""}
-                  </p>
+                  {trip.departureDate || trip.returnDate ? (
+                    <p className="text-sm text-muted">
+                      {formatDate(trip.departureDate)}
+                      {trip.returnDate ? ` - ${formatDate(trip.returnDate)}` : ""}
+                    </p>
+                  ) : null}
 
                   <div className="mt-2 flex items-end justify-between gap-3">
                     <p className="text-2xl font-semibold text-[var(--primary)]">
-                      {formatPrice(trip.price, trip.currency)}
+                      {visiblePrice > 0
+                        ? formatPrice(visiblePrice, visibleCurrency)
+                        : language === "sr"
+                          ? "Na upit"
+                          : "On request"}
                     </p>
                     <div className="flex items-center gap-2">
-                      <AddToCartButton
-                        id={trip._id}
-                        type="trip"
-                        title={trip.title}
-                        price={trip.price}
-                        currency={trip.currency}
-                        imageUrl={heroImage}
-                        meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
-                        compact
-                      />
                       <Link href={`/aranzmani/${trip.slug}`} className="btn-secondary !min-h-9 !px-4 !py-2 !text-xs">
-                        {language === "sr" ? "Detalji" : "Details"}
+                        {language === "sr" ? "Pogledaj ponude" : "View offers"}
                       </Link>
                     </div>
                   </div>

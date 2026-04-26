@@ -6,8 +6,10 @@ import { useSitePreferences } from "../../components/site-preferences-provider";
 import { ADMIN_SECTIONS } from "../../lib/admin-editors";
 
 const priorityBySection: Record<string, "high" | "medium"> = {
+  pocetna: "medium",
   aranzmani: "high",
   putovanja: "high",
+  "iznajmljivanje-vozila": "high",
   "verski-turizam": "high",
   podesavanja: "medium",
 };

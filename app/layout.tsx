@@ -153,7 +153,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sr-Latn" suppressHydrationWarning>
-      <body className={`${manrope.variable} ${sora.variable} antialiased`}>
+      <body
+        className={`${manrope.variable} ${sora.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"

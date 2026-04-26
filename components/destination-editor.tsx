@@ -141,6 +141,9 @@ export default function DestinationEditor({
     setSaving(true);
     setStatus(null);
     try {
+      const currentDestination = editingId
+        ? destinations.find((item) => item._id === editingId)
+        : undefined;
       if (!tripId && !pageSlug) {
         setStatus(
           language === "sr"
@@ -155,10 +158,20 @@ export default function DestinationEditor({
         id: editingId ? (editingId as Id<"destinations">) : undefined,
         tripId: tripId ? (tripId as Id<"trips">) : undefined,
         pageSlug: pageSlug || undefined,
+        offerType: currentDestination?.offerType ?? "own",
         title: form.title,
         description: form.description,
         price: Number(form.price),
         currency: form.currency,
+        departureDate: currentDestination?.departureDate,
+        returnDate: currentDestination?.returnDate,
+        departureCity: currentDestination?.departureCity,
+        durationLabel: currentDestination?.durationLabel,
+        partnerName: currentDestination?.partnerName,
+        partnerOfferCode: currentDestination?.partnerOfferCode,
+        iframeUrl: currentDestination?.iframeUrl,
+        externalUrl: currentDestination?.externalUrl,
+        contactNote: currentDestination?.contactNote,
         imageStorageIds,
         order: Number(form.order),
         isActive: form.isActive,

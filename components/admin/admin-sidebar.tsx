@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import {
   FaBars,
+  FaBus,
   FaChartLine,
   FaChurch,
   FaGear,
+  FaHouse,
   FaPhotoFilm,
   FaPlane,
   FaUmbrellaBeach,
@@ -22,8 +24,10 @@ import { useSitePreferences } from "../site-preferences-provider";
 
 const ICON_MAP: Record<AdminSectionIcon, ReactNode> = {
   dashboard: <FaChartLine className="text-sm" />,
+  home: <FaHouse className="text-sm" />,
   arrangements: <FaUmbrellaBeach className="text-sm" />,
   trips: <FaPlane className="text-sm" />,
+  vehicles: <FaBus className="text-sm" />,
   users: <FaUsers className="text-sm" />,
   media: <FaPhotoFilm className="text-sm" />,
   settings: <FaGear className="text-sm" />,

@@ -1,0 +1,83 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - link "ABLux Travel Administration ABLux Travel" [ref=e6] [cursor=pointer]:
+        - /url: /admin
+        - img "ABLux Travel" [ref=e7]
+        - generic [ref=e8]:
+          - paragraph [ref=e9]: Administration
+          - paragraph [ref=e10]: ABLux Travel
+      - navigation [ref=e11]:
+        - paragraph [ref=e12]: Modules
+        - link "Dashboard" [ref=e13] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e14]
+          - generic [ref=e16]: Dashboard
+        - link "Home" [ref=e17] [cursor=pointer]:
+          - /url: /admin/pocetna
+          - img [ref=e19]
+          - generic [ref=e21]: Home
+        - link "Packages" [ref=e22] [cursor=pointer]:
+          - /url: /admin/aranzmani
+          - img [ref=e24]
+          - generic [ref=e26]: Packages
+        - link "Trips" [ref=e27] [cursor=pointer]:
+          - /url: /admin/putovanja
+          - img [ref=e29]
+          - generic [ref=e31]: Trips
+        - link "Vehicle rental" [ref=e32] [cursor=pointer]:
+          - /url: /admin/iznajmljivanje-vozila
+          - img [ref=e34]
+          - generic [ref=e36]: Vehicle rental
+        - link "Religious tourism" [ref=e37] [cursor=pointer]:
+          - /url: /admin/verski-turizam
+          - img [ref=e39]
+          - generic [ref=e41]: Religious tourism
+        - link "Settings" [ref=e42] [cursor=pointer]:
+          - /url: /admin/podesavanja
+          - img [ref=e44]
+          - generic [ref=e46]: Settings
+      - generic [ref=e48]:
+        - generic [ref=e49]: T
+        - generic [ref=e50]:
+          - paragraph [ref=e51]: Test Admin
+          - paragraph [ref=e52]: admin@example.com
+          - paragraph [ref=e53]: Admin account
+    - main [ref=e54]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - navigation [ref=e58]:
+            - link "Admin" [ref=e60] [cursor=pointer]:
+              - /url: /admin
+            - generic [ref=e61]:
+              - img [ref=e62]
+              - link "Packages" [ref=e64] [cursor=pointer]:
+                - /url: /admin/aranzmani
+          - generic [ref=e65]:
+            - generic [ref=e66]:
+              - heading "Package overview" [level=1] [ref=e67]
+              - paragraph [ref=e68]: Packages are visible immediately, with create and edit actions handled in a slide-over.
+            - button "New package" [ref=e70]:
+              - img [ref=e71]
+              - text: New package
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - heading "Categories" [level=3] [ref=e75]
+            - button "+ Add category" [ref=e76]
+          - paragraph [ref=e77]: No categories yet. Create the first one.
+        - generic [ref=e78]:
+          - article [ref=e79]:
+            - paragraph [ref=e80]: Total packages
+            - paragraph [ref=e81]: "0"
+          - article [ref=e82]:
+            - paragraph [ref=e83]: Active
+            - paragraph [ref=e84]: "0"
+          - article [ref=e85]:
+            - paragraph [ref=e86]: Destinations
+            - paragraph [ref=e87]: "0"
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: No packages yet
+          - paragraph [ref=e90]: Add the first package, then open destinations for concrete offers.
+  - alert [ref=e91]

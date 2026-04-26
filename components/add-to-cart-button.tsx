@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCartPlus, FaCheck } from "react-icons/fa6";
 import { useCartStore, CartItemType } from "@/lib/store/use-cart-store";
 import { useSitePreferences } from "./site-preferences-provider";
@@ -31,11 +31,23 @@ export default function AddToCartButton({
   const { dictionary } = useSitePreferences();
   const addItem = useCartStore((s) => s.addItem);
   const [justAdded, setJustAdded] = useState(false);
+  const resetTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
 
   const handleClick = () => {
     addItem({ id, type, title, price, currency, imageUrl, meta });
     setJustAdded(true);
-    setTimeout(() => setJustAdded(false), 1500);
+    if (resetTimerRef.current) {
+      window.clearTimeout(resetTimerRef.current);
+    }
+    resetTimerRef.current = window.setTimeout(() => setJustAdded(false), 1500);
   };
 
   if (compact) {

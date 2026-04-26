@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import type { Doc } from "../convex/_generated/dataModel";
+import { HOME_ROUTE_SWIPER_DEFAULTS } from "../lib/home-route-swiper-defaults";
 import { useSitePreferences } from "./site-preferences-provider";
 
 type GalleryCard = {
@@ -16,7 +20,11 @@ type GalleryContent = {
   badge: string;
   title: string;
   description: string;
-  cards: GalleryCard[];
+  cards?: GalleryCard[];
+};
+
+type HomeRouteSlideRecord = Doc<"homeRouteSlides"> & {
+  imageUrl: string | null;
 };
 
 const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
@@ -116,6 +124,9 @@ const CENTER_ALIGN_COOLDOWN_MS = 620;
 
 export default function HomeScrollGallery() {
   const { language } = useSitePreferences();
+  const homeRouteSlides = useQuery(api.homeRouteSlides.list) as
+    | HomeRouteSlideRecord[]
+    | undefined;
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const nextSectionRef = useRef<HTMLElement | null>(null);
@@ -125,7 +136,38 @@ export default function HomeScrollGallery() {
   const [isStaticLayout, setIsStaticLayout] = useState(false);
 
   const content = useMemo(() => ORBIT_CONTENT[language], [language]);
-  const maxIndex = Math.max(content.cards.length - 1, 0);
+  const fallbackCards = useMemo<GalleryCard[]>(
+    () =>
+      HOME_ROUTE_SWIPER_DEFAULTS.map((card) => ({
+        id: card.id,
+        title: card.title[language],
+        caption: card.caption[language],
+        src: card.src,
+        accent: card.accent,
+      })),
+    [language]
+  );
+  const cards = useMemo<GalleryCard[]>(() => {
+    const convexCards =
+      homeRouteSlides?.flatMap((slide) => {
+        if (!slide.imageUrl) {
+          return [];
+        }
+
+        return [
+          {
+            id: slide._id,
+            title: slide.title[language],
+            caption: slide.caption[language],
+            src: slide.imageUrl,
+            accent: slide.accent,
+          },
+        ];
+      }) ?? [];
+
+    return convexCards.length > 0 ? convexCards : fallbackCards;
+  }, [fallbackCards, homeRouteSlides, language]);
+  const maxIndex = Math.max(cards.length - 1, 0);
   const boundedActiveIndex = clamp(activeIndex, 0, maxIndex);
   const nextSectionLabel = language === "sr" ? "Sledeća sekcija" : "Next section";
 
@@ -315,11 +357,11 @@ export default function HomeScrollGallery() {
       <div
         ref={trackRef}
         className="home-orbit__track"
-        style={{ "--orbit-card-count": content.cards.length } as CSSProperties}
+        style={{ "--orbit-card-count": cards.length } as CSSProperties}
       >
         <div className="home-orbit__sticky">
           <div className="home-orbit__stack">
-            {content.cards.map((card, index) => {
+            {cards.map((card, index) => {
               const phase = boundedActiveIndex - index;
               const boundedPhase = clamp(phase, -1.18, 1.18);
               const distance = Math.abs(boundedPhase);
@@ -343,6 +385,7 @@ export default function HomeScrollGallery() {
                       alt={card.title}
                       fill
                       priority={index === 0}
+                      unoptimized
                       className="home-orbit__image"
                       sizes="(max-width: 920px) 92vw, 520px"
                     />
@@ -359,7 +402,7 @@ export default function HomeScrollGallery() {
 
           {!isStaticLayout ? (
             <div className="home-orbit__rail" aria-hidden="true">
-              {content.cards.map((card, index) => {
+              {cards.map((card, index) => {
                 const distance = Math.abs(boundedActiveIndex - index);
                 const markerOpacity = clamp(1 - distance * 0.72, 0.26, 1);
                 const markerClass = distance < 0.4 ? "home-orbit__dot is-active" : "home-orbit__dot";

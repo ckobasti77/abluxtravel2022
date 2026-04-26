@@ -1,0 +1,30 @@
+[     418ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[    2402ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    2476ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    4798ms] [WARNING] [Meta pixel] 657863114945334 is unavailable on this website due to it's traffic permission settings. Go to https://www.facebook.com/business/help/572690630080597 to learn more. @ https://connect.facebook.net/en_US/fbevents.js:181
+[    5018ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5018ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5018ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5019ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5019ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5019ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5019ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5019ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5020ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5021ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5021ms] [WARNING] Non-Latin lexicon code detected: PREVOZ DO PLAŽE. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    5021ms] [WARNING] Non-Latin lexicon code detected: EKONOMIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6138ms] Invalid or unexpected token
+[    8048ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[   10623ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   10908ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   10943ms] [ERROR] Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:51
+[   10960ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   13418ms] [LOG] [Fast Refresh] done in 2458ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   13425ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27

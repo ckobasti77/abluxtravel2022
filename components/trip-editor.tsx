@@ -1,300 +1,101 @@
-﻿"use client";
+"use client";
 
 import CmsImage from "@/components/cms-image";
-import { useState } from "react";
 import type { CSSProperties } from "react";
+import { useMemo, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
-import { useSitePreferences } from "./site-preferences-provider";
-import { useTrips, Trip, TripStatus, TransportType } from "../lib/use-trips";
-import {
-  FaBus,
-  FaPlane,
-  FaCar,
-  FaTrain,
-  FaUser,
-  FaPlus,
-  FaTrash,
-  FaChevronDown,
-  FaChevronUp,
-  FaImage,
-  FaBed,
-  FaLocationDot,
-} from "react-icons/fa6";
+import AdminPageHeader from "./admin/admin-page-header";
 import AccommodationEditor from "./accommodation-editor";
-import DestinationEditor from "./destination-editor";
-import IconPicker from "./icon-picker";
-import { useCategories } from "../lib/use-categories";
+import DestinationsDataTable from "./admin/destinations-data-table";
+import DestinationSlideOver from "./admin/destination-slide-over";
+import TripSlideOver from "./admin/trip-slide-over";
 import InlineCategories from "./inline-categories";
+import { useSitePreferences } from "./site-preferences-provider";
+import type { Destination } from "../lib/use-destinations";
+import { Trip, TripStatus, useTrips } from "../lib/use-trips";
+import {
+  FaBed,
+  FaChevronDown,
+  FaLocationDot,
+  FaPen,
+  FaPlus,
+  FaStar,
+  FaTrash,
+} from "react-icons/fa6";
 
-type ItineraryItem = { day: number; date: string; description: string };
-
-type TripForm = {
-  title: string;
-  description: string;
-  slug: string;
-  price: number;
-  currency: string;
-  nights: number;
-  days: number;
-  transport: TransportType;
-  departureDate: string;
-  returnDate: string;
-  departureCity: string;
-  hotelInfo: string;
-  depositPercentage: number;
-  depositDeadline: string;
-  itinerary: ItineraryItem[];
-  includedText: string;
-  notIncludedText: string;
-  categoryId: string;
-  isHero: boolean;
-  heroIcon: string;
-  status: TripStatus;
-  featured: boolean;
-  order: number;
+const formatDate = (value: string, language: string) => {
+  if (!value) return language === "sr" ? "Bez datuma" : "No date";
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat(language === "sr" ? "sr-RS" : "en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
 };
 
-const emptyForm: TripForm = {
-  title: "",
-  description: "",
-  slug: "",
-  price: 0,
-  currency: "RSD",
-  nights: 0,
-  days: 0,
-  transport: "bus",
-  departureDate: "",
-  returnDate: "",
-  departureCity: "",
-  hotelInfo: "",
-  depositPercentage: 0,
-  depositDeadline: "",
-  itinerary: [{ day: 1, date: "", description: "" }],
-  includedText: "",
-  notIncludedText: "",
-  categoryId: "",
-  isHero: false,
-  heroIcon: "",
-  status: "upcoming",
-  featured: false,
-  order: 1,
+const statusTone = (status: TripStatus) => {
+  if (status === "active") {
+    return "border-emerald-400/35 bg-emerald-400/10 text-emerald-500";
+  }
+  if (status === "upcoming") {
+    return "border-amber-400/35 bg-amber-400/10 text-amber-500";
+  }
+  return "border-slate-400/35 bg-slate-400/10 text-slate-400";
 };
-
-const slugify = (text: string) =>
-  text
-    .toLowerCase()
-    .replace(/[čć]/g, "c")
-    .replace(/[š]/g, "s")
-    .replace(/[ž]/g, "z")
-    .replace(/[đ]/g, "dj")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-const transportOptions: { value: TransportType; icon: typeof FaBus }[] = [
-  { value: "bus", icon: FaBus },
-  { value: "plane", icon: FaPlane },
-  { value: "car", icon: FaCar },
-  { value: "train", icon: FaTrain },
-  { value: "self", icon: FaUser },
-];
-
-type SectionProps = {
-  title: React.ReactNode;
-  defaultOpen?: boolean;
-  children: React.ReactNode;
-};
-
-function CollapsibleSection({ title, defaultOpen = true, children }: SectionProps) {
-  const [open, setOpen] = useState(defaultOpen);
-  return (
-    <div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)]">
-      <button
-        type="button"
-        onClick={() => setOpen((p) => !p)}
-        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-semibold"
-      >
-        {title}
-        {open ? <FaChevronUp className="text-xs text-muted" /> : <FaChevronDown className="text-xs text-muted" />}
-      </button>
-      {open ? <div className="border-t border-[var(--line)] px-4 py-4">{children}</div> : null}
-    </div>
-  );
-}
 
 export default function TripEditor() {
   const { dictionary, language } = useSitePreferences();
   const trips = useTrips();
-  const upsertTrip = useMutation(api.trips.upsert);
   const removeTrip = useMutation(api.trips.remove);
-  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
 
-  const arrangementCategories = useCategories("arrangement");
-
-  const [form, setForm] = useState<TripForm>(emptyForm);
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>([]);
-  const [imagePreviewUrls, setImagePreviewUrls] = useState<string[]>([]);
-  const [uploading, setUploading] = useState(false);
-  const [status, setStatus] = useState<string | null>(null);
+  const [tripSlideOverOpen, setTripSlideOverOpen] = useState(false);
+  const [editingTrip, setEditingTrip] = useState<Trip | null>(null);
+  const [expandedDestinationTripIds, setExpandedDestinationTripIds] = useState<
+    Set<string>
+  >(new Set());
+  const [expandedAccommodationTripIds, setExpandedAccommodationTripIds] =
+    useState<Set<string>>(new Set());
+  const [destinationSlideOverOpen, setDestinationSlideOverOpen] =
+    useState(false);
+  const [destinationTripId, setDestinationTripId] = useState("");
+  const [editingDestination, setEditingDestination] =
+    useState<Destination | null>(null);
 
   const t = dictionary.tripDetail;
-  const a = dictionary.admin;
 
-  const updateField = <K extends keyof TripForm>(key: K, value: TripForm[K]) => {
-    setForm((prev) => {
-      const next = { ...prev, [key]: value };
-      if (key === "title" && !editingId) {
-        next.slug = slugify(value as string);
-      }
-      return next;
-    });
+  const sortedTrips = useMemo(
+    () => [...trips].sort((a, b) => a.order - b.order || a.title.localeCompare(b.title)),
+    [trips]
+  );
+
+  const activeCount = sortedTrips.filter((trip) => trip.status === "active").length;
+  const destinationCount = sortedTrips.reduce(
+    (total, trip) => total + (trip.destinationCount ?? 0),
+    0
+  );
+
+  const statusLabel = (status: TripStatus) => {
+    if (status === "active") return t.statusActive;
+    if (status === "upcoming") return t.statusUpcoming;
+    return t.statusCompleted;
   };
 
-  const handleImageUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-    setUploading(true);
-    try {
-      for (const file of Array.from(files)) {
-        const uploadUrl = await generateUploadUrl({});
-        const result = await fetch(uploadUrl, {
-          method: "POST",
-          headers: { "Content-Type": file.type },
-          body: file,
-        });
-        const json = await result.json();
-        const storageId = json.storageId as Id<"_storage">;
-        if (storageId) {
-          setImageStorageIds((prev) => [...prev, storageId]);
-          setImagePreviewUrls((prev) => [...prev, URL.createObjectURL(file)]);
-        }
-      }
-    } catch {
-      setStatus(language === "sr" ? "Greška pri uploadu slika." : "Image upload failed.");
-    }
-    setUploading(false);
+  const openNewTrip = () => {
+    setEditingTrip(null);
+    setTripSlideOverOpen(true);
   };
 
-  const removeImage = (index: number) => {
-    setImageStorageIds((prev) => prev.filter((_, i) => i !== index));
-    setImagePreviewUrls((prev) => prev.filter((_, i) => i !== index));
+  const openEditTrip = (trip: Trip) => {
+    setEditingTrip(trip);
+    setTripSlideOverOpen(true);
   };
 
-  const addItineraryDay = () => {
-    setForm((prev) => ({
-      ...prev,
-      itinerary: [
-        ...prev.itinerary,
-        { day: prev.itinerary.length + 1, date: "", description: "" },
-      ],
-    }));
-  };
-
-  const removeItineraryDay = (index: number) => {
-    setForm((prev) => ({
-      ...prev,
-      itinerary: prev.itinerary
-        .filter((_, i) => i !== index)
-        .map((item, i) => ({ ...item, day: i + 1 })),
-    }));
-  };
-
-  const updateItinerary = (index: number, field: keyof ItineraryItem, value: string | number) => {
-    setForm((prev) => ({
-      ...prev,
-      itinerary: prev.itinerary.map((item, i) =>
-        i === index ? { ...item, [field]: value } : item
-      ),
-    }));
-  };
-
-  const handleSave = async () => {
-    if (!form.title || !form.slug) {
-      setStatus(language === "sr" ? "Naslov je obavezan." : "Title is required.");
-      return;
-    }
-
-    setStatus(language === "sr" ? "Čuvanje aranžmana..." : "Saving trip...");
-    try {
-      await upsertTrip({
-        id: editingId ? (editingId as Id<"trips">) : undefined,
-        slug: form.slug,
-        title: form.title,
-        description: form.description,
-        price: Number(form.price),
-        currency: form.currency,
-        nights: Number(form.nights),
-        days: Number(form.days),
-        transport: form.transport,
-        departureDate: form.departureDate,
-        returnDate: form.returnDate,
-        departureCity: form.departureCity,
-        hotelInfo: form.hotelInfo || undefined,
-        depositPercentage: form.depositPercentage || undefined,
-        depositDeadline: form.depositDeadline || undefined,
-        itinerary: form.itinerary,
-        included: form.includedText
-          .split("\n")
-          .map((l) => l.trim())
-          .filter(Boolean),
-        notIncluded: form.notIncludedText
-          .split("\n")
-          .map((l) => l.trim())
-          .filter(Boolean),
-        imageStorageIds,
-        categoryId: form.categoryId
-          ? (form.categoryId as Id<"categories">)
-          : undefined,
-        isHero: form.isHero || undefined,
-        heroIcon: form.isHero && form.heroIcon ? form.heroIcon : undefined,
-        status: form.status,
-        featured: form.featured,
-        order: Number(form.order),
-      });
-      setStatus(language === "sr" ? "Aranžman je sačuvan." : "Trip saved.");
-      resetForm();
-    } catch {
-      setStatus(language === "sr" ? "Greška pri čuvanju." : "Save failed.");
-    }
-  };
-
-  const editTrip = (trip: Trip) => {
-    setEditingId(trip._id);
-    setForm({
-      title: trip.title,
-      description: trip.description,
-      slug: trip.slug,
-      price: trip.price,
-      currency: trip.currency,
-      nights: trip.nights,
-      days: trip.days,
-      transport: trip.transport,
-      departureDate: trip.departureDate,
-      returnDate: trip.returnDate,
-      departureCity: trip.departureCity,
-      hotelInfo: trip.hotelInfo || "",
-      depositPercentage: trip.depositPercentage || 0,
-      depositDeadline: trip.depositDeadline || "",
-      itinerary: trip.itinerary.length > 0 ? trip.itinerary : [{ day: 1, date: "", description: "" }],
-      includedText: trip.included.join("\n"),
-      notIncludedText: trip.notIncluded.join("\n"),
-      categoryId: trip.categoryId || "",
-      isHero: trip.isHero || false,
-      heroIcon: trip.heroIcon || "",
-      status: trip.status,
-      featured: trip.featured,
-      order: trip.order,
-    });
-    setImageStorageIds(trip.imageStorageIds as Id<"_storage">[]);
-    setImagePreviewUrls(trip.imageUrls.filter(Boolean));
-  };
-
-  const resetForm = () => {
-    setEditingId(null);
-    setForm(emptyForm);
-    setImageStorageIds([]);
-    setImagePreviewUrls([]);
+  const closeTripSlideOver = () => {
+    setTripSlideOverOpen(false);
+    setEditingTrip(null);
   };
 
   const handleDelete = async (tripId: string) => {
@@ -303,520 +104,309 @@ export default function TripEditor() {
     );
     if (!confirmed) return;
     await removeTrip({ id: tripId as Id<"trips"> });
-    if (editingId === tripId) resetForm();
+    if (editingTrip?._id === tripId) {
+      closeTripSlideOver();
+    }
   };
 
-  const statusLabel = (s: TripStatus) => {
-    if (s === "active") return t.statusActive;
-    if (s === "upcoming") return t.statusUpcoming;
-    return t.statusCompleted;
+  const toggleTripDestinations = (tripId: string) => {
+    setExpandedDestinationTripIds((previous) => {
+      const next = new Set(previous);
+      if (next.has(tripId)) {
+        next.delete(tripId);
+      } else {
+        next.add(tripId);
+      }
+      return next;
+    });
   };
 
-  const transportLabel = (tr: TransportType) => {
-    return t[tr];
+  const toggleTripAccommodations = (tripId: string) => {
+    setExpandedAccommodationTripIds((previous) => {
+      const next = new Set(previous);
+      if (next.has(tripId)) {
+        next.delete(tripId);
+      } else {
+        next.add(tripId);
+      }
+      return next;
+    });
   };
+
+  const openNewDestination = (tripId: string) => {
+    setEditingDestination(null);
+    setDestinationTripId(tripId);
+    setDestinationSlideOverOpen(true);
+  };
+
+  const openEditDestination = (destination: Destination, tripId: string) => {
+    setEditingDestination(destination);
+    setDestinationTripId(tripId);
+    setDestinationSlideOverOpen(true);
+  };
+
+  const breadcrumbs = [
+    { label: "Admin", href: "/admin" },
+    {
+      label: language === "sr" ? "Aranžmani" : "Packages",
+      href: "/admin/aranzmani",
+    },
+  ];
 
   return (
     <section className="grid gap-6">
+      <AdminPageHeader
+        breadcrumbs={breadcrumbs}
+        title={language === "sr" ? "Pregled aranžmana" : "Package overview"}
+        subtitle={
+          language === "sr"
+            ? "Aranžmani su odmah vidljivi, a dodavanje i izmena se rade kroz bočni panel."
+            : "Packages are visible immediately, with create and edit actions handled in a slide-over."
+        }
+        actions={[
+          {
+            label: language === "sr" ? "Novi aranžman" : "New package",
+            onClick: openNewTrip,
+          },
+        ]}
+      />
+
       <InlineCategories type="arrangement" />
 
-      <article className="section-holo p-6 sm:p-8">
-        <h2 className="text-2xl font-semibold sm:text-3xl">
-          {editingId
-            ? language === "sr"
-              ? "Izmeni aranžman"
-              : "Edit trip"
-            : language === "sr"
-              ? "Novi aranžman"
-              : "New trip"}
-        </h2>
-        <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">
-          {language === "sr"
-            ? "Popunite sve detalje aranžmana. Svako polje se čuva u Convex bazi."
-            : "Fill in all trip details. Every field is persisted to the Convex database."}
-        </p>
-      </article>
+      <div className="grid gap-3 sm:grid-cols-3">
+        <article className="surface rounded-2xl p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+            {language === "sr" ? "Ukupno aranžmana" : "Total packages"}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">{sortedTrips.length}</p>
+        </article>
+        <article className="surface rounded-2xl p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+            {dictionary.admin.active}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">{activeCount}</p>
+        </article>
+        <article className="surface rounded-2xl p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+            {language === "sr" ? "Destinacije" : "Destinations"}
+          </p>
+          <p className="mt-2 text-2xl font-semibold">{destinationCount}</p>
+        </article>
+      </div>
 
-      <div className="grid gap-4">
-        <CollapsibleSection title={language === "sr" ? "Slike" : "Images"}>
-          <div className="grid gap-4">
-            <div className="flex flex-wrap gap-3">
-              {imagePreviewUrls.map((url, i) => (
-                <div key={i} className="group relative h-24 w-24 overflow-hidden rounded-xl border border-[var(--line)]">
-                  <CmsImage src={url} alt="" className="h-full w-full object-cover" />
+      {sortedTrips.length === 0 ? (
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-[var(--line)] bg-[var(--bg-soft)] px-4 py-12 text-center">
+          <p className="text-sm font-semibold">
+            {language === "sr" ? "Nema aranžmana" : "No packages yet"}
+          </p>
+          <p className="mt-1 max-w-md text-xs leading-5 text-[var(--muted)]">
+            {language === "sr"
+              ? "Dodajte prvi aranžman, pa zatim otvorite destinacije za konkretne ponude."
+              : "Add the first package, then open destinations for concrete offers."}
+          </p>
+        </div>
+      ) : null}
+
+      <div className="stagger-grid grid gap-4">
+        {sortedTrips.map((trip, index) => {
+          const isExpanded = expandedDestinationTripIds.has(trip._id);
+          const accommodationsExpanded = expandedAccommodationTripIds.has(
+            trip._id
+          );
+          const heroImage = trip.imageUrls.find(Boolean);
+          const destinationLabel =
+            language === "sr"
+              ? `${trip.destinationCount ?? 0} destinacija`
+              : `${trip.destinationCount ?? 0} destinations`;
+
+          return (
+            <article
+              key={trip._id}
+              className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--surface)]"
+              style={{ "--stagger-index": index } as CSSProperties}
+            >
+              <div className="grid gap-3 p-3 sm:grid-cols-[132px_1fr_auto] sm:items-center sm:p-4">
+                <div className="h-28 overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--bg-soft)] sm:h-20">
+                  {heroImage ? (
+                    <CmsImage
+                      src={heroImage}
+                      alt={trip.title}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center text-xs text-[var(--muted)]">
+                      {language === "sr" ? "Nema slike" : "No image"}
+                    </div>
+                  )}
+                </div>
+
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="truncate text-base font-bold">{trip.title}</p>
+                    <span
+                      className={`rounded-full border px-2.5 py-1 text-[11px] font-semibold ${statusTone(
+                        trip.status
+                      )}`}
+                    >
+                      {statusLabel(trip.status)}
+                    </span>
+                    {trip.featured ? (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-[var(--line)] bg-[var(--bg-soft)] px-2.5 py-1 text-[11px] font-semibold text-[var(--muted)]">
+                        <FaStar className="text-[9px]" />
+                        {t.featured}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <p className="mt-1 truncate text-xs text-[var(--muted)]">
+                    /{trip.slug} · {formatDate(trip.departureDate, language)} ·{" "}
+                    {destinationLabel}
+                  </p>
+                  <p className="mt-2 line-clamp-2 max-w-3xl text-sm leading-6 text-[var(--muted)]">
+                    {trip.description ||
+                      (language === "sr"
+                        ? "Roditeljski aranžman za povezane destinacije."
+                        : "Parent package for connected destinations.")}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                   <button
                     type="button"
-                    onClick={() => removeImage(i)}
-                    className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100"
+                    onClick={() => openEditTrip(trip)}
+                    className="flex items-center gap-1.5 rounded-lg border border-[var(--line)] px-2.5 py-1.5 text-xs text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]"
                   >
-                    <FaTrash className="text-white" />
+                    <FaPen className="text-[10px]" />
+                    {language === "sr" ? "Uredi" : "Edit"}
                   </button>
-                </div>
-              ))}
-              <label className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-[var(--line)] text-muted transition hover:border-[var(--primary)] hover:text-[var(--primary)]">
-                <FaImage className="text-xl" />
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  onChange={(e) => void handleImageUpload(e.target.files)}
-                />
-              </label>
-            </div>
-            {uploading ? (
-              <p className="text-sm text-muted">{a.uploading}</p>
-            ) : null}
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={language === "sr" ? "Osnovne informacije" : "Basic info"}>
-          <div className="grid gap-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="grid gap-1.5">
-                <span className="text-sm font-semibold">{a.slideTitle}</span>
-                <input
-                  className="control"
-                  value={form.title}
-                  onChange={(e) => updateField("title", e.target.value)}
-                  required
-                />
-              </label>
-              <label className="grid gap-1.5">
-                <span className="text-sm font-semibold">Slug</span>
-                <input
-                  className="control"
-                  value={form.slug}
-                  onChange={(e) => updateField("slug", e.target.value)}
-                />
-              </label>
-            </div>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{a.slideCopy}</span>
-              <textarea
-                className="control min-h-[6rem]"
-                value={form.description}
-                onChange={(e) => updateField("description", e.target.value)}
-              />
-            </label>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={language === "sr" ? "Kategorija & hero" : "Category & hero"}>
-          <div className="grid gap-4">
-            <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-muted">
-                {language === "sr" ? "Kategorija aranžmana" : "Arrangement category"}
-              </label>
-              <select
-                className="control w-full"
-                value={form.categoryId}
-                onChange={(e) => updateField("categoryId", e.target.value)}
-              >
-                <option value="">
-                  {a.categorySelectPlaceholder}
-                </option>
-                {arrangementCategories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {language === "sr" ? cat.name.sr : cat.name.en}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <label className="flex cursor-pointer items-center gap-2.5 text-sm">
-              <input
-                type="checkbox"
-                checked={form.isHero}
-                onChange={(e) => updateField("isHero", e.target.checked)}
-                className="h-4 w-4 rounded accent-[var(--primary)]"
-              />
-              <span className="font-semibold">
-                {language === "sr"
-                  ? "Glavno putovanje (prikazuje se na početnoj)"
-                  : "Main trip (shown on homepage hero)"}
-              </span>
-            </label>
-            {form.isHero && (
-              <IconPicker
-                value={form.heroIcon}
-                onChange={(icon) => updateField("heroIcon", icon)}
-                label={language === "sr" ? "Ikonica za hero sekciju" : "Hero section icon"}
-              />
-            )}
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={language === "sr" ? "Cena i trajanje" : "Price & duration"}>
-          <div className="grid gap-4 sm:grid-cols-4">
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.price}</span>
-              <input
-                type="number"
-                min={0}
-                className="control"
-                value={form.price}
-                onChange={(e) => updateField("price", Number(e.target.value))}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">
-                {language === "sr" ? "Valuta" : "Currency"}
-              </span>
-              <input
-                className="control"
-                value={form.currency}
-                onChange={(e) => updateField("currency", e.target.value)}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.nights}</span>
-              <input
-                type="number"
-                min={0}
-                className="control"
-                value={form.nights}
-                onChange={(e) => updateField("nights", Number(e.target.value))}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.days}</span>
-              <input
-                type="number"
-                min={0}
-                className="control"
-                value={form.days}
-                onChange={(e) => updateField("days", Number(e.target.value))}
-              />
-            </label>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={t.transport}>
-          <div className="flex flex-wrap gap-3">
-            {transportOptions.map((opt) => {
-              const Icon = opt.icon;
-              const active = form.transport === opt.value;
-              return (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => updateField("transport", opt.value)}
-                  className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition ${
-                    active
-                      ? "border-[var(--primary)] bg-[var(--primary-soft)] text-[var(--primary)]"
-                      : "border-[var(--line)] hover:border-[var(--primary)]"
-                  }`}
-                >
-                  <Icon />
-                  {transportLabel(opt.value)}
-                </button>
-              );
-            })}
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={language === "sr" ? "Datumi i grad polaska" : "Dates & departure"}>
-          <div className="grid gap-4 sm:grid-cols-3">
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.departure}</span>
-              <input
-                type="date"
-                className="control"
-                value={form.departureDate}
-                onChange={(e) => updateField("departureDate", e.target.value)}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.returnLabel}</span>
-              <input
-                type="date"
-                className="control"
-                value={form.returnDate}
-                onChange={(e) => updateField("returnDate", e.target.value)}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.departureCity}</span>
-              <input
-                className="control"
-                value={form.departureCity}
-                onChange={(e) => updateField("departureCity", e.target.value)}
-              />
-            </label>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection
-          title={language === "sr" ? "Hotel i depozit" : "Hotel & deposit"}
-          defaultOpen={false}
-        >
-          <div className="grid gap-4 sm:grid-cols-3">
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.hotel}</span>
-              <input
-                className="control"
-                value={form.hotelInfo}
-                onChange={(e) => updateField("hotelInfo", e.target.value)}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.deposit} (%)</span>
-              <input
-                type="number"
-                min={0}
-                max={100}
-                className="control"
-                value={form.depositPercentage}
-                onChange={(e) => updateField("depositPercentage", Number(e.target.value))}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.depositDeadline}</span>
-              <input
-                type="date"
-                className="control"
-                value={form.depositDeadline}
-                onChange={(e) => updateField("depositDeadline", e.target.value)}
-              />
-            </label>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={t.itinerary}>
-          <div className="grid gap-3">
-            {form.itinerary.map((item, index) => (
-              <div key={index} className="grid gap-3 rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] p-3 sm:grid-cols-[60px_140px_1fr_auto]">
-                <label className="grid gap-1">
-                  <span className="text-xs text-muted">{t.days}</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="control"
-                    value={item.day}
-                    onChange={(e) => updateItinerary(index, "day", Number(e.target.value))}
-                  />
-                </label>
-                <label className="grid gap-1">
-                  <span className="text-xs text-muted">
-                    {language === "sr" ? "Datum" : "Date"}
-                  </span>
-                  <input
-                    type="date"
-                    className="control"
-                    value={item.date}
-                    onChange={(e) => updateItinerary(index, "date", e.target.value)}
-                  />
-                </label>
-                <label className="grid gap-1">
-                  <span className="text-xs text-muted">{a.slideCopy}</span>
-                  <input
-                    className="control"
-                    value={item.description}
-                    onChange={(e) => updateItinerary(index, "description", e.target.value)}
-                  />
-                </label>
-                <button
-                  type="button"
-                  onClick={() => removeItineraryDay(index)}
-                  className="self-end rounded-lg border border-[var(--line)] p-2 text-sm text-muted transition hover:border-red-400 hover:text-red-400"
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              onClick={addItineraryDay}
-              className="btn-secondary w-fit"
-            >
-              <FaPlus className="text-xs" />
-              {language === "sr" ? "Dodaj dan" : "Add day"}
-            </button>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection
-          title={`${t.included} / ${t.notIncluded}`}
-          defaultOpen={false}
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.included}</span>
-              <textarea
-                className="control min-h-[8rem]"
-                value={form.includedText}
-                onChange={(e) => updateField("includedText", e.target.value)}
-                placeholder={language === "sr" ? "Svaki red = jedna stavka" : "Each line = one item"}
-              />
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{t.notIncluded}</span>
-              <textarea
-                className="control min-h-[8rem]"
-                value={form.notIncludedText}
-                onChange={(e) => updateField("notIncludedText", e.target.value)}
-                placeholder={language === "sr" ? "Svaki red = jedna stavka" : "Each line = one item"}
-              />
-            </label>
-          </div>
-        </CollapsibleSection>
-
-        <CollapsibleSection title={language === "sr" ? "Status i redosled" : "Status & order"}>
-          <div className="grid gap-4 sm:grid-cols-3">
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">Status</span>
-              <select
-                className="control"
-                value={form.status}
-                onChange={(e) => updateField("status", e.target.value as TripStatus)}
-              >
-                <option value="active">{t.statusActive}</option>
-                <option value="upcoming">{t.statusUpcoming}</option>
-                <option value="completed">{t.statusCompleted}</option>
-              </select>
-            </label>
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">{a.order}</span>
-              <input
-                type="number"
-                min={1}
-                className="control"
-                value={form.order}
-                onChange={(e) => updateField("order", Number(e.target.value))}
-              />
-            </label>
-            <label className="flex items-end gap-2 pb-2">
-              <input
-                type="checkbox"
-                checked={form.featured}
-                onChange={(e) => updateField("featured", e.target.checked)}
-              />
-              <span className="text-sm font-semibold">{t.featured}</span>
-            </label>
-          </div>
-        </CollapsibleSection>
-      </div>
-
-      {editingId && (
-        <CollapsibleSection
-          title={
-            <>
-              <FaLocationDot className="inline mr-2 text-sm" />
-              {language === "sr"
-                ? "Destinacije putovanja"
-                : "Trip destinations"}
-            </>
-          }
-          defaultOpen={false}
-        >
-          <DestinationEditor tripId={editingId} />
-        </CollapsibleSection>
-      )}
-
-      {editingId && (
-        <CollapsibleSection
-          title={
-            <>
-              <FaBed className="inline mr-2 text-sm" />
-              {language === "sr" ? "Smeštaj (opcije)" : "Accommodation (options)"}
-            </>
-          }
-          defaultOpen={false}
-        >
-          <AccommodationEditor tripId={editingId} />
-        </CollapsibleSection>
-      )}
-
-      <div className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          className="btn-primary"
-          onClick={() => void handleSave()}
-        >
-          {language === "sr" ? "Sačuvaj aranžman" : "Save trip"}
-        </button>
-        {editingId ? (
-          <button
-            type="button"
-            className="btn-secondary"
-            onClick={resetForm}
-          >
-            {language === "sr" ? "Otkaži izmenu" : "Cancel edit"}
-          </button>
-        ) : null}
-        {status ? (
-          <span className="text-sm text-muted">{status}</span>
-        ) : null}
-      </div>
-
-      <section className="mt-4">
-        <h3 className="mb-4 text-xl font-semibold">
-          {language === "sr" ? "Postojeći aranžmani" : "Existing trips"}
-        </h3>
-        {trips.length > 0 ? (
-          <div className="stagger-grid grid gap-4 md:grid-cols-2">
-            {trips.map((trip, index) => (
-              <article
-                key={trip._id}
-                className="surface fx-lift rounded-2xl p-4"
-                style={{ "--stagger-index": index } as CSSProperties}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <p className="text-xs uppercase tracking-[0.1em] text-muted">
-                      /{trip.slug}
-                    </p>
-                    <h4 className="mt-1 text-lg font-semibold">{trip.title}</h4>
-                  </div>
-                  <span
-                    className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-semibold ${
-                      trip.status === "active"
-                        ? "border-emerald-400/35 bg-emerald-400/10"
-                        : trip.status === "upcoming"
-                          ? "border-amber-400/35 bg-amber-400/10"
-                          : "border-slate-400/35 bg-slate-400/10"
+                  <button
+                    type="button"
+                    onClick={() => toggleTripDestinations(trip._id)}
+                    className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs transition ${
+                      isExpanded
+                        ? "border-[var(--primary)] text-[var(--primary)]"
+                        : "border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)]"
                     }`}
                   >
-                    {statusLabel(trip.status)}
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-muted">
-                  {trip.days} {t.days} | {trip.nights} {t.nights} |{" "}
-                  {transportLabel(trip.transport)} | {trip.departureCity}
-                </p>
-                <p className="mt-1 text-xl font-semibold">
-                  {new Intl.NumberFormat(language === "sr" ? "sr-RS" : "en-US", {
-                    style: "currency",
-                    currency: trip.currency,
-                    maximumFractionDigits: 0,
-                  }).format(trip.price)}
-                </p>
-                <div className="mt-3 flex gap-2">
-                  <button
-                    type="button"
-                    className="btn-secondary text-xs"
-                    onClick={() => editTrip(trip)}
-                  >
-                    {language === "sr" ? "Izmeni" : "Edit"}
+                    <FaLocationDot className="text-[10px]" />
+                    {language === "sr" ? "Destinacije" : "Destinations"}
+                    <FaChevronDown
+                      className={`text-[10px] transition-transform ${
+                        isExpanded ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
                   <button
                     type="button"
-                    className="rounded-lg border border-[var(--line)] px-3 py-1.5 text-xs text-muted transition hover:border-red-400 hover:text-red-400"
+                    onClick={() => toggleTripAccommodations(trip._id)}
+                    className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs transition ${
+                      accommodationsExpanded
+                        ? "border-[var(--primary)] text-[var(--primary)]"
+                        : "border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                    }`}
+                  >
+                    <FaBed className="text-[10px]" />
+                    {language === "sr" ? "Smeštaj" : "Accommodation"}
+                    <FaChevronDown
+                      className={`text-[10px] transition-transform ${
+                        accommodationsExpanded ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => void handleDelete(trip._id)}
+                    className="flex items-center justify-center rounded-lg border border-[var(--line)] p-1.5 text-xs text-[var(--muted)] transition hover:border-red-400 hover:text-red-400"
+                    aria-label={language === "sr" ? "Obriši aranžman" : "Delete package"}
+                    title={language === "sr" ? "Obriši aranžman" : "Delete package"}
                   >
-                    {language === "sr" ? "Obriši" : "Delete"}
+                    <FaTrash className="text-[10px]" />
                   </button>
                 </div>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <article className="surface rounded-2xl p-4 text-sm text-muted">
-            {t.noTrips}
-          </article>
-        )}
-      </section>
+              </div>
+
+              {isExpanded ? (
+                <div className="border-t border-[var(--line)] bg-[var(--bg-soft)] p-3 sm:p-4">
+                  <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
+                        {language === "sr"
+                          ? `Destinacije za: ${trip.title}`
+                          : `Destinations for: ${trip.title}`}
+                      </p>
+                      <p className="mt-1 text-sm text-[var(--muted)]">
+                        {language === "sr"
+                          ? "Ovde se dodaju konkretne ponude, cene, datumi i subagenture."
+                          : "Add concrete offers, pricing, dates, and subagencies here."}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => openNewDestination(trip._id)}
+                      className="btn-primary self-start !min-h-9 !px-3 !py-2 !text-xs sm:self-auto"
+                    >
+                      <FaPlus className="text-[10px]" />
+                      {language === "sr" ? "Nova destinacija" : "New destination"}
+                    </button>
+                  </div>
+                  <DestinationsDataTable
+                    tripId={trip._id}
+                    offerMode
+                    onEdit={(destination) => openEditDestination(destination, trip._id)}
+                  />
+                </div>
+              ) : null}
+
+              {accommodationsExpanded ? (
+                <div className="border-t border-[var(--line)] bg-[var(--surface)] p-3 sm:p-4">
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">
+                      {language === "sr"
+                        ? `Smeštaj za: ${trip.title}`
+                        : `Accommodation for: ${trip.title}`}
+                    </p>
+                    <p className="mt-1 text-sm text-[var(--muted)]">
+                      {language === "sr"
+                        ? "Opcije smeštaja ostaju vezane za izabrani aranžman."
+                        : "Accommodation options remain connected to the selected package."}
+                    </p>
+                  </div>
+                  <AccommodationEditor tripId={trip._id} />
+                </div>
+              ) : null}
+            </article>
+          );
+        })}
+      </div>
+
+      {tripSlideOverOpen ? (
+        <TripSlideOver
+          key={editingTrip ? `edit-${editingTrip._id}` : "new-trip"}
+          open={tripSlideOverOpen}
+          trip={editingTrip}
+          onClose={closeTripSlideOver}
+        />
+      ) : null}
+
+      {destinationSlideOverOpen ? (
+        <DestinationSlideOver
+          key={
+            editingDestination
+              ? `edit-${editingDestination._id}`
+              : `new-${destinationTripId}`
+          }
+          open={destinationSlideOverOpen}
+          destination={editingDestination}
+          tripId={destinationTripId}
+          offerMode
+          onClose={() => {
+            setDestinationSlideOverOpen(false);
+            setEditingDestination(null);
+            setDestinationTripId("");
+          }}
+        />
+      ) : null}
     </section>
   );
 }
-

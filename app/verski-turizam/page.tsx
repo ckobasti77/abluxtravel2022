@@ -210,6 +210,7 @@ export default function VerskiTurizamPage() {
         {filteredOffers.length > 0 ? (
           filteredOffers.map((offer, index) => (
             <article
+              id={offer.id}
               key={offer.id}
               className="panel-glass fx-lift"
               style={{ "--stagger-index": index } as CSSProperties}

@@ -14,32 +14,63 @@ type DestinationSlideOverProps = {
   destination: Destination | null;
   tripId?: string;
   pageSlug?: string;
+  offerMode?: boolean;
   onClose: () => void;
 };
 
 type DestinationForm = {
+  offerType: "own" | "subagency";
   title: string;
   description: string;
   price: number;
   currency: string;
+  departureDate: string;
+  returnDate: string;
+  departureCity: string;
+  durationLabel: string;
+  partnerName: string;
+  partnerOfferCode: string;
+  iframeUrl: string;
+  externalUrl: string;
+  contactNote: string;
   order: number;
   isActive: boolean;
 };
 
 const emptyForm: DestinationForm = {
+  offerType: "own",
   title: "",
   description: "",
   price: 0,
-  currency: "USD",
+  currency: "EUR",
+  departureDate: "",
+  returnDate: "",
+  departureCity: "",
+  durationLabel: "",
+  partnerName: "",
+  partnerOfferCode: "",
+  iframeUrl: "",
+  externalUrl: "",
+  contactNote: "",
   order: 1,
   isActive: true,
 };
 
 const formFromDestination = (destination: Destination): DestinationForm => ({
+  offerType: destination.offerType ?? "own",
   title: destination.title,
   description: destination.description,
   price: destination.price,
   currency: destination.currency,
+  departureDate: destination.departureDate ?? "",
+  returnDate: destination.returnDate ?? "",
+  departureCity: destination.departureCity ?? "",
+  durationLabel: destination.durationLabel ?? "",
+  partnerName: destination.partnerName ?? "",
+  partnerOfferCode: destination.partnerOfferCode ?? "",
+  iframeUrl: destination.iframeUrl ?? "",
+  externalUrl: destination.externalUrl ?? "",
+  contactNote: destination.contactNote ?? "",
   order: destination.order,
   isActive: destination.isActive,
 });
@@ -49,6 +80,7 @@ export default function DestinationSlideOver({
   destination,
   tripId,
   pageSlug,
+  offerMode = false,
   onClose,
 }: DestinationSlideOverProps) {
   const { language } = useSitePreferences();
@@ -57,7 +89,9 @@ export default function DestinationSlideOver({
   const panelRef = useRef<HTMLDivElement>(null);
 
   const [form, setForm] = useState<DestinationForm>(() =>
-    destination ? formFromDestination(destination) : emptyForm
+    destination
+      ? formFromDestination(destination)
+      : { ...emptyForm, currency: offerMode ? "EUR" : "USD" }
   );
   const [imageStorageIds, setImageStorageIds] = useState<Id<"_storage">[]>(
     () =>
@@ -70,6 +104,10 @@ export default function DestinationSlideOver({
   const [saving, setSaving] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
+  const isSubagency = offerMode && form.offerType === "subagency";
+  const showOwnOfferFields = offerMode && !isSubagency;
+  const showImageFields = !offerMode || !isSubagency;
+  const preserveHiddenAgencyFields = !offerMode;
 
   const updateField = <K extends keyof DestinationForm>(
     key: K,
@@ -139,6 +177,15 @@ export default function DestinationSlideOver({
       return;
     }
 
+    if (isSubagency && !form.iframeUrl.trim()) {
+      setStatus(
+        language === "sr"
+          ? "Iframe link je obavezan za subagenturu."
+          : "Iframe URL is required for subagency offers."
+      );
+      return;
+    }
+
     setSaving(true);
     setStatus(null);
 
@@ -149,11 +196,49 @@ export default function DestinationSlideOver({
           : undefined,
         tripId: tripId ? (tripId as Id<"trips">) : undefined,
         pageSlug: pageSlug || undefined,
+        offerType: offerMode ? form.offerType : destination?.offerType,
         title: form.title,
         description: form.description,
         price: Number(form.price),
         currency: form.currency,
-        imageStorageIds,
+        departureDate: showOwnOfferFields
+          ? form.departureDate || undefined
+          : destination?.departureDate,
+        returnDate: showOwnOfferFields
+          ? form.returnDate || undefined
+          : destination?.returnDate,
+        departureCity: showOwnOfferFields
+          ? form.departureCity || undefined
+          : destination?.departureCity,
+        durationLabel: showOwnOfferFields
+          ? form.durationLabel || undefined
+          : destination?.durationLabel,
+        partnerName: isSubagency
+          ? form.partnerName || undefined
+          : preserveHiddenAgencyFields
+            ? destination?.partnerName
+            : undefined,
+        partnerOfferCode: isSubagency
+          ? form.partnerOfferCode || undefined
+          : preserveHiddenAgencyFields
+            ? destination?.partnerOfferCode
+            : undefined,
+        iframeUrl: isSubagency
+          ? form.iframeUrl || undefined
+          : preserveHiddenAgencyFields
+            ? destination?.iframeUrl
+            : undefined,
+        externalUrl: isSubagency
+          ? form.externalUrl || undefined
+          : preserveHiddenAgencyFields
+            ? destination?.externalUrl
+            : undefined,
+        contactNote: isSubagency
+          ? form.contactNote || undefined
+          : preserveHiddenAgencyFields
+            ? destination?.contactNote
+            : undefined,
+        imageStorageIds: isSubagency ? [] : imageStorageIds,
         order: Number(form.order),
         isActive: form.isActive,
       });
@@ -204,50 +289,110 @@ export default function DestinationSlideOver({
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           <div className="grid gap-5">
+            {offerMode ? (
+              <div className="grid gap-2">
+                <span className="text-sm font-semibold">
+                  {language === "sr" ? "Tip destinacije" : "Destination type"}
+                </span>
+                <div className="grid grid-cols-2 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)] p-1">
+                  {[
+                    {
+                      value: "own" as const,
+                      label: language === "sr" ? "Naša ponuda" : "Our offer",
+                    },
+                    {
+                      value: "subagency" as const,
+                      label: "Subagentura",
+                    },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => updateField("offerType", option.value)}
+                      className={`rounded-lg px-3 py-2 text-sm font-semibold transition ${
+                        form.offerType === option.value
+                          ? "bg-[var(--primary)] text-[var(--bg)] shadow-sm"
+                          : "text-[var(--muted)] hover:text-[var(--text)]"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {/* Title */}
+            <label className="grid gap-1.5">
+              <span className="text-sm font-semibold">
+                {language === "sr" ? "Naziv" : "Name"}
+              </span>
+              <input
+                className="control"
+                value={form.title}
+                onChange={(e) => updateField("title", e.target.value)}
+                placeholder={
+                  language === "sr"
+                    ? "Kapadokija - Nebo od balona"
+                    : "Cappadocia - Sky of Balloons"
+                }
+              />
+            </label>
+
             {/* Image upload zone */}
-            <div
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragOver(true);
-              }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={handleDrop}
-              className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition ${
-                dragOver
-                  ? "border-[var(--primary)] bg-[var(--primary-soft)]"
-                  : "border-[var(--line)] bg-[var(--bg-soft)]"
-              }`}
-            >
-              <FaCloudArrowUp className="mb-2 text-2xl text-[var(--muted)]" />
-              <p className="text-sm font-semibold">
-                {language === "sr" ? "Sliku ucitaj" : "Upload image"}
-              </p>
-              <p className="mt-1 text-xs text-[var(--muted)]">
-                {language === "sr"
-                  ? "Prevucite sliku ovde ili kliknite da odaberete"
-                  : "Drag & drop or click to browse"}
-              </p>
-              <label className="mt-3 cursor-pointer rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]">
-                {language === "sr" ? "Odaberi fajl" : "Choose file"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  onChange={(e) =>
-                    void handleImageUpload(e.target.files)
-                  }
-                />
-              </label>
-              {uploading ? (
-                <p className="mt-2 text-xs text-[var(--muted)]">
-                  {language === "sr" ? "Otpremanje..." : "Uploading..."}
+            {showImageFields ? (
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition ${
+                  dragOver
+                    ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                    : "border-[var(--line)] bg-[var(--bg-soft)]"
+                }`}
+              >
+                <FaCloudArrowUp className="mb-2 text-2xl text-[var(--muted)]" />
+                <p className="text-sm font-semibold">
+                  {offerMode
+                    ? language === "sr"
+                      ? "Slike naše ponude"
+                      : "Our offer images"
+                    : language === "sr"
+                      ? "Sliku ucitaj"
+                      : "Upload image"}
                 </p>
-              ) : null}
-            </div>
+                <p className="mt-1 text-xs text-[var(--muted)]">
+                  {offerMode
+                    ? language === "sr"
+                      ? "Prevucite slike ovde ili kliknite da odaberete"
+                      : "Drag & drop images or click to browse"
+                    : language === "sr"
+                      ? "Prevucite sliku ovde ili kliknite da odaberete"
+                      : "Drag & drop or click to browse"}
+                </p>
+                <label className="mt-3 cursor-pointer rounded-lg border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--primary)] hover:text-[var(--primary)]">
+                  {language === "sr" ? "Odaberi fajl" : "Choose file"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => void handleImageUpload(e.target.files)}
+                  />
+                </label>
+                {uploading ? (
+                  <p className="mt-2 text-xs text-[var(--muted)]">
+                    {language === "sr" ? "Otpremanje..." : "Uploading..."}
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
 
             {/* Image previews */}
-            {imagePreviewUrls.length > 0 ? (
+            {showImageFields && imagePreviewUrls.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {imagePreviewUrls.map((url, i) => (
                   <div
@@ -271,34 +416,23 @@ export default function DestinationSlideOver({
               </div>
             ) : null}
 
-            {/* Title */}
-            <label className="grid gap-1.5">
-              <span className="text-sm font-semibold">
-                {language === "sr" ? "Naziv" : "Name"}
-              </span>
-              <input
-                className="control"
-                value={form.title}
-                onChange={(e) => updateField("title", e.target.value)}
-                placeholder={
-                  language === "sr"
-                    ? "Kapadokija - Nebo od Balona"
-                    : "Cappadocia - Sky of Balloons"
-                }
-              />
-            </label>
-
             {/* Price + Currency */}
             <label className="grid gap-1.5">
               <span className="text-sm font-semibold">
-                {language === "sr" ? "Cena" : "Price"}
+                {isSubagency
+                  ? language === "sr"
+                    ? "Cena od (opciono)"
+                    : "Price from (optional)"
+                  : language === "sr"
+                    ? "Cena"
+                    : "Price"}
               </span>
-              <div className="flex gap-2">
+              <div className="grid gap-2 sm:grid-cols-[1fr_6rem]">
                 <input
                   type="number"
                   min={0}
                   step={0.01}
-                  className="control flex-1"
+                  className="control"
                   value={form.price}
                   onChange={(e) =>
                     updateField("price", Number(e.target.value))
@@ -311,11 +445,162 @@ export default function DestinationSlideOver({
                     updateField("currency", e.target.value)
                   }
                 >
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="RSD">RSD</option>
+                  {(offerMode ? ["EUR", "RSD", "USD"] : ["USD", "EUR", "RSD"]).map(
+                    (currency) => (
+                      <option key={currency} value={currency}>
+                        {currency}
+                      </option>
+                    ),
+                  )}
                 </select>
               </div>
+            </label>
+
+            {offerMode && !isSubagency ? (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Grad polaska" : "Departure city"}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.departureCity}
+                    onChange={(e) =>
+                      updateField("departureCity", e.target.value)
+                    }
+                    placeholder={language === "sr" ? "Beograd" : "Belgrade"}
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Trajanje" : "Duration"}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.durationLabel}
+                    onChange={(e) =>
+                      updateField("durationLabel", e.target.value)
+                    }
+                    placeholder={
+                      language === "sr" ? "7 dana / 6 noći" : "7 days / 6 nights"
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Datum polaska" : "Departure date"}
+                  </span>
+                  <input
+                    type="date"
+                    className="control"
+                    value={form.departureDate}
+                    onChange={(e) =>
+                      updateField("departureDate", e.target.value)
+                    }
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Datum povratka" : "Return date"}
+                  </span>
+                  <input
+                    type="date"
+                    className="control"
+                    value={form.returnDate}
+                    onChange={(e) => updateField("returnDate", e.target.value)}
+                  />
+                </label>
+              </div>
+            ) : offerMode && isSubagency ? (
+              <div className="grid gap-4">
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Iframe link ili kod" : "Iframe URL or code"}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.iframeUrl}
+                    onChange={(e) => updateField("iframeUrl", e.target.value)}
+                    placeholder="https://partnerska-agencija.rs/ponuda/embed"
+                  />
+                </label>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="grid gap-1.5">
+                    <span className="text-sm font-semibold">
+                      {language === "sr"
+                        ? "Naziv subagenture"
+                        : "Subagency name"}
+                    </span>
+                    <input
+                      className="control"
+                      value={form.partnerName}
+                      onChange={(e) =>
+                        updateField("partnerName", e.target.value)
+                      }
+                      placeholder={
+                        language === "sr"
+                          ? "Prijateljska agencija"
+                          : "Partner agency"
+                      }
+                    />
+                  </label>
+                  <label className="grid gap-1.5">
+                    <span className="text-sm font-semibold">
+                      {language === "sr" ? "Šifra ponude" : "Offer code"}
+                    </span>
+                    <input
+                      className="control"
+                      value={form.partnerOfferCode}
+                      onChange={(e) =>
+                        updateField("partnerOfferCode", e.target.value)
+                      }
+                    />
+                  </label>
+                </div>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr"
+                      ? "Direktan link ponude"
+                      : "Direct offer URL"}
+                  </span>
+                  <input
+                    className="control"
+                    value={form.externalUrl}
+                    onChange={(e) => updateField("externalUrl", e.target.value)}
+                    placeholder="https://partnerska-agencija.rs/ponuda"
+                  />
+                </label>
+                <label className="grid gap-1.5">
+                  <span className="text-sm font-semibold">
+                    {language === "sr" ? "Napomena za upit" : "Inquiry note"}
+                  </span>
+                  <textarea
+                    className="control !min-h-[90px]"
+                    value={form.contactNote}
+                    onChange={(e) => updateField("contactNote", e.target.value)}
+                    placeholder={
+                      language === "sr"
+                        ? "Npr. proveriti cenu i dostupnost kod partnera pre potvrde."
+                        : "Example: verify price and availability with partner before confirmation."
+                    }
+                  />
+                </label>
+              </div>
+            ) : null}
+
+            <label className="grid gap-1.5">
+              <span className="text-sm font-semibold">
+                {language === "sr" ? "Redosled prikaza" : "Display order"}
+              </span>
+              <input
+                type="number"
+                min={1}
+                className="control"
+                value={form.order}
+                onChange={(e) =>
+                  updateField("order", Number(e.target.value || "1"))
+                }
+              />
             </label>
 
             {/* Description, plain textarea */}

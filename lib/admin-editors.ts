@@ -4,15 +4,19 @@ export type LocalizedText = {
 };
 
 export type AdminSectionKey =
+  | "pocetna"
   | "aranzmani"
   | "putovanja"
+  | "iznajmljivanje-vozila"
   | "verski-turizam"
   | "podesavanja";
 
 export type AdminSectionIcon =
   | "dashboard"
+  | "home"
   | "arrangements"
   | "trips"
+  | "vehicles"
   | "users"
   | "media"
   | "settings"
@@ -27,6 +31,16 @@ export type AdminSectionConfig = {
 };
 
 export const ADMIN_SECTIONS: AdminSectionConfig[] = [
+  {
+    key: "pocetna",
+    href: "/admin/pocetna",
+    label: { sr: "Početna", en: "Home" },
+    hint: {
+      sr: "Slike i redosled za početni swiper najtraženijih ruta",
+      en: "Images and ordering for the homepage requested-routes swiper",
+    },
+    icon: "home",
+  },
   {
     key: "aranzmani",
     href: "/admin/aranzmani",
@@ -46,6 +60,16 @@ export const ADMIN_SECTIONS: AdminSectionConfig[] = [
       en: "Video slides and hero scenes for the Trips page",
     },
     icon: "trips",
+  },
+  {
+    key: "iznajmljivanje-vozila",
+    href: "/admin/iznajmljivanje-vozila",
+    label: { sr: "Iznajmljivanje vozila", en: "Vehicle rental" },
+    hint: {
+      sr: "Glavne slike za autobus i luksuzni kombi sa vozačem",
+      en: "Main images for coach and luxury van rental with driver",
+    },
+    icon: "vehicles",
   },
   {
     key: "verski-turizam",
@@ -86,7 +110,7 @@ export type PageEditorConfig = {
 
 export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
   home: {
-    adminSection: "podesavanja",
+    adminSection: "pocetna",
     title: { sr: "Početna command zona", en: "Home command zone" },
     description: {
       sr: "Upravljanje glavnim porukama, CTA blokovima i ritmom prve impresije.",
@@ -98,7 +122,7 @@ export const PAGE_EDITOR_CONFIG: Record<PageEditorSlot, PageEditorConfig> = {
     adminSection: "aranzmani",
     title: { sr: "Aranžmani editor", en: "Packages editor" },
     description: {
-      sr: "Upravljanje aranžmanima: cene, itinerer, slike i detalji putovanja.",
+      sr: "Upravljanje aranžmanima: cene, program, slike i detalji putovanja.",
       en: "Manage trip packages: pricing, itinerary, images, and travel details.",
     },
     status: "ready",

@@ -77,7 +77,7 @@ const ABOUT_EXPERIENCE: Record<Language, AboutExperience> = {
       },
       {
         value: "100%",
-        label: "Provera itinerera",
+        label: "Provera programa",
         description: "Svaki plan prolazi proveru termina, logistike, smeštaja i cene.",
         tone: "emerald",
       },

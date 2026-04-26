@@ -1,10 +1,11 @@
 ﻿"use client";
 
 import CmsImage from "@/components/cms-image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
+  FaArrowRight,
   FaArrowLeft,
   FaBed,
   FaBuilding,
@@ -22,6 +23,7 @@ import {
   FaLocationDot,
   FaMoneyBillWave,
   FaPlane,
+  FaRoute,
   FaTrain,
   FaUser,
   FaUsers,
@@ -32,6 +34,7 @@ import AddToCartButton from "../../../components/add-to-cart-button";
 import AlienShell from "../../../components/alien-shell";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { AccommodationType, useAccommodationsByTrip } from "../../../lib/use-accommodations";
+import type { Destination } from "../../../lib/use-destinations";
 import { useDestinationsByTrip } from "../../../lib/use-destinations";
 import { TransportType, useTripBySlug } from "../../../lib/use-trips";
 
@@ -52,6 +55,13 @@ const accommodationIcons: Record<AccommodationType, typeof FaHouse> = {
   other: FaEllipsis,
 };
 
+const getIframeSrc = (value: string | undefined) => {
+  const trimmed = value?.trim();
+  if (!trimmed) return "";
+  const srcMatch = trimmed.match(/src=["']([^"']+)["']/i);
+  return srcMatch?.[1] ?? trimmed;
+};
+
 
 export default function TripDetailPage() {
   const params = useParams();
@@ -65,7 +75,42 @@ export default function TripDetailPage() {
   const accommodations = useAccommodationsByTrip(trip?._id);
   const activeAccommodations = accommodations.filter((a) => a.isActive);
   const destinations = useDestinationsByTrip(trip?._id);
-  const activeDestinations = destinations.filter((item) => item.isActive);
+  const activeDestinations = useMemo(
+    () => destinations.filter((item) => item.isActive),
+    [destinations],
+  );
+  const [selectedDestinationId, setSelectedDestinationId] = useState<string | null>(
+    null,
+  );
+  const selectedDestination = useMemo(() => {
+    if (activeDestinations.length === 0) {
+      return null;
+    }
+    return (
+      activeDestinations.find((item) => item._id === selectedDestinationId) ??
+      activeDestinations[0]
+    );
+  }, [activeDestinations, selectedDestinationId]);
+  const selectedDestinationImages = useMemo(
+    () => selectedDestination?.imageUrls.filter(Boolean) ?? [],
+    [selectedDestination],
+  );
+  const lowestDestination = useMemo<Destination | null>(() => {
+    if (activeDestinations.length === 0) {
+      return null;
+    }
+    return activeDestinations.reduce(
+      (lowest, item) => (item.price < lowest.price ? item : lowest),
+      activeDestinations[0],
+    );
+  }, [activeDestinations]);
+  const subagencyCount = useMemo(
+    () =>
+      activeDestinations.filter(
+        (item) => (item.offerType ?? "own") === "subagency",
+      ).length,
+    [activeDestinations],
+  );
   const [expandedAcc, setExpandedAcc] = useState<string | null>(null);
 
   if (trip === undefined) {
@@ -110,6 +155,13 @@ export default function TripDetailPage() {
     return new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(d);
   };
 
+  const formatShortDate = (iso: string | undefined) => {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(d);
+  };
+
   return (
     <AlienShell className="site-fade page-stack">
       <section className="page-hero">
@@ -136,26 +188,65 @@ export default function TripDetailPage() {
         </section>
       ) : null}
 
-      <section className="metric-grid">
-        <article className="metric-card">
-          <p className="metric-card__label">{t.transport}</p>
-          <p className="metric-card__value inline-flex items-center gap-2 text-[1.2rem] sm:text-[1.5rem]">
-            <TransportIcon className="text-[var(--primary)]" />
-            {t[trip.transport]}
-          </p>
-          <p className="metric-card__hint">{language === "sr" ? "Tip prevoza za ovaj aranžman." : "Transport type for this package."}</p>
-        </article>
-        <article className="metric-card">
-          <p className="metric-card__label">{t.departure}</p>
-          <p className="metric-card__value">{formatDate(trip.departureDate)}</p>
-          <p className="metric-card__hint">{language === "sr" ? `Povratak: ${formatDate(trip.returnDate)}` : `Return: ${formatDate(trip.returnDate)}`}</p>
-        </article>
-        <article className="metric-card">
-          <p className="metric-card__label">{t.departureCity}</p>
-          <p className="metric-card__value">{trip.departureCity}</p>
-          <p className="metric-card__hint">{trip.days} {t.days} | {trip.nights} {t.nights}</p>
-        </article>
-      </section>
+      {activeDestinations.length > 0 ? (
+        <section className="metric-grid">
+          <article className="metric-card">
+            <p className="metric-card__label">
+              {language === "sr" ? "Ponude u aranžmanu" : "Offers in package"}
+            </p>
+            <p className="metric-card__value">{activeDestinations.length}</p>
+            <p className="metric-card__hint">
+              {language === "sr"
+                ? "Svaka destinacija ima sopstvenu cenu i prikaz."
+                : "Each destination has its own pricing and presentation."}
+            </p>
+          </article>
+          <article className="metric-card">
+            <p className="metric-card__label">
+              {language === "sr" ? "Najniža cena" : "Lowest price"}
+            </p>
+            <p className="metric-card__value">
+              {lowestDestination
+                ? formatPrice(lowestDestination.price, lowestDestination.currency)
+                : "-"}
+            </p>
+            <p className="metric-card__hint">
+              {lowestDestination?.title ??
+                (language === "sr" ? "Iz dostupnih destinacija." : "From available destinations.")}
+            </p>
+          </article>
+          <article className="metric-card">
+            <p className="metric-card__label">Subagentura</p>
+            <p className="metric-card__value">{subagencyCount}</p>
+            <p className="metric-card__hint">
+              {language === "sr"
+                ? "Partner ponude se prikazuju preko iframe modula."
+                : "Partner offers render through iframe modules."}
+            </p>
+          </article>
+        </section>
+      ) : (
+        <section className="metric-grid">
+          <article className="metric-card">
+            <p className="metric-card__label">{t.transport}</p>
+            <p className="metric-card__value inline-flex items-center gap-2 text-[1.2rem] sm:text-[1.5rem]">
+              <TransportIcon className="text-[var(--primary)]" />
+              {t[trip.transport]}
+            </p>
+            <p className="metric-card__hint">{language === "sr" ? "Tip prevoza za ovaj aranžman." : "Transport type for this package."}</p>
+          </article>
+          <article className="metric-card">
+            <p className="metric-card__label">{t.departure}</p>
+            <p className="metric-card__value">{formatDate(trip.departureDate)}</p>
+            <p className="metric-card__hint">{language === "sr" ? `Povratak: ${formatDate(trip.returnDate)}` : `Return: ${formatDate(trip.returnDate)}`}</p>
+          </article>
+          <article className="metric-card">
+            <p className="metric-card__label">{t.departureCity}</p>
+            <p className="metric-card__value">{trip.departureCity}</p>
+            <p className="metric-card__hint">{trip.days} {t.days} | {trip.nights} {t.nights}</p>
+          </article>
+        </section>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
         <div className="grid gap-6">
@@ -321,50 +412,259 @@ export default function TripDetailPage() {
             </section>
           ) : null}
 
-          {activeDestinations.length > 0 ? (
+          {activeDestinations.length > 0 && selectedDestination ? (
             <section className="grid gap-4">
               <header className="grid gap-1">
                 <h2 className="text-2xl font-semibold">
-                  {language === "sr" ? "Destinacije u ovom putovanju" : "Destinations in this trip"}
+                  {language === "sr" ? "Destinacije aranžmana" : "Package destinations"}
                 </h2>
                 <p className="panel-muted">
                   {language === "sr"
-                    ? "Izaberite destinaciju i pogledajte osnovne informacije i cenu."
-                    : "Browse destinations with key details and pricing."}
+                    ? "Izaberite konkretnu ponudu. Naše ponude imaju pun prikaz i rezervaciju, a subagenture se otvaraju kroz partnerski iframe."
+                    : "Choose a concrete offer. Our offers have full details and booking, while subagency offers open through a partner iframe."}
                 </p>
               </header>
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <article className="panel-glass overflow-hidden">
+                <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
+                  <div className="relative min-h-[320px] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                    {(selectedDestination.offerType ?? "own") === "subagency" ? (
+                      getIframeSrc(selectedDestination.iframeUrl) ? (
+                        <iframe
+                          src={getIframeSrc(selectedDestination.iframeUrl)}
+                          title={selectedDestination.title}
+                          className="h-[520px] w-full bg-white xl:h-full"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        />
+                      ) : (
+                        <div className="flex h-full min-h-[320px] items-center justify-center p-6 text-center text-sm text-muted">
+                          {language === "sr"
+                            ? "Iframe link nije unet za ovu subagenturu."
+                            : "No iframe URL has been added for this subagency offer."}
+                        </div>
+                      )
+                    ) : selectedDestinationImages[0] ? (
+                      <CmsImage
+                        src={selectedDestinationImages[0]}
+                        alt={selectedDestination.title}
+                        className="h-full min-h-[320px] w-full object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full min-h-[320px] items-center justify-center text-sm text-muted">
+                        {language === "sr" ? "Bez slike" : "No image"}
+                      </div>
+                    )}
+                    <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-2">
+                      <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                        {(selectedDestination.offerType ?? "own") === "subagency"
+                          ? "Subagentura"
+                          : language === "sr"
+                            ? "Naša ponuda"
+                            : "Our offer"}
+                      </span>
+                      <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                        {activeDestinations.findIndex(
+                          (item) => item._id === selectedDestination._id,
+                        ) + 1}{" "}
+                        / {activeDestinations.length}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid content-start gap-4">
+                    <div>
+                      <p className="metric-card__label">
+                        {(selectedDestination.offerType ?? "own") === "subagency"
+                          ? selectedDestination.partnerName || "Subagentura"
+                          : language === "sr"
+                            ? "Naša ponuda"
+                            : "Our offer"}
+                      </p>
+                      <h3 className="mt-2 text-2xl font-semibold leading-tight">
+                        {selectedDestination.title}
+                      </h3>
+                      {selectedDestination.description ? (
+                        <p className="mt-3 text-sm leading-6 text-muted">
+                          {selectedDestination.description}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div className="grid gap-2 text-sm text-muted">
+                      {selectedDestination.departureCity ? (
+                        <p className="flex items-center gap-2">
+                          <FaLocationDot className="text-xs text-[var(--primary)]" />
+                          {selectedDestination.departureCity}
+                        </p>
+                      ) : null}
+                      {selectedDestination.durationLabel ? (
+                        <p className="flex items-center gap-2">
+                          <FaRoute className="text-xs text-[var(--primary)]" />
+                          {selectedDestination.durationLabel}
+                        </p>
+                      ) : null}
+                      {selectedDestination.departureDate ? (
+                        <p className="flex items-center gap-2">
+                          <FaCalendarDays className="text-xs text-[var(--primary)]" />
+                          {formatShortDate(selectedDestination.departureDate)}
+                          {selectedDestination.returnDate
+                            ? ` - ${formatShortDate(selectedDestination.returnDate)}`
+                            : ""}
+                        </p>
+                      ) : null}
+                      {selectedDestination.partnerOfferCode ? (
+                        <p className="flex items-center gap-2">
+                          <FaMoneyBillWave className="text-xs text-[var(--primary)]" />
+                          {language === "sr" ? "Šifra ponude" : "Offer code"}:{" "}
+                          {selectedDestination.partnerOfferCode}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)] p-4">
+                      <p className="metric-card__label">
+                        {(selectedDestination.offerType ?? "own") === "subagency"
+                          ? language === "sr"
+                            ? "Cena od"
+                            : "Price from"
+                          : t.price}
+                      </p>
+                      <p className="mt-1 text-3xl font-semibold text-[var(--primary)]">
+                        {formatPrice(
+                          selectedDestination.price,
+                          selectedDestination.currency,
+                        )}
+                      </p>
+                    </div>
+
+                    <div className="grid gap-2">
+                      {(selectedDestination.offerType ?? "own") === "subagency" ? (
+                        <>
+                          <Link
+                            href="/kontakt"
+                            className="btn-primary w-full !justify-center"
+                          >
+                            {language === "sr"
+                              ? "Pošalji upit za subagenturu"
+                              : "Send subagency inquiry"}
+                            <FaArrowRight className="text-xs" />
+                          </Link>
+                          {selectedDestination.externalUrl ? (
+                            <a
+                              href={selectedDestination.externalUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="btn-secondary w-full !justify-center"
+                            >
+                              {language === "sr"
+                                ? "Otvori kod partnera"
+                                : "Open partner offer"}
+                            </a>
+                          ) : null}
+                          {selectedDestination.contactNote ? (
+                            <p className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-xs leading-5 text-muted">
+                              {selectedDestination.contactNote}
+                            </p>
+                          ) : null}
+                        </>
+                      ) : (
+                        <>
+                          <AddToCartButton
+                            id={selectedDestination._id}
+                            type="destination"
+                            title={`${selectedDestination.title} - ${trip.title}`}
+                            price={selectedDestination.price}
+                            currency={selectedDestination.currency}
+                            imageUrl={selectedDestinationImages[0]}
+                            meta={{
+                              parentPackage: trip.title,
+                              departureCity:
+                                selectedDestination.departureCity ?? "",
+                              departureDate:
+                                selectedDestination.departureDate ?? "",
+                            }}
+                            className="w-full !justify-center"
+                          />
+                          <Link
+                            href="/kontakt"
+                            className="btn-secondary w-full !justify-center"
+                          >
+                            {t.contactCta}
+                          </Link>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {(selectedDestination.offerType ?? "own") !== "subagency" &&
+                selectedDestinationImages.length > 1 ? (
+                  <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+                    {selectedDestinationImages.slice(1).map((url, index) => (
+                      <CmsImage
+                        key={url}
+                        src={url}
+                        alt={`${selectedDestination.title} ${index + 2}`}
+                        className="h-24 w-auto shrink-0 rounded-xl border border-[var(--line)] object-cover"
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </article>
+
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {activeDestinations.map((item) => {
+                  const active = item._id === selectedDestination._id;
                   const heroImage = item.imageUrls?.find(Boolean);
                   return (
-                    <article key={item._id} className="panel-glass overflow-hidden">
-                      <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                        {heroImage ? (
-                          <CmsImage
-                            src={heroImage}
-                            alt={item.title}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full items-center justify-center text-sm text-muted">
-                            {language === "sr" ? "Bez slike" : "No image"}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="mt-4 grid gap-2">
-                        <div className="flex items-start justify-between gap-3">
-                          <h3 className="text-lg font-semibold">{item.title}</h3>
-                          <span className="shrink-0 text-base font-semibold text-[var(--primary)]">
-                            {formatPrice(item.price, item.currency)}
-                          </span>
+                    <button
+                      key={item._id}
+                      type="button"
+                      onClick={() => setSelectedDestinationId(item._id)}
+                      className={`group rounded-2xl border p-3 text-left transition ${
+                        active
+                          ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                          : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--primary)]"
+                      }`}
+                    >
+                      <div className="grid grid-cols-[4.5rem_1fr] gap-3">
+                        <div className="h-16 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                          {heroImage ? (
+                            <CmsImage
+                              src={heroImage}
+                              alt={item.title}
+                              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full items-center justify-center text-[10px] text-muted">
+                              {(item.offerType ?? "own") === "subagency"
+                                ? "iframe"
+                                : language === "sr"
+                                  ? "bez slike"
+                                  : "no image"}
+                            </div>
+                          )}
                         </div>
-                        {item.description ? (
-                          <p className="text-sm leading-6 text-muted">{item.description}</p>
-                        ) : null}
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold">
+                            {item.title}
+                          </p>
+                          <p className="mt-1 text-xs text-muted">
+                            {(item.offerType ?? "own") === "subagency"
+                              ? "Subagentura"
+                              : language === "sr"
+                                ? "Naša ponuda"
+                                : "Our offer"}
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-[var(--primary)]">
+                            {formatPrice(item.price, item.currency)}
+                          </p>
+                        </div>
                       </div>
-                    </article>
+                    </button>
                   );
                 })}
               </div>
@@ -425,80 +725,165 @@ export default function TripDetailPage() {
 
         <aside className="space-y-4 lg:sticky lg:top-30 lg:self-start">
           <div className="filter-shell">
-            <p className="text-3xl font-semibold text-[var(--primary)]">{formatPrice(trip.price, trip.currency)}</p>
-            <p className="mt-1 text-sm text-muted">
-              {trip.days} {t.days} | {trip.nights} {t.nights}
-            </p>
-
-            <div className="mt-3 grid gap-2 text-sm">
-              <p className="inline-flex items-start gap-2">
-                <FaCalendarDays className="mt-0.5 text-muted" />
-                <span>
-                  <span className="text-muted">{t.departure}: </span>
-                  {formatDate(trip.departureDate)}
-                </span>
-              </p>
-              <p className="inline-flex items-start gap-2">
-                <FaLocationDot className="mt-0.5 text-muted" />
-                <span>
-                  <span className="text-muted">{t.departureCity}: </span>
-                  {trip.departureCity}
-                </span>
-              </p>
-            </div>
-
-            {trip.hotelInfo ? (
-              <p className="mt-3 inline-flex items-center gap-2 text-sm">
-                <FaHotel className="text-muted" />
-                <span>{trip.hotelInfo}</span>
-              </p>
-            ) : null}
-
-            {trip.depositPercentage ? (
-              <p className="mt-3 inline-flex items-start gap-2 text-sm">
-                <FaMoneyBillWave className="mt-0.5 text-muted" />
-                <span>
-                  {t.deposit}: {trip.depositPercentage}%
-                  {trip.depositDeadline ? ` (${t.depositDeadline}: ${formatDate(trip.depositDeadline)})` : ""}
-                </span>
-              </p>
-            ) : null}
-
-            {activeAccommodations.length > 0 ? (
-              <div className="mt-4 border-t border-[var(--line)] pt-3">
-                <p className="metric-card__label">{acc.title}</p>
-                <div className="mt-2 grid gap-2">
-                  {activeAccommodations.slice(0, 3).map((item) => {
-                    const AccIcon = accommodationIcons[item.type];
-                    return (
-                      <div key={item._id} className="flex items-center justify-between gap-2 text-sm">
-                        <span className="flex min-w-0 items-center gap-1.5 truncate">
-                          <AccIcon className="shrink-0 text-xs text-muted" />
-                          <span className="truncate">{item.name}</span>
-                        </span>
-                        <span className="shrink-0 font-medium text-[var(--primary)]">
-                          {formatPrice(item.pricePerPerson, item.currency)}
-                        </span>
-                      </div>
-                    );
-                  })}
+            {activeDestinations.length > 0 && selectedDestination ? (
+              <>
+                <p className="metric-card__label">
+                  {language === "sr" ? "Izabrana ponuda" : "Selected offer"}
+                </p>
+                <h2 className="mt-2 text-xl font-semibold leading-tight">
+                  {selectedDestination.title}
+                </h2>
+                <p className="mt-3 text-3xl font-semibold text-[var(--primary)]">
+                  {formatPrice(
+                    selectedDestination.price,
+                    selectedDestination.currency,
+                  )}
+                </p>
+                <div className="mt-4 grid gap-2 text-sm text-muted">
+                  <p className="inline-flex items-center gap-2">
+                    <FaRoute className="text-xs text-[var(--primary)]" />
+                    {activeDestinations.length}{" "}
+                    {language === "sr" ? "ponuda u grupi" : "offers in group"}
+                  </p>
+                  {selectedDestination.departureCity ? (
+                    <p className="inline-flex items-center gap-2">
+                      <FaLocationDot className="text-xs text-[var(--primary)]" />
+                      {selectedDestination.departureCity}
+                    </p>
+                  ) : null}
+                  {selectedDestination.departureDate ? (
+                    <p className="inline-flex items-center gap-2">
+                      <FaCalendarDays className="text-xs text-[var(--primary)]" />
+                      {formatShortDate(selectedDestination.departureDate)}
+                    </p>
+                  ) : null}
                 </div>
-              </div>
-            ) : null}
 
-            <AddToCartButton
-              id={trip._id}
-              type="trip"
-              title={trip.title}
-              price={trip.price}
-              currency={trip.currency}
-              imageUrl={trip.imageUrls?.[0]}
-              meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
-              className="mt-5 w-full !justify-center"
-            />
-            <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
-              {t.contactCta}
-            </Link>
+                <div className="mt-4 grid gap-2 border-t border-[var(--line)] pt-4">
+                  {activeDestinations.map((item) => (
+                    <button
+                      key={item._id}
+                      type="button"
+                      onClick={() => setSelectedDestinationId(item._id)}
+                      className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2 text-left text-sm transition ${
+                        item._id === selectedDestination._id
+                          ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                          : "border-[var(--line)] hover:border-[var(--primary)]"
+                      }`}
+                    >
+                      <span className="min-w-0 truncate">{item.title}</span>
+                      <span className="shrink-0 font-semibold text-[var(--primary)]">
+                        {formatPrice(item.price, item.currency)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                {(selectedDestination.offerType ?? "own") === "subagency" ? (
+                  <Link
+                    href="/kontakt"
+                    className="btn-primary mt-5 w-full !justify-center"
+                  >
+                    {language === "sr" ? "Pošalji upit" : "Send inquiry"}
+                  </Link>
+                ) : (
+                  <AddToCartButton
+                    id={selectedDestination._id}
+                    type="destination"
+                    title={`${selectedDestination.title} - ${trip.title}`}
+                    price={selectedDestination.price}
+                    currency={selectedDestination.currency}
+                    imageUrl={selectedDestinationImages[0]}
+                    meta={{
+                      parentPackage: trip.title,
+                      departureCity: selectedDestination.departureCity ?? "",
+                      departureDate: selectedDestination.departureDate ?? "",
+                    }}
+                    className="mt-5 w-full !justify-center"
+                  />
+                )}
+                <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
+                  {t.contactCta}
+                </Link>
+              </>
+            ) : (
+              <>
+                <p className="text-3xl font-semibold text-[var(--primary)]">{formatPrice(trip.price, trip.currency)}</p>
+                <p className="mt-1 text-sm text-muted">
+                  {trip.days} {t.days} | {trip.nights} {t.nights}
+                </p>
+
+                <div className="mt-3 grid gap-2 text-sm">
+                  <p className="inline-flex items-start gap-2">
+                    <FaCalendarDays className="mt-0.5 text-muted" />
+                    <span>
+                      <span className="text-muted">{t.departure}: </span>
+                      {formatDate(trip.departureDate)}
+                    </span>
+                  </p>
+                  <p className="inline-flex items-start gap-2">
+                    <FaLocationDot className="mt-0.5 text-muted" />
+                    <span>
+                      <span className="text-muted">{t.departureCity}: </span>
+                      {trip.departureCity}
+                    </span>
+                  </p>
+                </div>
+
+                {trip.hotelInfo ? (
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm">
+                    <FaHotel className="text-muted" />
+                    <span>{trip.hotelInfo}</span>
+                  </p>
+                ) : null}
+
+                {trip.depositPercentage ? (
+                  <p className="mt-3 inline-flex items-start gap-2 text-sm">
+                    <FaMoneyBillWave className="mt-0.5 text-muted" />
+                    <span>
+                      {t.deposit}: {trip.depositPercentage}%
+                      {trip.depositDeadline ? ` (${t.depositDeadline}: ${formatDate(trip.depositDeadline)})` : ""}
+                    </span>
+                  </p>
+                ) : null}
+
+                {activeAccommodations.length > 0 ? (
+                  <div className="mt-4 border-t border-[var(--line)] pt-3">
+                    <p className="metric-card__label">{acc.title}</p>
+                    <div className="mt-2 grid gap-2">
+                      {activeAccommodations.slice(0, 3).map((item) => {
+                        const AccIcon = accommodationIcons[item.type];
+                        return (
+                          <div key={item._id} className="flex items-center justify-between gap-2 text-sm">
+                            <span className="flex min-w-0 items-center gap-1.5 truncate">
+                              <AccIcon className="shrink-0 text-xs text-muted" />
+                              <span className="truncate">{item.name}</span>
+                            </span>
+                            <span className="shrink-0 font-medium text-[var(--primary)]">
+                              {formatPrice(item.pricePerPerson, item.currency)}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : null}
+
+                <AddToCartButton
+                  id={trip._id}
+                  type="trip"
+                  title={trip.title}
+                  price={trip.price}
+                  currency={trip.currency}
+                  imageUrl={trip.imageUrls?.[0]}
+                  meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
+                  className="mt-5 w-full !justify-center"
+                />
+                <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
+                  {t.contactCta}
+                </Link>
+              </>
+            )}
           </div>
         </aside>
       </div>

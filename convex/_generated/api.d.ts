@@ -13,6 +13,7 @@ import type * as auth from "../auth.js";
 import type * as categories from "../categories.js";
 import type * as destinations from "../destinations.js";
 import type * as files from "../files.js";
+import type * as homeRouteSlides from "../homeRouteSlides.js";
 import type * as http from "../http.js";
 import type * as offers from "../offers.js";
 import type * as orders from "../orders.js";
@@ -20,6 +21,7 @@ import type * as settings from "../settings.js";
 import type * as slides from "../slides.js";
 import type * as stripe from "../stripe.js";
 import type * as trips from "../trips.js";
+import type * as vehicleRentalImages from "../vehicleRentalImages.js";
 
 import type {
   ApiFromModules,
@@ -33,6 +35,7 @@ declare const fullApi: ApiFromModules<{
   categories: typeof categories;
   destinations: typeof destinations;
   files: typeof files;
+  homeRouteSlides: typeof homeRouteSlides;
   http: typeof http;
   offers: typeof offers;
   orders: typeof orders;
@@ -40,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   slides: typeof slides;
   stripe: typeof stripe;
   trips: typeof trips;
+  vehicleRentalImages: typeof vehicleRentalImages;
 }>;
 
 /**

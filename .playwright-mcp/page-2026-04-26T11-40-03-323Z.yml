@@ -1,0 +1,318 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "ABLux Travel" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "ABLux Travel" [ref=e7]
+        - navigation [ref=e8]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e11]:
+            - link "Trips" [ref=e12] [cursor=pointer]:
+              - /url: /putovanja
+              - text: Trips
+              - img [ref=e13]
+            - generic:
+              - generic:
+                - link "Exotic Trips":
+                  - /url: /putovanja
+                - link "European Cities":
+                  - /url: /putovanja
+                - link "All Countries":
+                  - /url: /zemlje
+          - generic [ref=e15]:
+            - link "Packages" [ref=e16] [cursor=pointer]:
+              - /url: /aranzmani
+              - text: Packages
+              - img [ref=e17]
+            - generic:
+              - generic:
+                - link "All Packages":
+                  - /url: /aranzmani
+                - link "Summer Vacations":
+                  - /url: /aranzmani
+                - link "Excursions":
+                  - /url: /aranzmani
+          - generic [ref=e19]:
+            - link "Religious Tourism" [ref=e20] [cursor=pointer]:
+              - /url: /verski-turizam
+              - text: Religious Tourism
+              - img [ref=e21]
+            - generic:
+              - generic:
+                - link "Pilgrimages":
+                  - /url: /verski-turizam
+                - link "Monasteries":
+                  - /url: /verski-turizam
+          - link "About" [ref=e24] [cursor=pointer]:
+            - /url: /o-nama
+          - link "Contact" [ref=e26] [cursor=pointer]:
+            - /url: /kontakt
+        - generic [ref=e27]:
+          - button "Search" [ref=e28] [cursor=pointer]:
+            - img [ref=e29]
+          - generic [ref=e31]:
+            - button "SR" [ref=e32] [cursor=pointer]
+            - button "EN" [ref=e34] [cursor=pointer]
+          - button "Dark" [ref=e35] [cursor=pointer]:
+            - img [ref=e36]
+          - button "Cart (0)" [ref=e38] [cursor=pointer]:
+            - img [ref=e39]
+          - generic [ref=e41]:
+            - link "Admin" [ref=e42] [cursor=pointer]:
+              - /url: /admin
+            - button "Sign Out" [ref=e43] [cursor=pointer]
+      - generic [ref=e44]:
+        - img [ref=e45]
+        - textbox "Search destinations..." [ref=e47]
+        - button "Close menu" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+  - navigation "Quick contact actions" [ref=e51]:
+    - generic:
+      - link "Instagram":
+        - /url: https://instagram.com/abluxtravel
+        - generic:
+          - img
+        - generic: Instagram
+      - link "Call":
+        - /url: tel:+381111234567
+        - generic:
+          - img
+        - generic: Call
+      - link "Email":
+        - /url: mailto:info@abluxtravel2022.rs
+        - generic:
+          - img
+        - generic: Email
+    - button "Contact" [ref=e52] [cursor=pointer]:
+      - img [ref=e54]
+      - img [ref=e57]
+  - generic [ref=e59]:
+    - img "Reliable trips designed with care." [ref=e60]
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - heading "Reliable trips designed with care." [level=1] [ref=e63]
+        - paragraph [ref=e64]: "ABLux Travel was founded with a clear vision: to provide high-quality, carefully planned, and dependable travel experiences. Our main focus is religious tourism, supported by summer programs, European city breaks, and excursions for children."
+        - generic [ref=e65]:
+          - link "Explore Destinations" [ref=e66] [cursor=pointer]:
+            - /url: /aranzmani
+          - link "Religious Travel in Serbia" [ref=e67] [cursor=pointer]:
+            - /url: /verski-turizam
+      - generic [ref=e68]:
+        - link "EXOTIC TRIPS" [ref=e69] [cursor=pointer]:
+          - /url: /putovanja
+          - img [ref=e71]
+          - generic [ref=e76]: EXOTIC TRIPS
+        - link "EUROPEAN CITIES" [ref=e77] [cursor=pointer]:
+          - /url: /aranzmani
+          - img [ref=e79]
+          - generic [ref=e82]: EUROPEAN CITIES
+        - link "SERBIAN SANCTUARIES" [ref=e83] [cursor=pointer]:
+          - /url: /verski-turizam
+          - img [ref=e85]
+          - generic [ref=e88]: SERBIAN SANCTUARIES
+  - main [ref=e90]:
+    - generic [ref=e91]:
+      - region "4 reasons travelers choose ABLux" [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: Why travelers choose ABLux
+            - heading "4 reasons travelers choose ABLux" [level=2] [ref=e96]
+            - paragraph [ref=e97]: From first idea to return journey, every step is optimized for clarity, speed, and full traveler confidence.
+          - generic [ref=e98]:
+            - article [ref=e99]:
+              - img [ref=e101]
+              - heading "Carefully planned routes" [level=3] [ref=e105]
+              - paragraph [ref=e106]: Religious and premium destinations are selected by program quality, travel rhythm, and trusted local partners.
+            - article [ref=e107]:
+              - img [ref=e109]
+              - heading "Safety first" [level=3] [ref=e112]
+              - paragraph [ref=e113]: Routes, live trip details, and group logistics stay synchronized to keep every traveler secure and informed.
+            - article [ref=e114]:
+              - img [ref=e116]
+              - heading "Clear prices and timelines" [level=3] [ref=e120]
+              - paragraph [ref=e121]: Availability, conditions, and trip tempo are presented transparently without hidden steps or information noise.
+            - article [ref=e122]:
+              - img [ref=e124]
+              - heading "Support with instant response" [level=3] [ref=e130]
+              - paragraph [ref=e131]: Our team stays available before, during, and after the trip with guidance tailored to your specific group.
+      - generic [ref=e132]:
+        - heading "What we focus on" [level=2] [ref=e133]
+        - generic [ref=e134]:
+          - article [ref=e135]:
+            - paragraph [ref=e136]: Religious journeys with carefully planned routes and reliable logistics.
+          - article [ref=e137]:
+            - paragraph [ref=e138]: Summer and city tours adapted to different budgets and travel styles.
+          - article [ref=e139]:
+            - paragraph [ref=e140]: Children excursions with strong safety and content standards.
+      - generic [ref=e141]:
+        - generic [ref=e142]:
+          - generic [ref=e143]: Featured destinations
+          - heading "A quick look at our most requested routes" [level=2] [ref=e144]
+          - paragraph [ref=e145]: A visual overview of destinations travelers book most often.
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - article [ref=e149]:
+              - img "Sacred cities and pilgrimages" [ref=e151]
+              - generic [ref=e153]:
+                - paragraph [ref=e154]: Destination 01
+                - heading "Sacred cities and pilgrimages" [level=3] [ref=e155]
+            - article [ref=e156]:
+              - img "Mediterranean summer" [ref=e158]
+              - generic [ref=e160]:
+                - paragraph [ref=e161]: Destination 02
+                - heading "Mediterranean summer" [level=3] [ref=e162]
+            - article [ref=e163]:
+              - img "Northern nature routes" [ref=e165]
+              - generic [ref=e167]:
+                - paragraph [ref=e168]: Destination 03
+                - heading "Northern nature routes" [level=3] [ref=e169]
+            - article [ref=e170]:
+              - img "Desert and heritage tours" [ref=e172]
+              - generic [ref=e174]:
+                - paragraph [ref=e175]: Destination 04
+                - heading "Desert and heritage tours" [level=3] [ref=e176]
+            - article [ref=e177]:
+              - img "European city breaks" [ref=e179]
+              - generic [ref=e181]:
+                - paragraph [ref=e182]: Destination 05
+                - heading "European city breaks" [level=3] [ref=e183]
+          - button "Next section" [ref=e190] [cursor=pointer]
+      - generic [ref=e191]:
+        - heading "One platform for complete sales" [level=2] [ref=e192]
+        - paragraph [ref=e193]: A single, high-conversion hub for your own premium packages and selected partner offers, designed for clarity, trust, and fast traveler decisions.
+        - generic [ref=e194]:
+          - article [ref=e195]: Your own trips and packages in one place
+          - article [ref=e196]: Aggregated partner offers with commission-based sales
+          - article [ref=e197]: Fast and transparent traveler decision flow
+      - iframe [ref=e198]:
+        
+      - generic [ref=e199]:
+        - generic [ref=e200]:
+          - generic [ref=e201]: Partners
+          - heading "Agencies we trust" [level=2] [ref=e202]
+        - generic "Partner logos" [ref=e204]:
+          - img "Partner 1" [ref=e206]
+          - img "Partner 2" [ref=e208]
+          - img "Partner 3" [ref=e210]
+          - img "Partner 4" [ref=e212]
+          - img "Partner 5" [ref=e214]
+          - img "Partner 6" [ref=e216]
+          - img "Partner 7" [ref=e218]
+          - img "Partner 8" [ref=e220]
+          - img "Partner 9" [ref=e222]
+          - img "Partner 10" [ref=e224]
+          - img "Partner 11" [ref=e226]
+          - img "Partner 12" [ref=e228]
+          - img "Partner 13" [ref=e230]
+          - img "Partner 14" [ref=e232]
+          - img "Partner 15" [ref=e234]
+          - img "Partner 16" [ref=e236]
+          - img "Partner 17" [ref=e238]
+      - generic [ref=e257]:
+        - generic [ref=e258]:
+          - generic [ref=e259]:
+            - paragraph [ref=e260]: Page editor dock
+            - heading "Home command zone" [level=2] [ref=e261]
+            - paragraph [ref=e262]: Control hero messaging, CTA blocks, and first-impression pacing.
+          - generic [ref=e263]: Active
+        - article [ref=e264]:
+          - paragraph [ref=e265]: This module is ready for operational editing. The focus is enabling fast content and offer updates without bottlenecks.
+          - list [ref=e266]:
+            - listitem [ref=e267]: Update section headlines, tone, and CTA copy from the admin panel.
+            - listitem [ref=e268]: Sync offers, priorities, and visual order without touching code.
+            - listitem [ref=e269]: Validate experience in preview flow and publish immediately.
+          - link "Open control center" [ref=e270] [cursor=pointer]:
+            - /url: /admin/pocetna
+  - contentinfo [ref=e271]:
+    - generic [ref=e273]:
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - link "ABLux Travel" [ref=e276] [cursor=pointer]:
+            - /url: /
+            - img "ABLux Travel" [ref=e277]
+          - paragraph [ref=e278]: Religious tourism, summer vacations, European city tours, and school excursions.
+          - generic [ref=e279]:
+            - generic [ref=e280]: "Founded: 2022"
+            - generic [ref=e281]: "Core focus: religious tourism"
+        - region "Quick Actions" [ref=e282]:
+          - heading "Quick Actions" [level=2] [ref=e283]
+          - paragraph [ref=e284]: We respond to inquiries within 24h.
+          - generic [ref=e285]:
+            - link "Browse full offer Offer aggregator" [ref=e286] [cursor=pointer]:
+              - /url: /aranzmani
+              - generic [ref=e287]: Browse full offer
+              - generic [ref=e288]: Offer aggregator
+              - img [ref=e289]
+            - link "Send inquiry Contact and inquiries" [ref=e291] [cursor=pointer]:
+              - /url: /kontakt
+              - generic [ref=e292]: Send inquiry
+              - generic [ref=e293]: Contact and inquiries
+              - img [ref=e294]
+      - generic [ref=e297]:
+        - navigation "Navigation" [ref=e298]:
+          - heading "Navigation" [level=2] [ref=e299]
+          - list [ref=e300]:
+            - listitem [ref=e301]:
+              - link "Home" [ref=e302] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e303]:
+              - link "Trips" [ref=e304] [cursor=pointer]:
+                - /url: /putovanja
+            - listitem [ref=e305]:
+              - link "Packages" [ref=e306] [cursor=pointer]:
+                - /url: /aranzmani
+            - listitem [ref=e307]:
+              - link "Religious Tourism" [ref=e308] [cursor=pointer]:
+                - /url: /verski-turizam
+        - navigation "Services" [ref=e309]:
+          - heading "Services" [level=2] [ref=e310]
+          - list [ref=e311]:
+            - listitem [ref=e312]:
+              - link "About" [ref=e313] [cursor=pointer]:
+                - /url: /o-nama
+            - listitem [ref=e314]:
+              - link "Contact" [ref=e315] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e316]:
+              - link "Sign In" [ref=e317] [cursor=pointer]:
+                - /url: /auth
+        - region "Contact Center" [ref=e318]:
+          - heading "Contact Center" [level=2] [ref=e319]
+          - generic [ref=e320]:
+            - generic [ref=e321]:
+              - img [ref=e323]
+              - generic [ref=e325]:
+                - paragraph [ref=e326]: Address
+                - link "Bulevar Putnika 22, Beograd" [ref=e327] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/search/?api=1&query=Bulevar%20Putnika%2022%2C%20Beograd
+                  - generic [ref=e328]: Bulevar Putnika 22, Beograd
+                  - img [ref=e329]
+            - generic [ref=e331]:
+              - img [ref=e333]
+              - generic [ref=e335]:
+                - paragraph [ref=e336]: Email
+                - link "info@abluxtravel2022.rs" [ref=e337] [cursor=pointer]:
+                  - /url: mailto:info@abluxtravel2022.rs
+                  - generic [ref=e338]: info@abluxtravel2022.rs
+            - generic [ref=e339]:
+              - img [ref=e341]
+              - generic [ref=e343]:
+                - paragraph [ref=e344]: Phone
+                - link "+381 11 123 45 67" [ref=e345] [cursor=pointer]:
+                  - /url: tel:+381111234567
+                  - generic [ref=e346]: +381 11 123 45 67
+            - generic [ref=e347]:
+              - img [ref=e349]
+              - generic [ref=e351]:
+                - paragraph [ref=e352]: Working hours
+                - paragraph [ref=e353]: "Pon-Pet: 09:00-17:00, Sub: 10:00-14:00"
+      - generic [ref=e354]:
+        - paragraph [ref=e355]: 2026 ABLux Travel. All rights reserved.
+        - paragraph [ref=e356]: Digital platform for modern travel operations.
+  - button "Open Next.js Dev Tools" [ref=e362] [cursor=pointer]:
+    - img [ref=e363]
+  - alert [ref=e366]

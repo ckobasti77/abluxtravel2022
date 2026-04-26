@@ -8,6 +8,7 @@ export type SiteDictionary = {
     trips: string;
     arrangements: string;
     religiousTourism: string;
+    rentBus: string;
     countries: string;
     about: string;
     contact: string;
@@ -392,6 +393,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trips: "Putovanja",
       arrangements: "Aranžmani",
       religiousTourism: "Verski turizam",
+      rentBus: "Rent a bus",
       countries: "Zemlje",
       about: "O nama",
       contact: "Kontakt",
@@ -748,7 +750,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       hotel: "Hotel",
       deposit: "Depozit",
       depositDeadline: "Rok za uplatu",
-      itinerary: "Itinerer",
+      itinerary: "Program",
       included: "Uključeno u cenu",
       notIncluded: "Nije uključeno",
       contactCta: "Pošalji upit za ovaj aranžman",
@@ -792,6 +794,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       trips: "Trips",
       arrangements: "Packages",
       religiousTourism: "Religious Tourism",
+      rentBus: "Rent a bus",
       countries: "Countries",
       about: "About",
       contact: "Contact",
