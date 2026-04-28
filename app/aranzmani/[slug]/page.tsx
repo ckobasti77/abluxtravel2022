@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import CmsImage from "@/components/cms-image";
-import { useMemo, useState } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -34,7 +34,6 @@ import AddToCartButton from "../../../components/add-to-cart-button";
 import AlienShell from "../../../components/alien-shell";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { AccommodationType, useAccommodationsByTrip } from "../../../lib/use-accommodations";
-import type { Destination } from "../../../lib/use-destinations";
 import { useDestinationsByTrip } from "../../../lib/use-destinations";
 import { TransportType, useTripBySlug } from "../../../lib/use-trips";
 
@@ -95,22 +94,14 @@ export default function TripDetailPage() {
     () => selectedDestination?.imageUrls.filter(Boolean) ?? [],
     [selectedDestination],
   );
-  const lowestDestination = useMemo<Destination | null>(() => {
-    if (activeDestinations.length === 0) {
-      return null;
-    }
-    return activeDestinations.reduce(
-      (lowest, item) => (item.price < lowest.price ? item : lowest),
-      activeDestinations[0],
-    );
-  }, [activeDestinations]);
-  const subagencyCount = useMemo(
-    () =>
-      activeDestinations.filter(
-        (item) => (item.offerType ?? "own") === "subagency",
-      ).length,
-    [activeDestinations],
-  );
+  const detailMediaItems = useMemo(() => {
+    if (!trip) return [];
+    const media = trip.detailMedia?.filter((item) => item.url) ?? [];
+    if (media.length > 0) return media;
+    return trip.imageUrls
+      .filter(Boolean)
+      .map((url) => ({ url, mediaType: "image" as const }));
+  }, [trip]);
   const [expandedAcc, setExpandedAcc] = useState<string | null>(null);
 
   if (trip === undefined) {
@@ -173,57 +164,93 @@ export default function TripDetailPage() {
         <p className="page-subtitle">{trip.description}</p>
       </section>
 
-      {trip.imageUrls.length > 0 ? (
+      {detailMediaItems.length > 0 ? (
         <section className="panel-glass overflow-hidden">
           <div className="flex snap-x gap-3 overflow-x-auto pb-2">
-            {trip.imageUrls.filter(Boolean).map((url, i) => (
-              <CmsImage
-                key={i}
-                src={url}
-                alt={`${trip.title} ${i + 1}`}
-                className="h-56 w-auto shrink-0 snap-center rounded-xl border border-[var(--line)] object-cover sm:h-72"
-              />
-            ))}
+            {detailMediaItems.map((media, i) =>
+              media.mediaType === "video" ? (
+                <video
+                  key={`${media.url}-${i}`}
+                  src={media.url}
+                  className="h-56 w-auto shrink-0 snap-center rounded-xl border border-[var(--line)] object-cover sm:h-72"
+                  muted
+                  loop
+                  playsInline
+                  controls
+                />
+              ) : (
+                <CmsImage
+                  key={`${media.url}-${i}`}
+                  src={media.url}
+                  alt={`${trip.title} ${i + 1}`}
+                  className="h-56 w-auto shrink-0 snap-center rounded-xl border border-[var(--line)] object-cover sm:h-72"
+                />
+              ),
+            )}
           </div>
         </section>
       ) : null}
 
       {activeDestinations.length > 0 ? (
-        <section className="metric-grid">
-          <article className="metric-card">
-            <p className="metric-card__label">
-              {language === "sr" ? "Ponude u aranžmanu" : "Offers in package"}
-            </p>
-            <p className="metric-card__value">{activeDestinations.length}</p>
-            <p className="metric-card__hint">
+        <section className="grid gap-4">
+          <header className="grid gap-1">
+            <h2 className="text-2xl font-semibold">
+              {language === "sr" ? "Destinacije u aranžmanu" : "Destinations in this package"}
+            </h2>
+            <p className="panel-muted">
               {language === "sr"
-                ? "Svaka destinacija ima sopstvenu cenu i prikaz."
-                : "Each destination has its own pricing and presentation."}
+                ? "Cena se prikazuje na konkretnoj destinaciji, kako bi izbor bio jasan i bez mešanja sa glavnim aranžmanom."
+                : "Pricing is shown on concrete destinations, keeping the parent package clean and easy to compare."}
             </p>
-          </article>
-          <article className="metric-card">
-            <p className="metric-card__label">
-              {language === "sr" ? "Najniža cena" : "Lowest price"}
-            </p>
-            <p className="metric-card__value">
-              {lowestDestination
-                ? formatPrice(lowestDestination.price, lowestDestination.currency)
-                : "-"}
-            </p>
-            <p className="metric-card__hint">
-              {lowestDestination?.title ??
-                (language === "sr" ? "Iz dostupnih destinacija." : "From available destinations.")}
-            </p>
-          </article>
-          <article className="metric-card">
-            <p className="metric-card__label">Subagentura</p>
-            <p className="metric-card__value">{subagencyCount}</p>
-            <p className="metric-card__hint">
-              {language === "sr"
-                ? "Partner ponude se prikazuju preko iframe modula."
-                : "Partner offers render through iframe modules."}
-            </p>
-          </article>
+          </header>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {activeDestinations.map((item, index) => {
+              const heroImage = item.imageUrls?.find(Boolean);
+              const active = item._id === selectedDestination?._id;
+              return (
+                <button
+                  key={item._id}
+                  type="button"
+                  onClick={() => setSelectedDestinationId(item._id)}
+                  className={`group overflow-hidden rounded-2xl border p-3 text-left transition ${
+                    active
+                      ? "border-[var(--primary)] bg-[var(--primary-soft)]"
+                      : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--primary)]"
+                  }`}
+                  style={{ "--stagger-index": index } as CSSProperties}
+                >
+                  <div className="relative h-40 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                    {heroImage ? (
+                      <CmsImage
+                        src={heroImage}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
+                      <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                      <span className="shrink-0 rounded-full border border-white/30 bg-black/40 px-2.5 py-1 text-xs font-semibold text-white">
+                        {formatPrice(item.price, item.currency)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-3 grid gap-2">
+                    {item.description ? (
+                      <p className="line-clamp-2 text-sm leading-6 text-muted">
+                        {item.description}
+                      </p>
+                    ) : null}
+                    <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--primary)]">
+                      {language === "sr" ? "Pogledaj detalje destinacije" : "View destination details"}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </section>
       ) : (
         <section className="metric-grid">
@@ -418,11 +445,11 @@ export default function TripDetailPage() {
                 <h2 className="text-2xl font-semibold">
                   {language === "sr" ? "Destinacije aranžmana" : "Package destinations"}
                 </h2>
-                <p className="panel-muted">
-                  {language === "sr"
-                    ? "Izaberite konkretnu ponudu. Naše ponude imaju pun prikaz i rezervaciju, a subagenture se otvaraju kroz partnerski iframe."
-                    : "Choose a concrete offer. Our offers have full details and booking, while subagency offers open through a partner iframe."}
-                </p>
+	                <p className="panel-muted">
+	                  {language === "sr"
+	                    ? "Izaberite konkretnu destinaciju, proverite cenu i nastavite ka upitu ili rezervaciji."
+	                    : "Choose a concrete destination, review the price, and continue toward inquiry or booking."}
+	                </p>
               </header>
 
               <article className="panel-glass overflow-hidden">
@@ -431,19 +458,19 @@ export default function TripDetailPage() {
                     {(selectedDestination.offerType ?? "own") === "subagency" ? (
                       getIframeSrc(selectedDestination.iframeUrl) ? (
                         <iframe
-                          src={getIframeSrc(selectedDestination.iframeUrl)}
-                          title={selectedDestination.title}
-                          className="h-[520px] w-full bg-white xl:h-full"
+	                          src={getIframeSrc(selectedDestination.iframeUrl)}
+	                          title={selectedDestination.title}
+	                          className="h-[692px] min-h-[692px] w-full bg-white"
                           loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
                           sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                         />
                       ) : (
-                        <div className="flex h-full min-h-[320px] items-center justify-center p-6 text-center text-sm text-muted">
-                          {language === "sr"
-                            ? "Iframe link nije unet za ovu subagenturu."
-                            : "No iframe URL has been added for this subagency offer."}
-                        </div>
+	                        <div className="flex h-full min-h-[320px] items-center justify-center p-6 text-center text-sm text-muted">
+	                          {language === "sr"
+	                            ? "Link za prikaz ponude trenutno nije dostupan."
+	                            : "The offer preview link is not available right now."}
+	                        </div>
                       )
                     ) : selectedDestinationImages[0] ? (
                       <CmsImage
@@ -459,10 +486,12 @@ export default function TripDetailPage() {
                     )}
                     <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-2">
                       <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
-                        {(selectedDestination.offerType ?? "own") === "subagency"
-                          ? "Subagentura"
-                          : language === "sr"
-                            ? "Naša ponuda"
+	                        {(selectedDestination.offerType ?? "own") === "subagency"
+	                          ? language === "sr"
+	                            ? "Partnerska ponuda"
+	                            : "Partner offer"
+	                          : language === "sr"
+	                            ? "Naša ponuda"
                             : "Our offer"}
                       </span>
                       <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
@@ -477,9 +506,10 @@ export default function TripDetailPage() {
                   <div className="grid content-start gap-4">
                     <div>
                       <p className="metric-card__label">
-                        {(selectedDestination.offerType ?? "own") === "subagency"
-                          ? selectedDestination.partnerName || "Subagentura"
-                          : language === "sr"
+	                        {(selectedDestination.offerType ?? "own") === "subagency"
+	                          ? selectedDestination.partnerName ||
+	                            (language === "sr" ? "Partnerska ponuda" : "Partner offer")
+	                          : language === "sr"
                             ? "Naša ponuda"
                             : "Our offer"}
                       </p>
@@ -525,13 +555,9 @@ export default function TripDetailPage() {
                     </div>
 
                     <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)] p-4">
-                      <p className="metric-card__label">
-                        {(selectedDestination.offerType ?? "own") === "subagency"
-                          ? language === "sr"
-                            ? "Cena od"
-                            : "Price from"
-                          : t.price}
-                      </p>
+	                      <p className="metric-card__label">
+	                        {t.price}
+	                      </p>
                       <p className="mt-1 text-3xl font-semibold text-[var(--primary)]">
                         {formatPrice(
                           selectedDestination.price,
@@ -545,11 +571,11 @@ export default function TripDetailPage() {
                         <>
                           <Link
                             href="/kontakt"
-                            className="btn-primary w-full !justify-center"
-                          >
-                            {language === "sr"
-                              ? "Pošalji upit za subagenturu"
-                              : "Send subagency inquiry"}
+	                            className="btn-primary w-full !justify-center"
+	                          >
+	                            {language === "sr"
+	                              ? "Pošalji upit"
+	                              : "Send inquiry"}
                             <FaArrowRight className="text-xs" />
                           </Link>
                           {selectedDestination.externalUrl ? (
@@ -639,11 +665,13 @@ export default function TripDetailPage() {
                               className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                             />
                           ) : (
-                            <div className="flex h-full items-center justify-center text-[10px] text-muted">
-                              {(item.offerType ?? "own") === "subagency"
-                                ? "iframe"
-                                : language === "sr"
-                                  ? "bez slike"
+	                            <div className="flex h-full items-center justify-center text-[10px] text-muted">
+	                              {(item.offerType ?? "own") === "subagency"
+	                                ? language === "sr"
+	                                  ? "prikaz"
+	                                  : "preview"
+	                                : language === "sr"
+	                                  ? "bez slike"
                                   : "no image"}
                             </div>
                           )}
@@ -652,10 +680,12 @@ export default function TripDetailPage() {
                           <p className="truncate text-sm font-semibold">
                             {item.title}
                           </p>
-                          <p className="mt-1 text-xs text-muted">
-                            {(item.offerType ?? "own") === "subagency"
-                              ? "Subagentura"
-                              : language === "sr"
+	                          <p className="mt-1 text-xs text-muted">
+	                            {(item.offerType ?? "own") === "subagency"
+	                              ? language === "sr"
+	                                ? "Partnerska ponuda"
+	                                : "Partner offer"
+	                              : language === "sr"
                                 ? "Naša ponuda"
                                 : "Our offer"}
                           </p>
@@ -779,14 +809,18 @@ export default function TripDetailPage() {
                   ))}
                 </div>
 
-                {(selectedDestination.offerType ?? "own") === "subagency" ? (
-                  <Link
-                    href="/kontakt"
-                    className="btn-primary mt-5 w-full !justify-center"
-                  >
-                    {language === "sr" ? "Pošalji upit" : "Send inquiry"}
-                  </Link>
-                ) : (
+	                {(selectedDestination.offerType ?? "own") === "subagency" ? (
+	                  selectedDestination.externalUrl ? (
+	                    <a
+	                      href={selectedDestination.externalUrl}
+	                      target="_blank"
+	                      rel="noreferrer"
+	                      className="btn-primary mt-5 w-full !justify-center"
+	                    >
+	                      {language === "sr" ? "Otvori ponudu" : "Open offer"}
+	                    </a>
+	                  ) : null
+	                ) : (
                   <AddToCartButton
                     id={selectedDestination._id}
                     type="destination"
@@ -806,12 +840,17 @@ export default function TripDetailPage() {
                   {t.contactCta}
                 </Link>
               </>
-            ) : (
-              <>
-                <p className="text-3xl font-semibold text-[var(--primary)]">{formatPrice(trip.price, trip.currency)}</p>
-                <p className="mt-1 text-sm text-muted">
-                  {trip.days} {t.days} | {trip.nights} {t.nights}
-                </p>
+	            ) : (
+	              <>
+	                <p className="metric-card__label">
+	                  {language === "sr" ? "Pregled aranžmana" : "Package overview"}
+	                </p>
+	                <h2 className="mt-2 text-xl font-semibold leading-tight">
+	                  {trip.title}
+	                </h2>
+	                <p className="mt-3 text-sm text-muted">
+	                  {trip.days} {t.days} | {trip.nights} {t.nights}
+	                </p>
 
                 <div className="mt-3 grid gap-2 text-sm">
                   <p className="inline-flex items-start gap-2">
@@ -869,19 +908,9 @@ export default function TripDetailPage() {
                   </div>
                 ) : null}
 
-                <AddToCartButton
-                  id={trip._id}
-                  type="trip"
-                  title={trip.title}
-                  price={trip.price}
-                  currency={trip.currency}
-                  imageUrl={trip.imageUrls?.[0]}
-                  meta={{ departureCity: trip.departureCity, departureDate: trip.departureDate }}
-                  className="mt-5 w-full !justify-center"
-                />
-                <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
-                  {t.contactCta}
-                </Link>
+	                <Link href="/kontakt" className="btn-primary mt-5 w-full !justify-center">
+	                  {t.contactCta}
+	                </Link>
               </>
             )}
           </div>

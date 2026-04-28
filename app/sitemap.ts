@@ -5,7 +5,9 @@ import { SITE_URL } from "../lib/seo";
 const PUBLIC_ROUTES = [
   "/",
   "/putovanja",
+  "/destinacije",
   "/aranzmani",
+  "/ponude",
   "/verski-turizam",
   "/o-nama",
   "/kontakt",

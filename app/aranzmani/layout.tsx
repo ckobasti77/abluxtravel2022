@@ -5,7 +5,7 @@ import { createPageMetadata } from "../../lib/page-metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Aranžmani",
   description:
-    "Premium aranžmani ABLux Travel agencije sa jasnim terminima, cenama i detaljnim programom putovanja.",
+    "Premium aranžmani ABLux Travel agencije sa jasnim terminima, destinacijama i detaljnim programom putovanja.",
   canonical: "/aranzmani",
   keywords: ["aranžmani", "premium putovanja", "ABLux Travel aranžmani"],
 });

@@ -23,7 +23,7 @@ export const HOME_ROUTE_SWIPER_DEFAULTS: HomeRouteSwiperDefault[] = [
       sr: "Destinacija 01",
       en: "Destination 01",
     },
-    src: "/home-swiper/20251120_155602.jpg",
+    src: "/home-swiper/20251120_155602.avif",
     accent: "#67e8f9",
   },
   {
@@ -36,7 +36,7 @@ export const HOME_ROUTE_SWIPER_DEFAULTS: HomeRouteSwiperDefault[] = [
       sr: "Destinacija 02",
       en: "Destination 02",
     },
-    src: "/home-swiper/20251120_160325.jpg",
+    src: "/home-swiper/20251120_160325.avif",
     accent: "#f0abfc",
   },
   {
@@ -49,7 +49,7 @@ export const HOME_ROUTE_SWIPER_DEFAULTS: HomeRouteSwiperDefault[] = [
       sr: "Destinacija 03",
       en: "Destination 03",
     },
-    src: "/home-swiper/20251213_144248.jpg",
+    src: "/home-swiper/20251213_144248.avif",
     accent: "#93c5fd",
   },
   {
@@ -62,7 +62,7 @@ export const HOME_ROUTE_SWIPER_DEFAULTS: HomeRouteSwiperDefault[] = [
       sr: "Destinacija 04",
       en: "Destination 04",
     },
-    src: "/home-swiper/20251213_144402.jpg",
+    src: "/home-swiper/20251213_144402.avif",
     accent: "#fb7185",
   },
   {
@@ -75,7 +75,7 @@ export const HOME_ROUTE_SWIPER_DEFAULTS: HomeRouteSwiperDefault[] = [
       sr: "Destinacija 05",
       en: "Destination 05",
     },
-    src: "/home-swiper/20251229_233453.jpg",
+    src: "/home-swiper/20251229_233453.avif",
     accent: "#34d399",
   },
 ];

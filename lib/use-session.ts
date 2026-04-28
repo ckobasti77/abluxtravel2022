@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { SESSION_CHANGED_EVENT, getSession } from "./local-auth";
 
-export const useSession = () => {
-  const [session, setSession] = useState<ReturnType<typeof getSession>>(null);
+const subscribeToSession = (callback: () => void) => {
+  window.addEventListener("storage", callback);
+  window.addEventListener(SESSION_CHANGED_EVENT, callback);
 
-  useEffect(() => {
-    let mounted = true;
-
-    const onSessionChanged = () => {
-      if (mounted) {
-        setSession(getSession());
-      }
-    };
-
-    onSessionChanged();
-    window.addEventListener("storage", onSessionChanged);
-    window.addEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
-    return () => {
-      mounted = false;
-      window.removeEventListener("storage", onSessionChanged);
-      window.removeEventListener(SESSION_CHANGED_EVENT, onSessionChanged);
-    };
-  }, []);
-
-  return session;
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(SESSION_CHANGED_EVENT, callback);
+  };
 };
+
+const getServerSessionSnapshot = () => null;
+
+export const useSession = () =>
+  useSyncExternalStore(
+    subscribeToSession,
+    getSession,
+    getServerSessionSnapshot
+  );

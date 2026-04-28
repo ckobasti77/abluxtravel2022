@@ -62,7 +62,7 @@ export default function HomeHero() {
           <p className="hero-travel__subtitle">{dictionary.home.description}</p>
 
           <div className="hero-travel__ctas">
-            <Link href="/aranzmani" className="hero-travel__btn hero-travel__btn--primary">
+            <Link href="/destinacije" className="hero-travel__btn hero-travel__btn--primary">
               {dictionary.nav.heroCta1}
             </Link>
             <Link href="/verski-turizam" className="hero-travel__btn hero-travel__btn--outline">

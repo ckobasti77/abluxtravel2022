@@ -58,6 +58,18 @@ export default defineSchema({
     included: v.array(v.string()),
     notIncluded: v.array(v.string()),
     imageStorageIds: v.array(v.id("_storage")),
+    detailMedia: v.optional(
+      v.array(
+        v.object({
+          storageId: v.id("_storage"),
+          mediaType: v.union(v.literal("video"), v.literal("image")),
+          mediaName: v.optional(v.string()),
+        })
+      )
+    ),
+    heroMediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    heroMediaStorageId: v.optional(v.id("_storage")),
+    heroMediaName: v.optional(v.string()),
     status: v.union(
       v.literal("active"),
       v.literal("upcoming"),
@@ -145,6 +157,7 @@ export default defineSchema({
     .index("by_username", ["username"])
     .index("by_email", ["email"]),
   slides: defineTable({
+    slug: v.optional(v.string()),
     title: v.string(),
     subtitle: v.string(),
     badge: v.optional(v.string()),
@@ -152,9 +165,67 @@ export default defineSchema({
     mediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
     videoUrl: v.optional(v.string()),
     storageId: v.optional(v.id("_storage")),
+    description: v.optional(v.string()),
+    price: v.optional(v.number()),
+    currency: v.optional(v.string()),
+    nights: v.optional(v.number()),
+    days: v.optional(v.number()),
+    transport: v.optional(
+      v.union(
+        v.literal("bus"),
+        v.literal("plane"),
+        v.literal("car"),
+        v.literal("train"),
+        v.literal("self")
+      )
+    ),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    departureCity: v.optional(v.string()),
+    hotelInfo: v.optional(v.string()),
+    depositPercentage: v.optional(v.number()),
+    depositDeadline: v.optional(v.string()),
+    itinerary: v.optional(
+      v.array(
+        v.object({
+          day: v.number(),
+          date: v.string(),
+          description: v.string(),
+        })
+      )
+    ),
+    included: v.optional(v.array(v.string())),
+    notIncluded: v.optional(v.array(v.string())),
+    imageStorageIds: v.optional(v.array(v.id("_storage"))),
+    detailMedia: v.optional(
+      v.array(
+        v.object({
+          storageId: v.id("_storage"),
+          mediaType: v.union(v.literal("video"), v.literal("image")),
+          mediaName: v.optional(v.string()),
+        })
+      )
+    ),
+    heroMediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    heroMediaStorageId: v.optional(v.id("_storage")),
+    heroMediaName: v.optional(v.string()),
+    status: v.optional(
+      v.union(
+        v.literal("active"),
+        v.literal("upcoming"),
+        v.literal("completed")
+      )
+    ),
+    categoryId: v.optional(v.id("categories")),
+    isHero: v.optional(v.boolean()),
+    heroIcon: v.optional(v.string()),
+    featured: v.optional(v.boolean()),
     order: v.number(),
     isActive: v.boolean(),
-  }).index("by_order", ["order"]),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_order", ["order"])
+    .index("by_slug", ["slug"]),
   homeRouteSlides: defineTable({
     title: v.object({ sr: v.string(), en: v.string() }),
     caption: v.object({ sr: v.string(), en: v.string() }),

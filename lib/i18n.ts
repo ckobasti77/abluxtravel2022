@@ -7,6 +7,7 @@ export type SiteDictionary = {
     home: string;
     trips: string;
     arrangements: string;
+    offers: string;
     religiousTourism: string;
     rentBus: string;
     countries: string;
@@ -26,6 +27,7 @@ export type SiteDictionary = {
     subEurope: string;
     subCountries: string;
     subAllPackages: string;
+    subAllOffers: string;
     subSummer: string;
     subExcursions: string;
     subPilgrimages: string;
@@ -392,9 +394,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       home: "Početna",
       trips: "Putovanja",
       arrangements: "Aranžmani",
+      offers: "Ponude",
       religiousTourism: "Verski turizam",
       rentBus: "Rent a bus",
-      countries: "Zemlje",
+      countries: "Destinacije",
       about: "O nama",
       contact: "Kontakt",
       signIn: "Prijava",
@@ -406,11 +409,12 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       switchToDark: "Tamna",
       openMenu: "Otvori meni",
       closeMenu: "Zatvori meni",
-      searchPlaceholder: "Pretraži destinacije...",
+      searchPlaceholder: "Pretraži ponude i destinacije...",
       subExotic: "Egzotična putovanja",
       subEurope: "Evropske metropole",
-      subCountries: "Sve zemlje",
+      subCountries: "Sve destinacije",
       subAllPackages: "Svi aranžmani",
+      subAllOffers: "Sve ponude",
       subSummer: "Letovanja",
       subExcursions: "Ekskurzije",
       subPilgrimages: "Hodočašća",
@@ -526,10 +530,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       hoursValue: "Ponedeljak - petak, 09:00 - 17:00",
     },
     offers: {
-      badge: "Agregator ponuda",
-      title: "Kompletna ponuda na jednom mestu",
+      badge: "Aktivne ponude",
+      title: "Ponude spremne za poređenje",
       description:
-        "Ovde objedinjavamo sopstvene programe i partnerske ponude kako biste na jednom mestu imali pregled destinacija, cena i termina bez lutanja kroz vise sajtova.",
+        "Uporedite konkretne ponude po destinaciji, terminu, polasku i ceni, pa brzo izaberite opciju koja odgovara vašem planu.",
       filterLabel: "Filter po destinaciji",
       filterPlaceholder: "Na primer: Rim",
       metricSources: "Izvori",
@@ -566,9 +570,9 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
     },
     arrangements: {
       badge: "Istaknuti aranžmani",
-      title: "Premium aranžmani koji podižu poverenje",
+      title: "Aranžmani sa jasnim programom i destinacijama",
       description:
-        "Kurirani prikaz aranžmana sa fokusom na kvalitet programa, jasne informacije i moderan prikaz.",
+        "Izaberite okvir putovanja, pregledajte destinacije unutar aranžmana i nastavite ka ponudi koja vam najviše odgovara.",
       active: "Aktivni aranžman",
       openOffers: "Idi na kompletnu ponudu",
       trackA: "Kvalitet programa",
@@ -793,9 +797,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       home: "Home",
       trips: "Trips",
       arrangements: "Packages",
+      offers: "Offers",
       religiousTourism: "Religious Tourism",
       rentBus: "Rent a bus",
-      countries: "Countries",
+      countries: "Destinations",
       about: "About",
       contact: "Contact",
       signIn: "Sign In",
@@ -807,11 +812,12 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       switchToDark: "Dark",
       openMenu: "Open menu",
       closeMenu: "Close menu",
-      searchPlaceholder: "Search destinations...",
+      searchPlaceholder: "Search offers and destinations...",
       subExotic: "Exotic Trips",
       subEurope: "European Cities",
-      subCountries: "All Countries",
+      subCountries: "All Destinations",
       subAllPackages: "All Packages",
+      subAllOffers: "All Offers",
       subSummer: "Summer Vacations",
       subExcursions: "Excursions",
       subPilgrimages: "Pilgrimages",
@@ -927,10 +933,10 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       hoursValue: "Monday - Friday, 09:00 - 17:00",
     },
     offers: {
-      badge: "Offer aggregator",
-      title: "Complete offer in one place",
+      badge: "Active offers",
+      title: "Offers ready to compare",
       description:
-        "Combine your own programs with selected partner offers so travelers can compare destinations, pricing, and departures in one clear board.",
+        "Compare concrete offers by destination, date, departure point, and price, then choose the option that fits your plan.",
       filterLabel: "Destination filter",
       filterPlaceholder: "Example: Rome",
       metricSources: "Sources",
@@ -967,9 +973,9 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
     },
     arrangements: {
       badge: "Featured packages",
-      title: "Premium packages that build trust",
+      title: "Packages with clear programs and destinations",
       description:
-        "Curated package showcase focused on program quality, clear information, and modern presentation.",
+        "Choose the travel framework, review the destinations inside the package, and continue to the offer that fits best.",
       active: "Active package",
       openOffers: "Open full offer",
       trackA: "Program quality",

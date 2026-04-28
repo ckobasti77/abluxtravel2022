@@ -16,11 +16,9 @@ import { signOut } from "../lib/local-auth";
 import { SITE_NAV_ITEMS, type SiteNavSubItem } from "../lib/site-nav";
 import { useSession } from "../lib/use-session";
 import { useTrips } from "../lib/use-trips";
-import { useSlides } from "../lib/use-slides";
 import { useOffersLiveBoard } from "../lib/use-offers";
 import { isReligiousOffer } from "../lib/religious";
 import { useCategories } from "../lib/use-categories";
-import { toCountrySlug } from "../lib/country-route";
 import { useSitePreferences } from "./site-preferences-provider";
 import CartButton from "./cart-button";
 
@@ -48,7 +46,6 @@ export default function SiteNavigation() {
     useSitePreferences();
 
   const trips = useTrips();
-  const slides = useSlides([]);
   const offers = useOffersLiveBoard(undefined, []);
   const arrangementCategories = useCategories("arrangement");
   const religiousCategories = useCategories("religious");
@@ -56,24 +53,6 @@ export default function SiteNavigation() {
   const navItems = useMemo(() => {
     const offeredTrips = trips.filter((trip) => trip.status !== "completed");
 
-    // Trips dropdown: individual trips
-    const tripChildren: SiteNavSubItem[] = offeredTrips.map((t) => ({
-      key: `trip-${t.slug}`,
-      href: `/aranzmani/${t.slug}`,
-      label: t.title,
-    }));
-    const slideChildren = slides.reduce<SiteNavSubItem[]>((acc, slide) => {
-        const countrySlug = toCountrySlug(slide.title) || toCountrySlug(slide.id);
-        if (!countrySlug) return acc;
-        acc.push({
-          key: `slide-${slide.id}`,
-          href: `/putovanja/${countrySlug}`,
-          label: slide.title,
-        });
-        return acc;
-      }, []);
-
-    // Arrangements dropdown: categories or fallback to individual trips
     const arrCatChildren: SiteNavSubItem[] = arrangementCategories.map((c) => ({
       key: `cat-arr-${c._id}`,
       href: `/aranzmani?category=${c.slug}`,
@@ -85,7 +64,6 @@ export default function SiteNavigation() {
       label: t.title,
     }));
 
-    // Religious dropdown: individual offers or fallback to categories
     const religiousOfferChildren: SiteNavSubItem[] = offers
       .filter((o) => isReligiousOffer(o))
       .map((o) => ({
@@ -100,15 +78,6 @@ export default function SiteNavigation() {
     }));
 
     return SITE_NAV_ITEMS.map((item) => {
-      if (item.key === "trips") {
-        const children =
-          tripChildren.length > 0
-            ? tripChildren
-            : slideChildren.length > 0
-              ? slideChildren
-              : item.children;
-        return { ...item, children };
-      }
       if (item.key === "arrangements") {
         const children = arrCatChildren.length > 0 ? arrCatChildren : arrFallback;
         return { ...item, children: children.length > 0 ? children : item.children };
@@ -120,7 +89,7 @@ export default function SiteNavigation() {
       }
       return item;
     });
-  }, [trips, slides, offers, arrangementCategories, religiousCategories, language]);
+  }, [trips, offers, arrangementCategories, religiousCategories, language]);
 
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
@@ -166,7 +135,7 @@ export default function SiteNavigation() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/aranzmani?q=${encodeURIComponent(searchQuery.trim())}`);
+      router.push(`/ponude?q=${encodeURIComponent(searchQuery.trim())}`);
       setSearchOpen(false);
       setSearchQuery("");
       setMobileOpen(false);
@@ -264,7 +233,7 @@ export default function SiteNavigation() {
               className={`w-auto transition-[height] duration-500 ${
                 isScrolled ? "h-8 sm:h-9" : "h-9 sm:h-11"
               }`}
-              priority
+              loading="eager"
             />
           </Link>
 

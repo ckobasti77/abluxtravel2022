@@ -17,6 +17,8 @@ export type AuthErrorCode = "invalid_credentials" | "user_exists";
 
 const SESSION_KEY = "abluxtravel2022_session";
 const SESSION_EVENT = "ablux:session-changed";
+let cachedSessionRaw: string | null | undefined;
+let cachedSessionValue: SessionUser | null = null;
 
 const safeParse = <T,>(value: string | null, fallback: T): T => {
   if (!value) return fallback;
@@ -43,10 +45,15 @@ export const setSession = (user: SessionUser | null) => {
   if (typeof window === "undefined") return;
   if (!user) {
     window.localStorage.removeItem(SESSION_KEY);
+    cachedSessionRaw = null;
+    cachedSessionValue = null;
     window.dispatchEvent(new Event(SESSION_EVENT));
     return;
   }
-  window.localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+  const raw = JSON.stringify(user);
+  window.localStorage.setItem(SESSION_KEY, raw);
+  cachedSessionRaw = raw;
+  cachedSessionValue = user;
   window.dispatchEvent(new Event(SESSION_EVENT));
 };
 
@@ -65,12 +72,19 @@ export const setSessionFromAuth = (user: AuthUser) => {
 
 export const getSession = (): SessionUser | null => {
   if (typeof window === "undefined") return null;
+  const rawSession = window.localStorage.getItem(SESSION_KEY);
+  if (rawSession === cachedSessionRaw && (cachedSessionValue || rawSession === null)) {
+    return cachedSessionValue;
+  }
+
+  cachedSessionRaw = rawSession;
   const parsed = safeParse<Partial<SessionUser> & { username?: string } | null>(
-    window.localStorage.getItem(SESSION_KEY),
+    rawSession,
     null
   );
 
   if (!parsed || (parsed.role !== "admin" && parsed.role !== "user")) {
+    cachedSessionValue = null;
     return null;
   }
 
@@ -82,6 +96,7 @@ export const getSession = (): SessionUser | null => {
         : "";
 
   if (!email) {
+    cachedSessionValue = null;
     return null;
   }
 
@@ -92,13 +107,14 @@ export const getSession = (): SessionUser | null => {
       ? parsed.displayName.trim()
       : formatDisplayName(firstName, lastName, email);
 
-  return {
+  cachedSessionValue = {
     firstName,
     lastName,
     displayName,
     email,
     role: parsed.role,
   };
+  return cachedSessionValue;
 };
 
 export const signOut = () => {

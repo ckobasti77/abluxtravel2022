@@ -159,7 +159,7 @@ export default function SiteFooter() {
               </h2>
               <p className="mt-2 text-xs text-muted">{copy.response}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Link href="/aranzmani" className="site-footer-action">
+                <Link href="/ponude" className="site-footer-action">
                   <span className="site-footer-action__title">{dictionary.home.ctaOffers}</span>
                   <span className="site-footer-action__meta">{dictionary.offers.badge}</span>
                   <FaArrowRightLong aria-hidden className="site-footer-action__icon" />

@@ -9,6 +9,8 @@ export type SiteNavItem = {
     | "home"
     | "trips"
     | "arrangements"
+    | "offers"
+    | "countries"
     | "religiousTourism"
     | "rentBus"
     | "about"
@@ -25,7 +27,6 @@ export const SITE_NAV_ITEMS: SiteNavItem[] = [
     children: [
       { key: "subExotic", href: "/putovanja" },
       { key: "subEurope", href: "/putovanja" },
-      { key: "subCountries", href: "/zemlje" },
     ],
   },
   {

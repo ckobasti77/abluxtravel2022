@@ -3,5 +3,5 @@
 import TripEditor from "../../../components/trip-editor";
 
 export default function AdminAranzmaniPage() {
-  return <TripEditor />;
+  return <TripEditor mode="arrangements" />;
 }

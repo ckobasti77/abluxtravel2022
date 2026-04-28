@@ -7,9 +7,11 @@ import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../../components/alien-shell";
 import AddToCartButton from "../../../components/add-to-cart-button";
 import DestinationEditor from "../../../components/destination-editor";
+import JourneyDetailPage from "../../../components/journey-detail-page";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { fromCountrySlug } from "../../../lib/country-route";
+import { useJourneyBySlug } from "../../../lib/use-journeys";
 import { useDestinationsByPage } from "../../../lib/use-destinations";
 import { AggregatedOffer, useOffersLiveBoard } from "../../../lib/use-offers";
 import { useSession } from "../../../lib/use-session";
@@ -35,6 +37,7 @@ export default function CountryTripsPage() {
   const session = useSession();
   const [query, setQuery] = useState("");
   const isAdmin = session?.role === "admin";
+  const journey = useJourneyBySlug(slug);
 
   const countryName = useMemo(() => fromCountrySlug(slug), [slug]);
   const offers = useOffersLiveBoard(countryName);
@@ -75,6 +78,22 @@ export default function CountryTripsPage() {
     () => destinations.filter((item) => item.isActive),
     [destinations],
   );
+
+  if (journey === undefined) {
+    return (
+      <AlienShell className="site-fade">
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <div className="surface animate-pulse rounded-2xl px-8 py-6 text-muted">
+            {language === "sr" ? "Učitavanje..." : "Loading..."}
+          </div>
+        </div>
+      </AlienShell>
+    );
+  }
+
+  if (journey) {
+    return <JourneyDetailPage journey={journey} />;
+  }
 
   return (
     <AlienShell className="site-fade page-stack">

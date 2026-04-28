@@ -674,11 +674,11 @@ export default function ReligiousOffersEditor() {
             </div>
             {pdfFileName ? <p className="text-xs text-muted">{pdfFileName}</p> : null}
             {pdfUrl ? (
-              <iframe
-                src={`${pdfUrl}#toolbar=1&navpanes=0`}
-                className="h-60 w-full rounded-xl border border-[var(--line)] bg-white"
-                title={language === "sr" ? "Pregled PDF brošure" : "PDF brochure preview"}
-              />
+	              <iframe
+	                src={`${pdfUrl}#toolbar=1&navpanes=0`}
+	                className="h-80 w-full rounded-xl border border-[var(--line)] bg-white"
+	                title={language === "sr" ? "Pregled PDF brošure" : "PDF brochure preview"}
+	              />
             ) : null}
           </div>
           <div className="flex flex-wrap items-center gap-3">

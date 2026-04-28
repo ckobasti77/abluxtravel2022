@@ -50,6 +50,19 @@ export const list = query({
           ).length,
           lowestDestinationPrice: lowestDestination?.price,
           lowestDestinationCurrency: lowestDestination?.currency,
+          heroMediaUrl: trip.heroMediaStorageId
+            ? await ctx.storage.getUrl(trip.heroMediaStorageId)
+            : null,
+          detailMedia: await Promise.all(
+            (trip.detailMedia ??
+              trip.imageStorageIds.map((storageId) => ({
+                storageId,
+                mediaType: "image" as const,
+              }))).map(async (media) => ({
+              ...media,
+              url: (await ctx.storage.getUrl(media.storageId)) ?? "",
+            }))
+          ),
           imageUrls: await Promise.all(
             trip.imageStorageIds.map(async (id) => {
               const url = await ctx.storage.getUrl(id);
@@ -78,8 +91,21 @@ export const getBySlug = query({
         return url ?? "";
       })
     );
+    const heroMediaUrl = trip.heroMediaStorageId
+      ? await ctx.storage.getUrl(trip.heroMediaStorageId)
+      : null;
+    const detailMedia = await Promise.all(
+      (trip.detailMedia ??
+        trip.imageStorageIds.map((storageId) => ({
+          storageId,
+          mediaType: "image" as const,
+        }))).map(async (media) => ({
+        ...media,
+        url: (await ctx.storage.getUrl(media.storageId)) ?? "",
+      }))
+    );
 
-    return { ...trip, imageUrls };
+    return { ...trip, heroMediaUrl, detailMedia, imageUrls };
   },
 });
 
@@ -116,6 +142,18 @@ export const upsert = mutation({
     included: v.array(v.string()),
     notIncluded: v.array(v.string()),
     imageStorageIds: v.array(v.id("_storage")),
+    detailMedia: v.optional(
+      v.array(
+        v.object({
+          storageId: v.id("_storage"),
+          mediaType: v.union(v.literal("video"), v.literal("image")),
+          mediaName: v.optional(v.string()),
+        })
+      )
+    ),
+    heroMediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    heroMediaStorageId: v.optional(v.id("_storage")),
+    heroMediaName: v.optional(v.string()),
     status: v.union(
       v.literal("active"),
       v.literal("upcoming"),

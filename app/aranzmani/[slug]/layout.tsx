@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return createPageMetadata({
     title: `${title} | Aranžman`,
-    description: `Detalji aranžmana ${title} — cena, program, transport i sve informacije za putovanje.`,
+    description: `Detalji aranžmana ${title}: program, destinacije, transport i sve informacije za putovanje.`,
     canonical: `/aranzmani/${slug}`,
     keywords: [title, "aranžman", "putovanje", "ABLux Travel"],
   });

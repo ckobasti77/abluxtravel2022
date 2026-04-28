@@ -4,6 +4,14 @@ import { api } from "../convex/_generated/api";
 
 export type TripStatus = "active" | "upcoming" | "completed";
 export type TransportType = "bus" | "plane" | "car" | "train" | "self";
+export type TripHeroMediaType = "video" | "image";
+
+export type TripDetailMedia = {
+  storageId: string;
+  mediaType: TripHeroMediaType;
+  mediaName?: string;
+  url: string;
+};
 
 export type Trip = {
   _id: string;
@@ -26,6 +34,11 @@ export type Trip = {
   notIncluded: string[];
   imageStorageIds: string[];
   imageUrls: string[];
+  detailMedia?: TripDetailMedia[];
+  heroMediaType?: TripHeroMediaType;
+  heroMediaStorageId?: string;
+  heroMediaName?: string;
+  heroMediaUrl?: string | null;
   destinationCount?: number;
   subagencyDestinationCount?: number;
   lowestDestinationPrice?: number;

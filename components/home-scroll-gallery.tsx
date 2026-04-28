@@ -38,35 +38,35 @@ const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
         id: "pilgrimage",
         title: "Sveti gradovi i hodočašća",
         caption: "Destinacija 01",
-        src: "/home-swiper/20251120_155602.jpg",
+        src: "/home-swiper/20251120_155602.avif",
         accent: "#67e8f9",
       },
       {
         id: "coast",
         title: "Leto na Mediteranu",
         caption: "Destinacija 02",
-        src: "/home-swiper/20251120_160325.jpg",
+        src: "/home-swiper/20251120_160325.avif",
         accent: "#f0abfc",
       },
       {
         id: "north",
         title: "Severne prirodne ture",
         caption: "Destinacija 03",
-        src: "/home-swiper/20251213_144248.jpg",
+        src: "/home-swiper/20251213_144248.avif",
         accent: "#93c5fd",
       },
       {
         id: "desert",
         title: "Pustinjske i istorijske ture",
         caption: "Destinacija 04",
-        src: "/home-swiper/20251213_144402.jpg",
+        src: "/home-swiper/20251213_144402.avif",
         accent: "#fb7185",
       },
       {
         id: "city",
         title: "Evropske gradske ture",
         caption: "Destinacija 05",
-        src: "/home-swiper/20251229_233453.jpg",
+        src: "/home-swiper/20251229_233453.avif",
         accent: "#34d399",
       },
     ],
@@ -81,35 +81,35 @@ const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
         id: "pilgrimage",
         title: "Sacred cities and pilgrimages",
         caption: "Destination 01",
-        src: "/home-swiper/20251120_155602.jpg",
+        src: "/home-swiper/20251120_155602.avif",
         accent: "#67e8f9",
       },
       {
         id: "coast",
         title: "Mediterranean summer",
         caption: "Destination 02",
-        src: "/home-swiper/20251120_160325.jpg",
+        src: "/home-swiper/20251120_160325.avif",
         accent: "#f0abfc",
       },
       {
         id: "north",
         title: "Northern nature routes",
         caption: "Destination 03",
-        src: "/home-swiper/20251213_144248.jpg",
+        src: "/home-swiper/20251213_144248.avif",
         accent: "#93c5fd",
       },
       {
         id: "desert",
         title: "Desert and heritage tours",
         caption: "Destination 04",
-        src: "/home-swiper/20251213_144402.jpg",
+        src: "/home-swiper/20251213_144402.avif",
         accent: "#fb7185",
       },
       {
         id: "city",
         title: "European city breaks",
         caption: "Destination 05",
-        src: "/home-swiper/20251229_233453.jpg",
+        src: "/home-swiper/20251229_233453.avif",
         accent: "#34d399",
       },
     ],
@@ -118,6 +118,14 @@ const ORBIT_CONTENT: Record<"sr" | "en", GalleryContent> = {
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
+
+const normalizeHomeSwiperImageSrc = (src: string) => {
+  if (src.startsWith("/home-swiper/") && src.endsWith(".jpg")) {
+    return src.replace(/\.jpg$/, ".avif");
+  }
+
+  return src;
+};
 
 const SCROLL_COOLDOWN_MS = 520;
 const CENTER_ALIGN_COOLDOWN_MS = 620;
@@ -142,7 +150,7 @@ export default function HomeScrollGallery() {
         id: card.id,
         title: card.title[language],
         caption: card.caption[language],
-        src: card.src,
+        src: normalizeHomeSwiperImageSrc(card.src),
         accent: card.accent,
       })),
     [language]
@@ -159,7 +167,7 @@ export default function HomeScrollGallery() {
             id: slide._id,
             title: slide.title[language],
             caption: slide.caption[language],
-            src: slide.imageUrl,
+            src: normalizeHomeSwiperImageSrc(slide.imageUrl),
             accent: slide.accent,
           },
         ];

@@ -88,9 +88,9 @@ export default function HomePage() {
 
           <iframe
             src="https://putovanja.bigblue.rs/sr/location/alanja"
-            width="40%"
-            height="600"
-            style={{ border: "none" }}
+            width="54%"
+            height="800"
+            style={{ border: "none", maxWidth: "100%" }}
             loading="lazy"
           />
 
