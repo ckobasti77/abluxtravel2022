@@ -86,14 +86,6 @@ export default function HomePage() {
             </div>
           </section>
 
-          <iframe
-            src="https://putovanja.bigblue.rs/sr/location/alanja"
-            width="54%"
-            height="800"
-            style={{ border: "none", maxWidth: "100%" }}
-            loading="lazy"
-          />
-
           <HomePartnersCarousel />
 
           <PageAdminEditorDock slot="home" className="mt-10" />

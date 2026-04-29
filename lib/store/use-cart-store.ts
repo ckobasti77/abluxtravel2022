@@ -72,6 +72,15 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "ablux_cart",
+      skipHydration: true,
     }
   )
 );
+
+let cartHydrationStarted = false;
+
+export const hydrateCartStore = () => {
+  if (cartHydrationStarted) return;
+  cartHydrationStarted = true;
+  void useCartStore.persist.rehydrate();
+};

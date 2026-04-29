@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import gsap from "gsap";
-import { useCartStore } from "@/lib/store/use-cart-store";
+import { hydrateCartStore, useCartStore } from "@/lib/store/use-cart-store";
 import { useSitePreferences } from "./site-preferences-provider";
 import CartDrawer from "./cart-drawer";
 
@@ -22,6 +22,10 @@ export default function CartButton() {
   );
   const iconRef = useRef<HTMLButtonElement>(null);
   const prevCountRef = useRef(itemCount);
+
+  useEffect(() => {
+    hydrateCartStore();
+  }, []);
 
   // GSAP bounce animation when item count changes
   useEffect(() => {

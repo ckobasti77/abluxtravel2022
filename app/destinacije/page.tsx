@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { type CSSProperties, useMemo, useState } from "react";
 import { FaArrowRight, FaLocationDot, FaMagnifyingGlass, FaTag } from "react-icons/fa6";
+import AddToCartButton from "../../components/add-to-cart-button";
 import CmsImage from "../../components/cms-image";
+import FavoriteDestinationButton from "../../components/favorite-destination-button";
 import AlienShell from "../../components/alien-shell";
 import { useSitePreferences } from "../../components/site-preferences-provider";
 import { toCountrySlug } from "../../lib/country-route";
@@ -191,63 +193,94 @@ export default function DestinacijePage() {
       <section>
         {filteredCards.length > 0 ? (
           <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {filteredCards.map((card, index) => (
-              <article
-                key={card.key}
-                className="panel-glass fx-lift flex h-full flex-col overflow-hidden"
-                style={{ "--stagger-index": index } as CSSProperties}
-              >
-                <div className="relative h-44 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                  {card.mediaType === "video" && card.mediaUrl ? (
-                    <video
-                      src={card.mediaUrl}
-                      className="h-full w-full object-cover"
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                    />
-                  ) : card.mediaUrl ? (
-                    <CmsImage src={card.mediaUrl} alt={card.name} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
-                    <h2 className="text-xl font-semibold text-white">{card.name}</h2>
-                    <span className="rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[11px] font-semibold text-white">
-                      {formatLowestPrice(card)}
-                    </span>
-                  </div>
-                </div>
+            {filteredCards.map((card, index) => {
+              const href = `/putovanja/${card.slug}`;
+              const priceLabel = formatLowestPrice(card);
 
-                <div className="mt-4 flex flex-1 flex-col gap-3">
-                  <p className="text-sm leading-6 text-muted">{card.copy}</p>
-                  <div className="grid gap-2 text-sm text-muted">
-                    <p className="flex items-center gap-2">
-                      <FaLocationDot className="text-xs text-[var(--primary)]" />
-                      {card.offerCount > 0
-                        ? language === "sr"
-                          ? `${card.offerCount} aktivnih ponuda`
-                          : `${card.offerCount} active offers`
-                        : language === "sr"
-                          ? "Program u pripremi"
-                          : "Program in preparation"}
-                    </p>
-                    {card.tags.length > 0 ? (
-                      <p className="flex items-center gap-2">
-                        <FaTag className="text-xs text-[var(--primary)]" />
-                        {card.tags.slice(0, 3).join(", ")}
-                      </p>
-                    ) : null}
+              return (
+                <article
+                  key={card.key}
+                  className="panel-glass fx-lift flex h-full flex-col overflow-hidden"
+                  style={{ "--stagger-index": index } as CSSProperties}
+                >
+                  <div className="relative h-48 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                    {card.mediaType === "video" && card.mediaUrl ? (
+                      <video
+                        src={card.mediaUrl}
+                        className="h-full w-full object-cover"
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                      />
+                    ) : card.mediaUrl ? (
+                      <CmsImage src={card.mediaUrl} alt={card.name} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/10 to-transparent" />
+                    <FavoriteDestinationButton
+                      destination={{
+                        id: card.slug,
+                        title: card.name,
+                        href,
+                        imageUrl: card.mediaUrl,
+                        priceLabel,
+                      }}
+                      className="absolute right-3 top-3"
+                    />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
+                      <h2 className="min-w-0 text-xl font-semibold text-white">{card.name}</h2>
+                      <span className="shrink-0 rounded-full border border-white/30 bg-black/40 px-2.5 py-1 text-[11px] font-semibold text-white">
+                        {priceLabel}
+                      </span>
+                    </div>
                   </div>
-                  <Link href={`/putovanja/${card.slug}`} className="btn-primary mt-auto w-full !justify-center">
-                    {language === "sr" ? `Pogledaj ponude za ${card.name}` : `View offers for ${card.name}`}
-                    <FaArrowRight className="text-xs" />
-                  </Link>
-                </div>
-              </article>
-            ))}
+
+                  <div className="mt-4 flex flex-1 flex-col gap-3">
+                    <p className="text-sm leading-6 text-muted">{card.copy}</p>
+                    <div className="grid gap-2 text-sm text-muted">
+                      <p className="flex items-center gap-2">
+                        <FaLocationDot className="text-xs text-[var(--primary)]" />
+                        {card.offerCount > 0
+                          ? language === "sr"
+                            ? `${card.offerCount} aktivnih ponuda`
+                            : `${card.offerCount} active offers`
+                          : language === "sr"
+                            ? "Program u pripremi"
+                            : "Program in preparation"}
+                      </p>
+                      {card.tags.length > 0 ? (
+                        <p className="flex items-center gap-2">
+                          <FaTag className="text-xs text-[var(--primary)]" />
+                          {card.tags.slice(0, 3).join(", ")}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div className="mt-auto grid gap-2 border-t border-[var(--line)] pt-3">
+                      <AddToCartButton
+                        id={`destination-${card.slug}`}
+                        type="destination"
+                        title={card.name}
+                        price={card.lowestPrice ?? 0}
+                        currency={card.currency ?? "EUR"}
+                        imageUrl={card.mediaUrl}
+                        meta={{
+                          destination: card.name,
+                          activeOffers: String(card.offerCount),
+                        }}
+                        className="w-full !justify-center !py-3"
+                      />
+                      <Link href={href} className="btn-secondary w-full !justify-center !py-3 !text-xs">
+                        {language === "sr" ? "Pogledaj ponude" : "View offers"}
+                        <FaArrowRight className="text-xs" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         ) : (
           <div className="empty-state">

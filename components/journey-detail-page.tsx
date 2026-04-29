@@ -85,6 +85,10 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
     if (Number.isNaN(date.getTime())) return iso;
     return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(date);
   };
+  const destinationContactCta =
+    language === "sr"
+      ? "Pošalji upit za ovu destinaciju"
+      : "Send inquiry for this destination";
 
   return (
     <AlienShell className="site-fade page-stack">
@@ -207,20 +211,20 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
           {selectedDestination ? (
             <section className="grid gap-4">
               <article className="panel-glass overflow-hidden">
-                <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem]">
-                  <div className="relative min-h-[320px] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)]">
+                <div className="grid gap-5">
+                  <div className="relative min-h-[300px] overflow-hidden rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)]">
                     {(selectedDestination.offerType ?? "own") === "subagency" ? (
                       getIframeSrc(selectedDestination.iframeUrl) ? (
                         <iframe
                           src={getIframeSrc(selectedDestination.iframeUrl)}
                           title={selectedDestination.title}
-                          className="h-[620px] min-h-[620px] w-full bg-white"
+                          className="h-[520px] min-h-[520px] w-full bg-white sm:h-[560px] sm:min-h-[560px]"
                           loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
                           sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                         />
                       ) : (
-                        <div className="flex h-full min-h-[320px] items-center justify-center p-6 text-center text-muted">
+                        <div className="flex h-full min-h-[300px] items-center justify-center p-6 text-center text-muted">
                           {language === "sr"
                             ? "Partnerski prikaz nije dostupan."
                             : "Partner preview is not available."}
@@ -230,7 +234,7 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
                       <CmsImage
                         src={selectedDestinationImages[0]}
                         alt={selectedDestination.title}
-                        className="h-full min-h-[320px] w-full object-cover"
+                        className="h-full min-h-[300px] w-full object-cover"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
@@ -288,55 +292,6 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
                       ) : null}
                     </div>
 
-                    <div className="rounded-2xl border border-[var(--line)] bg-[var(--bg-soft)] p-4">
-                      <p className="metric-card__label">{t.price}</p>
-                      <p className="mt-1 text-3xl font-semibold text-[var(--primary)]">
-                        {formatPrice(selectedDestination.price, selectedDestination.currency)}
-                      </p>
-                    </div>
-
-                    <div className="grid gap-2">
-                      {(selectedDestination.offerType ?? "own") === "subagency" ? (
-                        <>
-                          <Link href="/kontakt" className="btn-primary w-full !justify-center">
-                            {language === "sr" ? "Pošalji upit" : "Send inquiry"}
-                            <FaArrowRight className="text-xs" />
-                          </Link>
-                          {selectedDestination.externalUrl ? (
-                            <a
-                              href={selectedDestination.externalUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="btn-secondary w-full !justify-center"
-                            >
-                              {language === "sr"
-                                ? "Otvori kod partnera"
-                                : "Open partner offer"}
-                            </a>
-                          ) : null}
-                        </>
-                      ) : (
-                        <>
-                          <AddToCartButton
-                            id={selectedDestination._id}
-                            type="destination"
-                            title={`${selectedDestination.title} - ${journey.title}`}
-                            price={selectedDestination.price}
-                            currency={selectedDestination.currency}
-                            imageUrl={selectedDestinationImages[0]}
-                            meta={{
-                              parentPackage: journey.title,
-                              departureCity: selectedDestination.departureCity ?? "",
-                              departureDate: selectedDestination.departureDate ?? "",
-                            }}
-                            className="w-full !justify-center"
-                          />
-                          <Link href="/kontakt" className="btn-secondary w-full !justify-center">
-                            {t.contactCta}
-                          </Link>
-                        </>
-                      )}
-                    </div>
                   </div>
                 </div>
 
@@ -466,9 +421,43 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
               </div>
             ) : null}
 
-            <Link href="/kontakt" className="btn-primary mt-5 w-full !justify-center">
-              {t.contactCta}
-            </Link>
+            {selectedDestination ? (
+              <>
+                <AddToCartButton
+                  id={selectedDestination._id}
+                  type="destination"
+                  title={`${selectedDestination.title} - ${journey.title}`}
+                  price={selectedDestination.price}
+                  currency={selectedDestination.currency}
+                  imageUrl={selectedDestinationImages[0]}
+                  meta={{
+                    parentPackage: journey.title,
+                    departureCity: selectedDestination.departureCity ?? "",
+                    departureDate: selectedDestination.departureDate ?? "",
+                  }}
+                  className="mt-5 w-full !justify-center"
+                />
+                <Link href="/kontakt" className="btn-secondary mt-2 w-full !justify-center">
+                  {destinationContactCta}
+                  <FaArrowRight className="text-xs" />
+                </Link>
+                {(selectedDestination.offerType ?? "own") === "subagency" &&
+                selectedDestination.externalUrl ? (
+                  <a
+                    href={selectedDestination.externalUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary mt-2 w-full !justify-center"
+                  >
+                    {language === "sr" ? "Otvori ponudu" : "Open offer"}
+                  </a>
+                ) : null}
+              </>
+            ) : (
+              <Link href="/kontakt" className="btn-primary mt-5 w-full !justify-center">
+                {t.contactCta}
+              </Link>
+            )}
           </div>
         </aside>
       </div>
