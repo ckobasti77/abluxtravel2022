@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import CmsImage from "@/components/cms-image";
-import { type CSSProperties, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -32,6 +32,7 @@ import {
 } from "react-icons/fa6";
 import AddToCartButton from "../../../components/add-to-cart-button";
 import AlienShell from "../../../components/alien-shell";
+import DestinationLoopCarousel from "../../../components/destination-loop-carousel";
 import { useSitePreferences } from "../../../components/site-preferences-provider";
 import { AccommodationType, useAccommodationsByTrip } from "../../../lib/use-accommodations";
 import { useDestinationsByTrip } from "../../../lib/use-destinations";
@@ -207,54 +208,23 @@ export default function TripDetailPage() {
                 : "Pricing is shown on concrete destinations, keeping the parent package clean and easy to compare."}
             </p>
           </header>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {activeDestinations.map((item, index) => {
-              const heroImage = item.imageUrls?.find(Boolean);
-              const active = item._id === selectedDestination?._id;
-              return (
-                <button
-                  key={item._id}
-                  type="button"
-                  onClick={() => setSelectedDestinationId(item._id)}
-                  className={`group overflow-hidden rounded-2xl border p-3 text-left transition ${
-                    active
-                      ? "border-[var(--primary)] bg-[var(--primary-soft)]"
-                      : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--primary)]"
-                  }`}
-                  style={{ "--stagger-index": index } as CSSProperties}
-                >
-                  <div className="relative h-40 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                    {heroImage ? (
-                      <CmsImage
-                        src={heroImage}
-                        alt={item.title}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
-                      <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                      <span className="shrink-0 rounded-full border border-white/30 bg-black/40 px-2.5 py-1 text-xs font-semibold text-white">
-                        {formatPrice(item.price, item.currency)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-3 grid gap-2">
-                    {item.description ? (
-                      <p className="line-clamp-2 text-sm leading-6 text-muted">
-                        {item.description}
-                      </p>
-                    ) : null}
-                    <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[var(--primary)]">
-                      {language === "sr" ? "Pogledaj detalje destinacije" : "View destination details"}
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+          <DestinationLoopCarousel
+            destinations={activeDestinations}
+            locale={locale}
+            selectedDestinationId={selectedDestination?._id}
+            onSelectDestination={setSelectedDestinationId}
+            actionLabel={
+              language === "sr"
+                ? "Pogledaj detalje destinacije"
+                : "View destination details"
+            }
+            noImageLabel={language === "sr" ? "Bez slike" : "No image"}
+            ariaLabel={
+              language === "sr"
+                ? "Beskonacni prikaz destinacija u aranzmanu"
+                : "Infinite package destinations carousel"
+            }
+          />
         </section>
       ) : (
         <section className="metric-grid">

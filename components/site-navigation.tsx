@@ -15,6 +15,7 @@ import {
 import { signOut } from "../lib/local-auth";
 import { SITE_NAV_ITEMS, type SiteNavSubItem } from "../lib/site-nav";
 import { useSession } from "../lib/use-session";
+import { useJourneys } from "../lib/use-journeys";
 import { useTrips } from "../lib/use-trips";
 import { useOffersLiveBoard } from "../lib/use-offers";
 import { isReligiousOffer } from "../lib/religious";
@@ -46,22 +47,27 @@ export default function SiteNavigation() {
     useSitePreferences();
 
   const trips = useTrips();
+  const journeys = useJourneys();
   const offers = useOffersLiveBoard(undefined, []);
-  const arrangementCategories = useCategories("arrangement");
   const religiousCategories = useCategories("religious");
 
   const navItems = useMemo(() => {
-    const offeredTrips = trips.filter((trip) => trip.status !== "completed");
+    const offeredTrips = trips
+      .filter((trip) => trip.status !== "completed")
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+    const offeredJourneys = journeys
+      .filter((journey) => journey.status !== "completed")
+      .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
 
-    const arrCatChildren: SiteNavSubItem[] = arrangementCategories.map((c) => ({
-      key: `cat-arr-${c._id}`,
-      href: `/aranzmani?category=${c.slug}`,
-      label: language === "sr" ? c.name.sr : c.name.en,
-    }));
-    const arrFallback: SiteNavSubItem[] = offeredTrips.map((t) => ({
+    const arrangementChildren: SiteNavSubItem[] = offeredTrips.map((t) => ({
       key: `arr-${t.slug}`,
       href: `/aranzmani/${t.slug}`,
       label: t.title,
+    }));
+    const journeyChildren: SiteNavSubItem[] = offeredJourneys.map((journey) => ({
+      key: `journey-${journey.slug}`,
+      href: `/putovanja/${journey.slug}`,
+      label: journey.title,
     }));
 
     const religiousOfferChildren: SiteNavSubItem[] = offers
@@ -78,9 +84,18 @@ export default function SiteNavigation() {
     }));
 
     return SITE_NAV_ITEMS.map((item) => {
+      if (item.key === "trips") {
+        return {
+          ...item,
+          children: journeyChildren.length > 0 ? journeyChildren : item.children,
+        };
+      }
       if (item.key === "arrangements") {
-        const children = arrCatChildren.length > 0 ? arrCatChildren : arrFallback;
-        return { ...item, children: children.length > 0 ? children : item.children };
+        return {
+          ...item,
+          children:
+            arrangementChildren.length > 0 ? arrangementChildren : item.children,
+        };
       }
       if (item.key === "religiousTourism") {
         const children =
@@ -89,7 +104,7 @@ export default function SiteNavigation() {
       }
       return item;
     });
-  }, [trips, offers, arrangementCategories, religiousCategories, language]);
+  }, [trips, journeys, offers, religiousCategories, language]);
 
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);

@@ -1,11 +1,11 @@
 ﻿"use client";
 
-import CmsImage from "@/components/cms-image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { type CSSProperties, useMemo, useState } from "react";
 import AlienShell from "../../../components/alien-shell";
 import AddToCartButton from "../../../components/add-to-cart-button";
+import DestinationLoopCarousel from "../../../components/destination-loop-carousel";
 import DestinationEditor from "../../../components/destination-editor";
 import JourneyDetailPage from "../../../components/journey-detail-page";
 import PageAdminEditorDock from "../../../components/page-admin-editor-dock";
@@ -193,48 +193,16 @@ export default function CountryTripsPage() {
             </p>
           </header>
 
-          <div className="stagger-grid grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {activeDestinations.map((item, index) => {
-              const heroImage = item.imageUrls.find(Boolean);
-              return (
-                <article
-                  key={item._id}
-                  className="panel-glass fx-lift overflow-hidden"
-                  style={{ "--stagger-index": index } as CSSProperties}
-                >
-                  <div className="relative h-40 w-full overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                    {heroImage ? (
-                      <CmsImage
-                        src={heroImage}
-                        alt={item.title}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-sm text-muted">
-                        {language === "sr" ? "Bez slike" : "No image"}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-4 grid gap-2">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                      <span className="shrink-0 text-base font-semibold text-[var(--primary)]">
-                        {new Intl.NumberFormat(locale, {
-                          style: "currency",
-                          currency: item.currency,
-                          maximumFractionDigits: 0,
-                        }).format(item.price)}
-                      </span>
-                    </div>
-                    {item.description ? (
-                      <p className="text-sm leading-6 text-muted">{item.description}</p>
-                    ) : null}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          <DestinationLoopCarousel
+            destinations={activeDestinations}
+            locale={locale}
+            noImageLabel={language === "sr" ? "Bez slike" : "No image"}
+            ariaLabel={
+              language === "sr"
+                ? "Beskonacni prikaz istaknutih destinacija"
+                : "Infinite featured destinations carousel"
+            }
+          />
         </section>
       ) : null}
 

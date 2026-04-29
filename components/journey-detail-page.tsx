@@ -2,7 +2,7 @@
 
 import CmsImage from "@/components/cms-image";
 import Link from "next/link";
-import { type CSSProperties, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa6";
 import AddToCartButton from "./add-to-cart-button";
 import AlienShell from "./alien-shell";
+import DestinationLoopCarousel from "./destination-loop-carousel";
 import { useSitePreferences } from "./site-preferences-provider";
 import { useDestinationsByPage } from "../lib/use-destinations";
 import type { TransportType, Trip } from "../lib/use-trips";
@@ -146,45 +147,23 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
             </p>
           </header>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {activeDestinations.map((item, index) => {
-              const heroImage = item.imageUrls?.find(Boolean);
-              const active = item._id === selectedDestination?._id;
-
-              return (
-                <button
-                  key={item._id}
-                  type="button"
-                  onClick={() => setSelectedDestinationId(item._id)}
-                  className={`group overflow-hidden rounded-2xl border p-3 text-left transition ${
-                    active
-                      ? "border-[var(--primary)] bg-[var(--primary-soft)]"
-                      : "border-[var(--line)] bg-[var(--surface)] hover:border-[var(--primary)]"
-                  }`}
-                  style={{ "--stagger-index": index } as CSSProperties}
-                >
-                  <div className="relative h-40 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-soft)]">
-                    {heroImage ? (
-                      <CmsImage
-                        src={heroImage}
-                        alt={item.title}
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,#173b71,#155eef)]" />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-transparent" />
-                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3">
-                      <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                      <span className="shrink-0 rounded-full border border-white/30 bg-black/40 px-2.5 py-1 text-xs font-semibold text-white">
-                        {formatPrice(item.price, item.currency)}
-                      </span>
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+          <DestinationLoopCarousel
+            destinations={activeDestinations}
+            locale={locale}
+            selectedDestinationId={selectedDestination?._id}
+            onSelectDestination={setSelectedDestinationId}
+            actionLabel={
+              language === "sr"
+                ? "Pogledaj detalje destinacije"
+                : "View destination details"
+            }
+            noImageLabel={language === "sr" ? "Bez slike" : "No image"}
+            ariaLabel={
+              language === "sr"
+                ? "Beskonacni prikaz destinacija u putovanju"
+                : "Infinite trip destinations carousel"
+            }
+          />
         </section>
       ) : (
         <section className="metric-grid">
