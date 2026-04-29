@@ -243,14 +243,16 @@ export default function JourneyDetailPage({ journey }: { journey: Trip }) {
 
                   <div className="grid content-start gap-4">
                     <div>
-                      <p className="metric-card__label">
-                        {(selectedDestination.offerType ?? "own") === "subagency"
-                          ? selectedDestination.partnerName ||
-                            (language === "sr" ? "Partnerska ponuda" : "Partner offer")
-                          : language === "sr"
-                            ? "Naša ponuda"
-                            : "Our offer"}
-                      </p>
+                      {(selectedDestination.offerType ?? "own") === "subagency" &&
+                      !selectedDestination.partnerName ? null : (
+                        <p className="metric-card__label">
+                          {(selectedDestination.offerType ?? "own") === "subagency"
+                            ? selectedDestination.partnerName
+                            : language === "sr"
+                              ? "Naša ponuda"
+                              : "Our offer"}
+                        </p>
+                      )}
                       <h3 className="mt-2 text-2xl font-semibold leading-tight">
                         {selectedDestination.title}
                       </h3>

@@ -121,7 +121,7 @@ export default function PonudePage() {
           <p className="metric-card__label">{language === "sr" ? "Izvori" : "Sources"}</p>
           <p className="metric-card__value">{visibleSources}</p>
           <p className="metric-card__hint">
-            {language === "sr" ? "Sopstvene i partnerske ponude u jednom pregledu." : "Own and partner offers in one overview."}
+            {language === "sr" ? "Sve aktivne ponude u jednom pregledu." : "All active offers in one overview."}
           </p>
         </article>
       </section>

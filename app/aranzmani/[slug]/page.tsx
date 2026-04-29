@@ -490,15 +490,6 @@ export default function TripDetailPage() {
                     )}
                     <div className="pointer-events-none absolute left-4 top-4 flex flex-wrap gap-2">
                       <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
-	                        {(selectedDestination.offerType ?? "own") === "subagency"
-	                          ? language === "sr"
-	                            ? "Partnerska ponuda"
-	                            : "Partner offer"
-	                          : language === "sr"
-	                            ? "Naša ponuda"
-                            : "Our offer"}
-                      </span>
-                      <span className="rounded-full border border-white/25 bg-black/45 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
                         {activeDestinations.findIndex(
                           (item) => item._id === selectedDestination._id,
                         ) + 1}{" "}
@@ -507,16 +498,18 @@ export default function TripDetailPage() {
                     </div>
                   </div>
 
-                  <div className="grid content-start gap-4">
-                    <div>
-                      <p className="metric-card__label">
-	                        {(selectedDestination.offerType ?? "own") === "subagency"
-	                          ? selectedDestination.partnerName ||
-	                            (language === "sr" ? "Partnerska ponuda" : "Partner offer")
-	                          : language === "sr"
-                            ? "Naša ponuda"
-                            : "Our offer"}
-                      </p>
+                    <div className="grid content-start gap-4">
+                      <div>
+                      {(selectedDestination.offerType ?? "own") === "subagency" &&
+                      !selectedDestination.partnerName ? null : (
+                        <p className="metric-card__label">
+                          {(selectedDestination.offerType ?? "own") === "subagency"
+                            ? selectedDestination.partnerName
+                            : language === "sr"
+                              ? "Naša ponuda"
+                              : "Our offer"}
+                        </p>
+                      )}
                       <h3 className="mt-2 text-2xl font-semibold leading-tight">
                         {selectedDestination.title}
                       </h3>
@@ -620,15 +613,11 @@ export default function TripDetailPage() {
                           <p className="truncate text-sm font-semibold">
                             {item.title}
                           </p>
-	                          <p className="mt-1 text-xs text-muted">
-	                            {(item.offerType ?? "own") === "subagency"
-	                              ? language === "sr"
-	                                ? "Partnerska ponuda"
-	                                : "Partner offer"
-	                              : language === "sr"
-                                ? "Naša ponuda"
-                                : "Our offer"}
-                          </p>
+                          {(item.offerType ?? "own") === "subagency" ? null : (
+                            <p className="mt-1 text-xs text-muted">
+                              {language === "sr" ? "Naša ponuda" : "Our offer"}
+                            </p>
+                          )}
                           <p className="mt-1 text-sm font-semibold text-[var(--primary)]">
                             {formatPrice(item.price, item.currency)}
                           </p>

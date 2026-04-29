@@ -474,7 +474,7 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       focusC: "Ekskurzije za decu sa visokim standardima bezbednosti i sadržaja.",
       modelTitle: "Jedna platforma za kompletnu prodaju",
       modelDescription:
-        "Na jednom mestu predstavljamo vaše premium programe i odabrane partnerske ponude, uz jasne informacije, brzu pretragu i iskustvo koje putniku uliva sigurnost.",
+        "Na jednom mestu predstavljamo aktivne programe i ponude, uz jasne informacije, brzu pretragu i iskustvo koje putniku uliva sigurnost.",
       modelA: "Vaši aranžmani i putovanja na jednom mestu",
       modelB: "Agregacija ponuda drugih agencija uz provizijsku prodaju",
       modelC: "Brza i transparentna odluka pri izboru putovanja",
@@ -877,9 +877,9 @@ export const DICTIONARY: Record<Language, SiteDictionary> = {
       focusC: "Children excursions with strong safety and content standards.",
       modelTitle: "One platform for complete sales",
       modelDescription:
-        "A single, high-conversion hub for your own premium packages and selected partner offers, designed for clarity, trust, and fast traveler decisions.",
+        "A single, high-conversion hub for active packages and offers, designed for clarity, trust, and fast traveler decisions.",
       modelA: "Your own trips and packages in one place",
-      modelB: "Aggregated partner offers with commission-based sales",
+      modelB: "Aggregated offers with commission-based sales",
       modelC: "Fast and transparent traveler decision flow",
       partnersBadge: "Partners",
       partnersTitle: "Agencies we trust",
