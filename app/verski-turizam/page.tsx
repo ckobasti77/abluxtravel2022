@@ -103,13 +103,7 @@ export default function VerskiTurizamPage() {
     [religiousOffers]
   );
 
-  const minPrice = useMemo(() => {
-    if (filteredOffers.length === 0) return null;
-    return Math.min(...filteredOffers.map((offer) => offer.price));
-  }, [filteredOffers]);
-
   const isAdmin = session?.role === "admin";
-  const activeDestinations = new Set(filteredOffers.map((offer) => offer.destination)).size;
   const hasFilter = query.trim().length > 0;
 
   return (
@@ -118,32 +112,6 @@ export default function VerskiTurizamPage() {
         <span className="pill">{dictionary.religious.badge}</span>
         <h1 className="page-title">{dictionary.religious.title}</h1>
         <p className="page-subtitle">{dictionary.religious.description}</p>
-      </section>
-
-      <section className="metric-grid">
-        <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Aktivne verske" : "Active religious"}</p>
-          <p className="metric-card__value">{filteredOffers.length}</p>
-          <p className="metric-card__hint">{language === "sr" ? "Ponude koje trenutno odgovaraju filteru." : "Offers currently matching the filter."}</p>
-        </article>
-        <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Destinacije" : "Destinations"}</p>
-          <p className="metric-card__value">{activeDestinations}</p>
-          <p className="metric-card__hint">{language === "sr" ? "Raspon svetih lokacija i ruta." : "Range of holy places and routes."}</p>
-        </article>
-        <article className="metric-card">
-          <p className="metric-card__label">{language === "sr" ? "Najniža cena" : "Lowest price"}</p>
-          <p className="metric-card__value">
-            {minPrice !== null
-              ? new Intl.NumberFormat(locale, {
-                  style: "currency",
-                  currency: filteredOffers[0]?.currency ?? "EUR",
-                  maximumFractionDigits: 0,
-                }).format(minPrice)
-              : "-"}
-          </p>
-          <p className="metric-card__hint">{language === "sr" ? "Brza orijentacija budžeta." : "Quick budget orientation."}</p>
-        </article>
       </section>
 
       <section className="filter-shell grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
