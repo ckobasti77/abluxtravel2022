@@ -1,0 +1,6 @@
+[    3690ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    3981ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    4965ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/b919b653-4b50-49ee-9805-58b6ec2e7262" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   39728ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   47518ms] [LOG] [Fast Refresh] done in 7792ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27

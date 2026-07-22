@@ -1,0 +1,257 @@
+[    4153ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12465ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   15304ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   15465ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   45498ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/789be4cf-4bca-4aaa-b8fc-972cc2176da3" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   47165ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   88457ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   94641ms] [LOG] [Fast Refresh] done in 6185ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   95277ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   97004ms] [LOG] [Fast Refresh] done in 1727ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  229674ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  230062ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  232173ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  257630ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  258884ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  259159ms] [LOG] [Fast Refresh] done in 274ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  259531ms] [LOG] [Fast Refresh] done in 648ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  262776ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[  530519ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  533978ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[  546645ms] [LOG] [Fast Refresh] done in 16130ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  549979ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[ 1787689ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1787691ms] [LOG] Attempting reconnect in 1059ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1792282ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1792283ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1792284ms] [LOG] Attempting reconnect in 2046ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1796252ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1796252ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1796252ms] [LOG] Attempting reconnect in 5863ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1802124ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1802125ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1802126ms] [LOG] Attempting reconnect in 4839ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1806992ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1806992ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1806993ms] [LOG] Attempting reconnect in 10344ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1817347ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_INTERNET_DISCONNECTED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1817348ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1817348ms] [LOG] Attempting reconnect in 19436ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1836792ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_INTERNET_DISCONNECTED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 1836793ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1836794ms] [LOG] Attempting reconnect in 17778ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1844622ms] [LOG] Network recovery detected, reconnecting immediately @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1854140ms] [LOG] WebSocket reconnected at t=1629s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 1854140ms] [LOG] Network recovery reconnect saved ~10s of waiting @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3610114ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3610142ms] [LOG] Attempting reconnect in 574ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3612603ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 3612604ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3612604ms] [LOG] Attempting reconnect in 2960ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3615576ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 3615576ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3615577ms] [LOG] Attempting reconnect in 3921ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3619503ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 3619504ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3619504ms] [LOG] Attempting reconnect in 6331ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 3626286ms] [LOG] WebSocket reconnected at t=3401.1s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 4346220ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 4346223ms] [LOG] Attempting reconnect in 1315ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 4353200ms] [LOG] WebSocket reconnected at t=4128s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6147114ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6147115ms] [LOG] Attempting reconnect in 507ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6151400ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 6151401ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6151401ms] [LOG] Attempting reconnect in 2682ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6155813ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 6155813ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6155813ms] [LOG] Attempting reconnect in 3137ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6159356ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 6159357ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6159357ms] [LOG] Attempting reconnect in 5994ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 6167716ms] [LOG] WebSocket reconnected at t=5942.6s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 7964629ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 7964630ms] [LOG] Attempting reconnect in 925ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 7968449ms] [LOG] WebSocket reconnected at t=7743.3s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9048641ms] [LOG] Attempting reconnect in 61ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9049212ms] [LOG] WebSocket reconnected at t=8824.1s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9664390ms] [LOG] Attempting reconnect in 73ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9664951ms] [LOG] WebSocket reconnected at t=9439.8s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9765608ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9765609ms] [LOG] Attempting reconnect in 637ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9767921ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 9767921ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9767921ms] [LOG] Attempting reconnect in 2178ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9770104ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 9770105ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9770105ms] [LOG] Attempting reconnect in 4306ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9774422ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 9774422ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9774423ms] [LOG] Attempting reconnect in 9279ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9783707ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[ 9783708ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9783708ms] [LOG] Attempting reconnect in 20425ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[ 9812775ms] [LOG] WebSocket reconnected at t=9587.6s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[10687002ms] [LOG] Attempting reconnect in 114ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[10687670ms] [LOG] WebSocket reconnected at t=10462.5s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11257837ms] [LOG] Attempting reconnect in 150ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11258536ms] [LOG] WebSocket reconnected at t=11033.4s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11513677ms] [LOG] Attempting reconnect in 90ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11514181ms] [LOG] WebSocket reconnected at t=11289s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11587104ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11587104ms] [LOG] Attempting reconnect in 1349ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11589407ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[11589407ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11589407ms] [LOG] Attempting reconnect in 2744ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11592156ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[11592157ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11592157ms] [LOG] Attempting reconnect in 2083ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11596200ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[11596201ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11596201ms] [LOG] Attempting reconnect in 6102ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[11602789ms] [LOG] WebSocket reconnected at t=11377.6s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[13395622ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[13395622ms] [LOG] Attempting reconnect in 884ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[13399089ms] [LOG] WebSocket reconnected at t=13173.9s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14029263ms] [LOG] Attempting reconnect in 126ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14029898ms] [LOG] WebSocket reconnected at t=13804.7s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14090033ms] [LOG] Attempting reconnect in 139ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14090610ms] [LOG] WebSocket reconnected at t=13865.5s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14451552ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14455004ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14457040ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14457160ms] [LOG] [Fast Refresh] done in 120ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14459121ms] [LOG] [Fast Refresh] done in 2080ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14459167ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
+[14462267ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14472078ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14473610ms] [LOG] [Fast Refresh] done in 1533ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14474188ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14475347ms] [LOG] [Fast Refresh] done in 1159ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14479175ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14535661ms] [LOG] Attempting reconnect in 132ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14536286ms] [LOG] WebSocket reconnected at t=14311.1s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14806497ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14809911ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14810888ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14811070ms] [LOG] [Fast Refresh] done in 183ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14813405ms] [LOG] [Fast Refresh] done in 2518ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14813607ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/favicon.ico:0
+[14816736ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14875567ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14878978ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14883682ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14883946ms] [LOG] [Fast Refresh] done in 265ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14886066ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14889010ms] [LOG] [Fast Refresh] done in 2943ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14892074ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14924864ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14925523ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14927411ms] [LOG] [Fast Refresh] done in 1889ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14928434ms] [LOG] [Fast Refresh] done in 2912ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14931437ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14935709ms] [LOG] [Fast Refresh] done in 10186ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14935746ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14936589ms] [LOG] [Fast Refresh] done in 842ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14936974ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14938899ms] [LOG] [Fast Refresh] done in 1925ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14940380ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777204502382 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14940380ms] [WARNING] The resource http://localhost:3000/_next/static/css/app/layout.css?v=1777219177803 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3000/admin/pocetna:0
+[14946493ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14946494ms] [LOG] Attempting reconnect in 1017ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14947956ms] [LOG] WebSocket reconnected at t=14722.8s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14968951ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14969430ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[14972141ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15045250ms] [LOG] Attempting reconnect in 58ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15045718ms] [LOG] WebSocket reconnected at t=80.5s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15120858ms] [LOG] Attempting reconnect in 147ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15121419ms] [LOG] WebSocket reconnected at t=156.2s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15196185ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15196185ms] [LOG] Attempting reconnect in 1150ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15198819ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[15198820ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15198821ms] [LOG] Attempting reconnect in 2103ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15200933ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[15200934ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15200934ms] [LOG] Attempting reconnect in 4837ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15205782ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[15205783ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15205785ms] [LOG] Attempting reconnect in 9099ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15217348ms] [LOG] WebSocket reconnected at t=252.1s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15224515ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15260705ms] [LOG] [Fast Refresh] done in 36190ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15260838ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15262875ms] [LOG] [Fast Refresh] done in 2037ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15264183ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15265727ms] [LOG] [Fast Refresh] done in 1545ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15272264ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15273742ms] [LOG] [Fast Refresh] done in 1478ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15279967ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15303761ms] [LOG] [Fast Refresh] done in 23793ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15329119ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15330913ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15331093ms] [LOG] [Fast Refresh] done in 180ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15358266ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15360885ms] [LOG] [Fast Refresh] done in 2619ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15361842ms] [LOG] [Fast Refresh] done in 3576ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15362130ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15363800ms] [LOG] [Fast Refresh] done in 1671ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15600236ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15613539ms] [LOG] [Fast Refresh] done in 13304ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15616055ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15619198ms] [LOG] [Fast Refresh] done in 3142ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15639575ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15640526ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15644202ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15652009ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15734902ms] [LOG] [Fast Refresh] done in 82894ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15873577ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15873882ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[15877070ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16002676ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16035517ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16035639ms] [LOG] [Fast Refresh] done in 121ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16040300ms] [LOG] [Fast Refresh] done in 4782ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16041645ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16043554ms] [LOG] [Fast Refresh] done in 1909ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16406967ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16407552ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16411329ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16421113ms] [LOG] [Fast Refresh] done in 1777220664565ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16421668ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16425730ms] [LOG] [Fast Refresh] done in 4063ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16432337ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16467154ms] [LOG] [Fast Refresh] done in 34816ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16467572ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16478230ms] [LOG] [Fast Refresh] done in 10658ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16503984ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16504550ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[16508455ms] [WARNING] Image with src "https://harmless-sockeye-874.convex.cloud/api/storage/af16c21a-8f7a-40da-ba14-909a74b28c2a" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17014146ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17014152ms] [LOG] Attempting reconnect in 748ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17015026ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[17015028ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17015028ms] [LOG] Attempting reconnect in 1243ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17017884ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[17017884ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17017885ms] [LOG] Attempting reconnect in 5714ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17023606ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[17023608ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17023611ms] [LOG] Attempting reconnect in 9904ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[17035360ms] [LOG] WebSocket reconnected at t=543.8s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27

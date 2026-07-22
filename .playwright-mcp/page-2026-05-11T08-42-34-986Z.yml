@@ -1,0 +1,22 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - img "logo" [ref=e6]
+          - generic [ref=e7]: Kod Majstora
+        - generic [ref=e8]:
+          - button "Prebaci na tamni mod" [ref=e9]:
+            - generic [ref=e10]:
+              - img [ref=e12]
+              - img [ref=e18]
+          - generic [ref=e20]: Provera naloga...
+    - button "Nazad na vrh":
+      - img
+    - main [ref=e21]:
+      - generic [ref=e23]:
+        - heading "404" [level=1] [ref=e24]
+        - heading "This page could not be found." [level=2] [ref=e26]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e32] [cursor=pointer]:
+    - img [ref=e33]

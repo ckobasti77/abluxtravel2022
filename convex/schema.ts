@@ -1,0 +1,340 @@
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  settings: defineTable({
+    key: v.literal("global"),
+    workingHours: v.string(),
+    address: v.string(),
+    phone: v.string(),
+    email: v.string(),
+    instagramUrl: v.string(),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
+  categories: defineTable({
+    name: v.object({ sr: v.string(), en: v.string() }),
+    slug: v.string(),
+    type: v.union(
+      v.literal("arrangement"),
+      v.literal("religious")
+    ),
+    isMain: v.optional(v.boolean()),
+    mainIcon: v.optional(v.string()),
+    isActive: v.boolean(),
+    order: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_type", ["type"])
+    .index("by_slug", ["slug"])
+    .index("by_type_active", ["type", "isActive"]),
+  trips: defineTable({
+    slug: v.string(),
+    title: v.string(),
+    description: v.string(),
+    price: v.number(),
+    currency: v.string(),
+    nights: v.number(),
+    days: v.number(),
+    transport: v.union(
+      v.literal("bus"),
+      v.literal("plane"),
+      v.literal("car"),
+      v.literal("train"),
+      v.literal("self")
+    ),
+    departureDate: v.string(),
+    returnDate: v.string(),
+    departureCity: v.string(),
+    hotelInfo: v.optional(v.string()),
+    depositPercentage: v.optional(v.number()),
+    depositDeadline: v.optional(v.string()),
+    itinerary: v.array(
+      v.object({
+        day: v.number(),
+        date: v.string(),
+        description: v.string(),
+      })
+    ),
+    included: v.array(v.string()),
+    notIncluded: v.array(v.string()),
+    imageStorageIds: v.array(v.id("_storage")),
+    detailMedia: v.optional(
+      v.array(
+        v.object({
+          storageId: v.id("_storage"),
+          mediaType: v.union(v.literal("video"), v.literal("image")),
+          mediaName: v.optional(v.string()),
+        })
+      )
+    ),
+    heroMediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    heroMediaStorageId: v.optional(v.id("_storage")),
+    heroMediaName: v.optional(v.string()),
+    status: v.union(
+      v.literal("active"),
+      v.literal("upcoming"),
+      v.literal("completed")
+    ),
+    categoryId: v.optional(v.id("categories")),
+    isHero: v.optional(v.boolean()),
+    heroIcon: v.optional(v.string()),
+    featured: v.boolean(),
+    order: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status_order", ["status", "order"])
+    .index("by_featured", ["featured"])
+    .index("by_category", ["categoryId"]),
+  accommodations: defineTable({
+    tripId: v.id("trips"),
+    name: v.string(),
+    type: v.union(
+      v.literal("villa"),
+      v.literal("apartment"),
+      v.literal("hotel"),
+      v.literal("room"),
+      v.literal("hostel"),
+      v.literal("other")
+    ),
+    description: v.string(),
+    pricePerPerson: v.number(),
+    currency: v.string(),
+    capacity: v.number(),
+    amenities: v.array(v.string()),
+    boardType: v.optional(
+      v.union(
+        v.literal("ro"),
+        v.literal("bb"),
+        v.literal("hb"),
+        v.literal("fb"),
+        v.literal("ai")
+      )
+    ),
+    roomInfo: v.optional(v.string()),
+    checkIn: v.optional(v.string()),
+    checkOut: v.optional(v.string()),
+    distanceToCenter: v.optional(v.string()),
+    imageStorageIds: v.array(v.id("_storage")),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  }).index("by_trip_order", ["tripId", "order"]),
+  destinations: defineTable({
+    tripId: v.optional(v.id("trips")),
+    pageSlug: v.optional(v.string()),
+    offerType: v.optional(
+      v.union(v.literal("own"), v.literal("subagency"))
+    ),
+    title: v.string(),
+    description: v.string(),
+    price: v.number(),
+    currency: v.string(),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    departureCity: v.optional(v.string()),
+    durationLabel: v.optional(v.string()),
+    partnerName: v.optional(v.string()),
+    partnerOfferCode: v.optional(v.string()),
+    iframeUrl: v.optional(v.string()),
+    externalUrl: v.optional(v.string()),
+    contactNote: v.optional(v.string()),
+    imageStorageIds: v.array(v.id("_storage")),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  })
+    .index("by_trip_order", ["tripId", "order"])
+    .index("by_page_order", ["pageSlug", "order"]),
+  users: defineTable({
+    username: v.string(),
+    email: v.optional(v.string()),
+    passwordHash: v.string(),
+    role: v.union(v.literal("admin"), v.literal("user")),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_username", ["username"])
+    .index("by_email", ["email"]),
+  slides: defineTable({
+    slug: v.optional(v.string()),
+    title: v.string(),
+    subtitle: v.string(),
+    badge: v.optional(v.string()),
+    copy: v.optional(v.string()),
+    mediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    videoUrl: v.optional(v.string()),
+    storageId: v.optional(v.id("_storage")),
+    description: v.optional(v.string()),
+    price: v.optional(v.number()),
+    currency: v.optional(v.string()),
+    nights: v.optional(v.number()),
+    days: v.optional(v.number()),
+    transport: v.optional(
+      v.union(
+        v.literal("bus"),
+        v.literal("plane"),
+        v.literal("car"),
+        v.literal("train"),
+        v.literal("self")
+      )
+    ),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    departureCity: v.optional(v.string()),
+    hotelInfo: v.optional(v.string()),
+    depositPercentage: v.optional(v.number()),
+    depositDeadline: v.optional(v.string()),
+    itinerary: v.optional(
+      v.array(
+        v.object({
+          day: v.number(),
+          date: v.string(),
+          description: v.string(),
+        })
+      )
+    ),
+    included: v.optional(v.array(v.string())),
+    notIncluded: v.optional(v.array(v.string())),
+    imageStorageIds: v.optional(v.array(v.id("_storage"))),
+    detailMedia: v.optional(
+      v.array(
+        v.object({
+          storageId: v.id("_storage"),
+          mediaType: v.union(v.literal("video"), v.literal("image")),
+          mediaName: v.optional(v.string()),
+        })
+      )
+    ),
+    heroMediaType: v.optional(v.union(v.literal("video"), v.literal("image"))),
+    heroMediaStorageId: v.optional(v.id("_storage")),
+    heroMediaName: v.optional(v.string()),
+    status: v.optional(
+      v.union(
+        v.literal("active"),
+        v.literal("upcoming"),
+        v.literal("completed")
+      )
+    ),
+    categoryId: v.optional(v.id("categories")),
+    isHero: v.optional(v.boolean()),
+    heroIcon: v.optional(v.string()),
+    featured: v.optional(v.boolean()),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.optional(v.number()),
+  })
+    .index("by_order", ["order"])
+    .index("by_slug", ["slug"]),
+  homeRouteSlides: defineTable({
+    title: v.object({ sr: v.string(), en: v.string() }),
+    caption: v.object({ sr: v.string(), en: v.string() }),
+    accent: v.string(),
+    storageId: v.id("_storage"),
+    order: v.number(),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  }).index("by_order", ["order"]),
+  vehicleRentalImages: defineTable({
+    key: v.union(v.literal("bus"), v.literal("luxuryVan")),
+    storageId: v.id("_storage"),
+    additionalStorageIds: v.optional(v.array(v.id("_storage"))),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
+  sources: defineTable({
+    slug: v.string(),
+    name: v.string(),
+    status: v.union(
+      v.literal("planned"),
+      v.literal("connected"),
+      v.literal("syncing"),
+      v.literal("paused")
+    ),
+    syncEverySeconds: v.number(),
+    apiBaseUrl: v.optional(v.string()),
+    webhookSecretLabel: v.optional(v.string()),
+    isEnabled: v.boolean(),
+    lastSyncAt: v.optional(v.number()),
+    updatedAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_enabled", ["isEnabled"]),
+  offers: defineTable({
+    sourceSlug: v.string(),
+    externalId: v.string(),
+    title: v.string(),
+    destination: v.string(),
+    departureCity: v.optional(v.string()),
+    departureDate: v.optional(v.string()),
+    returnDate: v.optional(v.string()),
+    price: v.number(),
+    currency: v.string(),
+    seatsLeft: v.optional(v.number()),
+    tags: v.array(v.string()),
+    pdfStorageId: v.optional(v.id("_storage")),
+    pdfFileName: v.optional(v.string()),
+    imageStorageIds: v.optional(v.array(v.id("_storage"))),
+    navTitle: v.optional(v.string()),
+    normalizedHash: v.string(),
+    score: v.optional(v.number()),
+    rawSnapshot: v.optional(v.string()),
+    categoryId: v.optional(v.id("categories")),
+    isActive: v.boolean(),
+    updatedAt: v.number(),
+  })
+    .index("by_source_external", ["sourceSlug", "externalId"])
+    .index("by_active_updated", ["isActive", "updatedAt"])
+    .index("by_destination_price", ["destination", "price"])
+    .index("by_category", ["categoryId"]),
+  orders: defineTable({
+    items: v.array(
+      v.object({
+        id: v.string(),
+        type: v.union(
+          v.literal("trip"),
+          v.literal("destination"),
+          v.literal("offer"),
+          v.literal("accommodation")
+        ),
+        title: v.string(),
+        price: v.number(),
+        currency: v.string(),
+        quantity: v.number(),
+        meta: v.optional(v.any()),
+      })
+    ),
+    totalAmount: v.number(),
+    currency: v.string(),
+    customerEmail: v.optional(v.string()),
+    customerName: v.optional(v.string()),
+    customerPhone: v.optional(v.string()),
+    paymentMethod: v.optional(
+      v.union(v.literal("nbs_ips_qr"), v.literal("stripe"), v.literal("manual"))
+    ),
+    paymentStatus: v.optional(
+      v.union(
+        v.literal("awaiting_payment"),
+        v.literal("paid"),
+        v.literal("failed")
+      )
+    ),
+    ipsReference: v.optional(v.string()),
+    ipsPayload: v.optional(v.string()),
+    ipsAmountRsd: v.optional(v.number()),
+    ipsExchangeRate: v.optional(v.number()),
+    ipsExchangeRateDate: v.optional(v.string()),
+    ipsPayeeAccount: v.optional(v.string()),
+    ipsPayeeName: v.optional(v.string()),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("confirmed"),
+      v.literal("paid"),
+      v.literal("cancelled")
+    ),
+    stripeSessionId: v.optional(v.string()),
+    note: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_status", ["status"])
+    .index("by_created", ["createdAt"]),
+});

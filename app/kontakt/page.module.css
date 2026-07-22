@@ -1,0 +1,645 @@
+.page {
+  position: relative;
+  --contact-hero-overlay-a: rgba(8, 18, 36, 0.46);
+  --contact-hero-overlay-b: rgba(8, 18, 36, 0.56);
+  --contact-hero-title: #f8fcff;
+  --contact-hero-copy: #dcecff;
+  --contact-hero-signal-text: #ecf6ff;
+  --contact-text-strong: color-mix(in srgb, var(--text) 94%, #f8fdff 6%);
+  --contact-text-soft: color-mix(in srgb, var(--muted) 76%, #ddf0ff 24%);
+  --contact-text-label: color-mix(in srgb, var(--muted) 66%, #d8ecff 34%);
+}
+
+:global(:root[data-theme="light"]) .page {
+  --contact-hero-overlay-a: rgba(240, 248, 255, 0.52);
+  --contact-hero-overlay-b: rgba(236, 245, 255, 0.62);
+  --contact-hero-title: #031325;
+  --contact-hero-copy: #0f3152;
+  --contact-hero-signal-text: #0b2a47;
+  --contact-text-strong: #061b33;
+  --contact-text-soft: #173a5d;
+  --contact-text-label: #163453;
+}
+
+.page::before,
+.page::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(80px);
+}
+
+.page::before {
+  width: 22rem;
+  height: 22rem;
+  top: 6.2rem;
+  left: -8rem;
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  opacity: 0.54;
+  animation: contactDrift 12s ease-in-out infinite alternate;
+}
+
+.page::after {
+  width: 20rem;
+  height: 20rem;
+  right: -7rem;
+  bottom: 7rem;
+  background: color-mix(in srgb, #22d3ee 34%, transparent);
+  opacity: 0.44;
+  animation: contactDrift 14s ease-in-out infinite alternate-reverse;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, #67e8f9 30%);
+  padding: clamp(1.35rem, 2.7vw, 2.6rem);
+  background:
+    linear-gradient(
+      155deg,
+      var(--contact-hero-overlay-a) 0%,
+      var(--contact-hero-overlay-b) 100%
+    ),
+    radial-gradient(circle at 10% 8%, rgba(56, 189, 248, 0.2) 0, transparent 34%),
+    radial-gradient(circle at 90% 0%, rgba(99, 102, 241, 0.2) 0, transparent 35%),
+    url("/kontakt-hero.avif");
+  background-size: auto, auto, auto, cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
+  box-shadow: var(--shadow);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -42% -10%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 40deg at 50% 45%,
+    rgba(56, 189, 248, 0.22) 0deg,
+    rgba(16, 185, 129, 0.16) 120deg,
+    rgba(99, 102, 241, 0.2) 250deg,
+    rgba(56, 189, 248, 0.22) 360deg
+  );
+  filter: blur(36px);
+  opacity: 0.52;
+  animation: contactAurora 12s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -18%;
+  right: -18%;
+  bottom: 0.85rem;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--primary) 84%, #67e8f9) 24%,
+    #67e8f9 50%,
+    color-mix(in srgb, var(--primary) 84%, #67e8f9) 76%,
+    transparent 100%
+  );
+  opacity: 0.74;
+  transform: translateX(-24%);
+  animation: contactScan 3.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+.heroAtmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--line) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--line) 22%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.15;
+  z-index: 1;
+  animation: contactGrid 11s linear infinite;
+}
+
+.heroBadge {
+  border-color: color-mix(in srgb, #67e8f9 44%, var(--line));
+  background: color-mix(in srgb, #67e8f9 22%, var(--primary-soft));
+}
+
+.heroTitle {
+  margin: 0.95rem 0 0;
+  max-width: 42rem;
+  font-size: clamp(2.05rem, 5vw, 3.45rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--contact-hero-title);
+  text-wrap: balance;
+  text-shadow: 0 0 24px color-mix(in srgb, #67e8f9 26%, transparent);
+}
+
+.heroDescription {
+  margin: 1rem 0 0;
+  max-width: 47rem;
+  font-size: clamp(0.98rem, 1.65vw, 1.12rem);
+  line-height: 1.76;
+  color: var(--contact-hero-copy);
+}
+
+.heroSignals {
+  margin: 1.2rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 0.58rem;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.heroSignal {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 62%, #67e8f9 38%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 90%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 80%, transparent) 100%
+    ),
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.16) 0, transparent 65%);
+  padding: 0.48rem 0.88rem;
+  font-size: 0.73rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--contact-hero-signal-text);
+}
+
+.grid {
+  margin-top: clamp(1.2rem, 2.2vw, 1.8rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 1rem;
+}
+
+.formCard,
+.signalPanel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.35rem;
+  border: 1px solid color-mix(in srgb, var(--line) 72%, #67e8f9 28%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 90%, #061224 10%) 0%,
+      color-mix(in srgb, var(--surface) 78%, #071126 22%) 100%
+    ),
+    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.16) 0, transparent 34%);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 2.2vw, 1.45rem);
+}
+
+.formCard::before,
+.signalPanel::before {
+  content: "";
+  position: absolute;
+  inset: -38% -10%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 55deg at 50% 45%,
+    rgba(56, 189, 248, 0.16) 0deg,
+    rgba(99, 102, 241, 0.14) 130deg,
+    rgba(16, 185, 129, 0.12) 220deg,
+    rgba(56, 189, 248, 0.16) 360deg
+  );
+  filter: blur(36px);
+  opacity: 0.5;
+}
+
+.formCard > *,
+.signalPanel > * {
+  position: relative;
+  z-index: 2;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.88rem;
+  border: 1px solid color-mix(in srgb, #67e8f9 44%, var(--line));
+  background:
+    radial-gradient(circle at 24% 20%, rgba(56, 189, 248, 0.24) 0, transparent 55%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface-strong) 88%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 72%, transparent) 100%
+    );
+  display: grid;
+  place-items: center;
+  color: color-mix(in srgb, var(--primary) 66%, #67e8f9);
+  font-size: 1.2rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: clamp(1.12rem, 2vw, 1.3rem);
+  line-height: 1.2;
+  color: var(--contact-text-strong);
+}
+
+.cardDescription {
+  margin: 0.24rem 0 0;
+  font-size: 0.79rem;
+  line-height: 1.35;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--contact-text-soft);
+}
+
+.form {
+  margin-top: 0.95rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.fieldRowSingle,
+.fieldRowDouble {
+  display: grid;
+  gap: 0.68rem;
+}
+
+.fieldRowDouble {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 0.38rem;
+}
+
+.fieldLabel {
+  font-size: 0.68rem;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--contact-text-label);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--line) 76%, #67e8f9 24%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 88%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 82%, transparent) 100%
+    ),
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.11) 0, transparent 54%);
+  color: var(--contact-text-strong);
+  font: inherit;
+  padding: 0.78rem 0.9rem;
+  outline: none;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in srgb, var(--contact-text-soft) 80%, transparent);
+}
+
+.input,
+.select {
+  min-height: 2.85rem;
+}
+
+.textarea {
+  min-height: 8.4rem;
+  resize: vertical;
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  border-color: color-mix(in srgb, var(--primary) 66%, #67e8f9);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 24%, transparent);
+  transform: translateY(-1px);
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.58rem;
+  margin-top: 0.1rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--contact-text-soft);
+}
+
+.checkboxRow input {
+  margin-top: 0.16rem;
+  accent-color: var(--primary);
+}
+
+.status {
+  margin: 0;
+  border-radius: 0.9rem;
+  border: 1px solid transparent;
+  padding: 0.72rem 0.86rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.statusSuccess {
+  border-color: color-mix(in srgb, #34d399 50%, var(--line));
+  background: color-mix(in srgb, var(--success-soft) 80%, transparent);
+}
+
+.statusError {
+  border-color: color-mix(in srgb, #fb7185 50%, var(--line));
+  background: color-mix(in srgb, #fb71851c 88%, transparent);
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: 0.15rem;
+  display: inline-flex;
+  gap: 0.48rem;
+  justify-content: center;
+}
+
+.signalPanel {
+  display: grid;
+  align-content: start;
+  gap: 0.82rem;
+}
+
+.signalGrid {
+  display: grid;
+  gap: 0.62rem;
+}
+
+.signalCard {
+  --tone: #67e8f9;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.64rem;
+  align-items: center;
+  border-radius: 0.98rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 32%, var(--line));
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 92%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 84%, transparent) 100%
+    ),
+    radial-gradient(circle at 95% -10%, color-mix(in srgb, var(--tone) 28%, transparent) 0, transparent 44%);
+  padding: 0.72rem 0.76rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.signalCard:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tone) 52%, var(--line));
+  box-shadow: 0 12px 22px -18px color-mix(in srgb, var(--tone) 50%, transparent);
+}
+
+.signalIcon {
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 0.72rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 46%, var(--line));
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 22% 20%, color-mix(in srgb, var(--tone) 28%, transparent) 0, transparent 70%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--surface-strong) 90%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 72%, transparent) 100%
+    );
+  color: color-mix(in srgb, var(--tone) 76%, var(--text));
+  font-size: 1.05rem;
+}
+
+.signalMeta {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.signalLabel {
+  font-size: 0.64rem;
+  line-height: 1.2;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--contact-text-label);
+}
+
+.signalValue {
+  font-size: 0.87rem;
+  line-height: 1.45;
+  color: var(--contact-text-strong);
+}
+
+.tonecyan {
+  --tone: #22d3ee;
+}
+
+.toneviolet {
+  --tone: #818cf8;
+}
+
+.toneblue {
+  --tone: #60a5fa;
+}
+
+.toneamber {
+  --tone: #fbbf24;
+}
+
+.holoCard {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, #67e8f9 30%);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--surface-strong) 86%, transparent) 0%,
+      color-mix(in srgb, var(--surface) 74%, transparent) 100%
+    ),
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 56%);
+  padding: 0.86rem;
+}
+
+.holoTitle {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--contact-text-strong);
+}
+
+.holoList {
+  margin: 0.58rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.42rem;
+}
+
+.holoList li {
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--line) 74%, #67e8f9 26%);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.79rem;
+  line-height: 1.45;
+  color: var(--contact-text-soft);
+}
+
+:global(:root[data-theme="light"]) .hero {
+  border-color: color-mix(in srgb, var(--line) 82%, #2563eb 18%);
+}
+
+:global(:root[data-theme="light"]) .heroAtmosphere {
+  background-image:
+    linear-gradient(
+      102deg,
+      rgba(255, 255, 255, 0.84) 0%,
+      rgba(247, 251, 255, 0.72) 42%,
+      rgba(238, 246, 255, 0.34) 74%,
+      rgba(238, 246, 255, 0.18) 100%
+    ),
+    linear-gradient(color-mix(in srgb, var(--line) 36%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--line) 36%, transparent) 1px, transparent 1px);
+  background-size: auto, 28px 28px, 28px 28px;
+  opacity: 1;
+  animation: none;
+}
+
+:global(:root[data-theme="light"]) .heroBadge {
+  border-color: color-mix(in srgb, #0284c7 36%, var(--line));
+  background: color-mix(in srgb, #dbeafe 74%, white);
+}
+
+:global(:root[data-theme="light"]) .heroSignal {
+  border-color: color-mix(in srgb, #0284c7 28%, var(--line));
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, white 90%, transparent) 0%,
+      color-mix(in srgb, #f3f8ff 88%, transparent) 100%
+    ),
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.14) 0, transparent 65%);
+}
+
+:global(:root[data-theme="light"]) .heroTitle {
+  text-shadow: 0 2px 16px rgba(59, 130, 246, 0.18);
+}
+
+:global(:root[data-theme="light"]) .heroDescription {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 1080px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .signalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    border-radius: 1.2rem;
+    padding: 1rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.58rem, 9vw, 2.1rem);
+  }
+
+  .fieldRowDouble,
+  .signalGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .formCard,
+  .signalPanel {
+    border-radius: 1.05rem;
+    padding: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page::before,
+  .page::after,
+  .hero::before,
+  .hero::after,
+  .heroAtmosphere {
+    animation: none !important;
+  }
+
+  .signalCard,
+  .input,
+  .select,
+  .textarea {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes contactDrift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(3%, 3%, 0) scale(1.08);
+  }
+}
+
+@keyframes contactAurora {
+  0% {
+    transform: translate3d(-2%, -2%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2%, 3%, 0) scale(1.06);
+  }
+}
+
+@keyframes contactScan {
+  0% {
+    transform: translateX(-24%);
+  }
+  100% {
+    transform: translateX(24%);
+  }
+}
+
+@keyframes contactGrid {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: 28px 28px, 28px 28px;
+  }
+}

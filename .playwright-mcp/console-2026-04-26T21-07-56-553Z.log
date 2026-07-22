@@ -1,0 +1,59 @@
+[    4358ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    4742ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   10191ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   10535ms] [LOG] [Fast Refresh] done in 344ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12586ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   13172ms] [LOG] [Fast Refresh] done in 585ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   14519ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   14703ms] [LOG] [Fast Refresh] done in 183ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16420ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16595ms] [LOG] [Fast Refresh] done in 175ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   19379ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   21011ms] [LOG] [Fast Refresh] done in 1632ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   22970ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   23661ms] [LOG] [Fast Refresh] done in 692ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   24874ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25562ms] [LOG] [Fast Refresh] done in 689ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   26805ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27044ms] [LOG] [Fast Refresh] done in 239ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   28699ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   30048ms] [LOG] [Fast Refresh] done in 1350ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   31691ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   32947ms] [LOG] [Fast Refresh] done in 1256ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   38197ms] Invalid or unexpected token
+[   79487ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   79756ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   87650ms] [ERROR] Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously tries to update the component. Move this work to useEffect instead. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:51
+[   87689ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   89926ms] [LOG] [Fast Refresh] done in 2237ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   89991ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   90301ms] [LOG] [Fast Refresh] done in 309ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   91911ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   92078ms] [LOG] [Fast Refresh] done in 166ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   93810ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   93986ms] [LOG] [Fast Refresh] done in 175ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   95593ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   95710ms] [LOG] [Fast Refresh] done in 117ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   99063ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  100052ms] [LOG] [Fast Refresh] done in 990ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  101925ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  102032ms] [LOG] [Fast Refresh] done in 108ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  110618ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  110979ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  113258ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  114564ms] [LOG] [Fast Refresh] done in 1305ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  115622ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  117155ms] [LOG] [Fast Refresh] done in 1533ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  117248ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  117349ms] [LOG] [Fast Refresh] done in 101ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  126372ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  126675ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  128136ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  129227ms] [LOG] [Fast Refresh] done in 1090ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  130794ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  137995ms] [LOG] [Fast Refresh] done in 7200ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  145121ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  145284ms] [LOG] [Fast Refresh] done in 163ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  147553ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  147734ms] [LOG] [Fast Refresh] done in 181ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  151481ms] Invalid or unexpected token

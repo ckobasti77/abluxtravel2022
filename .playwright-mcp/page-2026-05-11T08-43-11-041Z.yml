@@ -1,0 +1,267 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "ABLux Travel" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "ABLux Travel" [ref=e7]
+        - navigation [ref=e8]:
+          - link "Početna" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e11]:
+            - link "Putovanja" [ref=e12] [cursor=pointer]:
+              - /url: /putovanja
+              - text: Putovanja
+              - img [ref=e13]
+            - generic:
+              - generic:
+                - link "Egzotična putovanja":
+                  - /url: /putovanja
+                - link "Evropske metropole":
+                  - /url: /putovanja
+          - generic [ref=e15]:
+            - link "Aranžmani" [ref=e16] [cursor=pointer]:
+              - /url: /aranzmani
+              - text: Aranžmani
+              - img [ref=e17]
+            - generic:
+              - generic:
+                - link "Svi aranžmani":
+                  - /url: /aranzmani
+                - link "Letovanja":
+                  - /url: /aranzmani
+                - link "Ekskurzije":
+                  - /url: /aranzmani
+          - generic [ref=e19]:
+            - link "Verski turizam" [ref=e20] [cursor=pointer]:
+              - /url: /verski-turizam
+              - text: Verski turizam
+              - img [ref=e21]
+            - generic:
+              - generic:
+                - link "Hodočašća":
+                  - /url: /verski-turizam
+                - link "Manastiri":
+                  - /url: /verski-turizam
+          - link "Rent a bus" [ref=e24] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+          - link "O nama" [ref=e26] [cursor=pointer]:
+            - /url: /o-nama
+          - link "Kontakt" [ref=e28] [cursor=pointer]:
+            - /url: /kontakt
+        - generic [ref=e29]:
+          - button "Search" [ref=e30] [cursor=pointer]:
+            - img [ref=e31]
+          - generic [ref=e33]:
+            - button "SR" [ref=e34] [cursor=pointer]
+            - button "EN" [ref=e36] [cursor=pointer]
+          - button "Svetla" [ref=e37] [cursor=pointer]:
+            - img [ref=e38]
+          - button "Korpa (0)" [ref=e40] [cursor=pointer]:
+            - img [ref=e41]
+          - link "Prijava" [ref=e43] [cursor=pointer]:
+            - /url: /auth
+      - generic [ref=e44]:
+        - img [ref=e45]
+        - textbox "Pretraži ponude i destinacije..." [ref=e47]
+        - button "Zatvori meni" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+  - navigation "Brze kontakt akcije" [ref=e51]:
+    - generic:
+      - link "Instagram":
+        - /url: https://instagram.com/abluxtravel
+        - generic:
+          - img
+        - generic: Instagram
+      - link "Poziv":
+        - /url: tel:+381111234567
+        - generic:
+          - img
+        - generic: Poziv
+      - link "Email":
+        - /url: mailto:info@abluxtravel2022.rs
+        - generic:
+          - img
+        - generic: Email
+    - button "Kontakt" [ref=e52] [cursor=pointer]:
+      - img [ref=e54]
+      - img [ref=e57]
+  - main [ref=e60]:
+    - generic [ref=e61]:
+      - generic [ref=e62]: Iznajmljivanje vozila
+      - heading "Pouzdan prevoz sa profesionalnim vozačem" [level=1] [ref=e63]
+      - paragraph [ref=e64]: Za grupna putovanja, poslovne transfere i privatne polaske organizujemo vozilo, vozača i rutu tako da put bude miran, tačan i udoban.
+      - generic [ref=e65]:
+        - link "Pošalji upit" [ref=e66] [cursor=pointer]:
+          - /url: /kontakt
+          - text: Pošalji upit
+          - img [ref=e67]
+        - link "Pozovi agenciju" [ref=e69] [cursor=pointer]:
+          - /url: /kontakt
+          - img [ref=e70]
+          - text: Pozovi agenciju
+    - generic [ref=e72]:
+      - article [ref=e73]:
+        - generic [ref=e74]:
+          - img [ref=e76]
+          - generic [ref=e79]:
+            - paragraph [ref=e80]: Grupe i organizovana putovanja
+            - heading "Iznajmljivanje autobusa sa vozačem" [level=2] [ref=e81]
+        - generic [ref=e82]:
+          - paragraph [ref=e83]: Pouzdan prevoz za ekskurzije, korporativne događaje, transfere, sportske klubove i veće turističke grupe uz profesionalnog vozača.
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - paragraph [ref=e86]:
+                - img [ref=e87]
+                - text: Najbolje za
+              - paragraph [ref=e89]: Ekskurzije, hodočašća, ture, transferi i veće grupe.
+            - generic [ref=e90]:
+              - paragraph [ref=e91]:
+                - img [ref=e92]
+                - text: Kapacitet
+              - paragraph [ref=e94]: Kapacitet se usklađuje sa veličinom grupe.
+          - generic [ref=e95]:
+            - paragraph [ref=e96]: Usluga uključuje
+            - list [ref=e97]:
+              - listitem [ref=e98]:
+                - img [ref=e99]
+                - generic [ref=e101]: Plan rute, pauze i termini vožnje dogovaraju se unapred.
+              - listitem [ref=e102]:
+                - img [ref=e103]
+                - generic [ref=e105]: Vozač vodi računa o bezbednom i komfornom toku puta.
+              - listitem [ref=e106]:
+                - img [ref=e107]
+                - generic [ref=e109]: Pogodno za jednodnevne i višednevne programe.
+      - article [ref=e110]:
+        - generic [ref=e111]:
+          - img [ref=e113]
+          - generic [ref=e116]:
+            - paragraph [ref=e117]: Privatni transferi i VIP putovanja
+            - heading "Iznajmljivanje luksuznog kombija sa vozačem" [level=2] [ref=e118]
+        - generic [ref=e119]:
+          - paragraph [ref=e120]: Diskretan i komforan prevoz za manje grupe, poslovne goste, aerodromske transfere i posebne prilike kada je važan viši nivo usluge.
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - paragraph [ref=e123]:
+                - img [ref=e124]
+                - text: Najbolje za
+              - paragraph [ref=e126]: VIP transferi, poslovna putovanja, aerodromi i male grupe.
+            - generic [ref=e127]:
+              - paragraph [ref=e128]:
+                - img [ref=e129]
+                - text: Kapacitet
+              - paragraph [ref=e131]: Idealno za manje grupe kojima je bitan komfor.
+          - generic [ref=e132]:
+            - paragraph [ref=e133]: Usluga uključuje
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - img [ref=e136]
+                - generic [ref=e138]: Fleksibilan polazak i direktan prevoz bez nepotrebnih zadržavanja.
+              - listitem [ref=e139]:
+                - img [ref=e140]
+                - generic [ref=e142]: Usluga sa vozačem za miran i organizovan put.
+              - listitem [ref=e143]:
+                - img [ref=e144]
+                - generic [ref=e146]: Premium izbor za poslovne i privatne transfere.
+    - generic [ref=e148]:
+      - generic [ref=e149]:
+        - paragraph [ref=e150]:
+          - img [ref=e151]
+          - text: Upit za najam
+        - heading "Trebate autobus ili luksuzni kombi?" [level=2] [ref=e153]
+        - paragraph [ref=e154]: Pošaljite osnovne detalje puta i dobićete konkretan predlog za najam sa vozačem.
+      - link "Pošalji upit" [ref=e155] [cursor=pointer]:
+        - /url: /kontakt
+        - text: Pošalji upit
+        - img [ref=e156]
+  - contentinfo [ref=e158]:
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - link "ABLux Travel" [ref=e163] [cursor=pointer]:
+            - /url: /
+            - img "ABLux Travel" [ref=e164]
+          - paragraph [ref=e165]: Verski turizam, letovanja, evropske ture i ekskurzije za decu.
+          - generic [ref=e166]:
+            - generic [ref=e167]: "Godina osnivanja: 2022"
+            - generic [ref=e168]: "Specijalizacija: verski turizam"
+        - region "Brze akcije" [ref=e169]:
+          - heading "Brze akcije" [level=2] [ref=e170]
+          - paragraph [ref=e171]: Odgovaramo na upite u roku od 24h.
+          - generic [ref=e172]:
+            - link "Pregledaj kompletnu ponudu Aktivne ponude" [ref=e173] [cursor=pointer]:
+              - /url: /ponude
+              - generic [ref=e174]: Pregledaj kompletnu ponudu
+              - generic [ref=e175]: Aktivne ponude
+              - img [ref=e176]
+            - link "Pošalji upit Kontakt i upiti" [ref=e178] [cursor=pointer]:
+              - /url: /kontakt
+              - generic [ref=e179]: Pošalji upit
+              - generic [ref=e180]: Kontakt i upiti
+              - img [ref=e181]
+      - generic [ref=e184]:
+        - navigation "Navigacija" [ref=e185]:
+          - heading "Navigacija" [level=2] [ref=e186]
+          - list [ref=e187]:
+            - listitem [ref=e188]:
+              - link "Početna" [ref=e189] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e190]:
+              - link "Putovanja" [ref=e191] [cursor=pointer]:
+                - /url: /putovanja
+            - listitem [ref=e192]:
+              - link "Aranžmani" [ref=e193] [cursor=pointer]:
+                - /url: /aranzmani
+            - listitem [ref=e194]:
+              - link "Verski turizam" [ref=e195] [cursor=pointer]:
+                - /url: /verski-turizam
+        - navigation "Servisi" [ref=e196]:
+          - heading "Servisi" [level=2] [ref=e197]
+          - list [ref=e198]:
+            - listitem [ref=e199]:
+              - link "Rent a bus" [ref=e200] [cursor=pointer]:
+                - /url: /iznajmljivanje-vozila
+            - listitem [ref=e201]:
+              - link "O nama" [ref=e202] [cursor=pointer]:
+                - /url: /o-nama
+            - listitem [ref=e203]:
+              - link "Kontakt" [ref=e204] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e205]:
+              - link "Prijava" [ref=e206] [cursor=pointer]:
+                - /url: /auth
+        - region "Kontakt centar" [ref=e207]:
+          - heading "Kontakt centar" [level=2] [ref=e208]
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - img [ref=e212]
+              - generic [ref=e214]:
+                - paragraph [ref=e215]: Adresa
+                - link "Bulevar Putnika 22, Beograd" [ref=e216] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/search/?api=1&query=Bulevar%20Putnika%2022%2C%20Beograd
+                  - generic [ref=e217]: Bulevar Putnika 22, Beograd
+                  - img [ref=e218]
+            - generic [ref=e220]:
+              - img [ref=e222]
+              - generic [ref=e224]:
+                - paragraph [ref=e225]: Email
+                - link "info@abluxtravel2022.rs" [ref=e226] [cursor=pointer]:
+                  - /url: mailto:info@abluxtravel2022.rs
+                  - generic [ref=e227]: info@abluxtravel2022.rs
+            - generic [ref=e228]:
+              - img [ref=e230]
+              - generic [ref=e232]:
+                - paragraph [ref=e233]: Telefon
+                - link "+381 11 123 45 67" [ref=e234] [cursor=pointer]:
+                  - /url: tel:+381111234567
+                  - generic [ref=e235]: +381 11 123 45 67
+            - generic [ref=e236]:
+              - img [ref=e238]
+              - generic [ref=e240]:
+                - paragraph [ref=e241]: Radno vreme
+                - paragraph [ref=e242]: "Pon-Pet: 09:00-17:00, Sub: 10:00-14:00"
+      - generic [ref=e243]:
+        - paragraph [ref=e244]: 2026 ABLux Travel. Sva prava zadržana.
+        - paragraph [ref=e245]: Digitalna platforma za modernu turističku agenciju.

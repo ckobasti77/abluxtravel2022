@@ -1,0 +1,272 @@
+- main [ref=e2]:
+  - generic [ref=e5]:
+    - generic [ref=e7]:
+      - link "Enigma IT pocetna" [ref=e8] [cursor=pointer]:
+        - /url: "#"
+        - img "Enigma IT emblem" [ref=e9]
+      - navigation "Glavna navigacija" [ref=e10]:
+        - generic [ref=e11]:
+          - button "Usluge" [ref=e12]:
+            - generic [ref=e13]: Usluge
+            - img [ref=e14]
+          - generic:
+            - link "WEBSAJTOVI":
+              - /url: /usluge/websajtovi
+              - generic: WEBSAJTOVI
+            - link "WEB-SHOPOVI":
+              - /url: /usluge/web-shopovi
+              - generic: WEB-SHOPOVI
+            - link "DIGITALNI SISTEMI":
+              - /url: /usluge/digitalni-sistemi
+              - generic: DIGITALNI SISTEMI
+            - link "MOBILNE APLIKACIJE":
+              - /url: /usluge/mobilne-aplikacije
+              - generic: MOBILNE APLIKACIJE
+        - link "Proces" [ref=e16] [cursor=pointer]:
+          - /url: /proces
+        - link "Portfolio" [ref=e17] [cursor=pointer]:
+          - /url: /portfolio
+        - link "Kontakt" [ref=e18] [cursor=pointer]:
+          - /url: /kontakt
+      - generic [ref=e19]:
+        - link "TikTok" [ref=e20] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e21]
+        - link "Instagram" [ref=e24] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e25]
+        - link "Facebook" [ref=e29] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e30]
+        - link "Email" [ref=e32] [cursor=pointer]:
+          - /url: "#kontakt"
+          - img [ref=e33]
+        - link "Telefon" [ref=e36] [cursor=pointer]:
+          - /url: "#kontakt"
+          - img [ref=e37]
+    - generic [ref=e40]:
+      - img "Enigma IT" [ref=e42]
+      - heading "Gradimo digitalne proizvode koji pokreću rast." [level=1] [ref=e43]:
+        - generic [ref=e44]: Gradimo digitalne
+        - generic [ref=e45]: proizvode koji
+        - generic [ref=e46]: pokreću rast.
+      - paragraph [ref=e47]: Enigma IT kreira vrhunske websajtove, web-shopove, digitalne sisteme i mobilne aplikacije koji pojednostavljuju procese, jačaju brendove i donose merljiv rast.
+      - generic [ref=e48]:
+        - link "Zakažite konsultacije" [ref=e49] [cursor=pointer]:
+          - /url: "#kontakt"
+          - generic [ref=e50]:
+            - generic [ref=e51]: Zakažite konsultacije
+            - img [ref=e52]
+        - link "Pogledajte naš rad" [ref=e54] [cursor=pointer]:
+          - /url: "#portfolio"
+          - generic [ref=e55]:
+            - img [ref=e57]
+            - generic [ref=e59]: Pogledajte naš rad
+      - generic [ref=e60]:
+        - 'link "Usluga: WEBSAJTOVI" [ref=e61] [cursor=pointer]':
+          - /url: /usluge/websajtovi
+          - img [ref=e62]
+          - generic [ref=e65]: WEBSAJTOVI
+        - 'link "Usluga: WEB-SHOPOVI" [ref=e66] [cursor=pointer]':
+          - /url: /usluge/web-shopovi
+          - img [ref=e67]
+          - generic [ref=e71]: WEB-SHOPOVI
+        - 'link "Usluga: DIGITALNI SISTEMI" [ref=e72] [cursor=pointer]':
+          - /url: /usluge/digitalni-sistemi
+          - img [ref=e73]
+          - generic [ref=e77]: DIGITALNI SISTEMI
+        - 'link "Usluga: MOBILNE APLIKACIJE" [ref=e78] [cursor=pointer]':
+          - /url: /usluge/mobilne-aplikacije
+          - img [ref=e79]
+          - generic [ref=e81]: MOBILNE APLIKACIJE
+  - generic [ref=e82]:
+    - generic [ref=e83]: TEHNOLOGIJE KOJE KORISTIMO
+    - generic [ref=e85]:
+      - img "NextJS" [ref=e87] [cursor=pointer]
+      - img "Convex DB" [ref=e89] [cursor=pointer]
+      - img "Tailwindcss" [ref=e91] [cursor=pointer]
+      - img "GSAP" [ref=e93] [cursor=pointer]
+      - img "Framer Motion" [ref=e95] [cursor=pointer]
+      - img "React" [ref=e97] [cursor=pointer]
+      - img "AstroJS" [ref=e99] [cursor=pointer]
+      - img "Figma" [ref=e101] [cursor=pointer]
+      - img "NextJS" [ref=e103] [cursor=pointer]
+      - img "Convex DB" [ref=e105] [cursor=pointer]
+      - img "Tailwindcss" [ref=e107] [cursor=pointer]
+      - img "GSAP" [ref=e109] [cursor=pointer]
+      - img "Framer Motion" [ref=e111] [cursor=pointer]
+      - img "React" [ref=e113] [cursor=pointer]
+      - img "AstroJS" [ref=e115] [cursor=pointer]
+      - img "Figma" [ref=e117] [cursor=pointer]
+  - generic [ref=e118]:
+    - generic:
+      - img
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - generic [ref=e122]: NAŠ PROCES
+          - generic [ref=e123]: ✦
+        - heading "Od ideje do gotovog rešenja." [level=2] [ref=e124]:
+          - text: Od ideje do
+          - text: gotovog rešenja.
+        - paragraph [ref=e125]: Pratimo jasan i proveren proces koji obezbeđuje kvalitet, transparentnost i rezultate koji prave stvarnu razliku za vaš biznis.
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - article "01. IDEJA & ANALIZA":
+            - generic:
+              - generic:
+                - 'img "Ilustracija za korak 01: IDEJA & ANALIZA"'
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Korak 01
+                    - heading "IDEJA & ANALIZA" [level=3]
+                  - generic:
+                    - img
+                - paragraph: Razumemo vaš biznis, ciljeve i korisnike. Analiziramo potrebe i pretvaramo ideju u jasan plan.
+              - generic:
+                - generic:
+                  - img
+                  - generic: ZAKLJUCANO
+        - generic [ref=e134]:
+          - article "02. PLANIRANJE & DIZAJN":
+            - generic:
+              - generic:
+                - 'img "Ilustracija za korak 02: PLANIRANJE & DIZAJN"'
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Korak 02
+                    - heading "PLANIRANJE & DIZAJN" [level=3]
+                  - generic:
+                    - img
+                - paragraph: Kreiramo strategiju, strukturu i dizajn koji spajaju funkcionalnost i vrhunsko korisničko iskustvo.
+              - generic:
+                - generic:
+                  - img
+                  - generic: ZAKLJUCANO
+        - generic [ref=e138]:
+          - article "03. RAZVOJ & IMPLEMENTACIJA":
+            - generic:
+              - generic:
+                - 'img "Ilustracija za korak 03: RAZVOJ & IMPLEMENTACIJA"'
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Korak 03
+                    - heading "RAZVOJ & IMPLEMENTACIJA" [level=3]
+                  - generic:
+                    - img
+                - paragraph: Gradimo brzo, sigurno i skalabilno rešenje koristeći moderne tehnologije i najbolje prakse.
+              - generic:
+                - generic:
+                  - img
+                  - generic: ZAKLJUCANO
+        - generic [ref=e142]:
+          - article "04. TESTIRANJE & OPTIMIZACIJA":
+            - generic:
+              - generic:
+                - 'img "Ilustracija za korak 04: TESTIRANJE & OPTIMIZACIJA"'
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Korak 04
+                    - heading "TESTIRANJE & OPTIMIZACIJA" [level=3]
+                  - generic:
+                    - img
+                - paragraph: Temeljno testiramo svaki detalj i optimizujemo performanse za besprekorno iskustvo.
+              - generic:
+                - generic:
+                  - img
+                  - generic: ZAKLJUCANO
+        - generic [ref=e146]:
+          - article "05. LAUNCH & PODRŠKA":
+            - generic:
+              - generic:
+                - 'img "Ilustracija za korak 05: LAUNCH & PODRŠKA"'
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Korak 05
+                    - heading "LAUNCH & PODRŠKA" [level=3]
+                  - generic:
+                    - img
+                - paragraph: Pokrećemo projekat i ostajemo uz vas kroz podršku, održavanje i dalji razvoj.
+              - generic:
+                - generic:
+                  - img
+                  - generic: ZAKLJUCANO
+      - generic [ref=e149]:
+        - generic:
+          - img
+        - generic [ref=e152]:
+          - img [ref=e156]
+          - generic [ref=e158]:
+            - heading "Vaš uspeh je naš cilj." [level=3] [ref=e159]
+            - paragraph [ref=e160]: Ne gradimo samo proizvode — gradimo partnerstva.
+  - generic [ref=e165]:
+    - generic [ref=e166]:
+      - generic [ref=e167]:
+        - generic [ref=e168]:
+          - generic [ref=e169]: PROJEKTI
+          - generic [ref=e170]: "*"
+        - heading "Poslednji radovi, prikazani precizno." [level=2] [ref=e171]:
+          - text: Poslednji radovi,
+          - text: prikazani precizno.
+      - generic [ref=e172]:
+        - paragraph [ref=e173]: Teaser za dva najnovija projekta. Za sada koristi placeholder slike i tekst, a struktura je spremna za prave case study podatke kada portfolio bude popunjen.
+        - link "Svi projekti" [ref=e174] [cursor=pointer]:
+          - /url: /portfolio
+          - text: Svi projekti
+          - img [ref=e175]
+    - generic [ref=e177]:
+      - article [ref=e178]:
+        - generic [ref=e205]: IMG PLACEHOLDER
+        - generic [ref=e206]:
+          - generic [ref=e207]:
+            - generic [ref=e208]:
+              - generic [ref=e209]: POSLEDNJI PROJEKAT
+              - generic [ref=e210]: "01"
+            - heading "Placeholder digitalna platforma" [level=3] [ref=e211]
+            - paragraph [ref=e212]: Kratak opis projekta ide ovde. Fokus na poslovni cilj, kvalitet izrade i rezultat koji ce biti prikazan kada portfolio bude spreman.
+            - generic [ref=e213]:
+              - generic [ref=e214]: Websajt
+              - generic [ref=e215]: UI/UX
+              - generic [ref=e216]: Custom code
+          - generic [ref=e217]:
+            - generic [ref=e218]:
+              - generic [ref=e219]:
+                - generic [ref=e220]: Status
+                - generic [ref=e221]: Live
+              - generic [ref=e222]:
+                - generic [ref=e223]: Tip
+                - generic [ref=e224]: Platforma
+            - link "Pogledaj detalje" [ref=e225] [cursor=pointer]:
+              - /url: /portfolio
+              - text: Pogledaj detalje
+              - img [ref=e226]
+      - article [ref=e228]:
+        - generic [ref=e255]: IMG PLACEHOLDER
+        - generic [ref=e256]:
+          - generic [ref=e257]:
+            - generic [ref=e258]:
+              - generic [ref=e259]: NOVI CASE STUDY
+              - generic [ref=e260]: "02"
+            - heading "Placeholder commerce sistem" [level=3] [ref=e261]
+            - paragraph [ref=e262]: Ovde ce stajati drugi najnoviji projekat sa kratkim kontekstom, industrijom, opsegom rada i glavnim benefitom za klijenta.
+            - generic [ref=e263]:
+              - generic [ref=e264]: Web-shop
+              - generic [ref=e265]: Sistem
+              - generic [ref=e266]: Optimizacija
+          - generic [ref=e267]:
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - generic [ref=e270]: Status
+                - generic [ref=e271]: Ready
+              - generic [ref=e272]:
+                - generic [ref=e273]: Tip
+                - generic [ref=e274]: Commerce
+            - link "Pogledaj detalje" [ref=e275] [cursor=pointer]:
+              - /url: /portfolio
+              - text: Pogledaj detalje
+              - img [ref=e276]

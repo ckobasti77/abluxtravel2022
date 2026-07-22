@@ -1,0 +1,35 @@
+[     858ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[     921ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[    1490ms] Error: Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at rK (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:46764)
+    at io (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:97485)
+    at sc (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:137956)
+    at http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:132846
+    at u9 (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:132947)
+    at sV (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:159329)
+    at MessagePort.O (http://localhost:3010/_next/static/chunks/4e8860c9a4b60c64.js:1:8295)
+[    1575ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[    1628ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[    2538ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    2830ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[    4467ms] [WARNING] [Meta pixel] 657863114945334 is unavailable on this website due to it's traffic permission settings. Go to https://www.facebook.com/business/help/572690630080597 to learn more. @ https://connect.facebook.net/en_US/fbevents.js:181
+[    6007ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6008ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6008ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6009ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6009ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6009ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6009ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6010ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6011ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6011ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6012ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6012ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6012ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6012ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6013ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6013ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6013ms] [WARNING] Non-Latin lexicon code detected: PREVOZ DO PLAŽE. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[    6013ms] [WARNING] Non-Latin lexicon code detected: EKONOMIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   11437ms] [WARNING] The resource http://localhost:3010/_next/static/chunks/315e40c003e0f3c8.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3010/:0
+[   11437ms] [WARNING] The resource http://localhost:3010/_next/static/chunks/7d0304be8137f322.css was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ http://localhost:3010/:0

@@ -1,0 +1,282 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "ABLux Travel" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "ABLux Travel" [ref=e7]
+        - navigation [ref=e8]:
+          - link "Početna" [ref=e10] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e11]:
+            - link "Putovanja" [ref=e12] [cursor=pointer]:
+              - /url: /putovanja
+              - text: Putovanja
+              - img [ref=e13]
+            - generic:
+              - generic:
+                - link "Egzotična putovanja":
+                  - /url: /putovanja
+                - link "Evropske metropole":
+                  - /url: /putovanja
+                - link "Sve zemlje":
+                  - /url: /zemlje
+          - generic [ref=e15]:
+            - link "Aranžmani" [ref=e16] [cursor=pointer]:
+              - /url: /aranzmani
+              - text: Aranžmani
+              - img [ref=e17]
+            - generic:
+              - generic:
+                - link "Svi aranžmani":
+                  - /url: /aranzmani
+                - link "Letovanja":
+                  - /url: /aranzmani
+                - link "Ekskurzije":
+                  - /url: /aranzmani
+          - generic [ref=e19]:
+            - link "Verski turizam" [ref=e20] [cursor=pointer]:
+              - /url: /verski-turizam
+              - text: Verski turizam
+              - img [ref=e21]
+            - generic:
+              - generic:
+                - link "Hodočašća":
+                  - /url: /verski-turizam
+                - link "Manastiri":
+                  - /url: /verski-turizam
+          - link "Rent a bus" [ref=e24] [cursor=pointer]:
+            - /url: /iznajmljivanje-vozila
+          - link "O nama" [ref=e26] [cursor=pointer]:
+            - /url: /o-nama
+          - link "Kontakt" [ref=e28] [cursor=pointer]:
+            - /url: /kontakt
+        - generic [ref=e29]:
+          - button "Search" [ref=e30] [cursor=pointer]:
+            - img [ref=e31]
+          - generic [ref=e33]:
+            - button "SR" [ref=e34] [cursor=pointer]
+            - button "EN" [ref=e36] [cursor=pointer]
+          - button "Svetla" [ref=e37] [cursor=pointer]:
+            - img [ref=e38]
+          - button "Korpa (0)" [ref=e40] [cursor=pointer]:
+            - img [ref=e41]
+          - link "Prijava" [ref=e43] [cursor=pointer]:
+            - /url: /auth
+      - generic [ref=e44]:
+        - img [ref=e45]
+        - textbox "Pretraži destinacije..." [ref=e47]
+        - button "Zatvori meni" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+  - navigation "Brze kontakt akcije" [ref=e51]:
+    - generic:
+      - link "Instagram":
+        - /url: https://instagram.com/abluxtravel
+        - generic:
+          - img
+        - generic: Instagram
+      - link "Poziv":
+        - /url: tel:+381111234567
+        - generic:
+          - img
+        - generic: Poziv
+      - link "Email":
+        - /url: mailto:info@abluxtravel2022.rs
+        - generic:
+          - img
+        - generic: Email
+    - button "Kontakt" [ref=e52] [cursor=pointer]:
+      - img [ref=e54]
+      - img [ref=e57]
+  - main [ref=e60]:
+    - generic [ref=e61]:
+      - generic [ref=e62]: Verski turizam
+      - heading "Ponude za hodočašća i svete destinacije" [level=1] [ref=e63]
+      - paragraph [ref=e64]: Posebno izdvojene ponude za verski turizam. Prikazujemo aranžmane koji uključuju hodočašća, manastire, svetinje i duhovna putovanja.
+    - generic [ref=e65]:
+      - article [ref=e66]:
+        - paragraph [ref=e67]: Aktivne verske
+        - paragraph [ref=e68]: "3"
+        - paragraph [ref=e69]: Ponude koje trenutno odgovaraju filteru.
+      - article [ref=e70]:
+        - paragraph [ref=e71]: Destinacije
+        - paragraph [ref=e72]: "3"
+        - paragraph [ref=e73]: Raspon svetih lokacija i ruta.
+      - article [ref=e74]:
+        - paragraph [ref=e75]: Najniža cena
+        - paragraph [ref=e76]: 289 €
+        - paragraph [ref=e77]: Brza orijentacija budžeta.
+    - generic [ref=e78]:
+      - article [ref=e79]:
+        - generic [ref=e80]: Pretraga verskih ponuda
+        - textbox "Pretraga verskih ponuda" [ref=e82]:
+          - /placeholder: "Na primer: Ostrog, Jerusalim, manastiri"
+        - generic [ref=e83]:
+          - button "#verski" [ref=e84] [cursor=pointer]
+          - button "#hodočašće" [ref=e85] [cursor=pointer]
+          - button "#manastiri" [ref=e86] [cursor=pointer]
+          - button "#sveta zemlja" [ref=e87] [cursor=pointer]
+          - button "#jerusalim" [ref=e88] [cursor=pointer]
+          - button "#sinaj" [ref=e89] [cursor=pointer]
+          - button "#sveta mesta" [ref=e90] [cursor=pointer]
+      - article [ref=e91]:
+        - paragraph [ref=e92]: Aktivne verske ponude
+        - paragraph [ref=e93]: "3"
+        - paragraph [ref=e94]: Broj ponuda koje odgovaraju verskom turizmu i aktivnom filteru.
+        - link "Pogledaj kompletnu ponudu" [ref=e96] [cursor=pointer]:
+          - /url: /aranzmani
+    - generic [ref=e97]:
+      - article [ref=e98]:
+        - generic [ref=e99]:
+          - paragraph [ref=e100]: ablux
+          - heading "Hodočašće Ostrog i manastiri Crne Gore" [level=2] [ref=e101]
+          - paragraph [ref=e102]: Crna Gora
+        - generic [ref=e103]:
+          - paragraph [ref=e104]: "Polazak: Beograd"
+          - paragraph [ref=e105]: 18. 4. 2026. - 22. 4. 2026.
+        - generic [ref=e106]:
+          - paragraph [ref=e107]: 289 €
+          - paragraph [ref=e108]: "Slobodna mesta: 14"
+        - generic [ref=e109]:
+          - generic [ref=e110]: verski
+          - generic [ref=e111]: hodočašće
+          - generic [ref=e112]: manastiri
+        - generic [ref=e113]:
+          - button "Dodaj u korpu" [ref=e114]:
+            - img [ref=e115]
+            - text: Dodaj u korpu
+          - link "Pošalji upit" [ref=e117] [cursor=pointer]:
+            - /url: /kontakt
+      - article [ref=e118]:
+        - generic [ref=e119]:
+          - paragraph [ref=e120]: ablux
+          - heading "Sveta zemlja - Jerusalim, Vitlejem i Nazaret" [level=2] [ref=e121]
+          - paragraph [ref=e122]: Izrael
+        - generic [ref=e123]:
+          - paragraph [ref=e124]: "Polazak: Beograd"
+          - paragraph [ref=e125]: 9. 5. 2026. - 15. 5. 2026.
+        - generic [ref=e126]:
+          - paragraph [ref=e127]: 1.190 €
+          - paragraph [ref=e128]: "Slobodna mesta: 9"
+        - generic [ref=e129]:
+          - generic [ref=e130]: verski
+          - generic [ref=e131]: sveta zemlja
+          - generic [ref=e132]: jerusalim
+        - generic [ref=e133]:
+          - button "Dodaj u korpu" [ref=e134]:
+            - img [ref=e135]
+            - text: Dodaj u korpu
+          - link "Pošalji upit" [ref=e137] [cursor=pointer]:
+            - /url: /kontakt
+      - article [ref=e138]:
+        - generic [ref=e139]:
+          - paragraph [ref=e140]: ablux
+          - heading "Sinajska ruta i sveta mesta Egipta" [level=2] [ref=e141]
+          - paragraph [ref=e142]: Egipat
+        - generic [ref=e143]:
+          - paragraph [ref=e144]: "Polazak: Ni?"
+          - paragraph [ref=e145]: 2. 6. 2026. - 8. 6. 2026.
+        - generic [ref=e146]:
+          - paragraph [ref=e147]: 870 €
+          - paragraph [ref=e148]: "Slobodna mesta: 11"
+        - generic [ref=e149]:
+          - generic [ref=e150]: verski
+          - generic [ref=e151]: sinaj
+          - generic [ref=e152]: sveta mesta
+        - generic [ref=e153]:
+          - button "Dodaj u korpu" [ref=e154]:
+            - img [ref=e155]
+            - text: Dodaj u korpu
+          - link "Pošalji upit" [ref=e157] [cursor=pointer]:
+            - /url: /kontakt
+  - contentinfo [ref=e158]:
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - link "ABLux Travel" [ref=e163] [cursor=pointer]:
+            - /url: /
+            - img "ABLux Travel" [ref=e164]
+          - paragraph [ref=e165]: Verski turizam, letovanja, evropske ture i ekskurzije za decu.
+          - generic [ref=e166]:
+            - generic [ref=e167]: "Godina osnivanja: 2022"
+            - generic [ref=e168]: "Specijalizacija: verski turizam"
+        - region "Brze akcije" [ref=e169]:
+          - heading "Brze akcije" [level=2] [ref=e170]
+          - paragraph [ref=e171]: Odgovaramo na upite u roku od 24h.
+          - generic [ref=e172]:
+            - link "Pregledaj kompletnu ponudu Agregator ponuda" [ref=e173] [cursor=pointer]:
+              - /url: /aranzmani
+              - generic [ref=e174]: Pregledaj kompletnu ponudu
+              - generic [ref=e175]: Agregator ponuda
+              - img [ref=e176]
+            - link "Pošalji upit Kontakt i upiti" [ref=e178] [cursor=pointer]:
+              - /url: /kontakt
+              - generic [ref=e179]: Pošalji upit
+              - generic [ref=e180]: Kontakt i upiti
+              - img [ref=e181]
+      - generic [ref=e184]:
+        - navigation "Navigacija" [ref=e185]:
+          - heading "Navigacija" [level=2] [ref=e186]
+          - list [ref=e187]:
+            - listitem [ref=e188]:
+              - link "Početna" [ref=e189] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e190]:
+              - link "Putovanja" [ref=e191] [cursor=pointer]:
+                - /url: /putovanja
+            - listitem [ref=e192]:
+              - link "Aranžmani" [ref=e193] [cursor=pointer]:
+                - /url: /aranzmani
+            - listitem [ref=e194]:
+              - link "Verski turizam" [ref=e195] [cursor=pointer]:
+                - /url: /verski-turizam
+        - navigation "Servisi" [ref=e196]:
+          - heading "Servisi" [level=2] [ref=e197]
+          - list [ref=e198]:
+            - listitem [ref=e199]:
+              - link "Rent a bus" [ref=e200] [cursor=pointer]:
+                - /url: /iznajmljivanje-vozila
+            - listitem [ref=e201]:
+              - link "O nama" [ref=e202] [cursor=pointer]:
+                - /url: /o-nama
+            - listitem [ref=e203]:
+              - link "Kontakt" [ref=e204] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e205]:
+              - link "Prijava" [ref=e206] [cursor=pointer]:
+                - /url: /auth
+        - region "Kontakt centar" [ref=e207]:
+          - heading "Kontakt centar" [level=2] [ref=e208]
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - img [ref=e212]
+              - generic [ref=e214]:
+                - paragraph [ref=e215]: Adresa
+                - link "Bulevar Putnika 22, Beograd" [ref=e216] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/search/?api=1&query=Bulevar%20Putnika%2022%2C%20Beograd
+                  - generic [ref=e217]: Bulevar Putnika 22, Beograd
+                  - img [ref=e218]
+            - generic [ref=e220]:
+              - img [ref=e222]
+              - generic [ref=e224]:
+                - paragraph [ref=e225]: Email
+                - link "info@abluxtravel2022.rs" [ref=e226] [cursor=pointer]:
+                  - /url: mailto:info@abluxtravel2022.rs
+                  - generic [ref=e227]: info@abluxtravel2022.rs
+            - generic [ref=e228]:
+              - img [ref=e230]
+              - generic [ref=e232]:
+                - paragraph [ref=e233]: Telefon
+                - link "+381 11 123 45 67" [ref=e234] [cursor=pointer]:
+                  - /url: tel:+381111234567
+                  - generic [ref=e235]: +381 11 123 45 67
+            - generic [ref=e236]:
+              - img [ref=e238]
+              - generic [ref=e240]:
+                - paragraph [ref=e241]: Radno vreme
+                - paragraph [ref=e242]: "Pon-Pet: 09:00-17:00, Sub: 10:00-14:00"
+      - generic [ref=e243]:
+        - paragraph [ref=e244]: 2026 ABLux Travel. Sva prava zadržana.
+        - paragraph [ref=e245]: Digitalna platforma za modernu turističku agenciju.

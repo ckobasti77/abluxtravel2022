@@ -1,0 +1,23 @@
+[   11436ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[   11506ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[   11795ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12251ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12331ms] [WARNING] [Meta pixel] 657863114945334 is unavailable on this website due to it's traffic permission settings. Go to https://www.facebook.com/business/help/572690630080597 to learn more. @ https://connect.facebook.net/en_US/fbevents.js:181
+[   13029ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13030ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: PREVOZ DO PLAŽE. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   13031ms] [WARNING] Non-Latin lexicon code detected: EKONOMIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53

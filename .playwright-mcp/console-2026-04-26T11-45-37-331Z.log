@@ -1,0 +1,28 @@
+[    6035ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16535ms] [WARNING] [Fast Refresh] performing full reload
+
+Fast Refresh will perform a full reload when you edit a file that's imported by modules outside of the React rendering tree.
+You might have a file which exports a React component but also exports a value that is imported by a non-React component file.
+Consider migrating the non-React component export to a separate file and importing it into both files.
+
+It is also possible the parent component of the component you edited is a class component, which disables Fast Refresh.
+Fast Refresh requires at least one parent function component in your React tree. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   19161ms] Invalid or unexpected token
+[   20642ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   20834ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   47748ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   47976ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  183821ms] [LOG] Attempting reconnect in 122ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  184365ms] [LOG] WebSocket reconnected at t=138.1s after disconnect due to InactiveServer @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  284721ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  284721ms] [LOG] Attempting reconnect in 787ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  286897ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[  286897ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  286898ms] [LOG] Attempting reconnect in 2215ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  289118ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[  289118ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  289119ms] [LOG] Attempting reconnect in 4624ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  293749ms] [ERROR] WebSocket connection to 'wss://harmless-sockeye-874.convex.cloud/api/1.32.0/sync' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ webpack-internal:///(app-pages-browser)/./node_modules/convex/dist/esm/browser/sync/web_socket_manager.js:178
+[  293749ms] [LOG] WebSocket closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  293749ms] [LOG] Attempting reconnect in 6589ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  300764ms] [LOG] WebSocket reconnected at t=254.5s after disconnect due to closed with code 1006 @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27

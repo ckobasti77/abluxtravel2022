@@ -1,0 +1,40 @@
+[   15779ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16264ms] [LOG] [HMR] connected @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   18095ms] [ERROR] Failed to load resource: net::ERR_TOO_MANY_REDIRECTS @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[   18358ms] [ERROR] Failed to load resource: net::ERR_TOO_MANY_REDIRECTS @ https://putovanja.bigblue.rs/CustomError.aspx:0
+[   18939ms] [WARNING] [Meta pixel] 657863114945334 is unavailable on this website due to it's traffic permission settings. Go to https://www.facebook.com/business/help/572690630080597 to learn more. @ https://connect.facebook.net/en_US/fbevents.js:181
+[   19632ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19633ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19634ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19634ms] [WARNING] Non-Latin lexicon code detected: PREPORUČUJEMO. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: HOTEL NA PLAŽI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: KLEOPATRINA PLAŽA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: ODLIČNO OCENJEN OD STRANE NAŠIH PUTNIKA. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: GRATIS LEŽALJKE I SUNCOBRANI. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: BESPLATAN SMEŠTAJ ZA DVOJE DECE U HOTELU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19635ms] [WARNING] Non-Latin lexicon code detected: NA ŠETALIŠTU. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19636ms] [WARNING] Non-Latin lexicon code detected: PORODIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19636ms] [WARNING] Non-Latin lexicon code detected: PREVOZ DO PLAŽE. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   19636ms] [WARNING] Non-Latin lexicon code detected: EKONOMIČAN HOTEL. Not adding to local storage. @ https://putovanja.bigblue.rs/themes/DefaultSanTSG/js/general.js?v=7593:53
+[   22757ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   22949ms] [LOG] [Fast Refresh] done in 194ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   24880ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[   24884ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[   24905ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   24980ms] [LOG] [Fast Refresh] done in 74ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25567ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25711ms] [LOG] [Fast Refresh] done in 144ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   26341ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   26730ms] [LOG] [Fast Refresh] done in 389ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   26743ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   26857ms] [LOG] [Fast Refresh] done in 115ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27216ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27506ms] [LOG] [Fast Refresh] done in 289ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27854ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   28002ms] [LOG] [Fast Refresh] done in 147ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   28501ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27

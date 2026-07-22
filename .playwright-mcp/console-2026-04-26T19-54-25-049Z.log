@@ -1,0 +1,158 @@
+[     874ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[     913ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    1531ms] [LOG] [Fast Refresh] done in 617ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    1560ms] [LOG] [Fast Refresh] done in 646ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    3757ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    5344ms] [LOG] [Fast Refresh] done in 1586ms @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    6665ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/manifest.webmanifest:0
+[    6670ms] [ERROR] Manifest fetch from http://localhost:3010/manifest.webmanifest failed, code 500 @ http://localhost:3010/:0
+[    6672ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[    6767ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/home-swiper/20251120_160325.jpg:0
+[    6768ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/home-swiper/20251120_155602.jpg:0
+[    6826ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/?_rsc=1ch6o:0
+[    6847ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/admin/aranzmani:0
+[   10279ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom-client.development.js:28004
+[   10601ms] TypeError: __webpack_modules__[moduleId] is not a function
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at eval (webpack-internal:///(rsc)/./node_modules/next/dist/server/app-render/manifests-singleton.js:33:35)
+    at <unknown> (rsc)/./node_modules/next/dist/server/app-render/manifests-singleton.js (C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\vendor-chunks\next.js:1808:1)
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at eval (webpack-internal:///(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fadmin%2Faranzmani%2Fpage&page=%2Fadmin%2Faranzmani%2Fpage&appPaths=%2Fadmin%2Faranzmani%2Fpage&pagePath=private-next-app-dir%2Fadmin%2Faranzmani%2Fpage.tsx&appDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022&isDev=true&tsconfigPath=&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D&isGlobalNotFoundEnabled=!:26:106)
+    at <unknown> (rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fadmin%2Faranzmani%2Fpage&page=%2Fadmin%2Faranzmani%2Fpage&appPaths=%2Fadmin%2Faranzmani%2Fpage&pagePath=private-next-app-dir%2Fadmin%2Faranzmani%2Fpage.tsx&appDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022&isDev=true&tsconfigPath=&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D&isGlobalNotFoundEnabled=! (C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:132:1)
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at __webpack_exec__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:834:39)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:835:253)
+    at __webpack_require__.X (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:155:21)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:835:47)
+    at Object.<anonymous> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:838:3)
+    at Module._compile (node:internal/modules/cjs/loader:1760:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1480:32)
+    at Module._load (node:internal/modules/cjs/loader:1299:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:244:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1503:12)
+    at mod.require (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\require-hook.js:68:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\require.js:105:80)
+    at loadComponentsImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\load-components.js:155:61)
+    at DevServer.findPageComponentsImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:877:77)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:859:21)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:185:36)
+    at NoopContextManager.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093)
+    at ProxyTracer.startActiveSpan (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18854)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:154:103)
+    at NoopContextManager.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NextTracerImpl.trace (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:154:28)
+    at DevServer.findPageComponents (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:854:41)
+    at DevServer.findPageComponents (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:691:28)
+    at async DevServer.renderPageComponent (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1480:24)
+    at async DevServer.renderToResponseImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:929:17)
+    at async (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:387:20)
+    at async Span.traceAsyncFn (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\start-server.js:226:13)
+[   10599ms] [LOG] [HMR] connected @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   11427ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   11942ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12391ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   12565ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   13927ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   13950ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   14011ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   14481ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16490ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16527ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   16821ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   17675ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   17728ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   18487ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   18549ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   19089ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   20897ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   20909ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   22796ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   22805ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   23619ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   23681ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25196ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25350ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   25418ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27715ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27737ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   27803ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   29089ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   29110ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   30448ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   30499ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   32296ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   32468ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   32699ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3010/admin/aranzmani:0
+[   34996ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom-client.development.js:28004
+[   35025ms] TypeError: __webpack_modules__[moduleId] is not a function
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at eval (webpack-internal:///(rsc)/./node_modules/next/dist/server/app-render/manifests-singleton.js:33:35)
+    at <unknown> (rsc)/./node_modules/next/dist/server/app-render/manifests-singleton.js (C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\vendor-chunks\next.js:1808:1)
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at eval (webpack-internal:///(rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fadmin%2Faranzmani%2Fpage&page=%2Fadmin%2Faranzmani%2Fpage&appPaths=%2Fadmin%2Faranzmani%2Fpage&pagePath=private-next-app-dir%2Fadmin%2Faranzmani%2Fpage.tsx&appDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022&isDev=true&tsconfigPath=&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D&isGlobalNotFoundEnabled=!:26:106)
+    at <unknown> (rsc)/./node_modules/next/dist/build/webpack/loaders/next-app-loader/index.js?name=app%2Fadmin%2Faranzmani%2Fpage&page=%2Fadmin%2Faranzmani%2Fpage&appPaths=%2Fadmin%2Faranzmani%2Fpage&pagePath=private-next-app-dir%2Fadmin%2Faranzmani%2Fpage.tsx&appDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022%5Capp&pageExtensions=tsx&pageExtensions=ts&pageExtensions=jsx&pageExtensions=js&rootDir=C%3A%5CUsers%5Cadmin%5CDesktop%5CWeb%20Dev%20Projects%5Cablux_travel_2022&isDev=true&tsconfigPath=&basePath=&assetPrefix=&nextConfigOutput=&preferredRegion=&middlewareConfig=e30%3D&isGlobalNotFoundEnabled=! (C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:132:1)
+    at __webpack_require__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:25:42)
+    at __webpack_exec__ (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:834:39)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:835:253)
+    at __webpack_require__.X (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\webpack-runtime.js:155:21)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:835:47)
+    at Object.<anonymous> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\.next\dev\server\app\admin\aranzmani\page.js:838:3)
+    at Module._compile (node:internal/modules/cjs/loader:1760:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1480:32)
+    at Module._load (node:internal/modules/cjs/loader:1299:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:244:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1503:12)
+    at mod.require (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\require-hook.js:68:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\require.js:105:80)
+    at loadComponentsImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\load-components.js:155:61)
+    at DevServer.findPageComponentsImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:877:77)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:859:21)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:185:36)
+    at NoopContextManager.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NoopTracer.startActiveSpan (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18093)
+    at ProxyTracer.startActiveSpan (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:18854)
+    at <unknown> (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:154:103)
+    at NoopContextManager.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:7062)
+    at ContextAPI.with (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\compiled\@opentelemetry\api\index.js:1:518)
+    at NextTracerImpl.trace (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\trace\tracer.js:154:28)
+    at DevServer.findPageComponents (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:854:41)
+    at DevServer.findPageComponents (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:691:28)
+    at async DevServer.renderPageComponent (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1480:24)
+    at async DevServer.renderToResponseImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1544:32)
+    at async DevServer.pipeImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:1038:25)
+    at async NextNodeServer.handleCatchallRenderRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\next-server.js:395:17)
+    at async DevServer.handleRequestImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\base-server.js:929:17)
+    at async (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:387:20)
+    at async Span.traceAsyncFn (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\dev\next-dev-server.js:383:24)
+    at async invokeRender (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:248:21)
+    at async handleRequest (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:447:24)
+    at async requestHandlerImpl (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\router-server.js:496:13)
+    at async Server.requestListener (file://C:\Users\admin\Desktop\Web Dev Projects\ablux_travel_2022\node_modules\next\dist\server\lib\start-server.js:226:13)
+[   35028ms] [LOG] [HMR] connected @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   35636ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   35792ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   36283ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   36315ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   37201ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   37213ms] [LOG] [Fast Refresh] rebuilding @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   37255ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[   37560ms] [WARNING] [Fast Refresh] performing full reload because your application had an unrecoverable error @ webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
